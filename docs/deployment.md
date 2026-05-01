@@ -50,6 +50,17 @@ NODE_VERSION=22.12.0
 PUBLIC_SITE_URL=https://www.protcity.com
 ```
 
+## 2 alternativa. Cloudflare Workers Static Assets
+
+Se la dashboard mostra il flusso "Crea un Worker" invece di Pages, usare:
+
+- Project name: `protcity-website`
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Preview deployments: attive
+
+Il file `wrangler.jsonc` indica a Cloudflare che gli asset statici sono in `./dist` e che la pagina 404 personalizzata deve essere usata quando una rotta non esiste.
+
 ## 3. Dominio
 
 Quando il progetto Pages è online:

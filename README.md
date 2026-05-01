@@ -63,6 +63,13 @@ Il progetto include una GitHub Action in `.github/workflows/ci.yml` che esegue `
 
 Guida dettagliata: `docs/deployment.md`.
 
+## Cloudflare Workers Static Assets
+
+Se Cloudflare propone il nuovo flusso "Crea un Worker", il progetto include anche `wrangler.jsonc`.
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+
 ## Note editoriali
 
 Le pagine legali sono bozze operative e devono essere validate prima della pubblicazione definitiva.
