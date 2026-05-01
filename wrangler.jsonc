@@ -1,8 +1,13 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "protcity-website",
+  "main": "src/worker.ts",
   "compatibility_date": "2026-05-01",
   "routes": [
+    {
+      "pattern": "protcity.com",
+      "custom_domain": true
+    },
     {
       "pattern": "www.protcity.com",
       "custom_domain": true
@@ -10,6 +15,7 @@
   ],
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   }

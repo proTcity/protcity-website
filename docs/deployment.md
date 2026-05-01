@@ -66,9 +66,11 @@ Il file `wrangler.jsonc` indica a Cloudflare che gli asset statici sono in `./di
 Quando il progetto Pages è online:
 
 1. Collegare `www.protcity.com` come custom domain.
-2. Impostare il dominio canonico in `PUBLIC_SITE_URL`.
-3. Aggiornare `public/robots.txt` e `public/sitemap.xml` se il dominio finale cambia.
-4. Verificare anteprime social con `public/og-image.jpg`.
+2. Collegare anche `protcity.com` come custom domain solo dopo aver rimosso eventuali vecchi record o route.
+3. Il Worker reindirizza `protcity.com` verso `www.protcity.com` con redirect permanente.
+4. Impostare il dominio canonico in `PUBLIC_SITE_URL`.
+5. Aggiornare `public/robots.txt` e `public/sitemap.xml` se il dominio finale cambia.
+6. Verificare anteprime social con `public/og-image.jpg`.
 
 ## 4. Verifiche prima della pubblicazione
 
