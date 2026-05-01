@@ -1,0 +1,24 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import { productPillars } from "../../data/features";
+---
+
+<section class="section">
+  <div class="container">
+    <SectionHeader
+      eyebrow="La soluzione"
+      title="Una piattaforma unica per persone, territori e ospitalita."
+      description="proTcity combina mappa, segnalazioni, funzioni di sicurezza personale e insight aggregati per costruire una visione piu leggibile del rischio urbano."
+      align="center"
+    />
+
+    <div class="pillar-grid">
+      {productPillars.map((pillar) => (
+        <article>
+          <h3>{pillar.title}</h3>
+          <p>{pillar.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

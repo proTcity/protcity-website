@@ -1,0 +1,57 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import { walkguardSteps } from "../data/features";
+---
+
+<MainLayout
+  title="WalkGuard"
+  description="WalkGuard è la funzione proTcity per percorsi a piedi, contatti fidati, check-in e strumenti rapidi di sicurezza."
+  canonicalPath="/walkguard"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">WalkGuard</p>
+      <h1>Un accompagnamento digitale per i percorsi a piedi.</h1>
+      <p>
+        WalkGuard nasce per quei momenti in cui una persona vuole sentirsi meno sola durante uno spostamento: rientro a casa, tragitti serali, zone sconosciute o percorsi turistici.
+      </p>
+      <Button href="/contact">Parla con il team</Button>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Come funziona"
+        title="Tre passaggi semplici, senza complicare l'esperienza."
+      />
+      <ol class="step-list">
+        {walkguardSteps.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="content-section section--dark">
+    <div class="container two-column">
+      <div>
+        <p class="eyebrow">Principio guida</p>
+        <h2>WalkGuard non promette sicurezza assoluta. Riduce isolamento e ritardo di reazione.</h2>
+      </div>
+      <div class="text-stack">
+        <p>
+          La funzione è progettata come supporto digitale: aiuta a condividere percorso e contesto con persone fidate, non sostituisce numeri di emergenza, forze dell'ordine o decisioni personali.
+        </p>
+        <p>
+          Questo approccio rende la funzione più seria: utile, concreta e compatibile con una comunicazione responsabile.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

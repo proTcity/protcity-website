@@ -1,0 +1,20 @@
+:root {
+  --color-ink: #111827;
+  --color-ink-soft: #344054;
+  --color-muted: #667085;
+  --color-line: #d9e0e8;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f5f7fa;
+  --color-surface-warm: #fbf7f1;
+  --color-navy: #0b1320;
+  --color-blue: #18a8f5;
+  --color-blue-deep: #0878b8;
+  --color-red: #ee3d3d;
+  --color-mint: #1fae8a;
+  --color-amber: #c6821b;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --container: 1160px;
+  --header-height: 76px;
+}

@@ -1,0 +1,35 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+---
+
+<MainLayout
+  title="Sicurezza e uso corretto"
+  description="Principi di sicurezza, moderazione e uso responsabile della piattaforma proTcity."
+  canonicalPath="/safety"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Safety policy</p>
+      <h1>La sicurezza digitale richiede regole chiare e responsabilità.</h1>
+      <p>
+        proTcity deve aiutare le persone senza amplificare paura, discriminazione o contenuti non verificati. Questa pagina raccoglie i principi operativi da cui partire.
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Principi"
+        title="Una piattaforma utile deve essere anche misurata."
+      />
+      <ul class="list-panel">
+        <li>Non usare proTcity per accusare persone identificabili, pubblicare dati sensibili o sostituirsi alle autorità.</li>
+        <li>Le emergenze devono sempre essere gestite tramite i numeri ufficiali e i canali previsti dalla legge.</li>
+        <li>Le segnalazioni devono essere pertinenti, rispettose e orientate alla sicurezza collettiva.</li>
+        <li>I dati aggregati devono ridurre rumore e bias, non creare etichette definitive su zone o comunità.</li>
+      </ul>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,26 @@
+---
+import Button from "../common/Button.astro";
+import { homeStats } from "../../data/features";
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__content">
+    <p class="eyebrow">Urban safety intelligence</p>
+    <h1 id="hero-title">proTcity</h1>
+    <p class="hero__lead">
+      Una piattaforma per aiutare persone, Comuni e partner locali a leggere meglio la sicurezza urbana, muoversi con maggiore consapevolezza e trasformare i segnali del territorio in azioni concrete.
+    </p>
+    <div class="hero__actions">
+      <Button href="/app">Scopri l'app</Button>
+      <Button href="/cities" variant="secondary">Soluzioni per territori</Button>
+    </div>
+    <div class="hero__stats" aria-label="Punti chiave">
+      {homeStats.map((stat) => (
+        <div>
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

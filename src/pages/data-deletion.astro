@@ -1,0 +1,32 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { site } from "../data/site";
+---
+
+<LegalLayout
+  title="Eliminazione dati"
+  description="Procedura per richiedere cancellazione account, dati personali e informazioni collegate ai servizi proTcity."
+  canonicalPath="/data-deletion"
+>
+  <h2>1. Come inviare la richiesta</h2>
+  <p>
+    Per richiedere la cancellazione dei dati, invia una email a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a> indicando l'indirizzo associato all'account e l'oggetto "Richiesta eliminazione dati".
+  </p>
+
+  <h2>2. Verifica identità</h2>
+  <p>
+    Per proteggere l'account, il team potrà richiedere informazioni aggiuntive necessarie a verificare che la richiesta provenga dalla persona autorizzata.
+  </p>
+
+  <h2>3. Dati cancellabili</h2>
+  <ul>
+    <li>Dati di account e profilo.</li>
+    <li>Preferenze e dati collegati all'utilizzo dell'app.</li>
+    <li>Contenuti personali compatibilmente con obblighi legali, sicurezza e prevenzione abusi.</li>
+  </ul>
+
+  <h2>4. Tempi</h2>
+  <p>
+    Le richieste saranno gestite nel più breve tempo possibile e comunque secondo i termini previsti dalla normativa applicabile. I dati aggregati o anonimizzati potrebbero non essere riconducibili a un singolo account.
+  </p>
+</LegalLayout>

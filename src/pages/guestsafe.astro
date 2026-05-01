@@ -1,0 +1,48 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import { guestsafeBenefits } from "../data/features";
+---
+
+<MainLayout
+  title="GuestSafe"
+  description="GuestSafe è la soluzione proTcity per hotel, strutture ricettive e hospitality network."
+  canonicalPath="/guestsafe"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">GuestSafe</p>
+      <h1>Sicurezza e orientamento locale per ospiti e viaggiatori.</h1>
+      <p>
+        GuestSafe è pensata per strutture ricettive che vogliono offrire ai propri ospiti informazioni semplici, aggiornabili e localizzate su spostamenti, quartieri e supporto.
+      </p>
+      <Button href="/contact">Richiedi informazioni</Button>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Hospitality"
+        title="Un servizio B2B che migliora accoglienza e fiducia."
+      />
+      <ul class="list-panel">
+        {guestsafeBenefits.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section section--warm">
+    <div class="container two-column">
+      <div class="info-panel">
+        <h2>Per la reception</h2>
+        <p>Materiali e indicazioni digitali aiutano il personale a rispondere in modo più coerente alle domande frequenti degli ospiti.</p>
+      </div>
+      <div class="info-panel">
+        <h2>Per l'ospite</h2>
+        <p>Informazioni chiare e strumenti nell'app riducono incertezza, soprattutto in città nuove o durante spostamenti serali.</p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

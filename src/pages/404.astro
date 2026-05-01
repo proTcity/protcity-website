@@ -1,0 +1,21 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/common/Button.astro";
+---
+
+<MainLayout
+  title="Pagina non trovata"
+  description="La pagina richiesta non esiste o è stata spostata."
+  canonicalPath="/404"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Errore 404</p>
+      <h1>Questa pagina non è disponibile.</h1>
+      <p>
+        Il link potrebbe essere cambiato o il contenuto potrebbe non essere ancora stato pubblicato.
+      </p>
+      <Button href="/">Torna alla homepage</Button>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,60 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/common/Button.astro";
+import { site } from "../data/site";
+---
+
+<MainLayout
+  title="Contatti"
+  description="Contatti proTcity per informazioni generali, supporto, partnership, stampa e privacy."
+  canonicalPath="/contact"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Contatti</p>
+      <h1>Un punto unico per parlare con il team proTcity.</h1>
+      <p>
+        Seleziona il canale più adatto: prodotto, supporto, partner territoriali, hospitality, stampa o privacy.
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container card-grid">
+      <article class="contact-card">
+        <h3>Informazioni generali</h3>
+        <p>Per richieste sul progetto, presentazioni e contatti iniziali.</p>
+        <a href={`mailto:${site.emails.general}`}>{site.emails.general}</a>
+      </article>
+      <article class="contact-card">
+        <h3>Supporto utenti</h3>
+        <p>Per account, app, segnalazioni e gestione dati personali.</p>
+        <a href={`mailto:${site.emails.support}`}>{site.emails.support}</a>
+      </article>
+      <article class="contact-card">
+        <h3>Partner e Comuni</h3>
+        <p>Per territori, hotel, strutture ricettive e partnership commerciali.</p>
+        <a href={`mailto:${site.emails.business}`}>{site.emails.business}</a>
+      </article>
+      <article class="contact-card">
+        <h3>Privacy</h3>
+        <p>Per richieste GDPR, eliminazione dati e informazioni legali.</p>
+        <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section section--muted">
+    <div class="container two-column two-column--center">
+      <div>
+        <p class="eyebrow">Dati societari</p>
+        <h2>{site.company.legalName}</h2>
+        <p>{site.company.city}, {site.company.country}</p>
+        <p>{site.company.vat}</p>
+      </div>
+      <div>
+        <Button href="/privacy" variant="ghost">Privacy Policy</Button>
+      </div>
+    </div>
+  </section>
+</MainLayout>

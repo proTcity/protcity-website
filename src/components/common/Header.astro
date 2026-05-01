@@ -1,0 +1,41 @@
+---
+import { primaryNavigation } from "../../data/navigation";
+import { site } from "../../data/site";
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label={`${site.name} homepage`}>
+      <img src="/images/logo-tm.png" alt={site.name} />
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navigazione principale">
+      {primaryNavigation.map((item) => (
+        <a class:list={["nav-link", isActive(item.href) && "is-active"]} href={item.href}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a class="header-contact" href="/contact">Contatti</a>
+
+    <details class="mobile-nav">
+      <summary aria-label="Apri menu">Menu</summary>
+      <div class="mobile-nav__panel">
+        {primaryNavigation.map((item) => (
+          <a class:list={["nav-link", isActive(item.href) && "is-active"]} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+        <a class="nav-link" href="/contact">Contatti</a>
+      </div>
+    </details>
+  </div>
+</header>

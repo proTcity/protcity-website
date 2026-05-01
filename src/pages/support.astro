@@ -1,0 +1,52 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import { site } from "../data/site";
+import { supportTopics } from "../data/features";
+---
+
+<MainLayout
+  title="Supporto"
+  description="Centro supporto proTcity per account, sicurezza personale, segnalazioni, partner e richieste dati."
+  canonicalPath="/support"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Supporto</p>
+      <h1>Assistenza per utenti, partner e richieste operative.</h1>
+      <p>
+        Questa sezione raccoglie i canali principali di supporto. Quando il sito sarà online potrà evolvere in una knowledge base più completa.
+      </p>
+      <Button href={`mailto:${site.emails.support}`}>Scrivi al supporto</Button>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader eyebrow="Categorie" title="Da dove possiamo iniziare." />
+      <div class="support-grid">
+        {supportTopics.map((topic) => (
+          <article class="support-item">
+            <h3>{topic.title}</h3>
+            <p>{topic.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section section--muted">
+    <div class="container two-column">
+      <div class="info-panel">
+        <h2>Emergenze</h2>
+        <p>proTcity non sostituisce i servizi di emergenza. In caso di pericolo immediato bisogna contattare i numeri ufficiali del Paese in cui ci si trova.</p>
+      </div>
+      <div class="info-panel">
+        <h2>Dati personali</h2>
+        <p>Per privacy, accesso ai dati o cancellazione account usa la pagina dedicata all'eliminazione dati.</p>
+        <Button href="/data-deletion" variant="ghost">Eliminazione dati</Button>
+      </div>
+    </div>
+  </section>
+</MainLayout>

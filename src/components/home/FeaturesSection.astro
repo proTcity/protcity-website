@@ -1,0 +1,20 @@
+---
+import SectionHeader from "../common/SectionHeader.astro";
+import FeatureCard from "../cards/FeatureCard.astro";
+import { coreFeatures } from "../../data/features";
+---
+
+<section class="section section--warm">
+  <div class="container">
+    <SectionHeader
+      eyebrow="Funzioni chiave"
+      title="Costruita intorno ai momenti in cui serve chiarezza."
+      description="Le funzionalita principali sono pensate per essere utili prima, durante e dopo uno spostamento o una segnalazione."
+    />
+    <div class="card-grid">
+      {coreFeatures.map((feature) => (
+        <FeatureCard title={feature.title} description={feature.description} tone={feature.tone} />
+      ))}
+    </div>
+  </div>
+</section>

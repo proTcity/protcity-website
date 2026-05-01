@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tone?: "blue" | "red" | "mint" | "amber";
+}
+
+const { title, description, tone = "blue" } = Astro.props;
+---
+
+<article class:list={["feature-card", `feature-card--${tone}`]}>
+  <span class="feature-card__mark" aria-hidden="true"></span>
+  <h3>{title}</h3>
+  <p>{description}</p>
+</article>

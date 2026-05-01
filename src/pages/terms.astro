@@ -1,0 +1,37 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { site } from "../data/site";
+---
+
+<LegalLayout
+  title="Termini di utilizzo"
+  description="Regole iniziali per l'accesso e l'uso corretto dei servizi proTcity."
+  canonicalPath="/terms"
+>
+  <h2>1. Oggetto del servizio</h2>
+  <p>
+    proTcity offre strumenti digitali per lettura del contesto urbano, segnalazioni, supporto agli spostamenti e servizi informativi per utenti, Comuni e partner.
+  </p>
+
+  <h2>2. Uso corretto</h2>
+  <ul>
+    <li>Non pubblicare contenuti falsi, discriminatori, diffamatori o non pertinenti.</li>
+    <li>Non usare la piattaforma per identificare, accusare o molestare persone.</li>
+    <li>Non interferire con sicurezza, infrastruttura o integrità dei servizi.</li>
+  </ul>
+
+  <h2>3. Emergenze</h2>
+  <p>
+    proTcity non è un servizio di emergenza. In caso di pericolo immediato occorre contattare le autorità competenti e i numeri ufficiali disponibili nel Paese in cui ci si trova.
+  </p>
+
+  <h2>4. Contenuti degli utenti</h2>
+  <p>
+    Gli utenti restano responsabili dei contenuti pubblicati. proTcity potrà moderare, limitare o rimuovere contenuti contrari alle regole, alla legge o alla sicurezza della community.
+  </p>
+
+  <h2>5. Contatti</h2>
+  <p>
+    Per richieste relative ai termini scrivere a <a href={`mailto:${site.emails.general}`}>{site.emails.general}</a>.
+  </p>
+</LegalLayout>

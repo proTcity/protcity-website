@@ -1,0 +1,65 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import FeatureCard from "../components/cards/FeatureCard.astro";
+import { appCapabilities } from "../data/features";
+---
+
+<MainLayout
+  title="App mobile"
+  description="La pagina dedicata all'app proTcity: mappa, alert, WalkGuard, contatti fidati e strumenti di sicurezza personale."
+  canonicalPath="/app"
+>
+  <section class="page-hero">
+    <div class="container page-hero__grid">
+      <div>
+        <p class="eyebrow">App mobile</p>
+        <h1>Una companion app per muoversi con più consapevolezza.</h1>
+        <p>
+          L'app proTcity concentra mappa, segnalazioni, percorso sicuro e strumenti rapidi in un'esperienza pensata per la vita quotidiana, il turismo e gli spostamenti serali.
+        </p>
+        <Button href="/support">Richiedi supporto</Button>
+      </div>
+      <img src="/images/app-preview.png" alt="Anteprima dell'app proTcity" loading="eager" />
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Cosa include"
+        title="Funzioni essenziali, accessibili nel momento giusto."
+        description="Il primo obiettivo è dare agli utenti uno spazio ordinato per leggere il contesto e agire rapidamente quando serve."
+      />
+      <ul class="list-panel">
+        {appCapabilities.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section section--muted">
+    <div class="container card-grid">
+      <FeatureCard
+        title="Mappa viva"
+        description="Alert, livelli informativi e filtri aiutano a capire cosa sta accadendo in un'area senza affidarsi solo al passaparola."
+        tone="blue"
+      />
+      <FeatureCard
+        title="Azioni rapide"
+        description="SOS, raccolta prove, audio di sicurezza e contatti fidati restano vicini alla mano nei momenti delicati."
+        tone="red"
+      />
+      <FeatureCard
+        title="Modalità turismo"
+        description="Informazioni semplici per chi visita una città e ha bisogno di orientarsi tra quartieri, orari e spostamenti."
+        tone="amber"
+      />
+      <FeatureCard
+        title="Community responsabile"
+        description="Le segnalazioni sono pensate per essere utili, verificabili e rispettose delle persone coinvolte."
+        tone="mint"
+      />
+    </div>
+  </section>
+</MainLayout>

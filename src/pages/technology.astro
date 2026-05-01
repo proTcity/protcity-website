@@ -1,0 +1,49 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import StatCard from "../components/cards/StatCard.astro";
+---
+
+<MainLayout
+  title="Tecnologia"
+  description="AI, Safety Score, dati aggregati e principi tecnici alla base di proTcity."
+  canonicalPath="/technology"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Tecnologia</p>
+      <h1>AI e dati al servizio di una lettura più ordinata della città.</h1>
+      <p>
+        proTcity usa tecnologia, modelli di analisi e dati geolocalizzati per supportare decisioni più informate. Il sistema deve restare comprensibile, verificabile e proporzionato.
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <SectionHeader
+        eyebrow="Architettura informativa"
+        title="Dati utili, letti con cautela."
+        description="La tecnologia di proTcity è pensata per combinare segnali diversi senza trasformarli in verdetti automatici."
+      />
+      <div class="stat-grid">
+        <StatCard value="AI" label="Supporto a classificazione, deduplica e priorità dei segnali." />
+        <StatCard value="Score" label="Sintesi leggibile del contesto, sempre da interpretare." />
+        <StatCard value="Privacy" label="Minimizzazione, aggregazione e controllo dei dati personali." />
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section section--muted">
+    <div class="container two-column">
+      <div class="info-panel">
+        <h2>Safety Score</h2>
+        <p>Un indicatore sintetico può aiutare a orientarsi, ma deve essere spiegabile e non discriminatorio. Per questo la comunicazione dovrà evidenziare limiti, fonti e criteri.</p>
+      </div>
+      <div class="info-panel">
+        <h2>Moderazione</h2>
+        <p>I contenuti sensibili richiedono regole, revisione e canali di segnalazione. La fiducia nasce dalla qualità dei dati, non dalla quantità di alert.</p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

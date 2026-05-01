@@ -1,0 +1,38 @@
+---
+import MainLayout from "./MainLayout.astro";
+import { legalNavigation } from "../data/navigation";
+import { legalMeta } from "../data/legal";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+}
+
+const { title, description, canonicalPath } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout title={title} description={description} canonicalPath={canonicalPath} bodyClass="legal-page">
+  <section class="legal-shell container">
+    <aside class="legal-sidebar" aria-label="Documenti legali">
+      <p class="eyebrow">Documenti</p>
+      <nav>
+        {legalNavigation.map((item) => (
+          <a class:list={[pathname === item.href && "is-active"]} href={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </aside>
+
+    <article class="legal-content">
+      <p class="eyebrow">Documento legale</p>
+      <h1>{title}</h1>
+      <p class="legal-content__intro">{description}</p>
+      <p class="legal-content__meta">Ultimo aggiornamento: {legalMeta.lastUpdated}</p>
+      <p class="legal-note">{legalMeta.disclaimer}</p>
+      <slot />
+    </article>
+  </section>
+</MainLayout>

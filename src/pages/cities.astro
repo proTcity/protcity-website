@@ -1,0 +1,49 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import SectionHeader from "../components/common/SectionHeader.astro";
+import Button from "../components/common/Button.astro";
+import { cityBenefits } from "../data/features";
+---
+
+<MainLayout
+  title="Città e territori"
+  description="proTcity per Comuni, enti e territori: ascolto, insight aggregati, prevenzione e comunicazione locale."
+  canonicalPath="/cities"
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Città e territori</p>
+      <h1>Un canale digitale per capire meglio i segnali urbani.</h1>
+      <p>
+        proTcity può aiutare amministrazioni, enti e territori a raccogliere segnali in modo più ordinato, leggere pattern ricorrenti e comunicare ai cittadini con maggiore tempestività.
+      </p>
+      <Button href="/contact">Contatto istituzionale</Button>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container two-column">
+      <SectionHeader
+        eyebrow="Perché serve"
+        title="La percezione di sicurezza è un dato delicato, ma non va ignorato."
+        description="La piattaforma è pensata per valorizzare dati aggregati, trend e segnalazioni qualificate, evitando letture sensazionalistiche."
+      />
+      <ul class="list-panel">
+        {cityBenefits.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section section--muted">
+    <div class="container two-column two-column--center">
+      <div class="info-panel">
+        <h2>Output possibili</h2>
+        <p>Report periodici, mappe di ricorrenza, materiali informativi, campagne territoriali e dashboard operative per stakeholder autorizzati.</p>
+      </div>
+      <div class="info-panel">
+        <h2>Uso responsabile</h2>
+        <p>I dati devono essere letti come supporto decisionale, non come giudizio definitivo su quartieri, persone o comunità.</p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

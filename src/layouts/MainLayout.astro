@@ -1,0 +1,34 @@
+---
+import SEO from "../components/common/SEO.astro";
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+import "../styles/tokens.css";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  bodyClass?: string;
+}
+
+const { title, description, canonicalPath, image, bodyClass = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SEO title={title} description={description} canonicalPath={canonicalPath} image={image} />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main-content">Vai al contenuto</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

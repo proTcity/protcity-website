@@ -1,0 +1,30 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { site } from "../data/site";
+---
+
+<LegalLayout
+  title="Cookie Policy"
+  description="Informazioni iniziali sull'uso dei cookie e delle tecnologie simili nel sito proTcity."
+  canonicalPath="/cookie-policy"
+>
+  <h2>1. Cosa sono i cookie</h2>
+  <p>
+    I cookie sono piccoli file o identificatori che permettono al sito di funzionare correttamente, ricordare preferenze e, se autorizzato, raccogliere informazioni aggregate sull'utilizzo.
+  </p>
+
+  <h2>2. Cookie tecnici</h2>
+  <p>
+    Il sito può usare cookie tecnici necessari al funzionamento, alla sicurezza e alla gestione delle preferenze. Questi cookie non richiedono consenso preventivo quando sono strettamente necessari.
+  </p>
+
+  <h2>3. Misurazione e marketing</h2>
+  <p>
+    Eventuali strumenti di analytics, marketing o tracciamento saranno attivati solo dopo valutazione legale e, quando richiesto, consenso dell'utente tramite banner dedicato.
+  </p>
+
+  <h2>4. Gestione preferenze</h2>
+  <p>
+    Quando saranno integrati strumenti non tecnici, questa pagina includerà un pannello per modificare o revocare le preferenze. Per domande scrivere a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>.
+  </p>
+</LegalLayout>

@@ -1,0 +1,43 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { site } from "../data/site";
+---
+
+<LegalLayout
+  title="Privacy Policy"
+  description="Informativa iniziale sul trattamento dei dati personali nell'ecosistema proTcity."
+  canonicalPath="/privacy"
+>
+  <h2>1. Titolare del trattamento</h2>
+  <p>
+    Il titolare del trattamento è {site.company.legalName}. I dati societari completi saranno integrati prima della pubblicazione definitiva del servizio.
+  </p>
+
+  <h2>2. Dati trattati</h2>
+  <p>
+    proTcity può trattare dati di account, contatto, preferenze, posizione, contenuti di segnalazione, dati tecnici del dispositivo e informazioni necessarie alla sicurezza dell'account.
+  </p>
+
+  <h2>3. Finalità</h2>
+  <ul>
+    <li>Fornire le funzionalità dell'app e del sito.</li>
+    <li>Gestire segnalazioni, assistenza e richieste degli utenti.</li>
+    <li>Migliorare sicurezza, qualità dei dati e prevenzione degli abusi.</li>
+    <li>Produrre analisi aggregate per servizi territoriali e partner autorizzati.</li>
+  </ul>
+
+  <h2>4. Base giuridica</h2>
+  <p>
+    Le basi giuridiche potranno includere esecuzione del servizio, consenso, obblighi legali, legittimo interesse e tutela della sicurezza. La formulazione finale dovrà essere validata in base alle funzionalità effettivamente pubblicate.
+  </p>
+
+  <h2>5. Conservazione</h2>
+  <p>
+    I dati sono conservati per il tempo necessario alle finalità indicate e secondo criteri proporzionati. Alcuni dati possono essere anonimizzati o aggregati per finalità statistiche e di sicurezza urbana.
+  </p>
+
+  <h2>6. Diritti dell'utente</h2>
+  <p>
+    L'utente può richiedere accesso, rettifica, cancellazione, limitazione, opposizione e portabilità dei dati scrivendo a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>.
+  </p>
+</LegalLayout>
