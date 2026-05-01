@@ -1,3 +1,6 @@
+# proTcity public website
+# Canonical domain: https://www.protcity.com
+
 User-agent: *
 Allow: /
 
