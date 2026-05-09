@@ -1,0 +1,203 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/common/Button.astro";
+import { site } from "../data/site";
+
+const businessPlans = [
+  {
+    name: "Business Basic",
+    subtitle: "Per piccole attività locali",
+    price: "49 €",
+    period: "/mese",
+    cta: "Scegli Basic",
+    subject: "Richiesta attivazione Business Basic",
+    features: [
+      "Profilo attività su proTcity",
+      "Safe Point base sulla mappa",
+      "Statistiche essenziali di zona",
+      "1 sede principale",
+      "Accesso Partner Console"
+    ]
+  },
+  {
+    name: "Business Professional",
+    subtitle: "Per attività che vogliono visibilità e dati",
+    price: "149 €",
+    period: "/mese",
+    cta: "Scegli Professional",
+    subject: "Richiesta attivazione Business Professional",
+    highlighted: true,
+    features: [
+      "Tutto il piano Basic",
+      "Profilo avanzato e priorità Safe Point",
+      "Insight territoriali più completi",
+      "Più utenti autorizzati in console",
+      "Pubblicazioni e contenuti estesi"
+    ]
+  },
+  {
+    name: "Business Enterprise",
+    subtitle: "Piano full per aziende strutturate",
+    price: "399 €",
+    period: "/mese",
+    cta: "Scegli Enterprise",
+    subject: "Richiesta attivazione Business Enterprise",
+    features: [
+      "Tutto il piano Professional",
+      "Multi-sede e gestione avanzata",
+      "Limiti operativi estesi",
+      "Statistiche complete",
+      "Supporto prioritario"
+    ]
+  }
+];
+
+const publicSectorPlans = [
+  {
+    name: "Comune Start",
+    description: "Dashboard segnalazioni, stati operativi, mappa territoriale e filtri base."
+  },
+  {
+    name: "Comune Pro",
+    description: "Timeline interventi, operatori multipli, analytics territoriali e priorità segnalazioni."
+  },
+  {
+    name: "Ente Enterprise",
+    description: "Multi-area, ruoli avanzati, integrazioni, reportistica e supporto dedicato."
+  }
+];
+
+function mailtoPlan(subject: string) {
+  const body = [
+    "Buongiorno proTcity,",
+    "",
+    `vorrei attivare il piano: ${subject.replace("Richiesta attivazione ", "")}.`,
+    "",
+    "Dati da completare:",
+    "- Ragione sociale:",
+    "- Partita IVA:",
+    "- Città:",
+    "- Referente:",
+    "- Telefono:",
+    "",
+    "Grazie."
+  ].join("\n");
+
+  return `mailto:${site.emails.business}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+---
+
+<MainLayout
+  title="Diventa Partner"
+  description="Piani e richiesta accesso per aziende, attività commerciali, hotel ed enti pubblici che vogliono entrare nella rete proTcity."
+  canonicalPath="/partner"
+>
+  <section class="page-hero partner-hero">
+    <div class="container">
+      <p class="eyebrow">Diventa Partner</p>
+      <h1>Porta la tua attività nella rete urbana di proTcity.</h1>
+      <p>
+        Aziende, hotel, attività locali ed enti pubblici possono usare proTcity per diventare punti
+        riconoscibili, leggere meglio il territorio e gestire servizi dedicati da una console sicura.
+      </p>
+      <div class="hero__actions">
+        <Button href="#aziende">Vedi piani aziende</Button>
+        <Button href="#enti" variant="ghost">Soluzioni Enti</Button>
+      </div>
+    </div>
+  </section>
+
+  <section id="aziende" class="content-section partner-pricing-section">
+    <div class="container">
+      <div class="partner-section-heading">
+        <p class="eyebrow">Aziende</p>
+        <h2>Piani semplici, acquisto diretto e verifica controllata.</h2>
+        <p>
+          L'azienda sceglie il piano, inserisce i dati fiscali e viene collegata a una
+          organizzazione Partner con P.IVA univoca. L'accesso alla console resta verificabile e
+          revocabile da amministrazione.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        {businessPlans.map((plan) => (
+          <article class:list={["pricing-card", plan.highlighted && "pricing-card--featured"]}>
+            {plan.highlighted ? <p class="pricing-card__ribbon">Consigliato</p> : null}
+            <div class="pricing-card__body">
+              <h2>{plan.name}</h2>
+              <p>{plan.subtitle}</p>
+              <div class="pricing-card__price">
+                <strong>{plan.price}</strong>
+                <span>{plan.period}</span>
+              </div>
+              <a class="pricing-card__button" href={mailtoPlan(plan.subject)}>
+                {plan.cta}
+              </a>
+              <ul>
+                {plan.features.map((feature) => <li>{feature}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="enti" class="content-section section--muted">
+    <div class="container">
+      <div class="partner-section-heading">
+        <p class="eyebrow">Enti Pubblici</p>
+        <h2>Un percorso separato per Comuni, territori e istituzioni.</h2>
+        <p>
+          Per gli Enti il flusso resta su richiesta: raccolta esigenze, proposta, contratto,
+          eventuale documentazione amministrativa e attivazione manuale della console Enti.
+        </p>
+      </div>
+
+      <div class="public-sector-grid">
+        {publicSectorPlans.map((plan) => (
+          <article class="info-panel">
+            <h3>{plan.name}</h3>
+            <p>{plan.description}</p>
+            <span>Prezzo su richiesta</span>
+          </article>
+        ))}
+      </div>
+
+      <div class="partner-cta-strip">
+        <div>
+          <h2>Vuoi attivare proTcity per un Comune o un Ente?</h2>
+          <p>Prepariamo un percorso dedicato con ruoli, limiti territoriali e gestione segnalazioni.</p>
+        </div>
+        <Button
+          href={mailtoPlan("Richiesta preventivo Enti Pubblici")}
+          variant="secondary"
+        >
+          Richiedi preventivo
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="partner-flow-grid">
+        <article>
+          <span>01</span>
+          <h3>Scelta piano</h3>
+          <p>L'azienda seleziona Basic, Professional o Enterprise in modo chiaro.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Dati fiscali</h3>
+          <p>Ragione sociale e P.IVA vengono associate a una sola organizzazione.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Console Partner</h3>
+          <p>Gli utenti autorizzati entrano solo nella propria area e con ruoli controllati.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</MainLayout>

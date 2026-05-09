@@ -3,6 +3,7 @@ export const primaryNavigation = [
   { label: "WalkGuard", href: "/walkguard" },
   { label: "Citta", href: "/cities" },
   { label: "GuestSafe", href: "/guestsafe" },
+  { label: "Partner", href: "/partner" },
   { label: "Tecnologia", href: "/technology" },
   { label: "Supporto", href: "/support" }
 ] as const;
@@ -14,6 +15,7 @@ export const footerGroups = [
       { label: "App mobile", href: "/app" },
       { label: "WalkGuard", href: "/walkguard" },
       { label: "GuestSafe", href: "/guestsafe" },
+      { label: "Diventa Partner", href: "/partner" },
       { label: "Tecnologia", href: "/technology" }
     ]
   },
