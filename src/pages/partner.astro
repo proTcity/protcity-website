@@ -7,10 +7,10 @@ const businessPlans = [
   {
     name: "Business Basic",
     subtitle: "Per piccole attività locali",
-    price: "49 €",
-    period: "/mese",
-    cta: "Scegli Basic",
-    subject: "Richiesta attivazione Business Basic",
+    price: "In arrivo",
+    period: "accesso anticipato",
+    cta: "Richiedi informazioni",
+    subject: "Richiesta informazioni Business Basic",
     features: [
       "Profilo attività su proTcity",
       "Safe Point base sulla mappa",
@@ -22,10 +22,10 @@ const businessPlans = [
   {
     name: "Business Professional",
     subtitle: "Per attività che vogliono visibilità e dati",
-    price: "149 €",
-    period: "/mese",
-    cta: "Scegli Professional",
-    subject: "Richiesta attivazione Business Professional",
+    price: "In arrivo",
+    period: "accesso anticipato",
+    cta: "Richiedi informazioni",
+    subject: "Richiesta informazioni Business Professional",
     highlighted: true,
     features: [
       "Tutto il piano Basic",
@@ -38,10 +38,10 @@ const businessPlans = [
   {
     name: "Business Enterprise",
     subtitle: "Piano full per aziende strutturate",
-    price: "399 €",
-    period: "/mese",
-    cta: "Scegli Enterprise",
-    subject: "Richiesta attivazione Business Enterprise",
+    price: "Su richiesta",
+    period: "pre-lancio",
+    cta: "Richiedi informazioni",
+    subject: "Richiesta informazioni Business Enterprise",
     features: [
       "Tutto il piano Professional",
       "Multi-sede e gestione avanzata",
@@ -71,7 +71,9 @@ function mailtoPlan(subject: string) {
   const body = [
     "Buongiorno proTcity,",
     "",
-    `vorrei attivare il piano: ${subject.replace("Richiesta attivazione ", "")}.`,
+    `vorrei ricevere informazioni sul piano: ${subject
+      .replace("Richiesta informazioni ", "")
+      .replace("Richiesta preventivo ", "")}.`,
     "",
     "Dati da completare:",
     "- Ragione sociale:",
@@ -113,9 +115,9 @@ function mailtoPlan(subject: string) {
         <p class="eyebrow">Aziende</p>
         <h2>Piani semplici, acquisto diretto e verifica controllata.</h2>
         <p>
-          L'azienda sceglie il piano, inserisce i dati fiscali e viene collegata a una
-          organizzazione Partner con P.IVA univoca. L'accesso alla console resta verificabile e
-          revocabile da amministrazione.
+          Le tariffe Partner saranno disponibili al lancio ufficiale. Intanto aziende, hotel e
+          attività locali possono richiedere accesso anticipato e una proposta dedicata, senza
+          fissare pubblicamente prezzi non ancora definitivi.
         </p>
       </div>
 
