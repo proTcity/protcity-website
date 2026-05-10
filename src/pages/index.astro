@@ -1,24 +1,273 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Hero from "../components/home/Hero.astro";
-import ProblemSection from "../components/home/ProblemSection.astro";
-import SolutionSection from "../components/home/SolutionSection.astro";
-import FeaturesSection from "../components/home/FeaturesSection.astro";
-import CitiesSection from "../components/home/CitiesSection.astro";
-import GuestSafeSection from "../components/home/GuestSafeSection.astro";
-import FinalCTA from "../components/home/FinalCTA.astro";
+
+const intelligenceCards = [
+  {
+    image: "/images/features/optimized/safety-score.webp",
+    label: "Safety Score",
+    title: "Conosci meglio la zona prima di muoverti.",
+    text:
+      "proTcity traduce segnali urbani, alert, orario, contesto e punti sicuri in una lettura sintetica dell'area. Non promette certezze: aiuta a scegliere con più consapevolezza."
+  },
+  {
+    image: "/images/features/optimized/ia-predittiva.webp",
+    label: "AI predittiva",
+    title: "Quando il contesto cambia, il percorso si aggiorna.",
+    text:
+      "Il motore di Safety Intelligence valuta condizioni e anomalie vicine al tragitto e può suggerire alternative più prudenti, mantenendo l'utente sempre libero nella scelta."
+  },
+  {
+    image: "/images/features/optimized/notifiche-zona.webp",
+    label: "Notifiche intelligenti",
+    title: "Meno rumore. Solo avvisi davvero vicini.",
+    text:
+      "Gli alert di zona sono pensati per essere pertinenti, locali e comprensibili: non allarmismo, ma informazioni utili nel momento giusto."
+  }
+] as const;
+
+const lifeCards = [
+  {
+    image: "/images/features/optimized/rientro-sicuro.webp",
+    label: "WalkGuard",
+    title: "Il rientro diventa più chiaro.",
+    text:
+      "Percorsi prudenti, aggiornamenti live, contatti fidati e conferma di arrivo in una sola esperienza."
+  },
+  {
+    image: "/images/features/optimized/sos-protcity.webp",
+    label: "SOS",
+    title: "Aiuto rapido quando serve davvero.",
+    text:
+      "Una funzione pensata per condividere posizione e richiesta di supporto in modo immediato con i contatti selezionati."
+  },
+  {
+    image: "/images/features/optimized/assistente-ai.webp",
+    label: "Assistente AI",
+    title: "Un aiuto semplice dentro l'app.",
+    text:
+      "Il supporto intelligente risponde sulle funzioni di proTcity, guida gli utenti meno esperti e riduce l'attrito nei momenti importanti."
+  },
+  {
+    image: "/images/features/optimized/guest-safe-hotel.webp",
+    label: "GuestSafe",
+    title: "Una linea dedicata per hotel e viaggiatori.",
+    text:
+      "Percorsi più sereni, punti utili nelle vicinanze e comunicazioni pensate per chi visita una città nuova."
+  }
+] as const;
+
+const ecosystemCards = [
+  {
+    image: "/images/features/optimized/segnalazioni-enti.webp",
+    label: "Segnalazioni",
+    title: "La città si vede meglio quando tutti partecipano.",
+    text:
+      "Foto, categoria, posizione e timeline rendono ogni segnalazione più leggibile. La community può confermare, gli enti possono seguire lo stato e la risoluzione."
+  },
+  {
+    image: "/images/features/optimized/eventi-flash.webp",
+    label: "Eventi Flash",
+    title: "Micro-eventi locali, con affidabilità verificabile.",
+    text:
+      "Una socialità più sicura e locale: iniziative vicine, filtri intelligenti e aggiornamenti utili senza trasformare la community in rumore."
+  },
+  {
+    image: "/images/features/optimized/community-cane-smarrito.webp",
+    label: "Community",
+    title: "Quando un segnale condiviso può fare la differenza.",
+    text:
+      "proTcity valorizza segnalazioni utili e geolocalizzate, con moderazione e controlli per proteggere persone, privacy e qualità delle informazioni."
+  }
+] as const;
 ---
 
 <MainLayout
-  title="Sicurezza urbana collaborativa"
-  description="proTcity è il nuovo ecosistema per sicurezza urbana, segnalazioni, WalkGuard, Comuni e hospitality."
+  title="La città si accende"
+  description="proTcity è l'ecosistema urbano con AI, Safety Score, WalkGuard, segnalazioni, notifiche intelligenti e GuestSafe."
   canonicalPath="/"
+  bodyClass="home-cinematic"
 >
-  <Hero />
-  <ProblemSection />
-  <SolutionSection />
-  <FeaturesSection />
-  <CitiesSection />
-  <GuestSafeSection />
-  <FinalCTA />
+  <section class="cinematic-hero" aria-labelledby="hero-title">
+    <div class="cinematic-hero__media" aria-hidden="true"></div>
+    <div class="cinematic-hero__shade" aria-hidden="true"></div>
+    <div class="container cinematic-hero__content">
+      <p class="cinematic-kicker">Urban Safety Intelligence</p>
+      <h1 id="hero-title">proTcity</h1>
+      <p class="cinematic-hero__claim">
+        La città si accende quando informazioni, community e AI lavorano insieme.
+      </p>
+      <p class="cinematic-hero__lead">
+        Un ecosistema per muoversi con più consapevolezza: Safety Score, WalkGuard, alert di zona, segnalazioni civiche, supporto AI e strumenti dedicati a turisti, hotel, enti e partner locali.
+      </p>
+      <div class="assistant-beacon" aria-label="Assistente AI proTcity">
+        <img src="/images/features/protcity-assistant.gif" alt="" loading="lazy" decoding="async" />
+        <span>Assistente AI integrato</span>
+      </div>
+      <div class="cinematic-actions" aria-label="Azioni principali">
+        <a class="glass-button glass-button--primary" href="/app">Scopri l'app</a>
+        <a class="glass-button" href="/technology">Tecnologia e AI</a>
+        <a class="glass-button" href="/partner">Partner ed enti</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="signal-strip" aria-label="Punti chiave proTcity">
+    <div class="container signal-strip__grid">
+      <article>
+        <span>01</span>
+        <strong>Legge il contesto</strong>
+        <p>Segnali urbani, mappe, alert e fonti affidabili diventano una lettura più chiara della zona.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <strong>Suggerisce alternative</strong>
+        <p>Il percorso non è solo distanza: conta anche esposizione, orario, punti sicuri e condizioni locali.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <strong>Resta prudente</strong>
+        <p>L'AI spiega, non decide al posto tuo. Nessuna profilazione delle persone, solo analisi di aree e percorsi.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="intelligence-title">
+    <div class="container section-intro section-intro--center">
+      <p class="cinematic-kicker">Safety Intelligence</p>
+      <h2 id="intelligence-title">Non una mappa con pin. Una lettura viva della città.</h2>
+      <p>
+        proTcity unisce dati interni, contesto cartografico, segnali recenti e spiegazioni AI per aiutarti a capire cosa sta cambiando intorno a te, senza creare panico e senza sostituire le autorità.
+      </p>
+    </div>
+
+    <div class="container poster-grid poster-grid--three">
+      {intelligenceCards.map((card) => (
+        <article class="liquid-poster">
+          <img src={card.image} alt="" loading="lazy" decoding="async" />
+          <div class="liquid-poster__body">
+            <span>{card.label}</span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="cinematic-band" aria-labelledby="day-title">
+    <div class="container feature-split">
+      <div class="feature-split__copy">
+        <p class="cinematic-kicker">Sempre con te</p>
+        <h2 id="day-title">Dalla mattina alla sera, proTcity accompagna ogni momento urbano.</h2>
+        <p>
+          Tra casa, lavoro, scuola, turismo e rientri serali, l'app mette insieme ciò che serve davvero: percorso, consapevolezza, notifiche locali, assistente e strumenti rapidi.
+        </p>
+        <div class="metric-row">
+          <span>Alert pertinenti</span>
+          <span>Safe Points</span>
+          <span>Supporto AI</span>
+        </div>
+      </div>
+      <figure class="image-frame image-frame--wide">
+        <img src="/images/features/optimized/ogni-momento.webp" alt="proTcity accompagna ogni momento della città con alert, percorsi e AI" loading="lazy" decoding="async" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="daily-title">
+    <div class="container section-intro">
+      <p class="cinematic-kicker">Funzioni chiave</p>
+      <h2 id="daily-title">Strumenti concreti, costruiti per momenti reali.</h2>
+      <p>
+        Ogni funzione ha un ruolo preciso: orientarti, proteggere i tuoi spostamenti, ridurre incertezza e semplificare l'uso dell'app anche a chi non vive di tecnologia.
+      </p>
+    </div>
+
+    <div class="container poster-grid poster-grid--four">
+      {lifeCards.map((card) => (
+        <article class="compact-poster">
+          <img src={card.image} alt="" loading="lazy" decoding="async" />
+          <div>
+            <span>{card.label}</span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="cinematic-band cinematic-band--blue" aria-labelledby="signal-title">
+    <div class="container feature-split feature-split--reverse">
+      <figure class="image-frame">
+        <img src="/images/features/optimized/la-citta-ti-parla.webp" alt="proTcity trasforma segnali urbani in supporto intelligente" loading="lazy" decoding="async" />
+      </figure>
+      <div class="feature-split__copy">
+        <p class="cinematic-kicker">La città ti parla</p>
+        <h2 id="signal-title">AI, alert, percorsi sicuri e supporto in un unico ecosistema.</h2>
+        <p>
+          La parte intelligente di proTcity non serve a spaventare: serve a rendere più leggibili i segnali, spiegare cosa sta succedendo e suggerire azioni utili con un tono calmo.
+        </p>
+        <ul class="glass-list">
+          <li>Safety Score sulle aree, mai sulle persone.</li>
+          <li>Confidence Score per evitare messaggi aggressivi quando i dati sono deboli.</li>
+          <li>Fallback statico: l'app continua a funzionare anche se una fonte esterna non risponde.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="ecosystem-title">
+    <div class="container section-intro section-intro--center">
+      <p class="cinematic-kicker">Community ed enti</p>
+      <h2 id="ecosystem-title">Dalla segnalazione alla risoluzione: una timeline leggibile.</h2>
+      <p>
+        Le informazioni più utili sono quelle ordinate. Una segnalazione può essere confermata dalla community, presa in carico dagli enti e seguita nel tempo, con stato e aggiornamenti chiari.
+      </p>
+    </div>
+    <div class="container poster-grid poster-grid--three">
+      {ecosystemCards.map((card) => (
+        <article class="liquid-poster liquid-poster--tall">
+          <img src={card.image} alt="" loading="lazy" decoding="async" />
+          <div class="liquid-poster__body">
+            <span>{card.label}</span>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="cinematic-band" aria-labelledby="world-title">
+    <div class="container world-panel">
+      <div class="world-panel__copy">
+        <p class="cinematic-kicker">Ovunque tu sia</p>
+        <h2 id="world-title">Una sola app, una città più smart.</h2>
+        <p>
+          proTcity è pensata per funzionare in Italia e crescere verso mercati internazionali: stessa filosofia, dati leggeri, fonti online, supporto multilingua e servizi locali quando disponibili.
+        </p>
+      </div>
+      <div class="world-panel__media">
+        <img src="/images/features/optimized/ovunque-tu-sia.webp" alt="proTcity accompagna utenti e turisti in ogni città" loading="lazy" decoding="async" />
+        <img src="/images/features/optimized/tourist-safe-mode.webp" alt="Tourist Safe Mode per viaggiatori e hotel" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-final" aria-labelledby="final-title">
+    <div class="cinematic-final__media" aria-hidden="true"></div>
+    <div class="container cinematic-final__content">
+      <p class="cinematic-kicker">Presto su proTcity</p>
+      <h2 id="final-title">Più visione reale. Più collaborazione. Più cura della città.</h2>
+      <p>
+        Un prodotto pensato per persone, turisti, strutture ricettive, aziende, enti pubblici e territori che vogliono trasformare i segnali urbani in decisioni più informate.
+      </p>
+      <div class="cinematic-actions">
+        <a class="glass-button glass-button--primary" href="/contact">Parla con noi</a>
+        <a class="glass-button" href="/guestsafe">Scopri GuestSafe</a>
+        <a class="glass-button" href="/safety">Sicurezza e policy</a>
+      </div>
+    </div>
+  </section>
 </MainLayout>
