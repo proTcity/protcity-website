@@ -1,8 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import Button from "../components/common/Button.astro";
-import FeatureCard from "../components/cards/FeatureCard.astro";
 import { appCapabilities } from "../data/features";
 ---
 
@@ -10,56 +7,68 @@ import { appCapabilities } from "../data/features";
   title="App mobile"
   description="La pagina dedicata all'app proTcity: mappa, alert, WalkGuard, contatti fidati e strumenti di sicurezza personale."
   canonicalPath="/app"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container page-hero__grid">
-      <div>
-        <p class="eyebrow">App mobile</p>
-        <h1>Una companion app per muoversi con più consapevolezza.</h1>
-        <p>
-          L'app proTcity concentra mappa, segnalazioni, percorso sicuro e strumenti rapidi in un'esperienza pensata per la vita quotidiana, il turismo e gli spostamenti serali.
-        </p>
-        <Button href="/support">Richiedi supporto</Button>
+  <section class="cinematic-hero feature-hero feature-hero--app">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
+      <p class="eyebrow">App mobile</p>
+      <h1>Una sola esperienza per leggere la città e agire meglio.</h1>
+      <p class="cinematic-hero__lead">
+        Mappa, alert, segnalazioni, WalkGuard, SOS, notifiche e assistente AI convivono in una schermata pensata per essere chiara anche quando il contesto cambia rapidamente.
+      </p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/walkguard">Scopri WalkGuard</a>
+        <a class="glass-button" href="/support">Supporto app</a>
       </div>
-      <img src="/images/app-preview.png" alt="Anteprima dell'app proTcity" loading="eager" />
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="signal-strip signal-strip--floating">
     <div class="container">
-      <SectionHeader
-        eyebrow="Cosa include"
-        title="Funzioni essenziali, accessibili nel momento giusto."
-        description="Il primo obiettivo è dare agli utenti uno spazio ordinato per leggere il contesto e agire rapidamente quando serve."
-      />
-      <ul class="list-panel">
-        {appCapabilities.map((item) => <li>{item}</li>)}
-      </ul>
+      <div class="signal-strip__grid">
+        {appCapabilities.slice(0, 3).map((item, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{item}</h3>
+            <p>Funzione integrata nell'esperienza mobile, pensata per restare vicina all'utente senza riempire la mappa di rumore.</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="content-section section--muted">
-    <div class="container card-grid">
-      <FeatureCard
-        title="Mappa viva"
-        description="Alert, livelli informativi e filtri aiutano a capire cosa sta accadendo in un'area senza affidarsi solo al passaparola."
-        tone="blue"
-      />
-      <FeatureCard
-        title="Azioni rapide"
-        description="SOS, raccolta prove, audio di sicurezza e contatti fidati restano vicini alla mano nei momenti delicati."
-        tone="red"
-      />
-      <FeatureCard
-        title="Modalità turismo"
-        description="Informazioni semplici per chi visita una città e ha bisogno di orientarsi tra quartieri, orari e spostamenti."
-        tone="amber"
-      />
-      <FeatureCard
-        title="Community responsabile"
-        description="Le segnalazioni sono pensate per essere utili, verificabili e rispettose delle persone coinvolte."
-        tone="mint"
-      />
+  <section class="cinematic-section">
+    <div class="container poster-grid poster-grid--four">
+      <article class="liquid-poster">
+        <img src="/images/features/optimized/segnalazioni-enti.webp" alt="Alert e segnalazioni in proTcity" loading="lazy" />
+        <div class="liquid-poster__body">
+          <h3>Alert e segnalazioni</h3>
+          <p>La community informa, conferma e aiuta a rendere più leggibile ciò che accade nelle vicinanze.</p>
+        </div>
+      </article>
+      <article class="liquid-poster">
+        <img src="/images/features/optimized/sos-protcity.webp" alt="Funzione SOS di proTcity" loading="lazy" />
+        <div class="liquid-poster__body">
+          <h3>SOS vicino alla mano</h3>
+          <p>Un comando rapido, discreto e integrato con contatti fidati e contesto di posizione.</p>
+        </div>
+      </article>
+      <article class="liquid-poster">
+        <img src="/images/features/optimized/community-cane-smarrito.webp" alt="Community proTcity per segnalazioni utili" loading="lazy" />
+        <div class="liquid-poster__body">
+          <h3>Community utile</h3>
+          <p>Segnali concreti, verificabili e rispettosi: la collaborazione deve aumentare fiducia, non ansia.</p>
+        </div>
+      </article>
+      <article class="liquid-poster">
+        <img src="/images/features/optimized/ogni-momento.webp" alt="proTcity accompagna la giornata urbana" loading="lazy" />
+        <div class="liquid-poster__body">
+          <h3>Ogni momento</h3>
+          <p>Dalla mattina alla sera, l'app adatta informazioni e strumenti al contesto reale.</p>
+        </div>
+      </article>
     </div>
   </section>
 </MainLayout>

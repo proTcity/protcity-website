@@ -1,7 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import Button from "../components/common/Button.astro";
 import { walkguardSteps } from "../data/features";
 ---
 
@@ -9,49 +7,81 @@ import { walkguardSteps } from "../data/features";
   title="WalkGuard"
   description="WalkGuard è la funzione proTcity per percorsi a piedi, contatti fidati, check-in e strumenti rapidi di sicurezza."
   canonicalPath="/walkguard"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--walkguard">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">WalkGuard</p>
-      <h1>Un accompagnamento digitale per i percorsi a piedi.</h1>
-      <p>
-        WalkGuard nasce per quei momenti in cui una persona vuole sentirsi meno sola durante uno spostamento: rientro a casa, tragitti serali, zone sconosciute o percorsi turistici.
+      <h1>Il percorso più consapevole quando ti muovi in città.</h1>
+      <p class="cinematic-hero__lead">
+        proTcity analizza segnalazioni, contesto urbano, orario, punti sicuri e dati disponibili per suggerire tragitti più prudenti senza creare allarmismo.
       </p>
-      <Button href="/contact">Parla con il team</Button>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/contact">Parla con il team</a>
+        <a class="glass-button" href="/technology">Scopri l'AI</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="signal-strip signal-strip--floating">
     <div class="container">
-      <SectionHeader
-        eyebrow="Come funziona"
-        title="Tre passaggi semplici, senza complicare l'esperienza."
-      />
-      <ol class="step-list">
-        {walkguardSteps.map((step) => (
-          <li>
+      <div class="signal-strip__grid">
+        {walkguardSteps.map((step, index) => (
+          <article>
+            <span>0{index + 1}</span>
             <h3>{step.title}</h3>
             <p>{step.text}</p>
-          </li>
+          </article>
         ))}
-      </ol>
+      </div>
     </div>
   </section>
 
-  <section class="content-section section--dark">
-    <div class="container two-column">
-      <div>
+  <section class="cinematic-section">
+    <div class="container feature-split glass-panel">
+      <figure class="image-frame">
+        <img src="/images/features/optimized/walkguard-safe-route.webp" alt="WalkGuard mostra un percorso sicuro con segnalazioni e navigazione prudente" loading="lazy" />
+      </figure>
+      <div class="feature-split__copy">
         <p class="eyebrow">Principio guida</p>
-        <h2>WalkGuard non promette sicurezza assoluta. Riduce isolamento e ritardo di reazione.</h2>
-      </div>
-      <div class="text-stack">
+        <h2>Non promette sicurezza assoluta. Riduce isolamento, ritardo e incertezza.</h2>
         <p>
-          La funzione è progettata come supporto digitale: aiuta a condividere percorso e contesto con persone fidate, non sostituisce numeri di emergenza, forze dell'ordine o decisioni personali.
+          WalkGuard resta un supporto digitale: propone alternative, mostra il contesto, mantiene vicini i contatti fidati e lascia sempre la scelta all'utente.
         </p>
-        <p>
-          Questo approccio rende la funzione più seria: utile, concreta e compatibile con una comunicazione responsabile.
-        </p>
+        <div class="metric-row">
+          <span>Route Risk Scoring</span>
+          <span>Safe Points</span>
+          <span>Check-in</span>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <section class="cinematic-band">
+    <div class="container poster-grid poster-grid--three">
+      <article class="compact-poster">
+        <img src="/images/features/optimized/walkguard-ai-route.webp" alt="WalkGuard con analisi AI del percorso" loading="lazy" />
+        <div>
+          <h3>Analisi in tempo reale</h3>
+          <p>L'AI aiuta a leggere segnali urbani, percorso e variazioni di contesto con tono prudente.</p>
+        </div>
+      </article>
+      <article class="compact-poster">
+        <img src="/images/features/optimized/rientro-sicuro.webp" alt="Rientro sicuro con proTcity" loading="lazy" />
+        <div>
+          <h3>Rientro più sereno</h3>
+          <p>Quando torni a casa o in hotel, la navigazione resta interna e orientata alla sicurezza urbana.</p>
+        </div>
+      </article>
+      <article class="compact-poster">
+        <img src="/images/features/optimized/notifiche-zona.webp" alt="Notifiche intelligenti di zona" loading="lazy" />
+        <div>
+          <h3>Avvisi pertinenti</h3>
+          <p>Meno rumore, più utilità: gli avvisi devono essere vicini, chiari e davvero azionabili.</p>
+        </div>
+      </article>
     </div>
   </section>
 </MainLayout>

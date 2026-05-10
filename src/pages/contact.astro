@@ -1,6 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/common/Button.astro";
 import { site } from "../data/site";
 ---
 
@@ -8,18 +7,24 @@ import { site } from "../data/site";
   title="Contatti"
   description="Contatti proTcity per informazioni generali, supporto, partnership, stampa e privacy."
   canonicalPath="/contact"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--support">
+    <div class="cinematic-hero__overlay"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">Contatti</p>
-      <h1>Un punto unico per parlare con il team proTcity.</h1>
+      <h1>Un canale chiaro per ogni esigenza.</h1>
       <p>
-        Seleziona il canale più adatto: prodotto, supporto, partner territoriali, hospitality, stampa o privacy.
+        Prodotto, supporto utenti, partner territoriali e privacy: scegli il punto giusto e il team proTcity saprà dove intervenire.
       </p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href={`mailto:${site.emails.general}`}>Scrivici</a>
+        <a class="glass-button" href="/support">Vai al supporto</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="cinematic-section">
     <div class="container card-grid">
       <article class="contact-card">
         <h3>Informazioni generali</h3>
@@ -44,8 +49,8 @@ import { site } from "../data/site";
     </div>
   </section>
 
-  <section class="content-section section--muted">
-    <div class="container two-column two-column--center">
+  <section class="cinematic-band">
+    <div class="container two-column two-column--center glass-panel">
       <div>
         <p class="eyebrow">Dati societari</p>
         <h2>{site.company.legalName}</h2>
@@ -53,7 +58,7 @@ import { site } from "../data/site";
         <p>{site.company.vat}</p>
       </div>
       <div>
-        <Button href="/privacy" variant="ghost">Privacy Policy</Button>
+        <a class="glass-button" href="/privacy">Privacy Policy</a>
       </div>
     </div>
   </section>

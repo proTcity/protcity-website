@@ -1,7 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import Button from "../components/common/Button.astro";
 import { site } from "../data/site";
 import { supportTopics } from "../data/features";
 ---
@@ -10,33 +8,59 @@ import { supportTopics } from "../data/features";
   title="Supporto"
   description="Centro supporto proTcity per account, sicurezza personale, segnalazioni, partner e richieste dati."
   canonicalPath="/support"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--support">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">Supporto</p>
-      <h1>Assistenza per utenti, partner e richieste operative.</h1>
-      <p>
-        Questa sezione raccoglie i canali principali di supporto. Quando il sito sarà online potrà evolvere in una knowledge base più completa.
+      <h1>Un assistente vicino, con canali chiari quando serve una persona.</h1>
+      <p class="cinematic-hero__lead">
+        proTcity combina supporto AI, manuale app e contatti pubblici per aiutare utenti, partner ed enti senza inventare risposte fuori contesto.
       </p>
-      <Button href={`mailto:${site.emails.support}`}>Scrivi al supporto</Button>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href={`mailto:${site.emails.support}`}>Scrivi al supporto</a>
+        <a class="glass-button" href="/data-deletion">Privacy e dati</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="cinematic-section">
     <div class="container">
-      <SectionHeader eyebrow="Categorie" title="Da dove possiamo iniziare." />
-      <div class="support-grid">
+      <div class="feature-split feature-split--reverse glass-panel">
+        <div class="feature-split__copy">
+          <p class="eyebrow">Assistente AI</p>
+          <h2>Risposte sull'app, non su tutto il mondo.</h2>
+          <p>
+            Il bot di supporto usa manuale, testi delle schermate e guida rapida. Se una domanda non riguarda proTcity, deve dirlo chiaramente.
+          </p>
+          <ul class="glass-list">
+            <li>Aiuto su segnalazioni, alert, WalkGuard e impostazioni.</li>
+            <li>Escalation verso email pubbliche quando serve supporto umano.</li>
+            <li>Budget controllato e risposte limitate al perimetro app.</li>
+          </ul>
+        </div>
+        <figure class="assistant-panel">
+          <img src="/images/features/protcity-assistant.gif" alt="Assistente AI proTcity animato" loading="lazy" />
+          <figcaption>Ciao, sono qui se ti serve aiuto.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-band">
+    <div class="container support-grid">
         {supportTopics.map((topic) => (
           <article class="support-item">
             <h3>{topic.title}</h3>
             <p>{topic.text}</p>
           </article>
         ))}
-      </div>
     </div>
   </section>
 
-  <section class="content-section section--muted">
+  <section class="cinematic-section">
     <div class="container two-column">
       <div class="info-panel">
         <h2>Emergenze</h2>
@@ -45,7 +69,7 @@ import { supportTopics } from "../data/features";
       <div class="info-panel">
         <h2>Dati personali</h2>
         <p>Per privacy, accesso ai dati o cancellazione account usa la pagina dedicata all'eliminazione dati.</p>
-        <Button href="/data-deletion" variant="ghost">Eliminazione dati</Button>
+        <a class="glass-button" href="/data-deletion">Eliminazione dati</a>
       </div>
     </div>
   </section>

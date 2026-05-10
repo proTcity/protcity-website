@@ -1,49 +1,94 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import StatCard from "../components/cards/StatCard.astro";
 ---
 
 <MainLayout
   title="Tecnologia"
   description="AI, Safety Score, dati aggregati e principi tecnici alla base di proTcity."
   canonicalPath="/technology"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--technology">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">Tecnologia</p>
-      <h1>AI e dati al servizio di una lettura più ordinata della città.</h1>
-      <p>
-        proTcity usa tecnologia, modelli di analisi e dati geolocalizzati per supportare decisioni più informate. Il sistema deve restare comprensibile, verificabile e proporzionato.
+      <h1>AI, Safety Score e dati urbani con una regola: prudenza.</h1>
+      <p class="cinematic-hero__lead">
+        proTcity non profila persone e non promette sicurezza assoluta. Analizza zone, percorsi e condizioni urbane per restituire suggerimenti spiegabili.
       </p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/walkguard">Vedi WalkGuard</a>
+        <a class="glass-button" href="/safety">Principi sicurezza</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="signal-strip signal-strip--floating">
     <div class="container">
-      <SectionHeader
-        eyebrow="Architettura informativa"
-        title="Dati utili, letti con cautela."
-        description="La tecnologia di proTcity è pensata per combinare segnali diversi senza trasformarli in verdetti automatici."
-      />
-      <div class="stat-grid">
-        <StatCard value="AI" label="Supporto a classificazione, deduplica e priorità dei segnali." />
-        <StatCard value="Score" label="Sintesi leggibile del contesto, sempre da interpretare." />
-        <StatCard value="Privacy" label="Minimizzazione, aggregazione e controllo dei dati personali." />
+      <div class="signal-strip__grid">
+        <article>
+          <span>AI</span>
+          <h3>Spiega</h3>
+          <p>Il modello aiuta a sintetizzare il motivo di un suggerimento in modo calmo e comprensibile.</p>
+        </article>
+        <article>
+          <span>Score</span>
+          <h3>Valuta zone</h3>
+          <p>Il punteggio riguarda aree e percorsi, non persone, gruppi o comportamenti individuali.</p>
+        </article>
+        <article>
+          <span>Privacy</span>
+          <h3>Minimizza</h3>
+          <p>Cache leggere, dati aggregati e nessun archivio esterno massivo dentro Firestore.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="content-section section--muted">
-    <div class="container two-column">
-      <div class="info-panel">
-        <h2>Safety Score</h2>
-        <p>Un indicatore sintetico può aiutare a orientarsi, ma deve essere spiegabile e non discriminatorio. Per questo la comunicazione dovrà evidenziare limiti, fonti e criteri.</p>
+  <section class="cinematic-section">
+    <div class="container feature-split glass-panel">
+      <figure class="image-frame">
+        <img src="/images/features/optimized/ia-predittiva.webp" alt="AI predittiva proTcity ricalcola il percorso" loading="lazy" />
+      </figure>
+      <div class="feature-split__copy">
+        <p class="eyebrow">Safety Intelligence Engine</p>
+        <h2>Il motore non predice il crimine. Legge l'aumento del rischio urbano.</h2>
+        <p>
+          Incrocia segnali interni, contesto stradale, meteo, safe point, orario e fonti leggere per suggerire alternative quando il quadro diventa meno favorevole.
+        </p>
+        <ul class="glass-list">
+          <li>Output strutturato, con confidence score e fallback statico.</li>
+          <li>Messaggi non allarmistici e sempre spiegabili.</li>
+          <li>Nessuna chiave AI esposta nel client mobile.</li>
+        </ul>
       </div>
-      <div class="info-panel">
-        <h2>Moderazione</h2>
-        <p>I contenuti sensibili richiedono regole, revisione e canali di segnalazione. La fiducia nasce dalla qualità dei dati, non dalla quantità di alert.</p>
-      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-band">
+    <div class="container poster-grid poster-grid--three">
+      <article class="compact-poster">
+        <img src="/images/features/optimized/safety-score.webp" alt="Safety Score proTcity" loading="lazy" />
+        <div>
+          <h3>Safety Score</h3>
+          <p>Un indicatore sintetico, utile solo se accompagnato da motivazioni e limiti chiari.</p>
+        </div>
+      </article>
+      <article class="compact-poster">
+        <img src="/images/features/optimized/city-pulse.webp" alt="City Pulse proTcity" loading="lazy" />
+        <div>
+          <h3>City Pulse</h3>
+          <p>La mappa diventa un ecosistema: alert, percorsi, community, AI e servizi vicini.</p>
+        </div>
+      </article>
+      <article class="compact-poster">
+        <img src="/images/features/optimized/la-citta-ti-parla.webp" alt="La città ti parla con proTcity" loading="lazy" />
+        <div>
+          <h3>Assistente contestuale</h3>
+          <p>Supporto intelligente dentro l'app, limitato all'uso di proTcity e alle funzioni disponibili.</p>
+        </div>
+      </article>
     </div>
   </section>
 </MainLayout>

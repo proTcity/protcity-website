@@ -1,7 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import Button from "../components/common/Button.astro";
 import { guestsafeBenefits } from "../data/features";
 ---
 
@@ -9,39 +7,70 @@ import { guestsafeBenefits } from "../data/features";
   title="GuestSafe"
   description="GuestSafe è la soluzione proTcity per hotel, strutture ricettive e hospitality network."
   canonicalPath="/guestsafe"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--guestsafe">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">GuestSafe</p>
-      <h1>Sicurezza e orientamento locale per ospiti e viaggiatori.</h1>
-      <p>
-        GuestSafe è pensata per strutture ricettive che vogliono offrire ai propri ospiti informazioni semplici, aggiornabili e localizzate su spostamenti, quartieri e supporto.
+      <h1>Accoglienza più sicura per hotel, ospiti e viaggiatori.</h1>
+      <p class="cinematic-hero__lead">
+        GuestSafe aiuta chi visita una città nuova a trovare percorsi più prudenti, punti utili e supporto locale senza dover conoscere già il territorio.
       </p>
-      <Button href="/contact">Richiedi informazioni</Button>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="container">
-      <SectionHeader
-        eyebrow="Hospitality"
-        title="Un servizio B2B che migliora accoglienza e fiducia."
-      />
-      <ul class="list-panel">
-        {guestsafeBenefits.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-  </section>
-
-  <section class="content-section section--warm">
-    <div class="container two-column">
-      <div class="info-panel">
-        <h2>Per la reception</h2>
-        <p>Materiali e indicazioni digitali aiutano il personale a rispondere in modo più coerente alle domande frequenti degli ospiti.</p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/partner">Soluzioni hotel</a>
+        <a class="glass-button" href="/contact">Richiedi informazioni</a>
       </div>
-      <div class="info-panel">
-        <h2>Per l'ospite</h2>
-        <p>Informazioni chiare e strumenti nell'app riducono incertezza, soprattutto in città nuove o durante spostamenti serali.</p>
+    </div>
+  </section>
+
+  <section class="signal-strip signal-strip--floating">
+    <div class="container">
+      <div class="signal-strip__grid">
+        {guestsafeBenefits.slice(0, 3).map((item, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{item}</h3>
+            <p>Informazioni semplici per ospiti, reception e partner hospitality, sempre con tono prudente.</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section">
+    <div class="container feature-split feature-split--reverse glass-panel">
+      <div class="feature-split__copy">
+        <p class="eyebrow">Tourist Safe Mode</p>
+        <h2>Per chi arriva in una città nuova e vuole orientarsi senza stress.</h2>
+        <p>
+          L'app può mettere in evidenza hotel, percorsi consigliati, safe point, assistenza locale e indicazioni utili per rientrare in modo più sereno.
+        </p>
+        <div class="metric-row">
+          <span>Hotel partner</span>
+          <span>Punti utili</span>
+          <span>Rientro sicuro</span>
+        </div>
+      </div>
+      <figure class="image-frame image-frame--wide">
+        <img src="/images/features/optimized/tourist-safe-mode.webp" alt="Tourist Safe Mode di proTcity per viaggiatori" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="cinematic-band">
+    <div class="container world-panel glass-panel">
+      <div class="world-panel__copy">
+        <p class="eyebrow">Hospitality network</p>
+        <h2>La reception diventa un punto digitale di fiducia.</h2>
+        <p>
+          GuestSafe è pensata per strutture che vogliono offrire un servizio moderno: meno incertezza, più orientamento e un canale chiaro tra ospite, hotel e territorio.
+        </p>
+      </div>
+      <div class="world-panel__media">
+        <img src="/images/features/optimized/guest-safe-hotel.webp" alt="GuestSafe per hotel e ospiti" loading="lazy" />
+        <img src="/images/features/optimized/ovunque-tu-sia.webp" alt="proTcity funziona anche quando viaggi" loading="lazy" />
       </div>
     </div>
   </section>

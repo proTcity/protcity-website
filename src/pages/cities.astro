@@ -1,7 +1,5 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
-import Button from "../components/common/Button.astro";
 import { cityBenefits } from "../data/features";
 ---
 
@@ -9,41 +7,76 @@ import { cityBenefits } from "../data/features";
   title="Città e territori"
   description="proTcity per Comuni, enti e territori: ascolto, insight aggregati, prevenzione e comunicazione locale."
   canonicalPath="/cities"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
-      <p class="eyebrow">Città e territori</p>
-      <h1>Un canale digitale per capire meglio i segnali urbani.</h1>
-      <p>
+  <section class="cinematic-hero feature-hero feature-hero--cities">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
+      <p class="eyebrow">Citta e territori</p>
+      <h1>La città si accende quando cittadini ed enti collaborano.</h1>
+      <p class="cinematic-hero__lead">
         proTcity può aiutare amministrazioni, enti e territori a raccogliere segnali in modo più ordinato, leggere pattern ricorrenti e comunicare ai cittadini con maggiore tempestività.
       </p>
-      <Button href="/contact">Contatto istituzionale</Button>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/partner#enti">Soluzioni Enti</a>
+        <a class="glass-button" href="/contact">Contatto istituzionale</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
-    <div class="container two-column">
-      <SectionHeader
-        eyebrow="Perché serve"
-        title="La percezione di sicurezza è un dato delicato, ma non va ignorato."
-        description="La piattaforma è pensata per valorizzare dati aggregati, trend e segnalazioni qualificate, evitando letture sensazionalistiche."
-      />
-      <ul class="list-panel">
-        {cityBenefits.map((item) => <li>{item}</li>)}
-      </ul>
+  <section class="signal-strip signal-strip--floating">
+    <div class="container">
+      <div class="signal-strip__grid">
+        {cityBenefits.slice(0, 3).map((item, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <h3>{item}</h3>
+            <p>Dati aggregati e workflow chiari aiutano a leggere il territorio senza trasformare i segnali in allarmi assoluti.</p>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="content-section section--muted">
-    <div class="container two-column two-column--center">
-      <div class="info-panel">
-        <h2>Output possibili</h2>
-        <p>Report periodici, mappe di ricorrenza, materiali informativi, campagne territoriali e dashboard operative per stakeholder autorizzati.</p>
+  <section class="cinematic-section">
+    <div class="container feature-split glass-panel">
+      <figure class="image-frame image-frame--wide">
+        <img src="/images/features/optimized/segnalazioni-enti.webp" alt="Segnalazioni proTcity con dashboard Enti" loading="lazy" />
+      </figure>
+      <div class="feature-split__copy">
+        <p class="eyebrow">Dashboard Enti</p>
+        <h2>Dalla segnalazione alla presa in carico, con stato e timeline.</h2>
+        <p>
+          Gli Enti possono leggere segnalazioni territoriali, conferme community, priorita e stati di avanzamento in un ambiente separato dai partner commerciali.
+        </p>
+        <div class="metric-row">
+          <span>Invio</span>
+          <span>Conferme</span>
+          <span>Interventi</span>
+          <span>Risoluzione</span>
+        </div>
       </div>
-      <div class="info-panel">
-        <h2>Uso responsabile</h2>
-        <p>I dati devono essere letti come supporto decisionale, non come giudizio definitivo su quartieri, persone o comunità.</p>
+    </div>
+  </section>
+
+  <section class="cinematic-band">
+    <div class="container feature-split feature-split--reverse glass-panel">
+      <div class="feature-split__copy">
+        <p class="eyebrow">Uso responsabile</p>
+        <h2>Il territorio si interpreta, non si etichetta.</h2>
+        <p>
+          Mappe, trend e dashboard servono come supporto operativo. proTcity non profila persone e non assegna giudizi definitivi ai quartieri.
+        </p>
+        <ul class="glass-list">
+          <li>Segnalazioni aggregate e filtrate per competenza territoriale.</li>
+          <li>Stati chiari: inviata, presa in carico, in lavorazione, risolta.</li>
+          <li>Comunicazione calma per cittadini, Comuni e strutture operative.</li>
+        </ul>
       </div>
+      <figure class="image-frame">
+        <img src="/images/features/optimized/citta-si-accende.webp" alt="proTcity mostra la città come ecosistema urbano intelligente" loading="lazy" />
+      </figure>
     </div>
   </section>
 </MainLayout>

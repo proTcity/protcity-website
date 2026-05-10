@@ -1,29 +1,37 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import SectionHeader from "../components/common/SectionHeader.astro";
 ---
 
 <MainLayout
   title="Sicurezza e uso corretto"
   description="Principi di sicurezza, moderazione e uso responsabile della piattaforma proTcity."
   canonicalPath="/safety"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--technology">
+    <div class="cinematic-hero__overlay"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">Safety policy</p>
-      <h1>La sicurezza digitale richiede regole chiare e responsabilità.</h1>
+      <h1>Sicurezza utile, senza panico e senza scorciatoie.</h1>
       <p>
         proTcity deve aiutare le persone senza amplificare paura, discriminazione o contenuti non verificati. Questa pagina raccoglie i principi operativi da cui partire.
       </p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/privacy">Privacy</a>
+        <a class="glass-button" href="/contact">Contatti pubblici</a>
+      </div>
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="cinematic-section">
     <div class="container">
-      <SectionHeader
-        eyebrow="Principi"
-        title="Una piattaforma utile deve essere anche misurata."
-      />
+      <div class="section-intro">
+        <p class="eyebrow">Principi</p>
+        <h2>Una piattaforma utile deve essere anche misurata.</h2>
+        <p>
+          proTcity lavora su contesto, zone e percorsi. Non profila persone, non crea accuse e non sostituisce i canali ufficiali.
+        </p>
+      </div>
       <ul class="list-panel">
         <li>Non usare proTcity per accusare persone identificabili, pubblicare dati sensibili o sostituirsi alle autorità.</li>
         <li>Le emergenze devono sempre essere gestite tramite i numeri ufficiali e i canali previsti dalla legge.</li>

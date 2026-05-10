@@ -93,23 +93,26 @@ function mailtoPlan(subject: string) {
   title="Diventa Partner"
   description="Piani e richiesta accesso per aziende, attività commerciali, hotel ed enti pubblici che vogliono entrare nella rete proTcity."
   canonicalPath="/partner"
+  bodyClass="cinematic-site"
 >
-  <section class="page-hero partner-hero">
-    <div class="container">
+  <section class="cinematic-hero feature-hero feature-hero--partner">
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
       <p class="eyebrow">Diventa Partner</p>
-      <h1>Porta la tua attività nella rete urbana di proTcity.</h1>
-      <p>
+      <h1>Una console per aziende, hotel ed enti che vogliono lavorare con il territorio.</h1>
+      <p class="cinematic-hero__lead">
         Aziende, hotel, attività locali ed enti pubblici possono usare proTcity per diventare punti
         riconoscibili, leggere meglio il territorio e gestire servizi dedicati da una console sicura.
       </p>
-      <div class="hero__actions">
-        <Button href="#aziende">Vedi piani aziende</Button>
-        <Button href="#enti" variant="ghost">Soluzioni Enti</Button>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="#aziende">Piani aziende</a>
+        <a class="glass-button" href="#enti">Soluzioni Enti</a>
       </div>
     </div>
   </section>
 
-  <section id="aziende" class="content-section partner-pricing-section">
+  <section id="aziende" class="cinematic-section partner-pricing-section">
     <div class="container">
       <div class="partner-section-heading">
         <p class="eyebrow">Aziende</p>
@@ -145,7 +148,7 @@ function mailtoPlan(subject: string) {
     </div>
   </section>
 
-  <section id="enti" class="content-section section--muted">
+  <section id="enti" class="cinematic-band">
     <div class="container">
       <div class="partner-section-heading">
         <p class="eyebrow">Enti Pubblici</p>
@@ -181,9 +184,9 @@ function mailtoPlan(subject: string) {
     </div>
   </section>
 
-  <section class="content-section">
+  <section class="cinematic-section">
     <div class="container">
-      <div class="partner-flow-grid">
+      <div class="partner-flow-grid glass-panel">
         <article>
           <span>01</span>
           <h3>Scelta piano</h3>

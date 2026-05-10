@@ -1022,12 +1022,14 @@ p {
 }
 
 /* Cinematic homepage */
-body.home-cinematic {
+body.home-cinematic,
+body.cinematic-site {
   color: #ffffff;
   background: #02050b;
 }
 
-body.home-cinematic .site-header {
+body.home-cinematic .site-header,
+body.cinematic-site .site-header {
   position: fixed;
   width: 100%;
   background: rgba(3, 7, 13, 0.62);
@@ -1036,23 +1038,30 @@ body.home-cinematic .site-header {
 }
 
 body.home-cinematic .nav-link,
-body.home-cinematic .mobile-nav summary {
+body.home-cinematic .mobile-nav summary,
+body.cinematic-site .nav-link,
+body.cinematic-site .mobile-nav summary {
   color: rgba(255, 255, 255, 0.76);
 }
 
 body.home-cinematic .nav-link:hover,
 body.home-cinematic .nav-link.is-active,
-body.home-cinematic .mobile-nav summary:hover {
+body.home-cinematic .mobile-nav summary:hover,
+body.cinematic-site .nav-link:hover,
+body.cinematic-site .nav-link.is-active,
+body.cinematic-site .mobile-nav summary:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
 }
 
-body.home-cinematic .header-contact {
+body.home-cinematic .header-contact,
+body.cinematic-site .header-contact {
   color: #02050b;
   background: #ffffff;
 }
 
-body.home-cinematic .mobile-nav__panel {
+body.home-cinematic .mobile-nav__panel,
+body.cinematic-site .mobile-nav__panel {
   background: rgba(5, 11, 21, 0.96);
   border-color: rgba(56, 182, 255, 0.22);
 }
@@ -1083,6 +1092,42 @@ body.home-cinematic .mobile-nav__panel {
 
 .cinematic-hero__media {
   background-image: url("/images/features/optimized/city-pulse.webp");
+}
+
+.feature-hero {
+  min-height: 86vh;
+}
+
+.feature-hero--app .cinematic-hero__media {
+  background-image: url("/images/features/optimized/city-pulse.webp");
+}
+
+.feature-hero--walkguard .cinematic-hero__media {
+  background-image: url("/images/features/optimized/walkguard-ai-route.webp");
+  background-position: center top;
+}
+
+.feature-hero--cities .cinematic-hero__media {
+  background-image: url("/images/features/optimized/citta-si-accende.webp");
+}
+
+.feature-hero--guestsafe .cinematic-hero__media {
+  background-image: url("/images/features/optimized/guest-safe-hotel.webp");
+  background-position: center top;
+}
+
+.feature-hero--partner .cinematic-hero__media {
+  background-image: url("/images/features/optimized/partner-console.webp");
+  background-position: center top;
+}
+
+.feature-hero--technology .cinematic-hero__media {
+  background-image: url("/images/features/optimized/ia-predittiva.webp");
+}
+
+.feature-hero--support .cinematic-hero__media {
+  background-image: url("/images/features/optimized/assistente-ai.webp");
+  background-position: center top;
 }
 
 .cinematic-final__media {
@@ -1143,6 +1188,13 @@ body.home-cinematic .mobile-nav__panel {
 }
 
 .cinematic-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.cinematic-hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -1268,11 +1320,13 @@ body.home-cinematic .mobile-nav__panel {
   text-transform: uppercase;
 }
 
-.signal-strip strong {
+.signal-strip strong,
+.signal-strip h3 {
   display: block;
   margin-bottom: 10px;
   color: #ffffff;
   font-size: 1.35rem;
+  line-height: 1.15;
 }
 
 .signal-strip p,
@@ -1339,7 +1393,9 @@ body.home-cinematic .mobile-nav__panel {
 .compact-poster,
 .image-frame,
 .world-panel,
-.feature-split {
+.feature-split,
+.glass-panel,
+.assistant-panel {
   border: 1px solid rgba(56, 182, 255, 0.22);
   border-radius: 8px;
   background:
@@ -1349,6 +1405,80 @@ body.home-cinematic .mobile-nav__panel {
     0 26px 90px rgba(0, 0, 0, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(18px);
+}
+
+.assistant-panel {
+  min-height: 520px;
+  display: grid;
+  place-items: center;
+  padding: 34px;
+  text-align: center;
+}
+
+.assistant-panel img {
+  width: min(240px, 55vw);
+  filter: drop-shadow(0 0 34px rgba(56, 182, 255, 0.34));
+}
+
+.assistant-panel figcaption {
+  margin-top: 18px;
+  color: #ffffff;
+  font-size: 1.18rem;
+  font-weight: 900;
+}
+
+body.cinematic-site .pricing-card,
+body.cinematic-site .partner-flow-grid article,
+body.cinematic-site .info-panel,
+body.cinematic-site .support-item,
+body.cinematic-site .contact-card,
+body.cinematic-site .list-panel,
+body.cinematic-site .stat-card,
+body.cinematic-site .feature-card {
+  border-color: rgba(56, 182, 255, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
+    rgba(5, 11, 21, 0.78);
+  box-shadow:
+    0 22px 70px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+body.cinematic-site .pricing-card h2,
+body.cinematic-site .partner-section-heading h2,
+body.cinematic-site .partner-cta-strip h2,
+body.cinematic-site .info-panel h2,
+body.cinematic-site .info-panel h3,
+body.cinematic-site .support-item h3,
+body.cinematic-site .contact-card h3,
+body.cinematic-site .partner-flow-grid h3 {
+  color: #ffffff;
+}
+
+body.cinematic-site .pricing-card p,
+body.cinematic-site .pricing-card li,
+body.cinematic-site .partner-section-heading p,
+body.cinematic-site .partner-cta-strip p,
+body.cinematic-site .info-panel p,
+body.cinematic-site .support-item p,
+body.cinematic-site .contact-card p,
+body.cinematic-site .partner-flow-grid p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+body.cinematic-site .contact-card a {
+  color: #7bd4ff;
+}
+
+body.cinematic-site .pricing-card__button {
+  color: #02050b;
+  background: #ffffff;
+}
+
+body.cinematic-site .pricing-card--featured {
+  border-color: rgba(56, 182, 255, 0.78);
+  box-shadow: 0 0 48px rgba(56, 182, 255, 0.2), 0 26px 90px rgba(0, 0, 0, 0.34);
 }
 
 .liquid-poster {
@@ -1535,7 +1665,8 @@ body.home-cinematic .mobile-nav__panel {
 }
 
 @media (max-width: 760px) {
-  body.home-cinematic .site-header {
+  body.home-cinematic .site-header,
+  body.cinematic-site .site-header {
     position: sticky;
   }
 
