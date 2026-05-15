@@ -17,9 +17,14 @@ export const site = {
     privacy: "privacy@protcity.com"
   },
   company: {
-    legalName: "proTcity",
+    legalName: "Kurbi Labs srls",
+    street: "Via Sassotello, n. 47",
+    postalCode: "03010",
     country: "Italia",
-    city: "Roma",
-    vat: "Dati societari da completare"
+    city: "Trivigliano (FR)",
+    phone: "+39 329 93 99 838",
+    phoneHref: "+393299399838",
+    vat: "IT03342090606",
+    rea: "FR - 336362"
   }
 } as const;

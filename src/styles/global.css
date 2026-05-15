@@ -1649,6 +1649,60 @@ body.cinematic-site .pricing-card--featured {
   backdrop-filter: blur(18px);
 }
 
+.site-footer__company {
+  display: grid;
+  gap: 4px;
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.68);
+  font-style: normal;
+  font-size: 0.92rem;
+}
+
+.site-footer__company strong {
+  color: #ffffff;
+}
+
+.site-footer__company a {
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.company-data {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0 0;
+}
+
+.company-data div {
+  padding: 14px 16px;
+  border: 1px solid rgba(110, 194, 255, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.company-data dt {
+  color: #79cfff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.company-data dd {
+  margin: 4px 0 0;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.company-data a {
+  color: #8ce6ff;
+  text-decoration: none;
+}
+
+.company-data a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 1100px) {
   .cinematic-hero h1 {
     font-size: 4.8rem;

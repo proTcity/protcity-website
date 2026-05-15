@@ -54,8 +54,32 @@ import { site } from "../data/site";
       <div>
         <p class="eyebrow">Dati societari</p>
         <h2>{site.company.legalName}</h2>
-        <p>{site.company.city}, {site.company.country}</p>
-        <p>{site.company.vat}</p>
+        <dl class="company-data">
+          <div>
+            <dt>Ragione sociale</dt>
+            <dd>{site.company.legalName}</dd>
+          </div>
+          <div>
+            <dt>Sede legale</dt>
+            <dd>
+              {site.company.street}<br />
+              {site.company.postalCode} {site.company.city}<br />
+              {site.company.country}
+            </dd>
+          </div>
+          <div>
+            <dt>Telefono</dt>
+            <dd><a href={`tel:${site.company.phoneHref}`}>{site.company.phone}</a></dd>
+          </div>
+          <div>
+            <dt>Partita IVA</dt>
+            <dd>{site.company.vat}</dd>
+          </div>
+          <div>
+            <dt>Numero REA</dt>
+            <dd>{site.company.rea}</dd>
+          </div>
+        </dl>
       </div>
       <div>
         <a class="glass-button" href="/privacy">Privacy Policy</a>

@@ -13,6 +13,13 @@ const year = new Date().getFullYear();
         Sicurezza urbana collaborativa per persone, citta e partner locali.
       </p>
       <a href={`mailto:${site.emails.general}`}>{site.emails.general}</a>
+      <address class="site-footer__company">
+        <strong>{site.company.legalName}</strong>
+        <span>{site.company.street}</span>
+        <span>{site.company.postalCode} {site.company.city}</span>
+        <span>{site.company.country}</span>
+        <a href={`tel:${site.company.phoneHref}`}>{site.company.phone}</a>
+      </address>
     </div>
 
     {footerGroups.map((group) => (
@@ -27,6 +34,6 @@ const year = new Date().getFullYear();
 
   <div class="container site-footer__bottom">
     <p>© {year} {site.company.legalName}. Tutti i diritti riservati.</p>
-    <p>{site.company.city}, {site.company.country}</p>
+    <p>Part. IVA: {site.company.vat} - REA: {site.company.rea}</p>
   </div>
 </footer>
