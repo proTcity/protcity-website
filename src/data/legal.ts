@@ -1,7 +1,7 @@
 export const legalMeta = {
-  lastUpdated: "1 maggio 2026",
+  lastUpdated: "17 maggio 2026",
   disclaimer:
-    "Queste pagine sono una base editoriale iniziale e devono essere validate con consulenza legale prima della pubblicazione definitiva."
+    "Queste pagine sono predisposte in base alle funzioni attuali e tecnicamente previste di proTcity. Non sostituiscono la verifica finale di un consulente privacy, legale o DPO prima della pubblicazione definitiva."
 } as const;
 
 export const legalCards = [

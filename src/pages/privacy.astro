@@ -1,43 +1,629 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { site } from "../data/site";
+
+const title = "Privacy Policy e Informativa GDPR | proTcity";
+const description =
+  "Informativa completa sul trattamento dei dati personali per app proTcity, sito protcity.com, servizi collegati, geolocalizzazione, segnalazioni, alert, SOS, AI e console.";
+
+const legalBases = [
+  {
+    purpose: "Creazione account, autenticazione e gestione profilo",
+    data: "email, identificativi account, UID Firebase, dati tecnici essenziali",
+    basis: "Esecuzione del servizio richiesto e misure precontrattuali; obblighi legali ove applicabili."
+  },
+  {
+    purpose: "Mappa, geolocalizzazione, WalkGuard, percorsi e Safety Score",
+    data: "posizione precisa o approssimativa, coordinate, percorso, contesto urbano",
+    basis: "Consenso per la posizione del dispositivo; esecuzione del servizio richiesto; legittimo interesse alla sicurezza e qualita del servizio."
+  },
+  {
+    purpose: "Segnalazioni, alert, immagini e conferme community",
+    data: "contenuti inseriti dall'utente, categoria, note, coordinate, immagini, timestamp, conferme",
+    basis: "Esecuzione del servizio; consenso ove richiesto; legittimo interesse a informare la community e prevenire abusi."
+  },
+  {
+    purpose: "Funzione SOS, Guardian/Buddy e comunicazioni di sicurezza",
+    data: "posizione, contatti scelti, codici sessione, timestamp, eventuali dati di emergenza",
+    basis: "Esecuzione del servizio; consenso; tutela di interessi vitali in situazioni di emergenza; legittimo interesse."
+  },
+  {
+    purpose: "Moderazione, prevenzione abusi e sicurezza piattaforma",
+    data: "log, contenuti segnalati, note di revisione, esiti, dati tecnici",
+    basis: "Legittimo interesse; obblighi legali; accertamento, esercizio o difesa di diritti."
+  },
+  {
+    purpose: "Notifiche push e comunicazioni operative",
+    data: "token dispositivo, preferenze, area di interesse, eventi rilevanti",
+    basis: "Consenso per notifiche push; esecuzione del servizio per comunicazioni essenziali."
+  },
+  {
+    purpose: "Supporto utenti, chatbot e assistenza AI",
+    data: "domande, messaggi, contesto minimo necessario, dati tecnici della richiesta",
+    basis: "Esecuzione del servizio di assistenza; legittimo interesse a migliorare supporto e sicurezza."
+  },
+  {
+    purpose: "Adempimenti, contenziosi, richieste privacy e tutela aziendale",
+    data: "dati necessari alla richiesta o alla difesa",
+    basis: "Obbligo legale; accertamento, esercizio o difesa di diritti."
+  }
+];
+
+const providers = [
+  {
+    name: "Firebase e Google Cloud",
+    role: "Responsabile del trattamento o fornitore cloud, secondo i servizi attivati",
+    data: "account, autenticazione, database Firestore, Storage, Functions, log tecnici, analytics/performance se attivi",
+    purpose: "backend, autenticazione, archiviazione dati, sicurezza, funzioni server-side, monitoraggio tecnico",
+    transfer: "possibile trattamento in SEE, Stati Uniti o altri Paesi secondo infrastruttura Google e garanzie contrattuali"
+  },
+  {
+    name: "Firebase Authentication",
+    role: "servizio Google/Firebase",
+    data: "email, UID, provider login, dati tecnici di accesso",
+    purpose: "registrazione, login, gestione sessioni e sicurezza account",
+    transfer: "possibili trasferimenti extra SEE regolati da condizioni Google"
+  },
+  {
+    name: "Firestore",
+    role: "database cloud",
+    data: "segnalazioni, alert, conferme, preferenze, dati app, log e configurazioni operative",
+    purpose: "funzionamento app, sincronizzazione dati e console",
+    transfer: "in base alla regione cloud configurata e alle garanzie Google"
+  },
+  {
+    name: "Firebase Storage",
+    role: "storage cloud",
+    data: "immagini caricate dagli utenti e file collegati ai contenuti",
+    purpose: "conservazione media, visualizzazione limitata e moderazione",
+    transfer: "in base alla regione cloud configurata e alle garanzie Google"
+  },
+  {
+    name: "Mapbox",
+    role: "fornitore mappe, geocoding, percorsi e dati cartografici",
+    data: "query mappa, coordinate, indirizzi cercati, percorsi e dati tecnici",
+    purpose: "mappe, navigazione, geocodifica, routing, POI e contesto territoriale",
+    transfer: "possibile trattamento extra SEE secondo policy e garanzie Mapbox"
+  },
+  {
+    name: "OpenAI",
+    role: "fornitore AI/API utilizzato tramite backend proTcity",
+    data: "testi, contesto urbano sintetico, dati tecnici minimi e prompt necessari",
+    purpose: "spiegazioni Safety AI, assistenza app, sintesi e supporto decisionale informativo",
+    transfer: "possibile trattamento extra SEE secondo condizioni OpenAI e garanzie applicabili"
+  },
+  {
+    name: "Cloudflare",
+    role: "hosting, CDN, sicurezza e DNS per il sito",
+    data: "IP, log tecnici, richieste HTTP, dati di sicurezza",
+    purpose: "pubblicazione sito, protezione traffico, performance e sicurezza",
+    transfer: "rete globale Cloudflare con garanzie contrattuali applicabili"
+  },
+  {
+    name: "Vercel",
+    role: "hosting e deploy console/admin o servizi web collegati, ove attivi",
+    data: "log tecnici, richieste web, dati necessari al rendering e alla sicurezza",
+    purpose: "hosting, deploy e funzionamento console",
+    transfer: "possibile trattamento extra SEE secondo DPA Vercel"
+  },
+  {
+    name: "GitHub",
+    role: "piattaforma di sviluppo e repository codice",
+    data: "codice sorgente, issue, log di sviluppo e metadati tecnici, non database utenti di produzione",
+    purpose: "sviluppo, versionamento, manutenzione e sicurezza del codice",
+    transfer: "possibile trattamento extra SEE secondo policy GitHub"
+  },
+  {
+    name: "Servizi email, form e comunicazioni",
+    role: "fornitori eventuali, se attivati",
+    data: "nome, email, contenuto del messaggio, metadati tecnici",
+    purpose: "gestione contatti, richieste supporto, privacy e partnership",
+    transfer: "dipende dal fornitore effettivamente configurato"
+  }
+];
+
+const retentionRows = [
+  ["Account utente", "per tutta la durata dell'account e successivamente per il tempo necessario a obblighi legali, sicurezza e tutela dei diritti"],
+  ["Dati autenticazione e UID", "per la durata dell'account, salvo cancellazione o obblighi di conservazione"],
+  ["Posizione in tempo reale", "solo per il tempo necessario alla funzione richiesta, salvo salvataggio collegato a segnalazione, alert, SOS o sicurezza"],
+  ["Segnalazioni e alert", "per il tempo necessario alla visibilita, gestione, moderazione, statistiche aggregate e tutela dei diritti; tempi definitivi da validare"],
+  ["Immagini caricate", "per il tempo necessario alla segnalazione o all'alert, alla moderazione e agli obblighi di tutela; rimosse o limitate se non conformi"],
+  ["Dati SOS, Guardian o Buddy", "per il tempo strettamente necessario alla sessione e alla sicurezza; eventuale conservazione piu lunga solo per abusi, contestazioni o obblighi legali"],
+  ["Log tecnici e sicurezza", "indicativamente 6-24 mesi, salvo necessita di indagine, abuso o tutela legale"],
+  ["Log moderazione", "per il tempo necessario a documentare decisioni, prevenire abusi e difendere diritti; durata da validare"],
+  ["Token notifiche push", "fino a revoca del consenso, disinstallazione, scadenza tecnica o cancellazione account"],
+  ["Richieste supporto e privacy", "per il tempo necessario alla gestione e documentazione della richiesta, indicativamente fino a 24 mesi salvo obblighi ulteriori"],
+  ["Dati sito e cookie tecnici", "per la durata tecnica della sessione o secondo i tempi del fornitore di sicurezza/hosting"],
+  ["Dati analytics/performance", "in forma aggregata o pseudonimizzata ove possibile, per il tempo configurato nei servizi attivi"]
+];
 ---
 
-<LegalLayout
-  title="Privacy Policy"
-  description="Informativa iniziale sul trattamento dei dati personali nell'ecosistema proTcity."
-  canonicalPath="/privacy"
->
-  <h2>1. Titolare del trattamento</h2>
-  <p>
-    Il titolare del trattamento è {site.company.legalName}, con sede legale in {site.company.street}, {site.company.postalCode} {site.company.city}, {site.company.country}, Part. IVA {site.company.vat}, Numero REA {site.company.rea}.
+<LegalLayout title={title} description={description} canonicalPath="/privacy">
+  <p class="legal-intro">
+    La presente informativa descrive in modo trasparente come <strong>{site.name}</strong> e Kurbi Labs s.r.l.s.
+    trattano i dati personali nell'ambito dell'app proTcity, del sito <strong>protcity.com</strong>, delle console
+    amministrative e dei servizi collegati. Il documento e predisposto sulla base delle funzionalita attualmente
+    sviluppate o tecnicamente predisposte nel progetto e deve essere validato da un consulente privacy prima della
+    pubblicazione definitiva.
   </p>
 
-  <h2>2. Dati trattati</h2>
-  <p>
-    proTcity può trattare dati di account, contatto, preferenze, posizione, contenuti di segnalazione, dati tecnici del dispositivo e informazioni necessarie alla sicurezza dell'account.
-  </p>
+  <section>
+    <h2>1. Titolare del trattamento</h2>
+    <p>
+      Il titolare del trattamento e <strong>{site.company.legalName}</strong>, con sede legale in
+      <strong>{site.company.street}, {site.company.postalCode} {site.company.city}, {site.company.country}</strong>,
+      P. IVA <strong>{site.company.vat}</strong>, REA <strong>{site.company.rea}</strong>, telefono
+      <a href={`tel:${site.company.phoneHref}`}>{site.company.phone}</a>.
+    </p>
+    <p>
+      Email privacy: <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>. Email supporto:
+      <a href={`mailto:${site.emails.support}`}>{site.emails.support}</a>. DPO/RPD: <strong>non ancora nominato
+      o da indicare se nominato</strong>.
+    </p>
+  </section>
 
-  <h2>3. Finalità</h2>
-  <ul>
-    <li>Fornire le funzionalità dell'app e del sito.</li>
-    <li>Gestire segnalazioni, assistenza e richieste degli utenti.</li>
-    <li>Migliorare sicurezza, qualità dei dati e prevenzione degli abusi.</li>
-    <li>Produrre analisi aggregate per servizi territoriali e partner autorizzati.</li>
-  </ul>
+  <section>
+    <h2>2. Ambito di applicazione</h2>
+    <p>
+      Questa Privacy Policy si applica all'app mobile proTcity, al sito protcity.com, alle comunicazioni email, alle
+      notifiche in-app o push ove attive, alle console di amministrazione, alle console partner/enti, ai servizi di
+      supporto, alle funzioni AI e a ogni servizio digitale collegato a proTcity.
+    </p>
+    <p>
+      Le funzioni indicate come "in arrivo", "beta", "predisposte" o "ove attive" non comportano necessariamente un
+      trattamento attuale. Quando tali funzioni verranno rese operative, il trattamento dovra essere confermato,
+      documentato e, se necessario, sottoposto a nuovo consenso o informativa integrativa.
+    </p>
+  </section>
 
-  <h2>4. Base giuridica</h2>
-  <p>
-    Le basi giuridiche potranno includere esecuzione del servizio, consenso, obblighi legali, legittimo interesse e tutela della sicurezza. La formulazione finale dovrà essere validata in base alle funzionalità effettivamente pubblicate.
-  </p>
+  <section>
+    <h2>3. Tipologie di dati trattati</h2>
+    <p>proTcity puo trattare, in base alle funzioni utilizzate dall'utente, le seguenti categorie di dati:</p>
+    <ul>
+      <li>dati identificativi e di contatto, come email, nome visualizzato, identificativi account e dati comunicati al supporto;</li>
+      <li>dati di autenticazione, inclusi UID Firebase, identificativi anonimi, provider di login e token tecnici;</li>
+      <li>dati tecnici del dispositivo, sistema operativo, versione app, lingua, indirizzo IP, log di sicurezza e diagnostica;</li>
+      <li>dati di geolocalizzazione precisa o approssimativa, coordinate GPS, indirizzi cercati, area di interesse e percorsi;</li>
+      <li>contenuti generati dagli utenti: segnalazioni, alert, categorie, note, conferme, timeline, commenti funzionali e metadati;</li>
+      <li>immagini caricate dagli utenti e relativi metadati tecnici, ove presenti;</li>
+      <li>dati SOS, Guardian, Buddy System e contatti fidati scelti dall'utente, ove la funzione sia usata;</li>
+      <li>dati di moderazione, revisioni, report di abuso, blocchi utente, esiti e log di enforcement;</li>
+      <li>dati relativi a interazioni con mappa, WalkGuard, Safety Score, Safe Points e AI Safety Intelligence;</li>
+      <li>token notifiche push, preferenze di notifica e cronologia di invio, ove la funzione sia attiva;</li>
+      <li>dati derivati da analisi automatizzate, come punteggi di affidabilita, rischio urbano, confidence score e motivazioni sintetiche;</li>
+      <li>dati raccolti tramite sito web, moduli di contatto, richieste partnership, email e sistemi anti-abuso.</li>
+    </ul>
+  </section>
 
-  <h2>5. Conservazione</h2>
-  <p>
-    I dati sono conservati per il tempo necessario alle finalità indicate e secondo criteri proporzionati. Alcuni dati possono essere anonimizzati o aggregati per finalità statistiche e di sicurezza urbana.
-  </p>
+  <section>
+    <h2>4. Geolocalizzazione precisa</h2>
+    <p>
+      La posizione dell'utente e uno dei dati piu delicati trattati da proTcity. Viene utilizzata per mostrare la mappa,
+      individuare segnalazioni e alert vicini, calcolare percorsi, suggerire alternative piu prudenti, attivare WalkGuard,
+      generare Safety Score, trovare Safe Points e gestire funzioni SOS o di condivisione volontaria.
+    </p>
+    <p>
+      La posizione viene richiesta tramite i permessi del sistema operativo. L'app puo usare la geolocalizzazione in
+      foreground quando l'utente usa la mappa o una funzione attiva. L'uso in background, se abilitato, deve essere
+      limitato a funzioni che lo richiedono esplicitamente, come WalkGuard, Guardian/Buddy o monitoraggio di sicurezza
+      volontario. L'utente puo revocare i permessi in qualsiasi momento dalle impostazioni di iOS o Android.
+    </p>
+    <p>
+      proTcity applica principi di minimizzazione: non conserva uno storico dettagliato degli spostamenti se non e
+      necessario alla funzione richiesta. Quando l'utente crea una segnalazione o un alert, le coordinate del luogo
+      segnalato possono essere salvate e rese visibili in forma funzionale. Quando l'utente attiva SOS o condivisione
+      con contatti fidati, la posizione puo essere condivisa con i destinatari selezionati per la durata necessaria.
+    </p>
+    <p>
+      Le analisi AI e Safety Score devono riguardare aree, percorsi, condizioni urbane e segnali territoriali, non persone
+      fisiche. proTcity non usa la posizione per profilare individui, attribuire colpe, classificare persone o prevedere
+      comportamenti criminali individuali.
+    </p>
+  </section>
 
-  <h2>6. Diritti dell'utente</h2>
-  <p>
-    L'utente può richiedere accesso, rettifica, cancellazione, limitazione, opposizione e portabilità dei dati scrivendo a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>.
-  </p>
+  <section>
+    <h2>5. Finalita del trattamento</h2>
+    <p>I dati personali sono trattati per le seguenti finalita:</p>
+    <ul>
+      <li>creare e gestire account, sessioni e autenticazione;</li>
+      <li>mostrare la mappa, localizzare l'utente e gestire indirizzi o luoghi cercati;</li>
+      <li>creare, visualizzare e gestire segnalazioni, alert e conferme della community;</li>
+      <li>gestire immagini, allegati e metadati collegati ai contenuti pubblicati;</li>
+      <li>attivare SOS, Guardian, Buddy System e contatti fidati quando richiesto dall'utente;</li>
+      <li>calcolare percorsi WalkGuard, Safe Points, Safety Score e suggerimenti prudenziali;</li>
+      <li>moderare contenuti, prevenire abusi, spam, false segnalazioni e usi illeciti;</li>
+      <li>inviare notifiche push o in-app relative a sicurezza, alert, aggiornamenti importanti e contenuti vicini;</li>
+      <li>fornire assistenza, supporto AI, guida all'uso dell'app e risposte a richieste privacy;</li>
+      <li>migliorare stabilita, performance, sicurezza e qualita del servizio;</li>
+      <li>adempiere obblighi legali e tutelare diritti, utenti, partner, enti e Kurbi Labs.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. Basi giuridiche GDPR</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Finalita</th>
+            <th>Dati principali</th>
+            <th>Base giuridica</th>
+          </tr>
+        </thead>
+        <tbody>
+          {legalBases.map((row) => (
+            <tr>
+              <td>{row.purpose}</td>
+              <td>{row.data}</td>
+              <td>{row.basis}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Funzioni specifiche dell'app</h2>
+    <h3>Account utente e accesso anonimo</h3>
+    <p>
+      proTcity puo consentire l'uso con account autenticato e, dove previsto, accesso anonimo tramite identificativo
+      tecnico. Alcune funzioni, come pubblicazione contenuti, moderazione, SOS, partner o console, possono richiedere
+      autenticazione e autorizzazioni specifiche.
+    </p>
+
+    <h3>Login email e social</h3>
+    <p>
+      Il login social o tramite provider esterni e predisposto solo dove tecnicamente implementato. In tal caso Firebase
+      Authentication puo ricevere dal provider dati come email, nome, identificativo account e token tecnici. Il provider
+      applica anche la propria informativa privacy.
+    </p>
+
+    <h3>Mappa, Mapbox e geocoding</h3>
+    <p>
+      Mapbox viene utilizzato per mappe, ricerca luoghi, geocodifica, routing e informazioni territoriali. Le query di
+      posizione o indirizzo possono essere inviate a Mapbox per restituire coordinate, percorsi, POI e contesto stradale.
+    </p>
+
+    <h3>Segnalazioni, alert e timeline</h3>
+    <p>
+      Gli utenti possono creare segnalazioni e alert geolocalizzati con categoria, descrizione, immagini, note e conferme.
+      Le segnalazioni possono essere visualizzate sulla mappa da altri utenti in modo proporzionato alla finalita di
+      sicurezza urbana e possono essere gestite da admin o partner/enti autorizzati.
+    </p>
+
+    <h3>SOS, Guardian e Buddy System</h3>
+    <p>
+      Le funzioni SOS e condivisione con contatti fidati sono volontarie. Possono trattare posizione, timestamp, codice
+      sessione e destinatari scelti dall'utente. proTcity non sostituisce numeri di emergenza, forze dell'ordine, 112,
+      113, 118 o servizi sanitari.
+    </p>
+
+    <h3>WalkGuard, Safety Score e Safe Points</h3>
+    <p>
+      WalkGuard e Safety Score usano dati di mappa, posizione, segnalazioni, alert, safe point e contesto urbano per
+      suggerire percorsi piu prudenti. I suggerimenti sono informativi, non garantiscono sicurezza assoluta e non
+      sostituiscono giudizio personale o indicazioni delle autorita.
+    </p>
+
+    <h3>Notifiche push e in-app</h3>
+    <p>
+      proTcity puo inviare notifiche in-app o push su alert, segnalazioni, aggiornamenti di sicurezza e informazioni
+      operative. Le notifiche push native richiedono consenso del dispositivo e possono essere disattivate dall'utente.
+    </p>
+
+    <h3>Chatbot, supporto AI e OpenAI</h3>
+    <p>
+      Il supporto AI risponde a domande sull'uso dell'app e puo usare parti del manuale, testi delle schermate e dati
+      tecnici minimi. Le richieste AI vengono inviate tramite backend, senza esporre la chiave API nel client mobile.
+    </p>
+
+    <h3>Admin console e console partner/enti</h3>
+    <p>
+      Console amministrative e partner/enti sono riservate a personale o soggetti autorizzati. Possono mostrare
+      segnalazioni, dati territoriali, stato interventi, moderazioni, audit log e dati necessari alla gestione del servizio,
+      con autorizzazioni basate su ruolo e territorio.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Segnalazioni e immagini</h2>
+    <p>
+      Le segnalazioni geolocalizzate aiutano a descrivere criticita urbane, alert e situazioni da monitorare. L'utente e
+      responsabile dei contenuti caricati e deve evitare di pubblicare volti riconoscibili, targhe, minori, documenti,
+      dati sanitari, dati sensibili, accuse personali, contenuti offensivi, violenti, discriminatori o illeciti.
+    </p>
+    <p>
+      proTcity puo oscurare, limitare, rimuovere o sottoporre a revisione manuale immagini e contenuti non conformi. Le
+      immagini sono trattate solo nella misura necessaria a documentare il contenuto segnalato e possono essere conservate
+      su Firebase Storage o servizio equivalente.
+    </p>
+    <p>
+      La funzione video o "Safety Clip", se presente come indicazione futura o beta, non deve considerarsi attiva finche
+      non verra abilitata tecnicamente e accompagnata da specifiche regole, limiti, moderazione e informativa aggiornata.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Moderazione</h2>
+    <p>
+      proTcity prevede meccanismi di moderazione per contenuti generati dagli utenti. La moderazione puo includere filtri
+      automatici, controlli su parole vietate, revisione manuale, sistemi di segnalazione contenuto, blocco utente, log
+      di revisione e azioni amministrative.
+    </p>
+    <p>
+      Possono essere rimossi o limitati contenuti falsi, offensivi, discriminatori, pericolosi, illeciti, lesivi della
+      privacy o non coerenti con le regole community. In caso di abuso, proTcity puo sospendere account, bloccare
+      funzioni, conservare log di moderazione e tutelarsi nelle sedi competenti.
+    </p>
+  </section>
+
+  <section>
+    <h2>10. SOS e limiti del servizio</h2>
+    <p>
+      La funzione SOS e progettata per aiutare l'utente a condividere rapidamente una richiesta di supporto o la posizione
+      con contatti scelti, se la funzione e configurata e attiva. I dati trattati possono includere posizione, ora, stato
+      della sessione, identificativo utente, contatti selezionati e messaggi operativi.
+    </p>
+    <p>
+      proTcity non e un servizio pubblico di emergenza, non garantisce intervento immediato e non sostituisce 112, 113,
+      118, forze dell'ordine, soccorso sanitario, vigili del fuoco o autorita competenti. In caso di pericolo reale,
+      l'utente deve contattare i servizi ufficiali.
+    </p>
+  </section>
+
+  <section>
+    <h2>11. Notifiche push</h2>
+    <p>
+      Quando attive, le notifiche push possono richiedere la registrazione di un token dispositivo associato all'app e
+      alle preferenze dell'utente. Possono essere inviate notifiche su alert vicini, aggiornamenti importanti, sicurezza,
+      stato delle segnalazioni, comunicazioni SOS o informazioni operative.
+    </p>
+    <p>
+      L'utente puo disattivare le notifiche dalle impostazioni del dispositivo o dall'app, ove disponibile. Alcune
+      comunicazioni tecniche essenziali potrebbero essere mostrate in-app anche senza push native.
+    </p>
+  </section>
+
+  <section>
+    <h2>12. Login social</h2>
+    <p>
+      Se implementato, il login tramite Apple, Google o altri provider potra essere gestito tramite Firebase
+      Authentication. proTcity ricevera solo i dati necessari alla creazione e gestione dell'account, come email,
+      identificativo provider e nome visualizzato ove fornito. L'utente deve consultare anche le informative privacy dei
+      provider utilizzati.
+    </p>
+  </section>
+
+  <section>
+    <h2>13. Fornitori e piattaforme terze</h2>
+    <p>
+      proTcity si basa su fornitori tecnici necessari al funzionamento di app, sito, console, AI e infrastruttura. La
+      classificazione del ruolo privacy puo variare in base al servizio attivo, al contratto e alla configurazione.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fornitore</th>
+            <th>Ruolo</th>
+            <th>Dati</th>
+            <th>Finalita</th>
+            <th>Trasferimenti</th>
+          </tr>
+        </thead>
+        <tbody>
+          {providers.map((provider) => (
+            <tr>
+              <td>{provider.name}</td>
+              <td>{provider.role}</td>
+              <td>{provider.data}</td>
+              <td>{provider.purpose}</td>
+              <td>{provider.transfer}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>14. OpenAI e sistemi AI</h2>
+    <p>
+      proTcity puo usare OpenAI tramite backend server-side per generare spiegazioni, supporto all'utente, sintesi e
+      valutazioni informative sul contesto urbano. Non deve essere inviata a OpenAI piu informazione personale del
+      necessario. La chiave API non viene inserita nel client mobile ed e gestita tramite configurazione sicura del backend.
+    </p>
+    <p>
+      L'AI non decide al posto dell'utente, non sostituisce autorita pubbliche, forze dell'ordine o operatori umani, non
+      profila persone, non identifica individui, non effettua riconoscimento facciale e non prevede reati individuali. I
+      risultati possono contenere errori o incompletezze e devono essere presentati con tono prudente e spiegazione dei
+      limiti.
+    </p>
+  </section>
+
+  <section>
+    <h2>15. Trasferimenti internazionali</h2>
+    <p>
+      Alcuni fornitori possono trattare dati fuori dallo Spazio Economico Europeo, inclusi Stati Uniti o altri Paesi.
+      Quando cio avviene, proTcity richiede l'applicazione di garanzie adeguate, come clausole contrattuali standard,
+      misure supplementari, accordi di trattamento dati, configurazioni regionali e controlli di sicurezza disponibili.
+    </p>
+    <h3>Utenti extra UE e normative internazionali</h3>
+    <p>
+      Quando proTcity e' utilizzata da utenti residenti fuori dall'Unione europea, possono applicarsi normative locali
+      come UK GDPR, CCPA/CPRA per residenti in California, PIPEDA in Canada, LGPD in Brasile, APPI in Giappone e altre
+      leggi nazionali o statali. Nei limiti applicabili, proTcity riconosce diritti analoghi di accesso, cancellazione,
+      rettifica, portabilita, limitazione, opposizione e informazione sul trattamento. proTcity non vende dati personali
+      degli utenti e non utilizza i dati per pubblicita comportamentale cross-context, salvo diversa futura attivazione
+      comunicata con informativa specifica e, ove richiesto, consenso o opt-out.
+    </p>
+  </section>
+
+  <section>
+    <h2>16. Conservazione dei dati</h2>
+    <p>
+      I dati sono conservati per il tempo necessario alle finalita per cui sono raccolti, salvo obblighi legali, sicurezza,
+      prevenzione abusi o tutela dei diritti. I tempi indicati sotto sono criteri operativi da validare con consulente
+      privacy/DPO prima della pubblicazione definitiva.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Criterio di conservazione</th>
+          </tr>
+        </thead>
+        <tbody>
+          {retentionRows.map(([category, period]) => (
+            <tr>
+              <td>{category}</td>
+              <td>{period}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>17. Diritti degli utenti</h2>
+    <p>
+      Nei limiti previsti dalla normativa applicabile, l'utente puo esercitare i diritti di accesso, rettifica,
+      cancellazione, limitazione, opposizione, portabilita, revoca del consenso e reclamo all'autorita di controllo.
+      Per l'Italia, l'autorita competente e il Garante per la protezione dei dati personali.
+    </p>
+    <p>
+      Le richieste possono essere inviate a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>. Per
+      ragioni di sicurezza, proTcity puo chiedere informazioni necessarie a verificare l'identita del richiedente.
+    </p>
+  </section>
+
+  <section>
+    <h2>18. Minori</h2>
+    <p>
+      proTcity non e destinata a minori sotto l'eta minima prevista dalla legge applicabile senza consenso o autorizzazione
+      del titolare della responsabilita genitoriale. Gli utenti non devono caricare immagini, dati o contenuti che
+      identifichino minori, salvo base legittima e rispetto rigoroso della normativa.
+    </p>
+  </section>
+
+  <section>
+    <h2>19. Sicurezza</h2>
+    <p>
+      proTcity adotta misure tecniche e organizzative proporzionate, tra cui autenticazione, regole Firestore e Storage,
+      accessi amministrativi limitati, cifratura in transito, configurazione sicura delle API key, logging, monitoraggio
+      abusi, separazione tra client e backend, ruoli per console e controlli sulle funzioni sensibili.
+    </p>
+    <p>
+      Nessun sistema e esente da rischi. In caso di violazione dei dati personali, proTcity valutera gli obblighi di
+      notifica previsti dagli articoli 33 e 34 GDPR e dalle normative applicabili.
+    </p>
+  </section>
+
+  <section>
+    <h2>20. Cookie policy sintetica</h2>
+    <p>
+      Il sito protcity.com puo usare cookie tecnici e strumenti equivalenti necessari a sicurezza, funzionamento, sessione,
+      prestazioni e protezione anti-abuso. Cookie analytics o marketing vengono utilizzati solo se effettivamente attivati
+      e, quando richiesto, previa informazione e consenso tramite banner o pannello preferenze.
+    </p>
+    <p>
+      L'utente puo gestire i cookie dal browser. Una Cookie Policy separata puo dettagliare nome, durata, finalita e
+      provider dei cookie effettivamente presenti.
+    </p>
+  </section>
+
+  <section>
+    <h2>21. Modifiche alla policy</h2>
+    <p>
+      Kurbi Labs puo aggiornare questa informativa in caso di modifiche normative, tecniche, organizzative o funzionali.
+      La versione aggiornata sara pubblicata sul sito con indicazione della data di ultimo aggiornamento. Per modifiche
+      sostanziali, potranno essere richieste nuove conferme o consensi ove necessario.
+    </p>
+  </section>
+
+  <section>
+    <h2>22. Contatti</h2>
+    <p>
+      Per informazioni privacy: <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>. Per supporto:
+      <a href={`mailto:${site.emails.support}`}>{site.emails.support}</a>. Per richieste commerciali o partner:
+      <a href={`mailto:${site.emails.business}`}>{site.emails.business}</a>.
+    </p>
+  </section>
+
+  <section class="legal-warning">
+    <h2>Punti da verificare con consulente privacy/DPO</h2>
+    <ul>
+      <li>nomina eventuale DPO/RPD e recapiti ufficiali;</li>
+      <li>tempi definitivi di conservazione per segnalazioni, immagini, SOS, log e moderazione;</li>
+      <li>DPIA per geolocalizzazione precisa, AI Safety Score, SOS, moderazione immagini e funzioni predittive;</li>
+      <li>accordi DPA, SCC e configurazioni regionali con Google/Firebase, Mapbox, OpenAI, Cloudflare, Vercel e altri provider;</li>
+      <li>cookie banner e registro cookie effettivamente presenti sul sito;</li>
+      <li>eta minima utenti, consenso genitoriale e policy specifica per minori;</li>
+      <li>testo definitivo di termini d'uso, community rules, policy UGC e procedure di segnalazione abusi;</li>
+      <li>ruoli privacy di partner commerciali, enti pubblici, comuni e operatori console.</li>
+    </ul>
+  </section>
+
+  <section class="legal-warning">
+    <h2>Campi mancanti o da confermare</h2>
+    <ul>
+      <li>DPO/RPD: da indicare se nominato.</li>
+      <li>Regione Firebase/Google Cloud di produzione: da confermare.</li>
+      <li>Elenco finale provider email/form/analytics attivi: da confermare.</li>
+      <li>Durate di retention definitive: da approvare internamente e legalmente.</li>
+      <li>Data di entrata in vigore della policy: da indicare alla pubblicazione.</li>
+    </ul>
+  </section>
+
+  <style>
+    .legal-intro {
+      border: 1px solid rgba(56, 182, 255, 0.28);
+      border-radius: 22px;
+      padding: 1.25rem;
+      background: rgba(56, 182, 255, 0.08);
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      padding: 1rem;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th {
+      color: #ffffff;
+      background: rgba(56, 182, 255, 0.08);
+    }
+
+    td {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .legal-warning {
+      border: 1px solid rgba(226, 20, 17, 0.28);
+      border-radius: 22px;
+      padding: 1.25rem;
+      background: rgba(226, 20, 17, 0.08);
+    }
+  </style>
 </LegalLayout>
