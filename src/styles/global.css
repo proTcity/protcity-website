@@ -1119,7 +1119,8 @@ body.cinematic-site {
 }
 
 body.home-cinematic .site-header,
-body.cinematic-site .site-header {
+body.cinematic-site .site-header,
+body.legal-page .site-header {
   position: fixed;
   width: 100%;
   background: rgba(3, 7, 13, 0.62);
@@ -1130,7 +1131,9 @@ body.cinematic-site .site-header {
 body.home-cinematic .nav-link,
 body.home-cinematic .mobile-nav summary,
 body.cinematic-site .nav-link,
-body.cinematic-site .mobile-nav summary {
+body.cinematic-site .mobile-nav summary,
+body.legal-page .nav-link,
+body.legal-page .mobile-nav summary {
   color: rgba(255, 255, 255, 0.76);
 }
 
@@ -1139,19 +1142,24 @@ body.home-cinematic .nav-link.is-active,
 body.home-cinematic .mobile-nav summary:hover,
 body.cinematic-site .nav-link:hover,
 body.cinematic-site .nav-link.is-active,
-body.cinematic-site .mobile-nav summary:hover {
+body.cinematic-site .mobile-nav summary:hover,
+body.legal-page .nav-link:hover,
+body.legal-page .nav-link.is-active,
+body.legal-page .mobile-nav summary:hover {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.08);
 }
 
 body.home-cinematic .header-contact,
-body.cinematic-site .header-contact {
+body.cinematic-site .header-contact,
+body.legal-page .header-contact {
   color: #02050b;
   background: #ffffff;
 }
 
 body.home-cinematic .mobile-nav__panel,
-body.cinematic-site .mobile-nav__panel {
+body.cinematic-site .mobile-nav__panel,
+body.legal-page .mobile-nav__panel {
   background: rgba(5, 11, 21, 0.96);
   border-color: rgba(56, 182, 255, 0.22);
 }
@@ -1830,7 +1838,8 @@ body.cinematic-site .pricing-card--featured {
 
 @media (max-width: 760px) {
   body.home-cinematic .site-header,
-  body.cinematic-site .site-header {
+  body.cinematic-site .site-header,
+  body.legal-page .site-header {
     position: sticky;
   }
 
