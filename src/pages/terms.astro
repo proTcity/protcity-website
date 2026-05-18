@@ -1,37 +1,162 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
-import { site } from "../data/site";
+import { companyInfo, contactEmails } from "../data/site";
+import { legalMeta } from "../data/legal";
 ---
 
 <LegalLayout
   title="Termini di utilizzo"
-  description="Regole iniziali per l'accesso e l'uso corretto dei servizi proTcity."
+  description="Regole per usare proTcity, app, sito, segnalazioni, alert, funzioni di sicurezza urbana, AI e servizi partner."
   canonicalPath="/terms"
 >
-  <h2>1. Oggetto del servizio</h2>
-  <p>
-    proTcity offre strumenti digitali per lettura del contesto urbano, segnalazioni, supporto agli spostamenti e servizi informativi per utenti, Comuni e partner.
+  <p class="legal-note">
+    Questi Termini disciplinano l'uso di proTcity. Alcune funzioni possono essere in beta, in arrivo o disponibili solo dopo attivazione tecnica, contrattuale o autorizzativa.
   </p>
 
-  <h2>2. Uso corretto</h2>
+  <h2>1. Titolare del servizio</h2>
+  <p>
+    proTcity e' un progetto di <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}, REA {companyInfo.rea}. Per supporto scrivere a <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>; per privacy a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>; per partner a <a href={`mailto:${contactEmails.partners}`}>{contactEmails.partners}</a>.
+  </p>
+
+  <h2>2. Oggetto del servizio</h2>
+  <p>
+    proTcity offre strumenti digitali per leggere il contesto urbano, visualizzare mappa e segnalazioni, creare alert o segnalazioni civiche, usare funzioni di supporto allo spostamento come WalkGuard, consultare Safety Score e ricevere assistenza informativa.
+  </p>
+  <p>
+    Il servizio e' informativo e collaborativo: non sostituisce autorita' pubbliche, forze dell'ordine, protezione civile, 112, 113, 118, servizi sanitari, soccorso tecnico o decisioni professionali.
+  </p>
+
+  <h2>3. Requisiti di utilizzo e minori</h2>
+  <p>
+    L'utente deve usare proTcity nel rispetto della legge, dei diritti di terzi e delle regole community. L'uso da parte di minori deve avvenire nel rispetto dell'eta' minima prevista dalla normativa applicabile e, quando necessario, con consenso o supervisione di chi esercita la responsabilita' genitoriale.
+  </p>
+  <p>
+    E' vietato pubblicare dati, immagini o informazioni che identifichino minori senza idonea base giuridica o autorizzazione.
+  </p>
+
+  <h2>4. Account, accesso anonimo e credenziali</h2>
+  <p>
+    Alcune funzioni possono essere disponibili anche con identificativi tecnici o accesso anonimo; altre richiedono registrazione, autenticazione o abilitazione specifica. L'utente e' responsabile della custodia delle credenziali e delle attivita' svolte dal proprio account.
+  </p>
+  <p>
+    Se saranno attivati login email o social, l'accesso sara' gestito tramite provider autorizzati e Firebase Authentication secondo la Privacy Policy.
+  </p>
+
+  <h2>5. Geolocalizzazione e permessi dispositivo</h2>
+  <p>
+    Le funzioni di mappa, segnalazione, alert, SOS, WalkGuard e Safety Score possono richiedere la posizione del dispositivo. L'utente puo' concedere, limitare o revocare i permessi dalle impostazioni del dispositivo, sapendo che alcune funzioni potrebbero non essere disponibili senza posizione.
+  </p>
+  <p>
+    L'utente non deve creare segnalazioni o alert in luoghi in cui non si trova o per eventi non verificati direttamente, salvo funzioni esplicitamente previste per segnalazioni documentate e conformi alle regole.
+  </p>
+
+  <h2>6. Segnalazioni, alert e contenuti generati dagli utenti</h2>
+  <p>
+    Le segnalazioni e gli alert devono descrivere fatti pertinenti, attuali e utili alla sicurezza urbana o alla manutenzione civica. L'utente deve evitare accuse personali, diffamazione, allarmismo, contenuti discriminatori, falsi report, spam, molestie o uso improprio della piattaforma.
+  </p>
+  <p>
+    Foto e contenuti multimediali devono documentare il luogo o la criticita', non persone. Non devono contenere volti riconoscibili, targhe, minori, documenti, dati sanitari, dati sensibili o scene violente non necessarie.
+  </p>
+
+  <h2>7. Regole community</h2>
   <ul>
-    <li>Non pubblicare contenuti falsi, discriminatori, diffamatori o non pertinenti.</li>
-    <li>Non usare la piattaforma per identificare, accusare o molestare persone.</li>
-    <li>Non interferire con sicurezza, infrastruttura o integrità dei servizi.</li>
+    <li>Non pubblicare contenuti falsi, fuorvianti, offensivi, discriminatori o illeciti.</li>
+    <li>Non identificare, inseguire, accusare, schedare o molestare persone.</li>
+    <li>Non usare proTcity per creare panico, vendette personali o segnalazioni strumentali.</li>
+    <li>Non caricare immagini di minori, volti, targhe o dati personali non necessari.</li>
+    <li>Non aggirare moderazione, limiti territoriali, sicurezza o sistemi anti-abuso.</li>
+    <li>Non usare bot, scraping non autorizzato o accessi automatizzati dannosi.</li>
   </ul>
 
-  <h2>3. Emergenze</h2>
+  <h2>8. Moderazione, blocco e sospensione</h2>
   <p>
-    proTcity non è un servizio di emergenza. In caso di pericolo immediato occorre contattare le autorità competenti e i numeri ufficiali disponibili nel Paese in cui ci si trova.
+    Kurbi Labs puo' applicare controlli automatici e manuali, limitare visibilita', oscurare, rimuovere contenuti, bloccare funzioni, sospendere account o conservare log quando necessario per sicurezza, conformita', prevenzione abusi o difesa di diritti.
+  </p>
+  <p>
+    Gli utenti possono segnalare contenuti abusivi o impropri. La moderazione non garantisce controllo preventivo totale e non implica approvazione di ogni contenuto pubblicato dagli utenti.
   </p>
 
-  <h2>4. Contenuti degli utenti</h2>
+  <h2>9. SOS e situazioni di emergenza</h2>
   <p>
-    Gli utenti restano responsabili dei contenuti pubblicati. proTcity potrà moderare, limitare o rimuovere contenuti contrari alle regole, alla legge o alla sicurezza della community.
+    La funzione SOS, se attiva, serve a inviare una richiesta o una condivisione rapida secondo le impostazioni disponibili. Non e' un servizio pubblico di emergenza e non garantisce intervento immediato.
+  </p>
+  <p>
+    In caso di pericolo immediato l'utente deve contattare i numeri ufficiali di emergenza del Paese in cui si trova e seguire le indicazioni delle autorita' competenti.
   </p>
 
-  <h2>5. Contatti</h2>
+  <h2>10. WalkGuard, Safety Score e AI</h2>
   <p>
-    Per richieste relative ai termini scrivere a <a href={`mailto:${site.emails.general}`}>{site.emails.general}</a>.
+    WalkGuard, Safety Score e le funzioni AI forniscono suggerimenti informativi basati su dati disponibili, segnalazioni, contesto urbano, mappa, fonti tecniche e regole di scoring. Non garantiscono sicurezza assoluta, assenza di rischio o correttezza completa dei dati.
+  </p>
+  <p>
+    proTcity non profila persone, non attribuisce colpe a individui e non prevede reati individuali. Le valutazioni riguardano zone, percorsi, condizioni urbane e segnali territoriali, con linguaggio prudente e possibilita' di errore.
+  </p>
+
+  <h2>11. Notifiche</h2>
+  <p>
+    Le notifiche, quando abilitate, possono riguardare alert vicini, aggiornamenti su segnalazioni, funzioni di sicurezza, account, partner o comunicazioni tecniche. L'utente puo' gestire i permessi dalle impostazioni del dispositivo e dell'app.
+  </p>
+
+  <h2>12. Partner, aziende ed enti pubblici</h2>
+  <p>
+    proTcity puo' offrire console e funzioni dedicate a partner commerciali, strutture ricettive, attivita', enti pubblici e Comuni. L'accesso a tali aree richiede abilitazione, credenziali, eventuale contratto o piano attivo.
+  </p>
+  <p>
+    I partner devono usare la console solo per la propria organizzazione, partita IVA, ente o territorio autorizzato. Credenziali, tenant, abbonamenti e diritti d'accesso non sono cedibili, rivendibili o clonabili.
+  </p>
+
+  <h2>13. Pagamenti partner con Stripe e PayPal</h2>
+  <p>
+    I piani partner per aziende possono essere acquistati o gestiti tramite Stripe, PayPal o altri metodi indicati nelle pagine dedicate. I pagamenti possono includere abbonamenti ricorrenti, upgrade, rinnovi, ricevute, fatture, controlli anti-frode e gestione contestazioni.
+  </p>
+  <p>
+    Per enti pubblici, Comuni o organizzazioni istituzionali possono essere previsti preventivi, contratti, ordini, procedure amministrative o accordi separati. In assenza di contratto attivo, Kurbi Labs puo' limitare o sospendere l'accesso alle funzioni partner.
+  </p>
+  <p>
+    Stripe e PayPal possono applicare proprie condizioni, controlli, tempi di rimborso e regole privacy. Il partner e' responsabile dell'esattezza dei dati fiscali, societari e di fatturazione inseriti.
+  </p>
+
+  <h2>14. Prezzi, rinnovi, recesso e rimborsi</h2>
+  <p>
+    Prezzi, limiti, funzionalita' incluse e durata dei piani sono indicati nelle pagine commerciali o nel contratto. Per servizi B2B, enti o abbonamenti professionali possono applicarsi condizioni diverse da quelle previste per consumatori.
+  </p>
+  <p>
+    Eventuali rimborsi, cancellazioni, sospensioni o rinnovi seguono le condizioni del piano acquistato, le regole del provider di pagamento e la normativa applicabile.
+  </p>
+
+  <h2>15. Proprieta' intellettuale</h2>
+  <p>
+    Marchi, testi, interfacce, grafiche, codice, immagini, database, modelli, logiche di scoring e contenuti proTcity appartengono a Kurbi Labs o ai rispettivi titolari. E' vietata copia, reverse engineering, uso commerciale non autorizzato o rimozione di marchi e avvisi.
+  </p>
+
+  <h2>16. Disponibilita', beta e funzioni in arrivo</h2>
+  <p>
+    Alcune funzioni possono essere sperimentali, in beta, in arrivo o soggette ad approvazioni tecniche, store, provider, account Apple/Google, contratti o autorizzazioni. Kurbi Labs puo' modificare, sospendere o aggiornare il servizio per sicurezza, conformita' o miglioramento.
+  </p>
+
+  <h2>17. Limitazione di responsabilita'</h2>
+  <p>
+    Nei limiti consentiti dalla legge, proTcity e' fornita come strumento informativo e di supporto. Kurbi Labs non risponde di uso improprio, contenuti degli utenti, decisioni assunte ignorando autorita' competenti, dati esterni inesatti, indisponibilita' temporanee o eventi fuori dal proprio controllo.
+  </p>
+  <p>
+    Nulla nei presenti Termini limita diritti inderogabili dell'utente, responsabilita' per dolo o colpa grave, o altre tutele non escludibili per legge.
+  </p>
+
+  <h2>18. Privacy, cookie ed eliminazione dati</h2>
+  <p>
+    Il trattamento dei dati personali e' regolato dalla Privacy Policy, dalla Cookie Policy e dalla pagina Eliminazione dati. L'uso del servizio implica la lettura di tali documenti e il rispetto delle scelte privacy disponibili.
+  </p>
+
+  <h2>19. Legge applicabile e foro</h2>
+  <p>
+    Salvo norme inderogabili applicabili all'utente, i presenti Termini sono regolati dalla legge italiana. Per rapporti professionali, B2B, partner o enti, il foro competente potra' essere definito nel contratto o, in mancanza, secondo le regole di legge applicabili.
+  </p>
+
+  <h2>20. Modifiche e contatti</h2>
+  <p>
+    Kurbi Labs puo' aggiornare questi Termini per modifiche del servizio, nuove funzioni, requisiti normativi o esigenze di sicurezza. Ultimo aggiornamento: {legalMeta.lastUpdated}.
+  </p>
+  <p>
+    Per informazioni scrivere a <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
   </p>
 </LegalLayout>

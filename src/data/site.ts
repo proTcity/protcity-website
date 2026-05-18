@@ -28,3 +28,20 @@ export const site = {
     rea: "FR - 336362"
   }
 } as const;
+
+export const companyInfo = {
+  name: site.company.legalName,
+  address: `${site.company.street}, ${site.company.postalCode} ${site.company.city}, ${site.company.country}`,
+  phone: site.company.phone,
+  phoneHref: site.company.phoneHref,
+  vat: site.company.vat,
+  rea: site.company.rea
+} as const;
+
+export const contactEmails = {
+  general: site.emails.general,
+  support: site.emails.support,
+  privacy: site.emails.privacy,
+  partners: site.emails.business,
+  press: site.emails.press
+} as const;

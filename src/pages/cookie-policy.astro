@@ -1,30 +1,169 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
-import { site } from "../data/site";
+import { companyInfo, contactEmails } from "../data/site";
+import { legalMeta } from "../data/legal";
+
+const cookieRows = [
+  {
+    category: "Cookie tecnici e necessari",
+    examples: "Sessione, sicurezza, preferenze privacy, prevenzione abusi, bilanciamento del traffico.",
+    purpose: "Consentire il funzionamento del sito, proteggere le pagine e ricordare scelte strettamente necessarie.",
+    basis: "Non richiedono consenso quando sono indispensabili al servizio richiesto dall'utente.",
+    duration: "Sessione, oppure fino a 6-12 mesi per preferenze tecniche."
+  },
+  {
+    category: "Sicurezza, CDN e anti-abuso",
+    examples: "Controlli Cloudflare/Vercel, log tecnici, sistemi anti-bot e protezione da traffico anomalo.",
+    purpose: "Difendere il sito, evitare accessi automatizzati dannosi e mantenere disponibilita' e integrita'.",
+    basis: "Legittimo interesse alla sicurezza; consenso non richiesto se il trattamento e' tecnico e proporzionato.",
+    duration: "Variabile secondo configurazione del provider e necessita' di sicurezza."
+  },
+  {
+    category: "Preferenze",
+    examples: "Lingua, scelte cookie, impostazioni di visualizzazione o preferenze locali se attivate.",
+    purpose: "Rendere piu' stabile l'esperienza e non chiedere ripetutamente la stessa scelta.",
+    basis: "Consenso o legittimo interesse, secondo la natura della preferenza.",
+    duration: "Normalmente 6-12 mesi, salvo revoca o reset del browser."
+  },
+  {
+    category: "Analytics",
+    examples: "Misurazioni aggregate su pagine visitate, prestazioni, errori, provenienza del traffico.",
+    purpose: "Capire se il sito funziona, migliorare contenuti e correggere problemi tecnici.",
+    basis: "Consenso, salvo eventuali strumenti configurati in modo realmente anonimo o esentato dalla normativa applicabile.",
+    duration: "Secondo provider e configurazione; da riportare nel banner se attivati."
+  },
+  {
+    category: "Marketing e profilazione",
+    examples: "Remarketing, campagne pubblicitarie, tracciamento cross-site, pixel promozionali.",
+    purpose: "Comunicazione commerciale e misurazione pubblicitaria.",
+    basis: "Consenso esplicito preventivo, quando e se tali strumenti saranno attivati.",
+    duration: "Secondo provider, da indicare nel registro cookie."
+  },
+  {
+    category: "Mappe, media e moduli",
+    examples: "Mapbox, moduli contatto, contenuti incorporati, servizi email/form.",
+    purpose: "Mostrare funzionalita' interattive o ricevere richieste dell'utente.",
+    basis: "Esecuzione della richiesta, consenso o legittimo interesse secondo il caso.",
+    duration: "Variabile in base al servizio usato."
+  },
+  {
+    category: "Pagamenti partner",
+    examples: "Stripe, PayPal, checkout, abbonamenti, fatturazione, anti-frode.",
+    purpose: "Gestire piani partner, pagamenti, ricevute, sicurezza delle transazioni e adempimenti fiscali.",
+    basis: "Esecuzione del contratto, obbligo legale, legittimo interesse anti-frode; eventuali cookie non tecnici richiedono consenso.",
+    duration: "Secondo obblighi fiscali, contabili e policy dei provider."
+  }
+];
 ---
 
 <LegalLayout
   title="Cookie Policy"
-  description="Informazioni iniziali sull'uso dei cookie e delle tecnologie simili nel sito proTcity."
+  description="Informazioni sull'uso di cookie, tecnologie simili, misurazione, sicurezza e pagamenti partner sul sito proTcity."
   canonicalPath="/cookie-policy"
 >
-  <h2>1. Cosa sono i cookie</h2>
-  <p>
-    I cookie sono piccoli file o identificatori che permettono al sito di funzionare correttamente, ricordare preferenze e, se autorizzato, raccogliere informazioni aggregate sull'utilizzo.
+  <p class="legal-note">
+    La presente Cookie Policy e' predisposta per il sito protcity.com e per le pagine collegate di Kurbi Labs s.r.l.s. Il registro cookie effettivo e il banner di consenso devono essere aggiornati in base agli strumenti realmente attivi al momento della pubblicazione.
   </p>
 
-  <h2>2. Cookie tecnici</h2>
+  <h2>1. Titolare e ambito</h2>
   <p>
-    Il sito può usare cookie tecnici necessari al funzionamento, alla sicurezza e alla gestione delle preferenze. Questi cookie non richiedono consenso preventivo quando sono strettamente necessari.
+    Il titolare del trattamento e' <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}, REA {companyInfo.rea}. Per richieste privacy e cookie e' possibile scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
+  </p>
+  <p>
+    Questa policy riguarda il sito <strong>protcity.com</strong>, le pagine informative del progetto proTcity, le pagine partner, i moduli di contatto e le eventuali aree di pagamento per aziende, enti o partner. L'app mobile proTcity puo' usare tecnologie diverse dai cookie web, come identificatori tecnici, token dispositivo, log di sicurezza e SDK; tali trattamenti sono descritti nella Privacy Policy.
   </p>
 
-  <h2>3. Misurazione e marketing</h2>
+  <h2>2. Cosa sono cookie e tecnologie simili</h2>
   <p>
-    Eventuali strumenti di analytics, marketing o tracciamento saranno attivati solo dopo valutazione legale e, quando richiesto, consenso dell'utente tramite banner dedicato.
+    I cookie sono piccoli file o identificatori salvati nel browser o nel dispositivo dell'utente. Tecnologie simili includono local storage, pixel, SDK, tag, identificatori di sessione e strumenti che consentono lettura o scrittura di informazioni sul terminale dell'utente.
+  </p>
+  <p>
+    Alcuni strumenti sono necessari per far funzionare il sito o proteggerlo. Altri, come analytics avanzati, marketing o profilazione, richiedono una valutazione specifica e, quando previsto dalla normativa, il consenso preventivo tramite banner.
   </p>
 
-  <h2>4. Gestione preferenze</h2>
+  <h2>3. Categorie utilizzate o previste</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th>Esempi</th>
+          <th>Finalita'</th>
+          <th>Base/consenso</th>
+          <th>Durata indicativa</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cookieRows.map((row) => (
+          <tr>
+            <td><strong>{row.category}</strong></td>
+            <td>{row.examples}</td>
+            <td>{row.purpose}</td>
+            <td>{row.basis}</td>
+            <td>{row.duration}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4. Cookie tecnici necessari</h2>
   <p>
-    Quando saranno integrati strumenti non tecnici, questa pagina includerà un pannello per modificare o revocare le preferenze. Per domande scrivere a <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>.
+    I cookie tecnici servono a rendere il sito navigabile, sicuro e coerente con le scelte dell'utente. Possono essere usati per mantenere una sessione, ricordare una preferenza privacy, applicare misure anti-abuso o distribuire correttamente il traffico.
+  </p>
+  <p>
+    Quando tali strumenti sono strettamente necessari al servizio richiesto, non e' richiesto il consenso preventivo. L'utente puo' comunque bloccarli dal browser, ma alcune parti del sito potrebbero non funzionare correttamente.
+  </p>
+
+  <h2>5. Analytics, prestazioni e miglioramento</h2>
+  <p>
+    proTcity puo' usare strumenti di misurazione per capire quali pagine vengono consultate, individuare errori, migliorare prestazioni e rendere piu' chiare le informazioni sul servizio. Se gli strumenti raccolgono dati personali o identificatori non strettamente tecnici, saranno attivati solo secondo la base giuridica corretta e, ove necessario, dopo consenso.
+  </p>
+  <p>
+    Quando possibile, Kurbi Labs privilegia misurazioni aggregate, configurazioni privacy-friendly, riduzione dell'indirizzo IP, tempi di conservazione limitati e disattivazione di funzioni pubblicitarie non necessarie.
+  </p>
+
+  <h2>6. Marketing e profilazione</h2>
+  <p>
+    Salvo diversa indicazione nel banner cookie, il sito proTcity non deve attivare cookie di marketing, remarketing o profilazione senza consenso esplicito. Se in futuro saranno usati strumenti pubblicitari, il banner dovra' indicare provider, finalita', durata, trasferimenti internazionali e possibilita' di revoca.
+  </p>
+
+  <h2>7. PayPal e Stripe per i partner</h2>
+  <p>
+    Le pagine dedicate ai partner commerciali potranno integrare <strong>Stripe</strong> e <strong>PayPal</strong> per checkout, abbonamenti, ricevute, fatturazione, prevenzione frodi, contestazioni e gestione del ciclo di pagamento. Durante tali operazioni i provider di pagamento possono trattare dati identificativi, fiscali, societari, recapiti, dati di transazione, indirizzi IP, dati tecnici del dispositivo e informazioni necessarie alla sicurezza del pagamento.
+  </p>
+  <p>
+    Stripe e PayPal possono operare, secondo il caso, come fornitori, responsabili, autonomi titolari o soggetti tenuti a obblighi normativi propri in materia di pagamenti, antiriciclaggio, frodi e contenzioso. L'utente o partner deve consultare anche le rispettive privacy policy prima di completare una transazione.
+  </p>
+
+  <h2>8. Gestione del consenso</h2>
+  <p>
+    Se il sito usa strumenti non tecnici, l'utente deve poter accettare, rifiutare o modificare le preferenze tramite un banner o un pannello di gestione. Il consenso, quando richiesto, deve essere libero, specifico, informato, inequivocabile e revocabile in qualsiasi momento.
+  </p>
+  <p>
+    La chiusura del banner, lo scroll o la prosecuzione della navigazione non devono essere interpretati automaticamente come consenso per cookie non necessari, salvo diverse previsioni normative applicabili e configurazioni conformi.
+  </p>
+
+  <h2>9. Browser e dispositivo</h2>
+  <p>
+    L'utente puo' cancellare o bloccare i cookie dalle impostazioni del browser. Le modalita' variano in base a Chrome, Safari, Firefox, Edge e altri browser. Il blocco totale dei cookie tecnici puo' ridurre la funzionalita' del sito, impedire l'uso dei moduli o alterare il salvataggio delle preferenze.
+  </p>
+
+  <h2>10. App mobile e tecnologie SDK</h2>
+  <p>
+    L'app proTcity non usa necessariamente cookie web, ma puo' usare SDK, token notifiche, identificatori tecnici, log di sicurezza, Firebase, Mapbox e altri strumenti necessari alle funzioni mobile. Tali trattamenti sono regolati dalla Privacy Policy dell'app e dalle impostazioni del dispositivo.
+  </p>
+
+  <h2>11. Provider terzi e trasferimenti internazionali</h2>
+  <p>
+    Alcuni provider possono trattare dati fuori dallo Spazio Economico Europeo o tramite societa' globali. In tali casi Kurbi Labs valuta, ove applicabile, Clausole Contrattuali Standard, misure supplementari, configurazioni regionali, DPA e documentazione privacy del fornitore.
+  </p>
+
+  <h2>12. Aggiornamenti e contatti</h2>
+  <p>
+    Ultimo aggiornamento: {legalMeta.lastUpdated}. La Cookie Policy sara' aggiornata se cambiano gli strumenti del sito, le modalita' di pagamento, i provider analytics, il banner consenso o la normativa applicabile.
+  </p>
+  <p>
+    Per informazioni scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
   </p>
 </LegalLayout>

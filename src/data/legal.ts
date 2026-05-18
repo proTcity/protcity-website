@@ -1,7 +1,7 @@
 export const legalMeta = {
-  lastUpdated: "17 maggio 2026",
+  lastUpdated: "18 maggio 2026",
   disclaimer:
-    "Queste pagine sono predisposte in base alle funzioni attuali e tecnicamente previste di proTcity. Non sostituiscono la verifica finale di un consulente privacy, legale o DPO prima della pubblicazione definitiva."
+    "Queste pagine sono predisposte in base alle funzioni attuali e tecnicamente previste di proTcity. Prima della pubblicazione definitiva e dopo ogni modifica sostanziale, Kurbi Labs verifica il testo con consulenti privacy, legali o DPO/RPD quando necessario."
 } as const;
 
 export const legalCards = [
