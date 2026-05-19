@@ -2,6 +2,7 @@
 import SEO from "../components/common/SEO.astro";
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
+import CookieConsent from "../components/common/CookieConsent.astro";
 import "../styles/tokens.css";
 import "../styles/global.css";
 
@@ -30,5 +31,6 @@ const { title, description, canonicalPath, image, bodyClass = "" } = Astro.props
       <slot />
     </main>
     <Footer />
+    <CookieConsent />
   </body>
 </html>

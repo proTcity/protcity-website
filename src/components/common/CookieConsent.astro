@@ -1,0 +1,303 @@
+---
+const consentVersion = "2026-05-19";
+---
+
+<div
+  class="cookie-consent"
+  data-cookie-consent
+  data-consent-version={consentVersion}
+  hidden
+>
+  <div class="cookie-consent__backdrop" data-cookie-close></div>
+  <section
+    class="cookie-consent__panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cookie-consent-title"
+    aria-describedby="cookie-consent-description"
+  >
+    <button
+      class="cookie-consent__close"
+      type="button"
+      data-cookie-reject
+      aria-label="Chiudi senza accettare cookie non necessari"
+    >
+      ×
+    </button>
+
+    <div class="cookie-consent__header">
+      <p class="eyebrow">Cookie e privacy</p>
+      <h2 id="cookie-consent-title">Gestisci cookie e tecnologie simili</h2>
+      <p id="cookie-consent-description">
+        proTcity usa cookie tecnici necessari per funzionamento, sicurezza,
+        preferenze privacy e pagamenti partner. Con il tuo consenso possiamo
+        usare strumenti analytics e di misurazione. Alla data indicata non
+        utilizziamo cookie o SDK di marketing, remarketing o profilazione
+        pubblicitaria.
+      </p>
+    </div>
+
+    <div class="cookie-consent__summary" data-cookie-summary>
+      <p>
+        Puoi accettare, rifiutare i non necessari o personalizzare le preferenze.
+        Chiudendo con la X restano attivi solo cookie e strumenti tecnici
+        necessari. Puoi modificare le scelte in qualsiasi momento dal footer.
+      </p>
+      <a href="/cookie-policy">Leggi la Cookie Policy completa</a>
+    </div>
+
+    <div class="cookie-consent__settings" data-cookie-settings hidden>
+      <div class="cookie-consent__choice">
+        <div>
+          <h3>Tecnici necessari</h3>
+          <p>
+            Funzionamento del sito, sicurezza, preferenze privacy, gestione
+            consenso e pagamenti essenziali. Sempre attivi.
+          </p>
+        </div>
+        <span class="cookie-consent__badge">Sempre attivi</span>
+      </div>
+
+      <div class="cookie-consent__choice cookie-consent__choice--toggle">
+        <div>
+          <h3>Analytics e misurazione</h3>
+          <p>
+            Statistiche aggregate, prestazioni, uso pagine o eventi app,
+            miglioramento prodotto e controllo qualità. Non usati per marketing
+            o advertising personalization.
+          </p>
+        </div>
+        <label class="cookie-consent__switch">
+          <span class="cookie-consent__sr">Consenti analytics e misurazione</span>
+          <input type="checkbox" data-cookie-category="analytics" />
+        </label>
+      </div>
+
+      <div class="cookie-consent__choice">
+        <div>
+          <h3>Marketing e profilazione</h3>
+          <p>
+            Meta Pixel, TikTok Pixel, Google Ads, remarketing, Google Signals o
+            strumenti equivalenti non risultano attivi. Saranno aggiunti solo
+            dopo aggiornamento di policy, registro e banner.
+          </p>
+        </div>
+        <span class="cookie-consent__badge cookie-consent__badge--off">Non attivi</span>
+      </div>
+
+      <div class="cookie-consent__choice">
+        <div>
+          <h3>Pagamenti partner</h3>
+          <p>
+            Stripe e PayPal possono usare cookie o tecnologie proprie nelle
+            pagine checkout per sicurezza, pagamento, antifrode e contestazioni.
+            I cookie essenziali di pagamento operano solo quando necessari al
+            servizio richiesto.
+          </p>
+        </div>
+        <span class="cookie-consent__badge">Checkout</span>
+      </div>
+    </div>
+
+    <div class="cookie-consent__actions">
+      <button class="cookie-consent__button" type="button" data-cookie-reject>
+        Rifiuta non necessari
+      </button>
+      <button class="cookie-consent__button" type="button" data-cookie-customize>
+        Personalizza
+      </button>
+      <button class="cookie-consent__button cookie-consent__button--primary" type="button" data-cookie-accept>
+        Accetta tutti
+      </button>
+      <button class="cookie-consent__button cookie-consent__button--primary" type="button" data-cookie-save hidden>
+        Salva preferenze
+      </button>
+    </div>
+  </section>
+</div>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector("[data-cookie-consent]");
+    if (!root) return;
+
+    const version = root.getAttribute("data-consent-version") || "2026-05-19";
+    const storageKey = "protcity_cookie_consent";
+    const maxAgeDays = 180;
+    const settings = root.querySelector("[data-cookie-settings]");
+    const summary = root.querySelector("[data-cookie-summary]");
+    const customizeButton = root.querySelector("[data-cookie-customize]");
+    const saveButton = root.querySelector("[data-cookie-save]");
+    const analyticsInput = root.querySelector('[data-cookie-category="analytics"]');
+    const focusableSelector = "button, a[href], input, [tabindex]:not([tabindex='-1'])";
+    let previouslyFocused = null;
+
+    const defaultConsent = {
+      version,
+      necessary: true,
+      analytics: false,
+      marketing: false,
+      updatedAt: null,
+    };
+
+    const safeParse = (value) => {
+      try {
+        return value ? JSON.parse(value) : null;
+      } catch {
+        return null;
+      }
+    };
+
+    const getCookie = () => {
+      const item = document.cookie
+        .split("; ")
+        .find((entry) => entry.startsWith(`${storageKey}=`));
+      if (!item) return null;
+      try {
+        return decodeURIComponent(item.split("=").slice(1).join("="));
+      } catch {
+        return null;
+      }
+    };
+
+    const getStoredConsent = () => {
+      let local = null;
+      try {
+        local = safeParse(window.localStorage.getItem(storageKey));
+      } catch {}
+      if (local) return local;
+      return safeParse(getCookie());
+    };
+
+    const dispatchConsent = (consent) => {
+      window.protcityCookieConsent = consent;
+      window.dispatchEvent(
+        new CustomEvent("protcity:cookie-consent", {
+          detail: consent,
+        }),
+      );
+      document.documentElement.dataset.cookieAnalytics = consent.analytics ? "granted" : "denied";
+      document.documentElement.dataset.cookieMarketing = consent.marketing ? "granted" : "denied";
+    };
+
+    const persistConsent = (partial) => {
+      const consent = {
+        ...defaultConsent,
+        ...partial,
+        necessary: true,
+        marketing: false,
+        version,
+        updatedAt: new Date().toISOString(),
+      };
+      const value = JSON.stringify(consent);
+      try {
+        window.localStorage.setItem(storageKey, value);
+      } catch {}
+      document.cookie = `${storageKey}=${encodeURIComponent(value)}; Max-Age=${
+        maxAgeDays * 24 * 60 * 60
+      }; Path=/; SameSite=Lax; Secure`;
+      dispatchConsent(consent);
+      hideBanner();
+    };
+
+    const showSettings = () => {
+      summary.hidden = true;
+      settings.hidden = false;
+      customizeButton.hidden = true;
+      saveButton.hidden = false;
+      analyticsInput?.focus();
+    };
+
+    const syncControls = (consent) => {
+      if (analyticsInput) analyticsInput.checked = Boolean(consent?.analytics);
+    };
+
+    const showBanner = (forceSettings = false) => {
+      previouslyFocused = document.activeElement;
+      const current = getStoredConsent() || defaultConsent;
+      syncControls(current);
+      root.hidden = false;
+      document.body.classList.add("cookie-consent-open");
+      if (forceSettings) showSettings();
+      else {
+        summary.hidden = false;
+        settings.hidden = true;
+        customizeButton.hidden = false;
+        saveButton.hidden = true;
+      }
+      requestAnimationFrame(() => {
+        const focusable = root.querySelectorAll(focusableSelector);
+        focusable[0]?.focus();
+      });
+    };
+
+    function hideBanner() {
+      root.hidden = true;
+      document.body.classList.remove("cookie-consent-open");
+      if (previouslyFocused && typeof previouslyFocused.focus === "function") {
+        previouslyFocused.focus();
+      }
+    }
+
+    const rejectNonNecessary = () => persistConsent({ analytics: false });
+    const acceptAll = () => persistConsent({ analytics: true });
+    const savePreferences = () => persistConsent({ analytics: Boolean(analyticsInput?.checked) });
+
+    root.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("[data-cookie-reject]") || target.closest("[data-cookie-close]")) {
+        rejectNonNecessary();
+      } else if (target.closest("[data-cookie-accept]")) {
+        acceptAll();
+      } else if (target.closest("[data-cookie-customize]")) {
+        showSettings();
+      } else if (target.closest("[data-cookie-save]")) {
+        savePreferences();
+      }
+    });
+
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        rejectNonNecessary();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusable = Array.from(root.querySelectorAll(focusableSelector)).filter(
+        (node) => !node.hasAttribute("disabled") && node.offsetParent !== null,
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("[data-cookie-preferences]")) {
+        event.preventDefault();
+        showBanner(true);
+      }
+    });
+
+    const stored = getStoredConsent();
+    if (!stored || stored.version !== version) {
+      showBanner(false);
+    } else {
+      dispatchConsent({
+        ...defaultConsent,
+        ...stored,
+        necessary: true,
+        marketing: false,
+      });
+    }
+  })();
+</script>
