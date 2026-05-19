@@ -1,7 +1,8 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 
-const privacyEmail = "info@protcity.com";
+const privacyEmail = "privacy@protcity.com";
+const supportEmail = "support@protcity.com";
 const company = {
   name: "Kurbi Labs srls",
   address: "Via Sassotello, n. 47, 03010 Trivigliano (FR), Italia",
@@ -13,7 +14,7 @@ const company = {
 const firstLevelRows = [
   [
     "Chi tratta i dati",
-    "Il titolare è Kurbi Labs srls, Via Sassotello, n. 47, 03010 Trivigliano (FR), P. IVA 03342090606. Contatto privacy: info@protcity.com."
+    "Il titolare è Kurbi Labs srls, Via Sassotello, n. 47, 03010 Trivigliano (FR), P. IVA 03342090606. Contatto privacy: privacy@protcity.com. Assistenza app: support@protcity.com."
   ],
   [
     "Quali dati raccogliamo",
@@ -41,7 +42,7 @@ const firstLevelRows = [
   ],
   [
     "Consensi e revoche",
-    "Puoi revocare il consenso alla posizione dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app. Puoi revocare analytics non essenziali, disattivare notifiche push e chiedere cancellazione o accesso ai dati scrivendo a info@protcity.com."
+    "Puoi revocare il consenso alla posizione dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app. Puoi revocare analytics non essenziali, disattivare notifiche push e chiedere cancellazione o accesso ai dati scrivendo a privacy@protcity.com. Per assistenza sull'app puoi scrivere a support@protcity.com."
   ],
   [
     "Cancellazione dati",
@@ -58,7 +59,8 @@ const controllerRows = [
   ["Sede legale", company.address],
   ["Partita IVA", company.vat],
   ["Telefono", company.phone],
-  ["Email generale e privacy", privacyEmail],
+  ["Email privacy", privacyEmail],
+  ["Email assistenza app", supportEmail],
   ["Sito", company.site]
 ];
 
@@ -353,6 +355,9 @@ const retentionRows = [
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
   </p>
+  <p>
+    Per richieste privacy: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Per assistenza sull'app: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.
+  </p>
 
   <p>
     Questa informativa descrive come <strong>{company.name}</strong> tratta i dati personali nell'ambito di proTcity, applicazione e servizio digitale dedicato a segnalazioni, alert, mappe, sicurezza urbana, percorsi, funzioni di supporto alla sicurezza personale, Safety Score e servizi partner. Il testo è predisposto secondo il Regolamento (UE) 2016/679 ("GDPR"), il Codice Privacy italiano, la normativa applicabile su cookie e strumenti di tracciamento, e i principi di trasparenza, minimizzazione, sicurezza e responsabilizzazione.
@@ -380,7 +385,7 @@ const retentionRows = [
     <li>La posizione può essere precisa quando necessaria e autorizzata. Puoi revocarla dalle impostazioni del dispositivo, ma alcune funzioni potrebbero non funzionare.</li>
     <li>Le segnalazioni possono essere rese pubbliche solo dopo controlli e moderazione; evita dati di persone, minori, targhe, documenti o contenuti illeciti.</li>
     <li>Il Safety Score è solo informativo e non sostituisce i numeri di emergenza. In caso di pericolo chiama il 112 o gli altri numeri competenti.</li>
-    <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>.</li>
+    <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Per assistenza sull'app: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</li>
   </ul>
 
   <h2>B. Informativa privacy completa</h2>

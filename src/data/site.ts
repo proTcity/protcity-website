@@ -14,7 +14,7 @@ export const site = {
     support: "support@protcity.com",
     business: "partners@protcity.com",
     press: "press@protcity.com",
-    privacy: "info@protcity.com"
+    privacy: "privacy@protcity.com"
   },
   company: {
     legalName: "Kurbi Labs srls",
