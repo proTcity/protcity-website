@@ -11,10 +11,15 @@ export const site = {
   defaultOgImage: "/og-image.jpg",
   emails: {
     general: "info@protcity.com",
+    contact: "contact@protcity.com",
     support: "support@protcity.com",
+    security: "security@protcity.com",
+    legal: "legal@protcity.com",
     business: "partners@protcity.com",
     press: "press@protcity.com",
-    privacy: "privacy@protcity.com"
+    privacy: "privacy@protcity.com",
+    hello: "hello@protcity.com",
+    team: "team@protcity.com"
   },
   company: {
     legalName: "Kurbi Labs srls",
@@ -40,8 +45,13 @@ export const companyInfo = {
 
 export const contactEmails = {
   general: site.emails.general,
+  contact: site.emails.contact,
   support: site.emails.support,
+  security: site.emails.security,
+  legal: site.emails.legal,
   privacy: site.emails.privacy,
   partners: site.emails.business,
-  press: site.emails.press
+  press: site.emails.press,
+  hello: site.emails.hello,
+  team: site.emails.team
 } as const;

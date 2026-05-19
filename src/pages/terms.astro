@@ -35,8 +35,24 @@ import { companyInfo, contactEmails } from "../data/site";
         <td>{companyInfo.phone}</td>
       </tr>
       <tr>
-        <th scope="row">Email ufficiale</th>
-        <td>{contactEmails.general}</td>
+        <th scope="row">Contatti generali e commerciali</th>
+        <td>{contactEmails.contact}</td>
+      </tr>
+      <tr>
+        <th scope="row">Assistenza app e account</th>
+        <td>{contactEmails.support}</td>
+      </tr>
+      <tr>
+        <th scope="row">Privacy, GDPR e cancellazione dati</th>
+        <td>{contactEmails.privacy}</td>
+      </tr>
+      <tr>
+        <th scope="row">Legale, Termini e reclami</th>
+        <td>{contactEmails.legal}</td>
+      </tr>
+      <tr>
+        <th scope="row">Sicurezza tecnica</th>
+        <td>{contactEmails.security}</td>
       </tr>
     </tbody>
   </table>
@@ -46,7 +62,7 @@ import { companyInfo, contactEmails } from "../data/site";
     proTcity è un progetto di {companyInfo.name}, con sede in {companyInfo.address}, Partita IVA IT{companyInfo.vat}, REA {companyInfo.rea}, Tel. {companyInfo.phone}.
   </p>
   <p>
-    Email ufficiale per informazioni, segnalazioni, reclami e richieste commerciali: <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a>. Per richieste privacy: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per assistenza sull'app: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
+    Per contatti generali e richieste commerciali: <a href={`mailto:${contactEmails.contact}`}>{contactEmails.contact}</a>. Per assistenza sull'app e sull'account: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>. Per richieste privacy, GDPR o cancellazione dati: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per reclami, segnalazioni legali o questioni relative ai presenti Termini: <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>. Per vulnerabilità o sicurezza tecnica: <a href={`mailto:${contactEmails.security}`}>{contactEmails.security}</a>.
   </p>
   <p>
     Eventuali indirizzi dedicati pubblicati nell'app o sul sito, se attivati, costituiscono canali ulteriori e non sostitutivi.
@@ -115,7 +131,7 @@ import { companyInfo, contactEmails } from "../data/site";
     L'utente deve fornire dati corretti, aggiornati e non ingannevoli. In caso di account aziendale, partner, ente o professionale, chi effettua la registrazione dichiara di essere autorizzato a rappresentare l'organizzazione indicata.
   </p>
   <p>
-    L'utente è responsabile della custodia delle credenziali, dei dispositivi usati per accedere al servizio e delle attività svolte tramite il proprio account, salvo uso abusivo non imputabile all'utente. In caso di accesso non autorizzato, smarrimento credenziali o sospetto abuso, l'utente deve informare tempestivamente Kurbi Labs scrivendo a <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a>.
+    L'utente è responsabile della custodia delle credenziali, dei dispositivi usati per accedere al servizio e delle attività svolte tramite il proprio account, salvo uso abusivo non imputabile all'utente. In caso di accesso non autorizzato, smarrimento credenziali o sospetto abuso, l'utente deve informare tempestivamente Kurbi Labs scrivendo a <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
   </p>
   <p>
     È vietato creare account falsi, impersonare terzi, usare identità altrui, aggirare limiti tecnici, condividere credenziali di account business/ente o cedere account senza autorizzazione.
@@ -209,7 +225,7 @@ import { companyInfo, contactEmails } from "../data/site";
     Le segnalazioni possono essere pubbliche solo quando la piattaforma le rende visibili e, ove necessario, dopo moderazione. Kurbi Labs non garantisce controllo preventivo totale e non assume responsabilità automatica per ogni contenuto pubblicato dagli utenti, fermo restando l'obbligo di agire quando richiesto dalla legge o quando vi sia conoscenza effettiva di contenuti illeciti o abusivi.
   </p>
   <p>
-    Chi ritiene che un contenuto presente su proTcity sia illecito, lesivo della privacy, diffamatorio, pericoloso, falso, abusivo o contrario ai Termini può scrivere a <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a> indicando, ove possibile:
+    Chi ritiene che un contenuto presente su proTcity sia illecito, lesivo della privacy, diffamatorio, pericoloso, falso, abusivo o contrario ai Termini può scrivere a <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a> indicando, ove possibile:
   </p>
   <ul>
     <li>identificativo, URL, schermata, area, data/ora o altra informazione utile a individuare il contenuto;</li>
@@ -225,7 +241,7 @@ import { companyInfo, contactEmails } from "../data/site";
     In caso di rimozione, oscuramento, limitazione, sospensione, mancata pubblicazione o altra restrizione, Kurbi Labs può comunicare all'utente interessato le ragioni della decisione con modalità proporzionate, salvo divieti di legge, rischio per la sicurezza, indagini, abuso, frode, protezione di terzi o impossibilità tecnica.
   </p>
   <p>
-    L'utente può contestare decisioni di moderazione o restrizioni dell'account scrivendo a <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a>. Le contestazioni vengono riesaminate con intervento umano ove richiesto o opportuno e non vengono decise esclusivamente tramite strumenti automatizzati quando la normativa lo richiede.
+    L'utente può contestare decisioni di moderazione o restrizioni dell'account scrivendo a <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>. Le contestazioni vengono riesaminate con intervento umano ove richiesto o opportuno e non vengono decise esclusivamente tramite strumenti automatizzati quando la normativa lo richiede.
   </p>
   <p>
     Quando il Digital Services Act è applicabile, l'utente può inoltre avvalersi degli strumenti di tutela previsti dalla normativa, inclusi sistemi interni di reclamo e, per le controversie di moderazione dei contenuti, eventuali organismi certificati di risoluzione extragiudiziale disponibili nell'Unione Europea. Resta sempre salvo il diritto di rivolgersi alle autorità competenti o al giudice.
@@ -301,7 +317,7 @@ import { companyInfo, contactEmails } from "../data/site";
     Se proTcity offre in futuro servizi digitali a pagamento a consumatori, il consumatore avrà i diritti previsti dal Codice del Consumo e dalla normativa applicabile, inclusi, ove applicabili, diritto di recesso nei contratti a distanza, informazioni precontrattuali, garanzie di conformità dei servizi digitali e rimedi previsti dalla legge.
   </p>
   <p>
-    Il consumatore può esercitare il recesso, ove applicabile, inviando una dichiarazione esplicita a <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a> entro i termini di legge. Per servizi digitali o contenuti digitali non forniti su supporto materiale, l'inizio immediato dell'esecuzione durante il periodo di recesso e l'eventuale perdita o limitazione del diritto di recesso saranno gestiti solo con consenso espresso e riconoscimento dell'utente quando richiesto dalla legge.
+    Il consumatore può esercitare il recesso, ove applicabile, inviando una dichiarazione esplicita a <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a> entro i termini di legge. Per servizi digitali o contenuti digitali non forniti su supporto materiale, l'inizio immediato dell'esecuzione durante il periodo di recesso e l'eventuale perdita o limitazione del diritto di recesso saranno gestiti solo con consenso espresso e riconoscimento dell'utente quando richiesto dalla legge.
   </p>
   <p>
     I rimborsi dovuti sono effettuati secondo i tempi e le modalità previste dalla legge, dal provider di pagamento, dallo store o dal contratto. Se un pagamento è gestito direttamente da Stripe, PayPal, Apple, Google o altro provider, alcune operazioni di rimborso possono dipendere dai relativi sistemi, tempi e condizioni.
@@ -351,7 +367,7 @@ import { companyInfo, contactEmails } from "../data/site";
     L'utente non deve tentare accessi non autorizzati, test di sicurezza non concordati, scansioni invasive, exploit, attacchi, interferenze con server, API o database, elusione di permessi, abuso di notifiche, manipolazione del Safety Score o estrazione massiva di dati.
   </p>
   <p>
-    Eventuali vulnerabilità di sicurezza devono essere segnalate responsabilmente a <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a> senza sfruttarle, divulgarle pubblicamente o accedere a dati di terzi.
+    Eventuali vulnerabilità di sicurezza devono essere segnalate responsabilmente a <a href={`mailto:${contactEmails.security}`}>{contactEmails.security}</a> senza sfruttarle, divulgarle pubblicamente o accedere a dati di terzi.
   </p>
 
   <h2>22. Responsabilità dell'utente e manleva nei rapporti professionali</h2>
@@ -418,7 +434,7 @@ import { companyInfo, contactEmails } from "../data/site";
     Per rapporti B2B, partner, aziende, professionisti, enti o organizzazioni, salvo diverso accordo scritto e salvo norme inderogabili, il foro competente è quello di Frosinone, ove validamente accettato.
   </p>
   <p>
-    Prima di avviare una controversia, le parti sono invitate a contattarsi in buona fede tramite <a href={`mailto:${contactEmails.general}`}>{contactEmails.general}</a> per tentare una soluzione amichevole. Restano salvi i diritti di ricorrere ad ADR, organismi DSA di risoluzione extragiudiziale per controversie di moderazione ove applicabili, autorità competenti o giudice.
+    Prima di avviare una controversia, le parti sono invitate a contattarsi in buona fede tramite <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a> per tentare una soluzione amichevole. Restano salvi i diritti di ricorrere ad ADR, organismi DSA di risoluzione extragiudiziale per controversie di moderazione ove applicabili, autorità competenti o giudice.
   </p>
 
   <h2>27. Clausole soggette ad approvazione specifica nei rapporti B2B/partner</h2>
@@ -434,7 +450,7 @@ import { companyInfo, contactEmails } from "../data/site";
     I presenti Termini sono redatti in italiano. Eventuali traduzioni sono fornite per comodità; in caso di conflitto, prevale la versione italiana, salvo norme inderogabili.
   </p>
   <p>
-    Per informazioni, assistenza, segnalazioni di contenuti, reclami, richieste commerciali, privacy o cancellazione dati: per richieste privacy <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>; per assistenza sull'app <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
+    Per contatti generali e richieste commerciali: <a href={`mailto:${contactEmails.contact}`}>{contactEmails.contact}</a>. Per assistenza sull'app o sull'account: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>. Per reclami, contestazioni o segnalazioni sui Termini: <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>. Per richieste privacy o cancellazione dati: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per sicurezza tecnica: <a href={`mailto:${contactEmails.security}`}>{contactEmails.security}</a>.
   </p>
   <p>Ultimo aggiornamento: 19 maggio 2026.</p>
 </LegalLayout>
