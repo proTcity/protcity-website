@@ -1,62 +1,245 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
 import { companyInfo, contactEmails } from "../data/site";
-import { legalMeta } from "../data/legal";
 
 const deletionRows = [
-  { data: "Account e profilo", action: "Cancellazione o disattivazione dell'account, salvo obblighi legali o sicurezza.", notes: "Alcuni identificativi possono essere conservati in forma limitata per prevenzione abusi." },
-  { data: "Segnalazioni e alert", action: "Cancellazione, anonimizzazione o separazione dall'account quando possibile.", notes: "Contenuti pubblici o di interesse civico possono restare in forma non identificativa se necessario alla sicurezza urbana o alla gestione ente." },
-  { data: "Immagini e allegati", action: "Rimozione da storage o limitazione della visibilita'.", notes: "Puo' essere differita se serve per moderazione, abusi, obblighi legali o difesa di diritti." },
-  { data: "Posizione, percorsi e cache", action: "Eliminazione dei dati riconducibili all'utente e scadenza delle cache temporanee.", notes: "Dati aggregati o anonimizzati non sono normalmente riconducibili al singolo utente." },
-  { data: "SOS e sicurezza", action: "Cancellazione o limitazione dopo il tempo necessario.", notes: "Alcuni dati possono essere conservati piu' a lungo per tutela di interessi vitali, sicurezza o contestazioni." },
-  { data: "Token notifiche push", action: "Disattivazione o cancellazione del token associato all'account/dispositivo.", notes: "L'utente puo' anche revocare i permessi dal dispositivo." },
-  { data: "Supporto, chatbot e AI", action: "Cancellazione o anonimizzazione delle conversazioni collegate all'account quando possibile.", notes: "Log tecnici possono restare per sicurezza e audit." },
-  { data: "Partner, pagamenti e fatture", action: "Chiusura accessi e cancellazione dati non necessari.", notes: "Dati fiscali, contrattuali, Stripe/PayPal e contabili possono essere conservati per obblighi di legge." },
-  { data: "Richieste sito e form", action: "Cancellazione secondo finalita' e tempi indicati nella Privacy Policy.", notes: "Email e comunicazioni possono essere conservate per gestione richiesta e difesa diritti." }
+  {
+    category: "Account utente e profilo",
+    action:
+      "Cancellazione dell'account o disattivazione preliminare quando necessaria alla verifica. Eliminazione o anonimizzazione dei dati non più necessari.",
+    notes:
+      "Completamento ordinario entro 30 giorni dall'accoglimento della richiesta, salvo obblighi legali, sicurezza, abusi, contestazioni o backup tecnici."
+  },
+  {
+    category: "Identificativi tecnici, UID e accesso anonimo",
+    action:
+      "Cancellazione, rotazione, disassociazione o anonimizzazione degli identificativi collegati all'utente.",
+    notes:
+      "Se l'utente ha usato solo accesso anonimo, la cancellazione può richiedere elementi tecnici sufficienti a identificare il dispositivo o l'istanza."
+  },
+  {
+    category: "Email e richieste di supporto/privacy",
+    action:
+      "Cancellazione o limitazione delle comunicazioni non più necessarie.",
+    notes:
+      "Le richieste privacy possono essere conservate fino a 5 anni per dimostrare la gestione corretta. Il supporto ordinario può essere conservato fino a 24 mesi, salvo contenziosi."
+  },
+  {
+    category: "Segnalazioni e alert",
+    action:
+      "Rimozione del collegamento all'account, anonimizzazione dell'autore, eliminazione o oscuramento di dati personali e allegati.",
+    notes:
+      "Il dato urbano non identificativo può rimanere attivo o aggregato fino a 12 mesi, o più a lungo se non costituisce dato personale."
+  },
+  {
+    category: "Immagini, media e allegati",
+    action:
+      "Rimozione da storage, oscuramento, limitazione visibilità o cancellazione dell'allegato.",
+    notes:
+      "Fino a 6 mesi in condizioni ordinarie; fino a 24 mesi per moderazione, abusi o contestazioni; fino a 5 anni nei casi gravi o contenziosi."
+  },
+  {
+    category: "Posizione, percorsi e cache",
+    action:
+      "Eliminazione o anonimizzazione dei dati di posizione riconducibili all'utente.",
+    notes:
+      "La posizione live è trattata solo per la sessione; cancellazione ordinaria entro 24 ore dalla chiusura, salvo log di sicurezza. Log tecnici fino a 90 giorni o secondo necessità documentata."
+  },
+  {
+    category: "SOS, WalkGuard e Buddy/Guardian",
+    action:
+      "Cancellazione o limitazione dei dati di sessione, destinatari, stati, orari e log collegati quando non più necessari.",
+    notes:
+      "Alcuni dati possono restare fino a 90 giorni per sicurezza e contestazioni; più a lungo solo per obblighi legali, tutela di interessi vitali o difesa di diritti."
+  },
+  {
+    category: "Notifiche push e Firebase Cloud Messaging",
+    action:
+      "Disattivazione o cancellazione del token dispositivo associato all'account o alla sessione.",
+    notes:
+      "Le notifiche già recapitate possono restare sul dispositivo dell'utente o del destinatario finché non vengono eliminate localmente."
+  },
+  {
+    category: "Firebase Analytics e dati statistici",
+    action:
+      "Eliminazione, disassociazione o anonimizzazione degli eventi collegati all'utente quando tecnicamente possibile.",
+    notes:
+      "Statistiche aggregate o non identificative possono essere conservate. La revoca del consenso impedisce nuove raccolte non necessarie, ove applicabile."
+  },
+  {
+    category: "Firebase Crashlytics e diagnostica",
+    action:
+      "Limitazione o cancellazione dei dati diagnostici riconducibili all'account, ove identificabili.",
+    notes:
+      "Crash report e identificatori tecnici sono conservati secondo cicli tecnici limitati; i dati non identificativi possono rimanere per sicurezza e stabilità."
+  },
+  {
+    category: "Pagamenti partner, Stripe e PayPal",
+    action:
+      "Chiusura accessi partner e cancellazione dei dati non necessari conservati da Kurbi Labs.",
+    notes:
+      "Fatture, ricevute, dati fiscali, contabili, contrattuali, anti-frode e contestazioni possono essere conservati fino a 10 anni o secondo legge. Stripe e PayPal trattano anche dati secondo proprie procedure."
+  },
+  {
+    category: "Console partner/enti",
+    action:
+      "Revoca credenziali, chiusura account amministrativi e cancellazione dei dati personali non necessari.",
+    notes:
+      "Dashboard, statistiche e segnalazioni aggregate/non identificative possono restare disponibili agli enti o partner autorizzati."
+  },
+  {
+    category: "Moderazione, abusi, ban e sicurezza",
+    action:
+      "Limitazione, conservazione o cancellazione selettiva secondo necessità.",
+    notes:
+      "Log e prove di abuso possono essere conservati fino a 24 mesi; casi gravi o contenziosi fino a 5 anni, salvo ulteriori obblighi."
+  },
+  {
+    category: "Backup e copie tecniche",
+    action:
+      "Cancellazione progressiva secondo cicli di backup, senza riutilizzo ordinario dei dati cancellati.",
+    notes:
+      "Le copie di sicurezza sono eliminate o sovrascritte normalmente entro 30-90 giorni, salvo incidenti, obblighi o blocchi tecnici documentati."
+  }
+];
+
+const references = [
+  "Regolamento (UE) 2016/679, in particolare articoli 12, 15, 17, 18, 19, 20, 21 e 22.",
+  "D.Lgs. 196/2003 e successive modifiche, inclusi gli articoli 2-quinquies e 2-terdecies ove applicabili.",
+  "Privacy Policy, Cookie Policy e Termini di utilizzo proTcity aggiornati al 19 maggio 2026.",
+  "Requisiti degli store applicabili alla cancellazione account e alla disponibilità di una risorsa web per la richiesta di cancellazione dati."
 ];
 ---
 
 <LegalLayout
-  title="Eliminazione dati"
-  description="Procedura per richiedere cancellazione account, dati personali e informazioni collegate ai servizi proTcity."
+  title="Eliminazione dati e cancellazione account"
+  description="Procedura per richiedere la cancellazione dell'account, dei dati personali e delle informazioni collegate ai servizi proTcity."
   canonicalPath="/data-deletion"
 >
-  <p class="legal-note">
-    Questa pagina spiega come richiedere la cancellazione dei dati personali trattati da proTcity. Non tutti i dati possono essere eliminati immediatamente: alcuni possono essere conservati quando richiesto da legge, sicurezza, obblighi fiscali, moderazione o difesa di diritti.
-  </p>
-
-  <h2>1. Titolare e contatti</h2>
+  <h2>Sintesi per l'utente</h2>
   <p>
-    Il titolare e' <strong>{companyInfo.name}</strong>, {companyInfo.address}, P. IVA {companyInfo.vat}. Per richiedere cancellazione o esercitare diritti privacy scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
-  </p>
-
-  <h2>2. Come inviare la richiesta</h2>
-  <p>
-    Invia una email con oggetto <strong>"Richiesta eliminazione dati proTcity"</strong> indicando, se disponibile, email dell'account, ID utente, numero di telefono usato, dispositivo, eventuale metodo di accesso e una descrizione chiara dei dati da cancellare.
+    Questa pagina spiega come richiedere la cancellazione dell'account proTcity, dei dati personali e delle informazioni collegate all'uso dell'app mobile, del sito protcity.com, delle comunicazioni email, delle console partner/enti e dei pagamenti partner.
   </p>
   <p>
-    Se la richiesta riguarda una console partner, azienda, ente pubblico o pagamento, indica anche denominazione, partita IVA/codice fiscale, ruolo, email amministrativa e riferimento del piano o contratto.
+    Titolare del trattamento: <strong>{companyInfo.name}</strong>, {companyInfo.address}, P. IVA {companyInfo.vat}.
   </p>
-
-  <h2>3. Verifica identita'</h2>
   <p>
-    Per proteggere l'account, Kurbi Labs puo' chiedere informazioni aggiuntive proporzionate per verificare che la richiesta provenga dalla persona o organizzazione autorizzata. Non saranno richiesti dati eccedenti rispetto alla verifica necessaria.
+    Canale privacy e cancellazione dati: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per assistenza sull'app o sull'account: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>. Per contatti generali: <a href={`mailto:${contactEmails.contact}`}>{contactEmails.contact}</a>. Telefono: <a href={`tel:${companyInfo.phoneHref}`}>{companyInfo.phone}</a>.
+  </p>
+  <p>
+    L'utente può chiedere la cancellazione dell'account proTcity, la rimozione o anonimizzazione dei dati personali associati e, quando possibile, la cancellazione di singoli dati o contenuti senza eliminare l'intero account.
+  </p>
+  <p>
+    Per gli account creati o gestiti tramite app, proTcity rende disponibile un percorso in-app per avviare la cancellazione dell'account e dei dati associati. La richiesta via email resta disponibile anche per chi ha disinstallato l'app o non riesce ad accedere.
+  </p>
+  <p>
+    La cancellazione non è sempre immediata o assoluta: alcuni dati possono essere conservati quando necessario per obblighi legali, fiscali, contabili, sicurezza, prevenzione abusi, moderazione, tutela di interessi vitali, richieste delle autorità o difesa di diritti.
+  </p>
+  <p>
+    I dati anonimi, aggregati o non più riconducibili all'utente non sono normalmente oggetto di cancellazione individuale, perché non costituiscono dati personali.
+  </p>
+  <p>
+    La disinstallazione dell'app o la revoca dei permessi sul dispositivo non cancellano automaticamente i dati già trattati da proTcity: per la cancellazione occorre usare il percorso in-app o scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
   </p>
 
-  <h2>4. Cosa puo' essere cancellato o limitato</h2>
+  <h2>1. Titolare, contatti e referente privacy</h2>
+  <p>
+    Il titolare del trattamento è <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}.
+  </p>
+  <p>
+    Contatti: richieste privacy e cancellazione dati <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>; assistenza app e account <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>; contatti generali <a href={`mailto:${contactEmails.contact}`}>{contactEmails.contact}</a>; questioni legali o contestazioni <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>; telefono {companyInfo.phone}.
+  </p>
+  <p>
+    Il referente privacy interno è Kurbi Labs srls, contattabile all'indirizzo <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Alla data di ultimo aggiornamento di questa pagina non è indicato un DPO/RPD formalmente nominato; se nominato, i relativi recapiti saranno pubblicati nella Privacy Policy e nelle pagine privacy del sito.
+  </p>
+  <p>
+    Le comunicazioni email possono essere instradate tramite Cloudflare Email Routing e gestite dagli indirizzi aziendali di Kurbi Labs. Il contenuto delle richieste viene usato per identificare la richiesta, verificarne la legittimità, fornire riscontro, eseguire la cancellazione o documentare l'adempimento.
+  </p>
+
+  <h2>2. Ambito della procedura</h2>
+  <p>
+    La procedura riguarda i dati personali trattati da proTcity nell'app, nel sito, nelle comunicazioni email, nelle funzioni di mappa, segnalazione, alert, Safety Score, WalkGuard, SOS, Buddy/Guardian, notifiche push, supporto, moderazione, console partner/enti, pagamenti partner e servizi tecnici collegati.
+  </p>
+  <p>
+    Il sito protcity.com non utilizza un form web per le richieste di cancellazione: l'utente invia la richiesta tramite email dedicata o tramite il percorso disponibile nell'app.
+  </p>
+  <p>
+    Per gli account creati o gestiti tramite app, questa pagina costituisce anche la risorsa web pubblica utilizzabile dagli utenti e dagli store per richiedere la cancellazione dell'account e dei dati associati, anche quando l'utente ha disinstallato l'app o non riesce più ad accedere.
+  </p>
+  <p>
+    Questa pagina è coordinata con la Privacy Policy, la Cookie Policy e i Termini di utilizzo di proTcity. In caso di differenze, prevale la versione più recente pubblicata sui canali ufficiali di proTcity, nel rispetto della normativa applicabile.
+  </p>
+
+  <h2>3. Come richiedere la cancellazione</h2>
+  <p>
+    <strong>Canale in app:</strong> quando l'account è attivo e accessibile, l'utente può avviare la richiesta dal percorso <strong>Impostazioni &gt; Account e privacy &gt; Elimina account</strong>, o da un percorso equivalente chiaramente visibile nell'area account dell'app. Il comando consente di avviare la cancellazione dell'intero account e dei dati personali associati, non soltanto la disattivazione temporanea.
+  </p>
+  <p>
+    <strong>Canale email:</strong> l'utente può scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a> con oggetto <strong>"Richiesta eliminazione dati proTcity"</strong>. Il canale email è disponibile anche se l'app è stata disinstallata, se l'utente non riesce ad accedere o se la richiesta riguarda dati specifici.
+  </p>
+  <p>
+    Nella richiesta è utile indicare, se disponibili: email dell'account, ID utente o UID, numero di telefono eventualmente usato, dispositivo, sistema operativo, metodo di accesso, data approssimativa di creazione dell'account, tipo di dati da cancellare e ogni riferimento necessario a identificare correttamente l'account o il contenuto.
+  </p>
+  <p>
+    Se la richiesta riguarda una console partner, azienda, struttura ricettiva, ente pubblico, Comune, pagamento o abbonamento, occorre indicare anche denominazione, partita IVA o codice fiscale, ruolo del richiedente, email amministrativa, riferimento del piano, contratto, ordine, fattura o transazione.
+  </p>
+  <p>
+    Non inviare password, codici OTP, dati completi della carta di pagamento, CVV, credenziali PayPal, documenti, dati sanitari, immagini di terzi o informazioni sensibili se non strettamente necessari alla verifica della richiesta. Kurbi Labs potrà chiedere solo dati proporzionati e pertinenti.
+  </p>
+
+  <h2>4. Chi può inviare la richiesta</h2>
+  <p>
+    Può richiedere la cancellazione l'utente titolare dell'account o dei dati personali, un rappresentante autorizzato, il genitore o tutore per dati di minori, l'amministratore legittimato di un account partner/ente, o altro soggetto che dimostri un titolo idoneo secondo la normativa applicabile.
+  </p>
+  <p>
+    Per richieste relative a dati di persone decedute, Kurbi Labs valuta la legittimazione del richiedente secondo la normativa italiana applicabile, inclusi i casi in cui il soggetto agisca per interesse proprio, a tutela dell'interessato, come mandatario o per ragioni familiari meritevoli di protezione.
+  </p>
+  <p>
+    Se la richiesta riguarda dati personali di terzi, immagini, volti, targhe, minori o altri soggetti identificabili, Kurbi Labs può chiedere elementi sufficienti a individuare il contenuto e verificare la legittimazione del richiedente.
+  </p>
+
+  <h2>5. Verifica dell'identità</h2>
+  <p>
+    Per evitare cancellazioni non autorizzate, Kurbi Labs può chiedere informazioni aggiuntive per verificare l'identità del richiedente o la titolarità dell'account. La verifica è proporzionata al rischio e alla natura dei dati richiesti.
+  </p>
+  <p>
+    Se l'utente è autenticato nell'app, la richiesta in app può costituire un elemento di verifica. Per richieste via email, Kurbi Labs può chiedere conferma dall'indirizzo associato all'account o altri elementi ragionevoli.
+  </p>
+  <p>
+    Se non è possibile identificare il richiedente o collegare la richiesta ai dati indicati, Kurbi Labs può chiedere integrazioni o limitare la risposta ai dati effettivamente verificabili.
+  </p>
+
+  <h2>6. Cosa significa eliminazione</h2>
+  <p>
+    A seconda del dato e della finalità, eliminazione può significare cancellazione definitiva, anonimizzazione irreversibile, separazione dall'account, oscuramento, limitazione del trattamento, disattivazione del token, revoca dell'accesso o cancellazione progressiva dai sistemi tecnici e dai backup.
+  </p>
+  <p>
+    La sola disattivazione temporanea dell'account non equivale a cancellazione, salvo che sia richiesta dall'utente come misura alternativa o temporanea.
+  </p>
+  <p>
+    I dati resi anonimi in modo irreversibile, aggregati o non più riconducibili a una persona fisica non costituiscono normalmente dati personali e possono essere conservati per statistiche, sicurezza urbana, miglioramento del servizio, ricerca interna o analisi aggregate.
+  </p>
+  <p>
+    Prima della cancellazione definitiva, l'utente può chiedere accesso o copia dei dati personali disponibili, ove applicabile e nei limiti previsti dalla normativa. Dopo il completamento della cancellazione, il ripristino dell'account o dei contenuti potrebbe non essere possibile.
+  </p>
+
+  <h2>7. Categorie di dati e azioni possibili</h2>
+  <p>
+    La tabella seguente riassume come Kurbi Labs gestisce le principali categorie di dati in caso di richiesta di cancellazione. I tempi indicati sono coerenti con la Privacy Policy e si applicano salvo obblighi legali, contestazioni, sicurezza, frodi, abusi o necessità documentate.
+  </p>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
           <th>Categoria</th>
           <th>Azione possibile</th>
-          <th>Note</th>
+          <th>Limiti, tempi o note</th>
         </tr>
       </thead>
       <tbody>
         {deletionRows.map((row) => (
           <tr>
-            <td><strong>{row.data}</strong></td>
+            <td><strong>{row.category}</strong></td>
             <td>{row.action}</td>
             <td>{row.notes}</td>
           </tr>
@@ -65,58 +248,106 @@ const deletionRows = [
     </table>
   </div>
 
-  <h2>5. Dati che potrebbero non essere eliminati subito</h2>
+  <h2>8. Dati che potrebbero non essere eliminati subito</h2>
   <p>
-    La cancellazione puo' essere limitata o differita quando i dati sono necessari per obblighi legali, fatturazione, imposte, sicurezza, prevenzione frodi, moderazione, gestione abusi, richieste delle autorita', tutela di interessi vitali, accertamento o difesa di diritti.
+    La cancellazione può essere rifiutata, limitata o differita quando i dati sono necessari per: obblighi di legge; obblighi fiscali, contabili o civilistici; gestione di pagamenti, abbonamenti, chargeback, frodi o contestazioni; sicurezza della piattaforma; moderazione e prevenzione abusi; richieste di autorità competenti; tutela di interessi vitali; accertamento, esercizio o difesa di diritti; protezione dei diritti e delle libertà di terzi.
   </p>
   <p>
-    I dati aggregati, anonimi o non piu' riconducibili all'utente non rientrano normalmente nella cancellazione individuale perche' non costituiscono dati personali.
+    Kurbi Labs può inoltre conservare prove minime della richiesta e della risposta fornita, per dimostrare il rispetto degli obblighi privacy e prevenire abusi della procedura.
   </p>
-
-  <h2>6. Segnalazioni pubbliche e interesse della community</h2>
   <p>
-    Le segnalazioni e gli alert possono avere valore informativo per altri utenti o per enti territoriali. Quando un utente chiede la cancellazione, proTcity puo' rimuovere il collegamento all'account, anonimizzare l'autore, oscurare contenuti personali o eliminare allegati, mantenendo solo dati minimi e non identificativi se necessari alla continuita' della segnalazione o alla gestione ente.
+    Se una richiesta è manifestamente infondata, eccessiva o ripetitiva, Kurbi Labs può gestirla secondo i limiti previsti dal GDPR, motivando la decisione e informando l'interessato dei rimedi disponibili.
   </p>
 
-  <h2>7. Immagini, volti, targhe e dati di terzi</h2>
+  <h2>9. Segnalazioni pubbliche, contenuti civici e dati di terzi</h2>
   <p>
-    Se una foto contiene dati personali di terzi, puoi richiedere rimozione, oscuramento o revisione. Kurbi Labs puo' intervenire anche senza richiesta quando rileva contenuti non conformi alle regole community, alla privacy o alla legge.
+    Le segnalazioni e gli alert possono avere utilità informativa per altri utenti o per enti territoriali. Quando l'utente chiede la cancellazione, proTcity procede di norma a rimuovere il collegamento con l'account, anonimizzare l'autore, oscurare dati personali, eliminare allegati non necessari e mantenere solo dati minimi non identificativi quando ciò è utile alla continuità della segnalazione o alla sicurezza urbana.
+  </p>
+  <p>
+    Se il contenuto contiene dati personali di terzi, come volti, targhe, documenti, minori, indirizzi privati, dati sanitari o informazioni non pertinenti, Kurbi Labs può rimuovere, oscurare, limitare o moderare il contenuto anche senza richiesta dell'interessato.
+  </p>
+  <p>
+    La cancellazione dai sistemi proTcity non garantisce la rimozione di eventuali copie, screenshot, notifiche già recapitate o contenuti salvati da altri utenti al di fuori del controllo ragionevole di Kurbi Labs.
   </p>
 
-  <h2>8. SOS e dati di sicurezza</h2>
+  <h2>10. Minori</h2>
   <p>
-    I dati SOS possono includere posizione, orario, destinatari, log tecnici e informazioni correlate a una richiesta di aiuto. Tali dati saranno trattati con particolare cautela e cancellati o limitati quando non piu' necessari, salvo esigenze di sicurezza, tutela di interessi vitali, contestazioni o obblighi legali.
+    proTcity non è destinata a minori di 14 anni. Gli utenti tra 14 e 17 anni possono usare il servizio con consenso o supervisione di un genitore o tutore, ove richiesto dalla normativa applicabile e dalla natura della funzione.
+  </p>
+  <p>
+    Genitori, tutori o esercenti la responsabilità genitoriale possono chiedere la cancellazione, rimozione o oscuramento di account, dati, immagini o contenuti riferiti a un minore. La richiesta deve contenere elementi sufficienti a identificare il contenuto e dimostrare la legittimazione del richiedente.
+  </p>
+  <p>
+    Kurbi Labs tratta le richieste riguardanti minori con priorità e particolare cautela, soprattutto quando riguardano geolocalizzazione, immagini, segnalazioni pubbliche, contenuti sensibili o dati di sicurezza personale.
   </p>
 
-  <h2>9. Pagamenti partner, Stripe e PayPal</h2>
+  <h2>11. Revoca del consenso, permessi dispositivo e notifiche</h2>
   <p>
-    La cancellazione di un account partner non comporta necessariamente la cancellazione immediata di dati di pagamento, ricevute, fatture, abbonamenti, contestazioni o record anti-frode gestiti da Stripe, PayPal o Kurbi Labs. Tali dati possono essere conservati per obblighi fiscali, contabili, contrattuali e di sicurezza.
+    La cancellazione dei dati non sostituisce la revoca dei permessi locali. L'utente può disattivare posizione, fotocamera, notifiche, accesso ai media e altri permessi dalle impostazioni iOS o Android. Dopo la revoca, alcune funzioni di proTcity potrebbero non essere disponibili o funzionare in modo limitato.
   </p>
   <p>
-    Per cancellare o aggiornare dati detenuti direttamente da Stripe o PayPal, potrebbe essere necessario contattare anche il rispettivo provider secondo le sue procedure.
-  </p>
-
-  <h2>10. Tempi di risposta</h2>
-  <p>
-    Kurbi Labs risponde alle richieste privacy entro i termini previsti dal GDPR, normalmente entro un mese dal ricevimento. In caso di richieste complesse o numerose, il termine puo' essere prorogato nei limiti consentiti dalla normativa, informando l'utente.
+    L'utente può revocare il consenso a strumenti analytics o non tecnici secondo le impostazioni disponibili nell'app o nel sito. La revoca non pregiudica la liceità dei trattamenti effettuati prima della revoca.
   </p>
   <p>
-    Alcune copie di backup o log tecnici possono essere eliminate progressivamente secondo i cicli di sicurezza e conservazione tecnica, senza essere riutilizzate per finalita' ordinarie.
+    La disattivazione delle notifiche dal dispositivo impedisce nuove notifiche push, ma non elimina automaticamente notifiche già ricevute, log tecnici già trattati o dati necessari alla sicurezza e alla prova dell'avvenuta gestione.
   </p>
 
-  <h2>11. Revoca permessi dal dispositivo</h2>
+  <h2>12. Pagamenti, abbonamenti e account partner</h2>
   <p>
-    La cancellazione dei dati non sostituisce la revoca dei permessi locali. L'utente puo' disattivare posizione, fotocamera, notifiche e altri permessi dalle impostazioni iOS o Android. Dopo la revoca, alcune funzioni dell'app potrebbero non funzionare.
+    La richiesta di cancellazione di un account partner, azienda, struttura ricettiva, ente pubblico o professionista non comporta automaticamente la cancellazione immediata di dati di pagamento, fatture, ricevute, contratti, ordini, abbonamenti, contestazioni, chargeback o record anti-frode.
+  </p>
+  <p>
+    Stripe e PayPal possono conservare dati secondo proprie informative, obblighi di pagamento, sicurezza, compliance finanziaria, antiriciclaggio, antifrode e gestione reclami. Kurbi Labs può assistere il richiedente nei limiti del proprio ruolo, ma il partner potrebbe dover esercitare diritti anche direttamente presso il provider di pagamento.
+  </p>
+  <p>
+    La cancellazione dell'account non estingue automaticamente obblighi di pagamento già maturati, fatture emesse, obblighi fiscali o rapporti contrattuali pendenti. Eventuali cessazioni o rimborsi seguono Termini di utilizzo, piano acquistato, contratto e normativa applicabile.
   </p>
 
-  <h2>12. Minori</h2>
+  <h2>13. Fornitori tecnici e trasferimenti</h2>
   <p>
-    Genitori, tutori o esercenti la responsabilita' genitoriale possono richiedere rimozione di dati o immagini di minori, indicando gli elementi necessari a identificare il contenuto e dimostrare la legittimazione alla richiesta.
+    I dati possono essere trattati da fornitori tecnici come Firebase/Google Cloud, Firebase Analytics, Crashlytics, Firebase Cloud Messaging, Cloudflare Email Routing, Stripe, PayPal, Mapbox, OpenAI e altri fornitori indicati nella Privacy Policy, secondo i servizi effettivamente attivi.
+  </p>
+  <p>
+    Quando il fornitore opera come responsabile del trattamento, Kurbi Labs inoltra o gestisce la cancellazione secondo gli accordi applicabili. Quando il fornitore opera come autonomo titolare, l'utente può dover esercitare i propri diritti anche presso tale fornitore.
+  </p>
+  <p>
+    Eventuali trasferimenti fuori dallo Spazio Economico Europeo sono gestiti secondo Privacy Policy, accordi di trattamento dati, decisioni di adeguatezza, Clausole Contrattuali Standard o altre garanzie applicabili.
   </p>
 
-  <h2>13. Reclamo e contatti</h2>
+  <h2>14. Tempi di risposta e conferma</h2>
   <p>
-    Se ritieni che la richiesta non sia stata gestita correttamente, puoi scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a> e, ove applicabile, proporre reclamo al Garante per la protezione dei dati personali o all'autorita' competente.
+    Kurbi Labs risponde alle richieste senza ingiustificato ritardo e, di regola, entro un mese dal ricevimento. In caso di richieste complesse o numerose, il termine può essere prorogato nei limiti consentiti dalla normativa, informando l'utente entro il termine iniziale.
   </p>
-  <p>Ultimo aggiornamento: {legalMeta.lastUpdated}.</p>
+  <p>
+    La cancellazione operativa delle principali informazioni d'account viene normalmente completata entro 30 giorni dall'accoglimento della richiesta, salvo dati che devono essere conservati, limitati o cancellati progressivamente per ragioni tecniche, legali o di sicurezza.
+  </p>
+  <p>
+    Al termine della gestione, Kurbi Labs può inviare una conferma contenente l'esito della richiesta, le categorie cancellate o anonimizzate, le eventuali categorie conservate e la relativa motivazione.
+  </p>
+
+  <h2>15. Reclamo e rimedi</h2>
+  <p>
+    Se l'utente ritiene che la richiesta non sia stata gestita correttamente, può scrivere nuovamente a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a> indicando il motivo della contestazione e ogni riferimento utile. Per contestazioni legali connesse ai Termini o a rapporti contrattuali è disponibile anche <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>.
+  </p>
+  <p>
+    L'utente ha il diritto di proporre reclamo al Garante per la protezione dei dati personali o all'autorità di controllo competente, secondo le modalità indicate sui rispettivi siti istituzionali.
+  </p>
+  <p>
+    Resta ferma la possibilità di esercitare gli altri diritti previsti dal GDPR: accesso, rettifica, limitazione, opposizione, portabilità, revoca del consenso e richiesta di informazioni sui trattamenti.
+  </p>
+
+  <h2>16. Aggiornamenti</h2>
+  <p>
+    Kurbi Labs può aggiornare questa pagina in caso di nuove funzioni, modifiche tecniche, nuovi fornitori, aggiornamenti della Privacy Policy, richieste degli store, modifiche normative o esigenze di sicurezza.
+  </p>
+  <p>
+    Le modifiche sostanziali vengono comunicate con modalità proporzionate, ad esempio tramite sito, app, email o avvisi nell'interfaccia, quando necessario.
+  </p>
+
+  <h2>Riferimenti principali</h2>
+  <ul>
+    {references.map((reference) => <li>{reference}</li>)}
+  </ul>
+
+  <p>Ultimo aggiornamento: 19 maggio 2026.</p>
 </LegalLayout>
