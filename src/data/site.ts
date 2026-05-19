@@ -10,11 +10,11 @@ export const site = {
     "proTcity aiuta persone, Comuni e partner locali a leggere meglio la sicurezza urbana, segnalare situazioni critiche e muoversi con piu consapevolezza.",
   defaultOgImage: "/og-image.jpg",
   emails: {
-    general: "hello@protcity.com",
+    general: "info@protcity.com",
     support: "support@protcity.com",
     business: "partners@protcity.com",
     press: "press@protcity.com",
-    privacy: "privacy@protcity.com"
+    privacy: "info@protcity.com"
   },
   company: {
     legalName: "Kurbi Labs srls",
@@ -24,7 +24,7 @@ export const site = {
     city: "Trivigliano (FR)",
     phone: "+39 329 93 99 838",
     phoneHref: "+393299399838",
-    vat: "IT03342090606",
+    vat: "03342090606",
     rea: "FR - 336362"
   }
 } as const;

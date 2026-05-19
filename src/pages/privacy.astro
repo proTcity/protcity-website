@@ -1,226 +1,620 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
-import { companyInfo, contactEmails } from "../data/site";
-import { legalMeta } from "../data/legal";
+
+const privacyEmail = "info@protcity.com";
+const company = {
+  name: "Kurbi Labs srls",
+  address: "Via Sassotello, n. 47, 03010 Trivigliano (FR), Italia",
+  vat: "03342090606",
+  phone: "+39 329 93 99 838",
+  site: "protcity.com"
+};
+
+const firstLevelRows = [
+  [
+    "Chi tratta i dati",
+    "Il titolare è Kurbi Labs srls, Via Sassotello, n. 47, 03010 Trivigliano (FR), P. IVA 03342090606. Contatto privacy: info@protcity.com."
+  ],
+  [
+    "Quali dati raccogliamo",
+    "Dati account e contatto, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, notifiche push, dati analytics/diagnostici, dati di pagamento dei partner e comunicazioni email."
+  ],
+  [
+    "Perché usiamo la posizione",
+    "La posizione serve per mostrare la mappa, creare segnalazioni geolocalizzate, ricevere alert vicini, calcolare percorsi, usare funzioni SOS/WalkGuard/Buddy, limitare abusi e generare indicatori territoriali come il Safety Score."
+  ],
+  [
+    "Posizione precisa o approssimata",
+    "Quando autorizzata, l'app può usare la posizione precisa. Alcune funzioni possono usare una posizione approssimata. La posizione live è usata solo per le funzioni che la richiedono e per la durata necessaria."
+  ],
+  [
+    "Segnalazioni pubbliche",
+    "Le segnalazioni e gli alert possono diventare visibili agli altri utenti solo dopo controlli e moderazione. Di regola non rendiamo pubblico il nome o l'email dell'utente che segnala."
+  ],
+  [
+    "Safety Score",
+    "Il Safety Score è un indicatore informativo e contestuale su aree o situazioni urbane. Non valuta persone, non predice reati individuali e non sostituisce autorità o decisioni umane."
+  ],
+  [
+    "Emergenze",
+    "proTcity non sostituisce il 112, 113, 115, 118, forze dell'ordine, vigili del fuoco o servizi sanitari. In caso di pericolo o emergenza contatta subito i numeri ufficiali."
+  ],
+  [
+    "Consensi e revoche",
+    "Puoi revocare il consenso alla posizione dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app. Puoi revocare analytics non essenziali, disattivare notifiche push e chiedere cancellazione o accesso ai dati scrivendo a info@protcity.com."
+  ],
+  [
+    "Cancellazione dati",
+    "Puoi chiedere cancellazione, accesso, rettifica, limitazione, opposizione e portabilità dei dati. Alcuni dati possono essere conservati più a lungo per obblighi legali, sicurezza, abusi, pagamenti, contabilità o difesa di diritti."
+  ],
+  [
+    "Referente privacy / DPO",
+    "Kurbi Labs gestisce internamente le richieste privacy tramite il proprio referente privacy. Alla data di questa informativa non è nominato un DPO/RPD formale; la valutazione sarà aggiornata se il trattamento diventerà obbligatorio ai sensi del GDPR."
+  ]
+];
+
+const controllerRows = [
+  ["Titolare del trattamento", company.name],
+  ["Sede legale", company.address],
+  ["Partita IVA", company.vat],
+  ["Telefono", company.phone],
+  ["Email generale e privacy", privacyEmail],
+  ["Sito", company.site]
+];
+
+const dataCategories = [
+  [
+    "Dati identificativi e di contatto",
+    "Email, nome o denominazione, telefono se comunicato, dati aziendali/ente, partita IVA, recapiti e informazioni contrattuali per partner, aziende, professionisti o enti."
+  ],
+  [
+    "Dati account e autenticazione",
+    "UID Firebase, identificativi account, accesso anonimo, token tecnici, ruoli utente/admin/partner/ente, stato account, preferenze e impostazioni."
+  ],
+  [
+    "Dati tecnici e dispositivo",
+    "Indirizzo IP, sistema operativo, modello dispositivo, lingua, versione app, log tecnici, eventi di sicurezza, dati di accesso, crash report e diagnostica."
+  ],
+  [
+    "Geolocalizzazione",
+    "Coordinate GPS, posizione precisa o approssimata, posizione corrente, indirizzi ricavati da geocoding, area o zona di segnalazione, destinazione e percorso se l'utente usa funzioni di routing o WalkGuard."
+  ],
+  [
+    "Contenuti generati dagli utenti",
+    "Segnalazioni, alert, categorie, note, conferme, commenti o riscontri, immagini e media caricati, metadati collegati, data/ora, stato moderazione e coordinate della segnalazione."
+  ],
+  [
+    "Funzioni SOS, WalkGuard, Buddy/Guardian",
+    "Dati di sessione, posizione live temporanea, destinazione, percorso, stato della sessione, contatti fidati configurati dall'utente, inviti, conferme e log essenziali di sicurezza, se tali funzioni sono abilitate."
+  ],
+  [
+    "Dati di moderazione e abuso",
+    "Segnalazioni di abuso, motivi di rimozione, decisioni di moderazione, note interne, sospensioni, ban, contestazioni e audit essenziali."
+  ],
+  [
+    "Dati AI e Safety Score",
+    "Indicatori aggregati o contestuali, Safety Score, Confidence Score, spiegazioni sintetiche, parametri generali dell'area, esiti di classificazione contenuti e controlli di coerenza."
+  ],
+  [
+    "Notifiche push",
+    "Token Firebase Cloud Messaging, preferenze di notifica, stato consegna e log tecnici necessari all'invio di comunicazioni di servizio e alert."
+  ],
+  [
+    "Analytics e diagnostica",
+    "Eventi di utilizzo tramite Firebase Analytics, identificativi pseudonimi, dati aggregati, crash e diagnostica tramite Firebase Crashlytics, configurati per finalità tecniche e di miglioramento del servizio."
+  ],
+  [
+    "Pagamenti partner",
+    "Piano scelto, stato abbonamento, importi, ricevute, dati di fatturazione, ID cliente Stripe/PayPal, ID transazione, stato pagamento e dati necessari a contabilità, antifrode e assistenza. Kurbi Labs non conserva numero completo della carta, CVV o credenziali PayPal."
+  ],
+  [
+    "Comunicazioni email",
+    "Indirizzo email, contenuto del messaggio, data/ora, metadati tecnici di inoltro e informazioni necessarie per rispondere a richieste di supporto, privacy, contestazioni o rapporti commerciali."
+  ],
+  [
+    "Cookie e dati sito",
+    "Cookie tecnici, preferenze consenso se presenti, log di sicurezza, IP, user agent, dati tecnici del browser e richieste al sito."
+  ]
+];
+
+const locationRows = [
+  [
+    "Posizione precisa",
+    "È usata quando autorizzata dall'utente e necessaria per mappa, segnalazioni geolocalizzate, alert vicini, percorsi, Safe Points, SOS, WalkGuard, Buddy/Guardian, prevenzione abusi e calcolo di indicatori territoriali."
+  ],
+  [
+    "Posizione approssimata",
+    "Può essere usata quando sufficiente alla funzione, ad esempio per mostrare contesto urbano, aree vicine, Safety Score o contenuti generali senza necessità di coordinate esatte."
+  ],
+  [
+    "Foreground",
+    "Durante l'uso dell'app la posizione può essere trattata per aggiornare mappa, percorso, segnalazioni e alert."
+  ],
+  [
+    "Background",
+    "Il trattamento in background è ammesso solo se l'utente abilita funzioni specifiche che lo richiedono, come WalkGuard, SOS o condivisione temporanea con Buddy/Guardian, e deve essere revocabile."
+  ],
+  [
+    "Posizione live",
+    "È usata solo per la durata della sessione di sicurezza o condivisione richiesta dall'utente. Non viene conservato uno storico continuo e permanente degli spostamenti."
+  ],
+  [
+    "Coordinate di una segnalazione",
+    "Quando una posizione viene associata a una segnalazione o a un alert, può essere conservata per rendere utile, verificabile e moderabile il contenuto urbano."
+  ],
+  [
+    "Revoca",
+    "L'utente può revocare i permessi di localizzazione dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app. Senza posizione alcune funzioni potrebbero non essere disponibili o funzionare in modo limitato."
+  ]
+];
 
 const legalBases = [
-  ["Account, autenticazione e sicurezza accessi", "Esecuzione del servizio; legittimo interesse alla sicurezza; obblighi legali ove applicabili."],
-  ["Geolocalizzazione, mappa, segnalazioni, alert e WalkGuard", "Consenso per la posizione precisa ove richiesto dal sistema operativo; esecuzione del servizio richiesto; legittimo interesse alla sicurezza e prevenzione abusi."],
-  ["SOS, Guardian/Buddy e funzioni di sicurezza personale", "Consenso ed esecuzione del servizio; tutela di interessi vitali solo nei casi strettamente necessari e compatibili con la legge."],
-  ["Moderazione contenuti, abuso, frodi e sicurezza piattaforma", "Legittimo interesse; obblighi legali; accertamento, esercizio o difesa di diritti."],
-  ["AI, Safety Score e spiegazioni contestuali", "Esecuzione del servizio; legittimo interesse a fornire informazioni contestuali prudenti; consenso ove richiesto per dati specifici."],
-  ["Comunicazioni, supporto e richieste privacy", "Esecuzione del servizio; obblighi legali; legittimo interesse alla gestione delle richieste."],
-  ["Pagamenti partner tramite Stripe o PayPal", "Esecuzione di misure precontrattuali/contratto; obblighi fiscali e contabili; legittimo interesse antifrode."],
-  ["Cookie non tecnici e analytics non essenziali", "Consenso, ove tali strumenti siano attivati."],
+  [
+    "Creazione e gestione account",
+    "Creare account, autenticare utenti, gestire ruoli, preferenze e sicurezza accessi.",
+    "Esecuzione del servizio; legittimo interesse alla sicurezza; obblighi legali ove applicabili."
+  ],
+  [
+    "Mappa, posizione, segnalazioni e alert",
+    "Mostrare contenuti vicini, creare segnalazioni geolocalizzate, gestire mappa, geocoding, routing, Safe Points e alert.",
+    "Consenso alla posizione precisa quando richiesto; esecuzione del servizio richiesto; legittimo interesse a sicurezza e prevenzione abusi."
+  ],
+  [
+    "SOS, WalkGuard, Buddy/Guardian",
+    "Abilitare sessioni di sicurezza personale, posizione live temporanea, condivisione con contatti fidati e supporto al rientro sicuro.",
+    "Consenso; esecuzione del servizio richiesto; tutela di interessi vitali solo in casi strettamente necessari e compatibili con la legge."
+  ],
+  [
+    "Moderazione e sicurezza piattaforma",
+    "Prevenire spam, fake report, contenuti illeciti, abusi, frodi, minacce, diffamazione e violazioni delle regole community.",
+    "Legittimo interesse; obblighi legali; accertamento, esercizio o difesa di diritti."
+  ],
+  [
+    "Safety Score, AI e sistemi predittivi",
+    "Generare indicatori informativi su aree e situazioni urbane, spiegazioni contestuali e controlli di coerenza.",
+    "Esecuzione del servizio; legittimo interesse a fornire informazioni contestuali prudenti; consenso ove richiesto per dati specifici."
+  ],
+  [
+    "Notifiche push",
+    "Inviare alert, aggiornamenti di servizio, stato segnalazioni e comunicazioni collegate alle funzioni richieste.",
+    "Esecuzione del servizio; consenso ove richiesto; legittimo interesse per comunicazioni tecniche e sicurezza."
+  ],
+  [
+    "Firebase Analytics",
+    "Misurare uso dell'app, funzioni, stabilità, prestazioni e migliorare il servizio con eventi pseudonimi o aggregati.",
+    "Consenso ove richiesto per strumenti non strettamente necessari; legittimo interesse solo per metriche tecniche essenziali e minimizzate quando applicabile."
+  ],
+  [
+    "Firebase Crashlytics",
+    "Rilevare errori, crash, malfunzionamenti e vulnerabilità per garantire sicurezza e continuità del servizio.",
+    "Legittimo interesse alla sicurezza e affidabilità; consenso ove richiesto dalla normativa o dalla configurazione tecnica."
+  ],
+  [
+    "Pagamenti partner",
+    "Gestire piani, abbonamenti, fatture, rinnovi, contestazioni, antifrode e obblighi fiscali tramite Stripe e PayPal.",
+    "Esecuzione di contratto o misure precontrattuali; obblighi fiscali/contabili; legittimo interesse antifrode."
+  ],
+  [
+    "Comunicazioni email e supporto",
+    "Rispondere a richieste, reclami, contestazioni, richieste privacy, assistenza e comunicazioni aziendali.",
+    "Esecuzione del servizio; obblighi legali; legittimo interesse alla gestione delle richieste."
+  ],
+  [
+    "Cookie e sicurezza sito",
+    "Gestire sicurezza, funzionamento tecnico del sito, preferenze e log essenziali.",
+    "Legittimo interesse alla sicurezza; necessità tecnica; consenso per strumenti non tecnici ove attivati."
+  ]
 ];
 
 const providers = [
-  ["Firebase / Google Cloud", "Autenticazione, database, storage immagini, funzioni backend, log tecnici e sicurezza.", "Dati account, ID tecnici, contenuti inviati, media, log, dati di geolocalizzazione connessi alle funzioni.", "Responsabile del trattamento o fornitore cloud, secondo i contratti applicabili."],
-  ["Firebase Authentication", "Creazione account, accesso anonimo o autenticato, eventuale login email/social.", "Email, identificativi account, UID Firebase, token tecnici.", "Responsabile/servizio Google Cloud."],
-  ["Firestore", "Conservazione dati applicativi: segnalazioni, alert, preferenze, log funzionali, audit essenziali.", "Dati inseriti dall'utente, coordinate, stati segnalazioni, conferme, dati console.", "Responsabile/servizio Google Cloud."],
-  ["Firebase Storage", "Caricamento e conservazione immagini e media allegati.", "Immagini, metadati tecnici, riferimenti alla segnalazione o alert.", "Responsabile/servizio Google Cloud."],
-  ["Mapbox", "Mappe, geocoding, routing, contesto territoriale e percorsi.", "Coordinate, query indirizzo, dati tecnici dispositivo e uso API.", "Fornitore terzo; ruolo secondo policy e contratti Mapbox."],
-  ["OpenAI", "Supporto AI, spiegazioni Safety Score, assistenza app e analisi testuale controllata lato backend.", "Prompt minimizzati, contesto urbano, testi necessari, dati tecnici strettamente utili.", "Fornitore AI; trattamento secondo accordi e impostazioni applicabili."],
-  ["Cloudflare", "Hosting, CDN, sicurezza, protezione traffico, DNS e log tecnici del sito.", "IP, log richieste, dati tecnici browser, sicurezza rete.", "Responsabile/fornitore infrastrutturale secondo servizi attivi."],
-  ["Vercel", "Hosting o deploy di console e componenti web ove attivi.", "Log tecnici, IP, dati di accesso e deploy.", "Responsabile/fornitore infrastrutturale."],
-  ["GitHub", "Repository, versionamento codice, eventuali workflow di deploy.", "Dati sviluppatori, log tecnici, codice e issue operative.", "Fornitore autonomo o responsabile secondo uso effettivo."],
-  ["Stripe", "Pagamenti, abbonamenti partner, fatturazione, prevenzione frodi.", "Dati aziendali, email, P.IVA, piano scelto, ID cliente, pagamento, stato abbonamento. proTcity non conserva il numero completo della carta.", "Provider di pagamento, anche autonomo per obblighi antifrode/compliance."],
-  ["PayPal", "Pagamenti partner e gestione abbonamenti ove attiva.", "Dati account PayPal, email, transazione, piano, stato pagamento. proTcity riceve solo esiti e riferimenti necessari.", "Provider di pagamento, anche autonomo per obblighi propri."],
-  ["Servizi email/form", "Contatti, supporto, richieste privacy, lead partner.", "Nome, email, messaggio, dati tecnici del form.", "Da confermare nel registro fornitori prima della pubblicazione definitiva."],
-  ["Analytics", "Statistiche tecniche e miglioramento servizio, solo se attivati.", "Eventi aggregati, dati tecnici, ID pseudonimi.", "Da confermare e sottoporre a consenso se non strettamente tecnico."],
+  [
+    "Firebase / Google Cloud",
+    "Autenticazione, database, storage, backend, sicurezza, log, Firebase Analytics, Crashlytics e Firebase Cloud Messaging.",
+    "Dati account, UID, dati app, segnalazioni, media, log, eventi analytics/diagnostici, token push e dati tecnici.",
+    "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
+  ],
+  [
+    "Mapbox",
+    "Mappe, geocoding, ricerca luoghi, routing, percorsi e contesto territoriale.",
+    "Coordinate, query indirizzo, percorsi, dati tecnici di richiesta API e dati dispositivo necessari.",
+    "Fornitore terzo; ruolo secondo termini, DPA e configurazione del servizio."
+  ],
+  [
+    "Cloudflare",
+    "DNS, sicurezza, protezione traffico, eventuale CDN, log tecnici e Cloudflare Email Routing.",
+    "IP, log tecnici, dati di traffico sito, indirizzi email, metadati e contenuto necessario all'inoltro delle comunicazioni email.",
+    "Fornitore infrastrutturale e di instradamento email secondo i servizi attivi."
+  ],
+  [
+    "Provider della casella email di destinazione",
+    "Ricezione e conservazione delle email inoltrate tramite Cloudflare Email Routing.",
+    "Email del mittente, oggetto, contenuto del messaggio, allegati e metadati necessari alla gestione della comunicazione.",
+    "Fornitore di posta elettronica utilizzato da Kurbi Labs per la casella aziendale."
+  ],
+  [
+    "OpenAI o fornitori AI equivalenti",
+    "Supporto AI, classificazioni, spiegazioni Safety Score, analisi testuale controllata e assistenza tecnica lato backend.",
+    "Prompt minimizzati, testi o contesto urbano necessari, informazioni aggregate o non identificative ove possibile.",
+    "Fornitore AI secondo accordi, DPA, impostazioni privacy e configurazione adottata."
+  ],
+  [
+    "Stripe",
+    "Pagamenti, piani partner, abbonamenti, fatturazione, antifrode, ricevute e contestazioni.",
+    "Dati aziendali/partner, email, P.IVA, piano, ID cliente, transazione, stato pagamento e dati contabili. Kurbi Labs non conserva numero carta completo o CVV.",
+    "Provider di pagamento; può agire anche come autonomo titolare per obblighi normativi, antifrode e compliance."
+  ],
+  [
+    "PayPal",
+    "Pagamenti partner, stato transazioni, abbonamenti ove attivi, contestazioni e antifrode.",
+    "Dati account PayPal, email, ID transazione, importo, stato pagamento, dati contabili e riferimenti necessari.",
+    "Provider di pagamento; può agire anche come autonomo titolare per obblighi propri."
+  ],
+  [
+    "Partner commerciali, aziende e professionisti",
+    "Servizi partner, piani, offerte o contenuti collegati alla piattaforma.",
+    "Solo dati necessari al rapporto contrattuale o, per le segnalazioni, dati aggregati/non identificativi.",
+    "Titolari autonomi o destinatari limitati secondo accordi applicabili."
+  ],
+  [
+    "Enti autorizzati",
+    "Collaborazione, consultazione di dati aggregati, sicurezza urbana, gestione segnalazioni e contesto territoriale.",
+    "Solo contenuti e segnalazioni aggregate o non direttamente identificative. Non vengono forniti nome/email dell'utente segnalante salvo obbligo legale, richiesta dell'autorità o specifica base giuridica.",
+    "Titolari autonomi o destinatari autorizzati secondo accordi e finalità."
+  ],
+  [
+    "Autorità competenti",
+    "Adempimento obblighi legali, richieste dell'autorità, tutela di diritti, sicurezza o prevenzione di illeciti.",
+    "Dati necessari e proporzionati alla richiesta o all'obbligo.",
+    "Destinatari previsti dalla legge."
+  ]
 ];
 
 const retentionRows = [
-  ["Account utente", "Per la durata dell'account e, dopo chiusura, per il tempo necessario a completare cancellazione, obblighi legali e sicurezza."],
-  ["Segnalazioni e alert", "Per il tempo necessario alla finalità urbana, moderazione, storico essenziale e difesa da abusi; durata definitiva da approvare nel registro retention."],
-  ["Coordinate e posizione collegate a segnalazioni", "Conservate solo se necessarie a mostrare, verificare o gestire la segnalazione; non usate per tracciare inutilmente gli spostamenti."],
-  ["Posizione live WalkGuard/SOS/Buddy", "Solo per la sessione attiva o per il periodo strettamente necessario alla funzione; eventuali log di sicurezza sono limitati."],
-  ["Immagini e media", "Finché la segnalazione resta attiva o fino a rimozione/moderazione; contenuti illeciti possono essere conservati in log limitati per difesa e abuso."],
-  ["Log tecnici e sicurezza", "Indicativamente 6-24 mesi, salvo incidenti, frodi, obblighi legali o necessità di difesa."],
-  ["Moderazione e audit", "Per il tempo necessario a dimostrare gestione abusi, decisioni e contestazioni; durata definitiva da validare legalmente."],
-  ["Pagamenti, fatture e dati partner", "Per la durata del rapporto e secondo obblighi fiscali, contabili e civilistici, normalmente fino a 10 anni ove applicabile."],
-  ["Supporto e richieste privacy", "Per il tempo necessario a rispondere e dimostrare la gestione della richiesta; indicativamente fino a 24 mesi salvo contenziosi."],
-  ["Cookie e log sito", "Secondo durata indicata nella Cookie Policy e configurazioni tecniche effettive."],
+  [
+    "Account utente",
+    "Per la durata dell'account. Dopo richiesta di cancellazione, cancellazione o anonimizzazione entro 30 giorni, salvo obblighi legali, sicurezza, abusi, pagamenti, contestazioni o difesa di diritti."
+  ],
+  [
+    "Accesso anonimo e UID tecnici",
+    "Per il tempo necessario al funzionamento dell'app e alla prevenzione abusi; cancellazione o anonimizzazione quando non più necessari o in caso di cancellazione account compatibile con sicurezza e obblighi legali."
+  ],
+  [
+    "Segnalazioni e alert pubblici",
+    "Fino a 12 mesi come contenuto attivo, salvo rimozione anticipata. Successivamente cancellazione, archiviazione limitata o anonimizzazione/aggregazione per statistiche urbane."
+  ],
+  [
+    "Segnalazioni rilevanti per sicurezza, abusi o contestazioni",
+    "Fino a 24 mesi, salvo necessità di difesa, contenzioso, richiesta dell'autorità o obbligo legale."
+  ],
+  [
+    "Coordinate collegate a segnalazioni",
+    "Per il tempo in cui la segnalazione resta attiva o verificabile; successivamente cancellazione, aggregazione o anonimizzazione ove possibile."
+  ],
+  [
+    "Posizione live SOS/WalkGuard/Buddy",
+    "Solo per la durata della sessione. Cancellazione o anonimizzazione entro 24 ore dalla chiusura della sessione, salvo necessità di sicurezza, abuso, contestazione o obbligo legale."
+  ],
+  [
+    "Log sessione SOS/WalkGuard/Buddy",
+    "Fino a 90 giorni per sicurezza, integrità del servizio, contestazioni e prevenzione abusi, salvo casi gravi o obblighi legali."
+  ],
+  [
+    "Immagini e media allegati",
+    "Fino a 6 mesi o fino alla rimozione della segnalazione, se precedente. Se necessari per moderazione, abusi, contestazioni o difesa, conservazione limitata fino a 24 mesi."
+  ],
+  [
+    "Firebase Analytics",
+    "Dati analytics pseudonimi o aggregati fino a 14 mesi, salvo configurazioni più brevi, cancellazione richiesta, revoca del consenso o necessità tecniche diverse conformi alla normativa."
+  ],
+  [
+    "Crashlytics e diagnostica",
+    "Indicativamente fino a 90 giorni per crash report e diagnostica ordinaria; fino a 24 mesi per incidenti di sicurezza, frodi, abusi o problemi tecnici gravi."
+  ],
+  [
+    "Token notifiche push",
+    "Finché l'utente mantiene attive le notifiche o l'account/app necessita dell'invio; eliminazione o disattivazione dopo revoca, disinstallazione, cancellazione account o inattività tecnica rilevata."
+  ],
+  [
+    "Log tecnici, sicurezza, accessi e antifrode",
+    "Da 6 a 24 mesi secondo criticità, sicurezza, obblighi legali, prevenzione frodi e necessità di difesa."
+  ],
+  [
+    "Moderazione, ban, abuso e audit",
+    "Fino a 24 mesi. Nei casi gravi, frodi, minacce, violazioni ripetute o contenzioso, fino a 5 anni o per il tempo necessario alla tutela dei diritti."
+  ],
+  [
+    "Richieste privacy",
+    "Fino a 5 anni per dimostrare gestione, riscontro, identità del richiedente, eventuale diniego e adempimento degli obblighi GDPR."
+  ],
+  [
+    "Supporto clienti ordinario ed email",
+    "Fino a 24 mesi, salvo necessità di assistenza prolungata, rapporto contrattuale, reclamo, sicurezza, obbligo legale o difesa."
+  ],
+  [
+    "Pagamenti, fatture e documentazione fiscale partner",
+    "Per la durata del rapporto e fino a 10 anni secondo obblighi fiscali, contabili, civilistici, antiriciclaggio o di conservazione documentale applicabili."
+  ],
+  [
+    "Cookie tecnici e preferenze consenso",
+    "Secondo Cookie Policy e configurazione tecnica. Le preferenze di consenso possono essere conservate fino a 6 mesi o per il diverso termine previsto dalla soluzione tecnica conforme alla normativa."
+  ],
+  [
+    "Dati aggregati, statistici o anonimi",
+    "Possono essere conservati senza termine se non consentono più di identificare una persona fisica, direttamente o indirettamente."
+  ]
 ];
 ---
 
 <LegalLayout
-  title="Privacy Policy e GDPR"
+  title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
 >
-  <p class="legal-warning">
-    Questa informativa è predisposta per la pubblicazione web e deve essere mantenuta allineata alle funzioni realmente attive. Le parti indicate come "ove attivo", "quando implementato" o "se abilitato" non devono essere interpretate come funzioni già disponibili per tutti gli utenti.
+  <p class="legal-note">
+    Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
   </p>
 
-  <h2>1. Titolare del trattamento</h2>
   <p>
-    Il titolare del trattamento è <strong>{companyInfo.name}</strong>, con sede in <strong>{companyInfo.address}</strong>, P.IVA <strong>{companyInfo.vat}</strong>, REA <strong>{companyInfo.rea}</strong>, telefono <strong>{companyInfo.phone}</strong>.
+    Questa informativa descrive come <strong>{company.name}</strong> tratta i dati personali nell'ambito di proTcity, applicazione e servizio digitale dedicato a segnalazioni, alert, mappe, sicurezza urbana, percorsi, funzioni di supporto alla sicurezza personale, Safety Score e servizi partner. Il testo è predisposto secondo il Regolamento (UE) 2016/679 ("GDPR"), il Codice Privacy italiano, la normativa applicabile su cookie e strumenti di tracciamento, e i principi di trasparenza, minimizzazione, sicurezza e responsabilizzazione.
   </p>
   <p>
-    Per richieste privacy: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per assistenza sull'app: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
-  </p>
-  <p>
-    DPO/RPD: Kurbi Labs s.r.l.s. valuterà la nomina del Responsabile della Protezione dei Dati secondo gli articoli 37-39 GDPR. Se nominato, i relativi recapiti saranno pubblicati in questa pagina.
+    proTcity non è un servizio di emergenza, non sostituisce il Numero Unico Europeo 112, il 113, il 115, il 118, le forze dell'ordine, i vigili del fuoco, i servizi sanitari o altre autorità competenti. In caso di pericolo reale, urgenza, emergenza sanitaria, incendio, aggressione, incidente o situazione che richieda intervento immediato, l'utente deve contattare direttamente i numeri di emergenza competenti.
   </p>
 
-  <h2>2. Ambito di applicazione</h2>
+  <h2>A. Informativa privacy di primo livello</h2>
   <p>
-    La presente informativa riguarda l'app mobile proTcity, il sito <strong>protcity.com</strong>, le console amministrative e partner/enti, le comunicazioni email, i moduli di contatto, le funzioni di segnalazione, alert, sicurezza urbana, AI, pagamenti partner e, quando attive, le notifiche push.
+    Questo testo può essere mostrato nel primo livello dell'informativa in app, ad esempio al primo avvio, nella schermata privacy, nella richiesta dei permessi di localizzazione e nelle impostazioni dell'account.
   </p>
-
-  <h2>3. Tipologie di dati trattati</h2>
-  <ul>
-    <li>dati identificativi e di contatto: email, nome o denominazione aziendale/ente, telefono se comunicato, P.IVA o dati contrattuali partner;</li>
-    <li>dati account: UID Firebase, accesso anonimo, identificativi tecnici, stato account, ruoli admin/partner/ente;</li>
-    <li>dati tecnici: IP, dispositivo, sistema operativo, log, eventi sicurezza, crash e diagnostica ove attivi;</li>
-    <li>geolocalizzazione precisa o approssimativa: coordinate GPS, posizione corrente, indirizzi ricavati da geocoding, zona di segnalazione;</li>
-    <li>contenuti generati dagli utenti: segnalazioni, alert, categorie, note, conferme, visualizzazioni, immagini e metadati;</li>
-    <li>dati SOS, Buddy/Guardian e WalkGuard: destinazione, percorso, stato sessione, condivisione temporanea con contatti fidati, ove attiva;</li>
-    <li>dati di moderazione: report, motivi, note, esiti, log di decisione, sospensioni o ban;</li>
-    <li>dati AI derivati: Safety Score, Confidence Score, spiegazioni, motivazioni tecniche, audit sintetici;</li>
-    <li>token notifiche push, se le notifiche native vengono abilitate;</li>
-    <li>dati di pagamento partner: piano selezionato, stato abbonamento, ID transazione, fatturazione, ricevute, Stripe/PayPal customer ID;</li>
-    <li>dati del sito: cookie tecnici, preferenze consenso, moduli contatto, log sicurezza.</li>
-  </ul>
-
-  <h2>4. Geolocalizzazione precisa</h2>
-  <p>
-    proTcity usa la geolocalizzazione per mostrare la posizione sulla mappa, creare segnalazioni e alert geolocalizzati, calcolare percorsi WalkGuard, suggerire Safe Points, limitare pubblicazioni lontane dalla posizione reale dell'utente, abilitare funzioni SOS/Buddy e produrre indicatori di contesto urbano come Safety Score.
-  </p>
-  <p>
-    La posizione precisa viene richiesta tramite i permessi del sistema operativo. L'app può usare la posizione in foreground durante l'utilizzo della mappa e, solo se l'utente abilita funzioni specifiche come WalkGuard, Guardian/Buddy o SOS, può trattarla per una sessione di sicurezza o monitoraggio. L'uso in background, ove implementato, deve essere chiaro, volontario e revocabile.
-  </p>
-  <p>
-    proTcity non dovrebbe conservare uno storico dettagliato e permanente degli spostamenti dell'utente. Quando una posizione viene associata a una segnalazione o a un alert, viene conservata perché necessaria a rendere utile e verificabile il contenuto urbano. L'utente può revocare i permessi di localizzazione dalle impostazioni del dispositivo; alcune funzioni potrebbero non funzionare senza tale permesso.
-  </p>
-
-  <h2>5. Finalità del trattamento</h2>
-  <ul>
-    <li>creare, autenticare e proteggere account utente, admin, partner ed enti;</li>
-    <li>visualizzare mappe, percorsi, indirizzi, segnalazioni e alert vicini;</li>
-    <li>consentire la pubblicazione, conferma, revisione e gestione di segnalazioni e alert;</li>
-    <li>fornire funzioni SOS, WalkGuard, Buddy/Guardian e rientro sicuro, nei limiti del servizio;</li>
-    <li>moderare contenuti, immagini, abusi, fake report, spam e contenuti offensivi;</li>
-    <li>generare Safety Score, Confidence Score e spiegazioni AI informative e non vincolanti;</li>
-    <li>inviare notifiche push e comunicazioni di servizio, quando abilitate;</li>
-    <li>gestire pagamenti, abbonamenti partner, fatturazione, antifrode e rinnovi tramite Stripe o PayPal;</li>
-    <li>rispondere a richieste di supporto, privacy, cancellazione dati e contestazioni;</li>
-    <li>adempiere obblighi legali e tutelare diritti, sicurezza e integrità della piattaforma.</li>
-  </ul>
-
-  <h2>6. Basi giuridiche GDPR</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Finalità</th><th>Base giuridica</th></tr></thead>
+      <thead><tr><th>Tema</th><th>Sintesi per l'utente</th></tr></thead>
       <tbody>
-        {legalBases.map(([purpose, basis]) => <tr><td>{purpose}</td><td>{basis}</td></tr>)}
+        {firstLevelRows.map(([theme, summary]) => <tr><td>{theme}</td><td>{summary}</td></tr>)}
       </tbody>
     </table>
   </div>
 
-  <h2>7. Funzioni specifiche dell'app</h2>
-  <h3>Account, accesso anonimo e login social</h3>
-  <p>
-    L'app può usare Firebase Authentication per accesso anonimo, email o, se implementato, login social. In caso di login social, proTcity riceve solo i dati necessari dal provider, come email, nome pubblico e identificativo account, secondo i permessi concessi dall'utente.
-  </p>
-  <h3>Mappa, Mapbox e percorsi</h3>
-  <p>
-    Mapbox supporta mappa, geocoding, ricerca luoghi e routing. Le richieste possono includere coordinate, indirizzi cercati, percorso e dati tecnici necessari al servizio.
-  </p>
-  <h3>Segnalazioni, alert e immagini</h3>
-  <p>
-    Gli utenti possono inviare segnalazioni e alert geolocalizzati con testi, categorie, note e immagini. Le immagini possono contenere dati personali di terzi: è vietato caricare volti riconoscibili, minori, targhe, documenti, dati sanitari, scene violente, accuse personali o contenuti illeciti salvo stretta necessità e base giuridica.
-  </p>
-  <h3>SOS, WalkGuard e sicurezza personale</h3>
-  <p>
-    Queste funzioni aiutano l'utente a orientarsi o condividere temporaneamente informazioni di sicurezza. proTcity non sostituisce il 112, 113, 118, forze dell'ordine, vigili del fuoco, servizi sanitari o altre autorità competenti.
-  </p>
-  <h3>Safety Score e AI</h3>
-  <p>
-    Il Safety Score è un indicatore informativo basato su segnali urbani, segnalazioni, contesto territoriale e fonti disponibili. Non valuta persone fisiche, non identifica soggetti, non predice reati individuali e non sostituisce decisioni umane o autorità pubbliche.
-  </p>
-  <h3>Admin Console e Partner/Enti</h3>
-  <p>
-    Le console consentono a personale autorizzato di gestire contenuti, segnalazioni, partner, enti, ruoli, abbonamenti e interventi. Gli accessi sono limitati per ruolo e devono essere tracciati in modo proporzionato.
-  </p>
+  <h3>Formula breve utilizzabile in app</h3>
+  <ul>
+    <li>Usiamo i tuoi dati per far funzionare proTcity: account, sicurezza, mappa, posizione, segnalazioni, alert, notifiche, moderazione, diagnostica e servizi partner.</li>
+    <li>La posizione può essere precisa quando necessaria e autorizzata. Puoi revocarla dalle impostazioni del dispositivo, ma alcune funzioni potrebbero non funzionare.</li>
+    <li>Le segnalazioni possono essere rese pubbliche solo dopo controlli e moderazione; evita dati di persone, minori, targhe, documenti o contenuti illeciti.</li>
+    <li>Il Safety Score è solo informativo e non sostituisce i numeri di emergenza. In caso di pericolo chiama il 112 o gli altri numeri competenti.</li>
+    <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>.</li>
+  </ul>
 
-  <h2>8. Moderazione contenuti</h2>
-  <p>
-    proTcity può applicare controlli automatici e revisione manuale per rimuovere o limitare contenuti falsi, offensivi, pericolosi, abusivi, discriminatori, spam, lesivi di terzi o contrari alle regole community. Gli utenti possono segnalare contenuti e bloccare utenti abusivi. Kurbi Labs può conservare log di moderazione necessari a sicurezza, contestazioni e difesa.
-  </p>
+  <h2>B. Informativa privacy completa</h2>
 
-  <h2>9. Pagamenti partner con Stripe e PayPal</h2>
-  <p>
-    Quando i piani partner sono attivati, aziende e professionisti possono pagare tramite Stripe o PayPal. proTcity non conserva il numero completo della carta, il CVV o credenziali PayPal. Riceve e conserva solo dati necessari a gestire piano, fatturazione, stato abbonamento, rinnovi, contestazioni e obblighi fiscali.
-  </p>
-  <p>
-    Stripe e PayPal trattano dati di pagamento anche secondo le rispettive informative privacy e obblighi normativi propri, inclusi antifrode, sicurezza, compliance finanziaria e contabile.
-  </p>
-
-  <h2>10. Fornitori e piattaforme terze</h2>
+  <h2>1. Titolare, contatti e referente privacy</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Fornitore</th><th>Finalità</th><th>Dati</th><th>Ruolo privacy</th></tr></thead>
+      <thead><tr><th>Voce</th><th>Dettaglio</th></tr></thead>
+      <tbody>
+        {controllerRows.map(([label, value]) => <tr><td>{label}</td><td>{value}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>{company.name}</strong> determina finalità e mezzi del trattamento dei dati personali nell'ambito di proTcity e agisce quindi come titolare del trattamento ai sensi del GDPR.
+  </p>
+  <p>
+    <strong>Referente privacy e DPO/RPD.</strong> Le richieste relative alla protezione dei dati personali sono gestite internamente da Kurbi Labs srls tramite il proprio referente privacy, contattabile all'indirizzo <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a> indicando nell'oggetto "Privacy" o "Richiesta dati personali". Alla data della presente informativa Kurbi Labs srls non ha nominato un Responsabile della Protezione dei Dati / Data Protection Officer formale. La valutazione sulla nomina del DPO/RPD è documentata e viene aggiornata in caso di crescita significativa del servizio, trattamento su larga scala, nuove funzioni ad alto rischio, accordi con enti pubblici o ulteriori trattamenti che rendano la nomina obbligatoria o opportuna.
+  </p>
+  <p>
+    <strong>Nota sulla DPIA.</strong> Kurbi Labs srls ha svolto una valutazione d'impatto sulla protezione dei dati personali ("DPIA") con riferimento ai trattamenti più rilevanti, inclusi geolocalizzazione, segnalazioni, moderazione, Safety Score, funzioni di sicurezza personale, analytics/diagnostica e accessi da parte di amministratori, partner o enti autorizzati. La DPIA viene aggiornata in caso di modifiche sostanziali del servizio o del rischio.
+  </p>
+
+  <h2>2. Ambito di applicazione</h2>
+  <p>La presente informativa si applica a:</p>
+  <ul>
+    <li>app mobile proTcity e relative funzioni di mappa, segnalazioni, alert, percorsi, Safe Points, Safety Score e sicurezza personale;</li>
+    <li>sito protcity.com, comprese pagine informative, cookie tecnici e log di sicurezza;</li>
+    <li>console amministrative, console partner ed eventuali interfacce per enti autorizzati;</li>
+    <li>comunicazioni email inviate dagli utenti agli indirizzi messi a disposizione da Kurbi Labs;</li>
+    <li>servizi di pagamento partner, abbonamenti, fatturazione e assistenza;</li>
+    <li>fornitori tecnici e servizi collegati necessari al funzionamento, alla sicurezza, alla diagnostica e al miglioramento del servizio.</li>
+  </ul>
+  <p>
+    Il sito protcity.com non mette a disposizione moduli di contatto web. Gli utenti comunicano con Kurbi Labs tramite email dedicata. Qualora in futuro venissero introdotti form, chatbot, newsletter, marketing, nuove integrazioni o ulteriori strumenti di tracciamento, l'informativa e gli strumenti di consenso saranno aggiornati prima dell'attivazione o al momento dell'attivazione, secondo la normativa applicabile.
+  </p>
+
+  <h2>3. Categorie di dati personali trattati</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Categoria</th><th>Descrizione</th></tr></thead>
+      <tbody>
+        {dataCategories.map(([category, description]) => <tr><td>{category}</td><td>{description}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>Dati particolari e dati relativi a illeciti.</strong> proTcity non richiede intenzionalmente all'utente di pubblicare dati sanitari, dati biometrici, dati relativi a minori, orientamento politico, religioso o sessuale, dati giudiziari, accuse nominative o altre informazioni particolarmente sensibili. Gli utenti devono evitare di inserire tali dati nelle segnalazioni, nei testi e nelle immagini. Qualora tali informazioni vengano caricate accidentalmente o abusivamente, Kurbi Labs può trattarle solo nella misura strettamente necessaria per moderazione, rimozione, sicurezza, tutela dei diritti, obblighi legali, contestazioni o situazioni di emergenza, minimizzando la conservazione e limitando gli accessi.
+  </p>
+
+  <h2>4. Geolocalizzazione precisa, approssimata e posizione live</h2>
+  <p>
+    La geolocalizzazione è una funzione centrale di proTcity, ma viene trattata secondo criteri di necessità, proporzionalità e minimizzazione.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tipo di posizione</th><th>Uso previsto</th></tr></thead>
+      <tbody>
+        {locationRows.map(([type, use]) => <tr><td>{type}</td><td>{use}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    proTcity non vende dati di geolocalizzazione, non conserva uno storico permanente degli spostamenti individuali e non usa la posizione per advertising comportamentale. Eventuali controlli antifrode o anti-abuso basati sulla distanza tra posizione reale e segnalazione sono limitati alla verifica di coerenza del servizio e alla prevenzione di segnalazioni false o manipolative.
+  </p>
+
+  <h2>5. Finalità e basi giuridiche</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Finalità</th><th>Descrizione</th><th>Base giuridica</th></tr></thead>
+      <tbody>
+        {legalBases.map(([purpose, description, basis]) => <tr><td>{purpose}</td><td>{description}</td><td>{basis}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6. Segnalazioni, contenuti pubblici e moderazione</h2>
+  <p>
+    Gli utenti possono inviare segnalazioni e alert geolocalizzati. Tali contenuti possono includere categoria, descrizione, posizione, data/ora, immagini e altri dettagli utili al contesto urbano. Le segnalazioni possono essere rese visibili ad altri utenti solo dopo controlli automatici, revisione manuale o moderazione secondo le regole della piattaforma.
+  </p>
+  <h3>Regole sui contenuti</h3>
+  <ul>
+    <li>non pubblicare dati personali non necessari, nomi di persone, indirizzi privati, numeri di telefono, email o informazioni che rendano identificabili terzi;</li>
+    <li>non pubblicare immagini di volti riconoscibili, minori, targhe, documenti, feriti, vittime, luoghi privati o scene violente, salvo casi leciti, necessari e proporzionati;</li>
+    <li>non formulare accuse personali, diffamazioni, minacce, discriminazioni, contenuti offensivi, informazioni false o segnalazioni manipolative;</li>
+    <li>non pubblicare dati sanitari, giudiziari, biometrici o altri dati sensibili salvo assoluta necessità e nel rispetto della legge;</li>
+    <li>usare proTcity come supporto informativo urbano, non come strumento per sostituire autorità, indagini, emergenze o interventi ufficiali.</li>
+  </ul>
+  <p>
+    Kurbi Labs può rimuovere, oscurare, limitare, correggere, deindicizzare, sospendere o non pubblicare contenuti che violano la legge, la privacy, la sicurezza, i diritti di terzi, le regole community o l'integrità del servizio. Kurbi Labs può inoltre bloccare utenti abusivi, limitare funzioni, conservare log di moderazione e gestire contestazioni in modo proporzionato.
+  </p>
+  <h3>Contestazioni di moderazione</h3>
+  <p>
+    L'utente può contestare rimozioni, limitazioni, sospensioni, ban, mancata pubblicazione o altre decisioni di moderazione scrivendo a <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Kurbi Labs riesamina le contestazioni tenendo conto di legge, privacy, sicurezza, diritti di terzi, regole community, rischio di abuso e integrità della piattaforma.
+  </p>
+
+  <h2>7. Safety Score, AI e sistemi predittivi</h2>
+  <p>
+    Il Safety Score è un indicatore informativo e contestuale relativo ad aree, zone, percorsi, eventi o condizioni urbane. Non è una valutazione dell'affidabilità, pericolosità, reputazione, comportamento o rischio individuale di una persona fisica.
+  </p>
+  <h3>Logica generale del Safety Score</h3>
+  <ul>
+    <li>Il Safety Score può considerare segnali urbani come categoria delle segnalazioni, posizione dell'area, recenza, frequenza, stato di moderazione, conferme, affidabilità del contenuto, contesto territoriale e informazioni disponibili nel servizio.</li>
+    <li>Il Safety Score può essere accompagnato da Confidence Score o spiegazioni sintetiche che indicano il livello di affidabilità, incertezza o completezza dei dati disponibili.</li>
+    <li>Il Safety Score può variare nel tempo e può contenere errori, ritardi, incompletezze o valutazioni prudenziali. Deve essere interpretato come supporto informativo e non come certezza o previsione ufficiale.</li>
+    <li>Il Safety Score non identifica persone, non valuta comportamenti individuali, non usa categorie protette per classificare utenti e non produce decisioni con effetti giuridici o equivalenti sugli utenti.</li>
+  </ul>
+  <h3>Logica generale di eventuali sistemi predittivi</h3>
+  <p>
+    Eventuali funzioni predittive di proTcity devono restare limitate a trend, anomalie, pattern territoriali o contesti urbani aggregati. Non sono progettate per predire il rischio che una persona specifica commetta un reato, non sono strumenti di polizia predittiva individuale, non effettuano social scoring, non deducono caratteristiche protette e non sostituiscono valutazioni umane, autorità pubbliche, servizi sanitari o forze dell'ordine.
+  </p>
+  <p>
+    OpenAI e altri fornitori AI, se utilizzati, sono impiegati lato backend con dati minimizzati e pertinenti alla funzione. Kurbi Labs evita, per quanto possibile, di inviare dati identificativi, dati di contatto, dati sensibili, immagini di persone, dati di minori o informazioni non necessarie. L'AI può supportare classificazioni, spiegazioni, controlli di coerenza o assistenza, ma non deve essere usata per decisioni automatizzate su persone fisiche con effetti giuridici o analogamente significativi.
+  </p>
+
+  <h2>8. Notifiche push, analytics, crash report e cookie</h2>
+  <h3>Notifiche push</h3>
+  <p>
+    proTcity usa Firebase Cloud Messaging per inviare notifiche push relative a alert, stato delle segnalazioni, comunicazioni di servizio, sicurezza, aggiornamenti tecnici e funzioni richieste. Su dispositivi Apple, l'invio può coinvolgere anche Apple Push Notification service secondo la configurazione tecnica del sistema operativo. L'utente può disattivare le notifiche dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app.
+  </p>
+  <h3>Firebase Analytics e Crashlytics</h3>
+  <p>
+    proTcity usa Firebase Analytics per statistiche di utilizzo, miglioramento del servizio, misurazione di funzioni e prestazioni, e Firebase Crashlytics per crash report, diagnostica, correzione errori, affidabilità e sicurezza. Kurbi Labs non usa tali strumenti per advertising comportamentale, vendita di dati, profilazione commerciale o tracciamento pubblicitario. Firebase Analytics viene gestito con meccanismi di consenso e revoca ove richiesti dalla normativa applicabile. Crashlytics è limitato a finalità tecniche, diagnostiche e di sicurezza.
+  </p>
+  <h3>Cookie e sito protcity.com</h3>
+  <p>
+    Il sito protcity.com non contiene form di contatto. Può usare cookie tecnici e log necessari per funzionamento, sicurezza, prevenzione abusi, gestione preferenze e protezione dell'infrastruttura. Eventuali cookie analytics non tecnici, pixel, SDK pubblicitari, marketing comportamentale o strumenti equivalenti verranno attivati solo previo consenso dell'utente, ove richiesto, e dopo aggiornamento della Cookie Policy o del pannello consensi. Alla data della presente informativa proTcity non dichiara l'uso di Meta Pixel, TikTok Pixel, Google Ads remarketing o altri strumenti di advertising tracking.
+  </p>
+
+  <h2>9. Destinatari, fornitori e partner/enti</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Destinatario/Fornitore</th><th>Finalità</th><th>Dati trattati</th><th>Ruolo privacy</th></tr></thead>
       <tbody>
         {providers.map(([name, purpose, data, role]) => <tr><td>{name}</td><td>{purpose}</td><td>{data}</td><td>{role}</td></tr>)}
       </tbody>
     </table>
   </div>
-
-  <h2>11. Trasferimenti internazionali</h2>
   <p>
-    Alcuni provider possono trattare dati fuori dallo Spazio Economico Europeo, in particolare negli Stati Uniti o in altri Paesi. Quando necessario, Kurbi Labs deve verificare l'esistenza di decisioni di adeguatezza, Standard Contractual Clauses, misure supplementari, configurazioni regionali, DPA e impostazioni di sicurezza.
+    Partner ed enti non vedono dati identificativi degli utenti che effettuano segnalazioni. La visualizzazione è limitata a contenuti, mappe, metriche, statistiche, aree, categorie e segnalazioni aggregate o non direttamente identificative, salvo necessità specifica, obbligo legale o autorizzazione espressa conforme alla normativa applicabile.
   </p>
 
-  <h2>12. Conservazione dei dati</h2>
+  <h2>10. Trasferimenti extra UE/SEE</h2>
+  <p>
+    Alcuni fornitori possono trattare dati personali in Paesi diversi dall'Italia e dallo Spazio Economico Europeo, inclusi Stati Uniti, Regno Unito o altri Paesi in cui i fornitori o subfornitori operano. Quando necessario, Kurbi Labs adotta strumenti adeguati quali decisioni di adeguatezza, EU-US Data Privacy Framework ove applicabile, Standard Contractual Clauses approvate dalla Commissione europea, Data Processing Agreement, misure tecniche e organizzative supplementari, configurazioni regionali, limitazione degli accessi, cifratura, pseudonimizzazione e controlli sui subfornitori.
+  </p>
+  <p>
+    I trasferimenti internazionali vengono valutati in base al fornitore, al servizio utilizzato, alla tipologia di dati, alla regione di trattamento, ai contratti applicabili e al rischio per gli interessati. Kurbi Labs privilegia configurazioni che riducano i dati trasferiti e il livello di identificabilità.
+  </p>
+
+  <h2>11. Tempi di conservazione</h2>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Categoria</th><th>Criterio di conservazione</th></tr></thead>
+      <thead><tr><th>Categoria</th><th>Durata/criterio</th></tr></thead>
       <tbody>
-        {retentionRows.map(([category, time]) => <tr><td>{category}</td><td>{time}</td></tr>)}
+        {retentionRows.map(([category, duration]) => <tr><td>{category}</td><td>{duration}</td></tr>)}
       </tbody>
     </table>
   </div>
-
-  <h2>13. Diritti degli utenti</h2>
   <p>
-    Gli utenti possono chiedere accesso, rettifica, cancellazione, limitazione, opposizione, portabilità, revoca del consenso e informazioni sui trattamenti. Le richieste vanno inviate a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. È possibile proporre reclamo al Garante per la protezione dei dati personali o all'autorità competente del proprio Paese.
+    La cancellazione può richiedere tempi tecnici ragionevoli per sincronizzazione, backup, log di sicurezza e sistemi distribuiti. I backup vengono sovrascritti o resi non disponibili secondo cicli tecnici e non sono usati per nuove finalità.
   </p>
 
-  <h2>14. Minori</h2>
+  <h2>12. Diritti degli utenti e reclamo al Garante</h2>
   <p>
-    proTcity non è progettata per raccogliere intenzionalmente dati di minori senza adeguata base giuridica o consenso genitoriale ove richiesto. È vietato pubblicare immagini, dati o informazioni che rendano identificabile un minore, salvo casi legittimi e proporzionati. L'età minima definitiva deve essere validata prima della pubblicazione sugli store.
+    L'utente può esercitare i diritti previsti dagli articoli 15-22 GDPR, nei limiti e alle condizioni applicabili:
   </p>
-
-  <h2>15. Sicurezza</h2>
-  <p>
-    proTcity adotta misure tecniche e organizzative ragionevoli: autenticazione, regole Firestore/Storage, accessi per ruolo, cifratura in transito, logging proporzionato, protezione API key lato server, monitoraggio abusi e separazione tra client e backend per chiavi sensibili come OpenAI, Stripe e PayPal.
-  </p>
-
-  <h2>16. Normative extra UE</h2>
-  <p>
-    Per utenti fuori dall'Unione Europea possono applicarsi norme locali come UK GDPR, CCPA/CPRA, PIPEDA, LGPD, APPI o altre leggi privacy. Kurbi Labs gestirà le richieste secondo la normativa applicabile, tenendo conto della sede dell'utente, del servizio utilizzato e del ruolo effettivo della società.
-  </p>
-
-  <h2>17. Cookie</h2>
-  <p>
-    Il sito può usare cookie tecnici e, solo se attivati e previo consenso ove necessario, strumenti analytics o marketing. I dettagli sono disponibili nella <a href="/cookie-policy">Cookie Policy</a>.
-  </p>
-
-  <h2>18. Aggiornamenti</h2>
-  <p>
-    Kurbi Labs può aggiornare questa informativa in caso di nuove funzioni, modifiche ai provider, obblighi legali o cambiamenti tecnici. La versione pubblicata indica la data di aggiornamento: <strong>{legalMeta.lastUpdated}</strong>.
-  </p>
-
-  <h2>Punti da verificare con consulente privacy/DPO</h2>
   <ul>
-    <li>nomina DPO/RPD e recapiti, se richiesta o opportuna;</li>
-    <li>DPIA per geolocalizzazione precisa, AI Safety Score, SOS, moderazione immagini e funzioni predittive;</li>
-    <li>retention definitiva per segnalazioni, immagini, SOS, log e moderazione;</li>
-    <li>DPA, SCC, localizzazione server e configurazioni regionali con tutti i provider;</li>
-    <li>cookie banner effettivo, elenco cookie attivi e consensi;</li>
-    <li>età minima, consenso genitoriale e policy minori;</li>
-    <li>ruoli privacy di partner commerciali, enti pubblici, comuni e operatori console.</li>
+    <li>accesso ai dati personali;</li>
+    <li>rettifica dei dati inesatti o integrazione dei dati incompleti;</li>
+    <li>cancellazione dei dati nei casi previsti;</li>
+    <li>limitazione del trattamento;</li>
+    <li>opposizione al trattamento basato su legittimo interesse;</li>
+    <li>portabilità dei dati quando tecnicamente applicabile;</li>
+    <li>revoca del consenso, senza pregiudicare la liceità del trattamento svolto prima della revoca;</li>
+    <li>informazioni su eventuali processi automatizzati e sulla logica generale dei sistemi AI/Safety Score, nei limiti previsti dalla legge.</li>
+  </ul>
+  <p>
+    Le richieste devono essere inviate a <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a> indicando nell'oggetto "Privacy" o "Richiesta dati personali". Kurbi Labs risponde di norma entro 1 mese dal ricevimento della richiesta. Il termine può essere prorogato fino a 2 mesi ulteriori in caso di complessità o numero elevato di richieste; in tal caso Kurbi Labs informa l'utente entro 1 mese.
+  </p>
+  <p>
+    Per proteggere l'account e i dati, Kurbi Labs può richiedere informazioni necessarie a verificare l'identità del richiedente. In caso di richieste manifestamente infondate, eccessive o ripetitive, Kurbi Labs può rifiutare la richiesta o richiedere un contributo spese nei limiti previsti dal GDPR.
+  </p>
+  <p>
+    L'utente ha diritto di proporre reclamo al Garante per la protezione dei dati personali, con sede in Piazza Venezia n. 11, 00187 Roma, o all'autorità di controllo competente del proprio Paese, secondo le modalità pubblicate sui rispettivi siti istituzionali.
+  </p>
+
+  <h2>13. Minori</h2>
+  <p>
+    proTcity non è destinata a minori di 14 anni. Gli utenti di età compresa tra 14 e 17 anni possono utilizzare il servizio solo con il consenso, l'autorizzazione o la supervisione di un genitore o tutore, ove richiesto dalla normativa applicabile e tenendo conto della natura dell'app. Account business, partner, enti, professionisti, aziende, amministratori, acquisti, abbonamenti e funzioni contrattuali sono riservati a maggiorenni.
+  </p>
+  <p>
+    È vietato pubblicare dati, immagini, video, segnalazioni o informazioni che rendano identificabile un minore, salvo casi leciti, necessari, proporzionati e compatibili con la legge. Kurbi Labs può rimuovere contenuti che coinvolgono minori, oscurare dati identificativi, sospendere account o segnalare situazioni alle autorità competenti quando necessario.
+  </p>
+
+  <h2>14. Sicurezza, DPIA e privacy by design</h2>
+  <p>Kurbi Labs adotta misure tecniche e organizzative adeguate al rischio, tra cui:</p>
+  <ul>
+    <li>autenticazione e gestione ruoli per utenti, admin, partner ed enti;</li>
+    <li>limitazione degli accessi ai soli soggetti autorizzati e secondo necessità;</li>
+    <li>regole di sicurezza per database, storage e backend;</li>
+    <li>cifratura in transito e protezione delle comunicazioni;</li>
+    <li>protezione delle chiavi API e dei segreti lato server o in ambienti sicuri;</li>
+    <li>logging proporzionato, monitoraggio abusi e controlli antifrode;</li>
+    <li>moderazione automatica e manuale, ove necessaria;</li>
+    <li>minimizzazione dei dati inviati a fornitori AI e servizi terzi;</li>
+    <li>separazione tra dati identificativi, contenuti pubblici e dati aggregati ove tecnicamente possibile;</li>
+    <li>valutazione d'impatto DPIA e aggiornamento periodico in caso di modifiche sostanziali.</li>
+  </ul>
+  <p>
+    Nessun sistema può garantire sicurezza assoluta. In caso di violazione dei dati personali, Kurbi Labs applica le procedure previste dal GDPR e, quando necessario, notifica l'evento al Garante e agli interessati nei termini di legge.
+  </p>
+
+  <h2>15. Utenti extra UE e aggiornamenti</h2>
+  <p>
+    La presente informativa è predisposta principalmente per utenti situati in Italia, Unione Europea e Spazio Economico Europeo. Per utenti situati in altri Paesi possono applicarsi normative locali, tra cui UK GDPR, leggi statali USA sulla privacy, PIPEDA, LGPD, APPI o altre discipline applicabili. Kurbi Labs gestisce le richieste privacy in base alla normativa applicabile, al luogo dell'utente, al servizio usato e al ruolo effettivo della società.
+  </p>
+  <p>
+    Kurbi Labs può aggiornare questa informativa in caso di modifiche normative, nuove funzioni, nuovi fornitori, aggiornamenti tecnici, nuove finalità, modifiche del Safety Score/AI, nuove console partner/enti o variazioni dei tempi di conservazione. La versione aggiornata viene pubblicata nel sito, nell'app o nei canali ufficiali. In caso di modifiche sostanziali, Kurbi Labs informa gli utenti con modalità proporzionate, ad esempio notifica in app, email o avviso sul sito.
+  </p>
+
+  <h2>16. Coerenza tecnica, app store e ulteriori documenti collegati</h2>
+  <p>
+    Kurbi Labs mantiene la presente informativa coerente con le configurazioni tecniche dell'app, del sito, dei fornitori e delle dichiarazioni rese sugli store. In particolare:
+  </p>
+  <ul>
+    <li>Firebase Analytics è configurato con meccanismi di consenso e revoca ove richiesti dalla normativa applicabile;</li>
+    <li>Firebase Crashlytics è limitato a diagnostica, sicurezza, correzione errori e affidabilità;</li>
+    <li>le notifiche push sono disattivabili dall'utente dalle impostazioni del dispositivo e, ove previsto, dall'app;</li>
+    <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni necessarie;</li>
+    <li>la posizione live è cancellata o anonimizzata entro i termini indicati nella presente informativa;</li>
+    <li>partner ed enti visualizzano solo dati aggregati o non direttamente identificativi, salvo obblighi legali o basi giuridiche specifiche;</li>
+    <li>le segnalazioni vengono controllate e moderate prima della pubblicazione quando ciò è necessario per privacy, sicurezza e qualità del servizio;</li>
+    <li>la DPIA è conservata e aggiornata in caso di modifiche sostanziali;</li>
+    <li>la Cookie Policy, i Termini di servizio, le Community Guidelines, le informative Google Play Data Safety e Apple App Privacy sono mantenute coerenti con questa informativa.</li>
   </ul>
 </LegalLayout>
