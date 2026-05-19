@@ -1,103 +1,323 @@
 ---
 import LegalLayout from "../layouts/LegalLayout.astro";
-import { companyInfo, contactEmails } from "../data/site";
-import { legalMeta } from "../data/legal";
 
-const cookieRows = [
+const cookieEmail = "info@protcity.com";
+const company = {
+  name: "Kurbi Labs s.r.l.s.",
+  address: "Via Sassotello, n. 47, 03010 Trivigliano (FR), Italia",
+  vat: "03342090606",
+  phone: "+39 329 93 99 838"
+};
+
+const cookieCategories = [
   {
-    category: "Cookie tecnici e necessari",
-    examples: "Sessione, sicurezza, preferenze privacy, prevenzione abusi, bilanciamento del traffico.",
-    purpose: "Consentire il funzionamento del sito, proteggere le pagine e ricordare scelte strettamente necessarie.",
-    basis: "Non richiedono consenso quando sono indispensabili al servizio richiesto dall'utente.",
-    duration: "Sessione, oppure fino a 6-12 mesi per preferenze tecniche."
+    category: "Tecnici e necessari",
+    purpose:
+      "Funzionamento del sito, sicurezza, sessione, preferenze privacy, gestione consenso, accesso a pagine richieste e pagamenti essenziali.",
+    basis:
+      "Non richiedono consenso se strettamente necessari; informativa obbligatoria.",
+    duration:
+      "Sessione, oppure fino a 6 mesi per preferenze cookie; diversa durata se richiesta da sicurezza o provider."
   },
   {
-    category: "Sicurezza, CDN e anti-abuso",
-    examples: "Controlli Cloudflare/Vercel, log tecnici, sistemi anti-bot e protezione da traffico anomalo.",
-    purpose: "Difendere il sito, evitare accessi automatizzati dannosi e mantenere disponibilita' e integrita'.",
-    basis: "Legittimo interesse alla sicurezza; consenso non richiesto se il trattamento e' tecnico e proporzionato.",
-    duration: "Variabile secondo configurazione del provider e necessita' di sicurezza."
+    category: "Sicurezza e anti-abuso",
+    purpose:
+      "Protezione da accessi abusivi, bot, traffico anomalo, frodi, attacchi informatici, uso improprio del sito o dei pagamenti.",
+    basis:
+      "Necessita tecnica e legittimo interesse alla sicurezza; consenso non richiesto se proporzionato e indispensabile.",
+    duration:
+      "Variabile secondo configurazione; log e controlli di sicurezza limitati al necessario."
   },
   {
     category: "Preferenze",
-    examples: "Lingua, scelte cookie, impostazioni di visualizzazione o preferenze locali se attivate.",
-    purpose: "Rendere piu' stabile l'esperienza e non chiedere ripetutamente la stessa scelta.",
-    basis: "Consenso o legittimo interesse, secondo la natura della preferenza.",
-    duration: "Normalmente 6-12 mesi, salvo revoca o reset del browser."
+    purpose:
+      "Memorizzazione di lingua, scelta cookie, impostazioni di visualizzazione o preferenze locali se attive.",
+    basis: "Consenso o necessita tecnica, secondo la natura della preferenza.",
+    duration: "Normalmente fino a 6-12 mesi, salvo cancellazione o revoca."
   },
   {
-    category: "Analytics",
-    examples: "Misurazioni aggregate su pagine visitate, prestazioni, errori, provenienza del traffico.",
-    purpose: "Capire se il sito funziona, migliorare contenuti e correggere problemi tecnici.",
-    basis: "Consenso, salvo eventuali strumenti configurati in modo realmente anonimo o esentato dalla normativa applicabile.",
-    duration: "Secondo provider e configurazione; da riportare nel banner se attivati."
+    category: "Analytics e misurazione",
+    purpose:
+      "Statistiche aggregate, performance, uso pagine, eventi app, miglioramento prodotto e controllo qualita.",
+    basis:
+      "Consenso quando non sono strettamente tecnici o non pienamente anonimizzati/minimizzati.",
+    duration:
+      "Secondo provider e configurazione; per Google Analytics/Firebase, retention configurabile secondo impostazioni Google."
   },
   {
-    category: "Marketing e profilazione",
-    examples: "Remarketing, campagne pubblicitarie, tracciamento cross-site, pixel promozionali.",
-    purpose: "Comunicazione commerciale e misurazione pubblicitaria.",
-    basis: "Consenso esplicito preventivo, quando e se tali strumenti saranno attivati.",
-    duration: "Secondo provider, da indicare nel registro cookie."
+    category: "Diagnostica e crash report",
+    purpose:
+      "Rilevazione errori, crash, malfunzionamenti, stabilita, sicurezza e qualita dell'app.",
+    basis:
+      "Legittimo interesse alla sicurezza/qualita oppure consenso/opt-in ove richiesto o configurato.",
+    duration:
+      "Firebase Crashlytics indica conservazione dei crash report e identificatori associati per 90 giorni prima della rimozione dai sistemi."
   },
   {
-    category: "Mappe, media e moduli",
-    examples: "Mapbox, moduli contatto, contenuti incorporati, servizi email/form.",
-    purpose: "Mostrare funzionalita' interattive o ricevere richieste dell'utente.",
-    basis: "Esecuzione della richiesta, consenso o legittimo interesse secondo il caso.",
-    duration: "Variabile in base al servizio usato."
+    category: "Notifiche push",
+    purpose:
+      "Invio di notifiche di servizio, alert, aggiornamenti di sicurezza, stato segnalazioni e funzioni richieste.",
+    basis:
+      "Permesso del dispositivo e necessita del servizio richiesto; consenso per eventuali notifiche promozionali.",
+    duration:
+      "Finche le notifiche sono abilitate, il token e valido o l'account/funzione resta attiva."
   },
   {
     category: "Pagamenti partner",
-    examples: "Stripe, PayPal, checkout, abbonamenti, fatturazione, anti-frode.",
-    purpose: "Gestire piani partner, pagamenti, ricevute, sicurezza delle transazioni e adempimenti fiscali.",
-    basis: "Esecuzione del contratto, obbligo legale, legittimo interesse anti-frode; eventuali cookie non tecnici richiedono consenso.",
-    duration: "Secondo obblighi fiscali, contabili e policy dei provider."
+    purpose:
+      "Checkout, abbonamenti, ricevute, fatturazione, prevenzione frodi, sicurezza transazioni e contestazioni.",
+    basis:
+      "Esecuzione contratto, obblighi legali e legittimo interesse antifrode; cookie essenziali di pagamento non richiedono consenso quando indispensabili.",
+    duration: "Secondo provider, obblighi fiscali/contabili e policy Stripe/PayPal."
+  },
+  {
+    category: "Marketing e profilazione",
+    purpose:
+      "Remarketing, advertising, tracciamento cross-site, pixel pubblicitari, profilazione commerciale.",
+    basis:
+      "Non attivi alla data della presente policy; se attivati richiedono consenso preventivo e aggiornamento policy/banner.",
+    duration: "Da indicare prima di qualunque attivazione."
   }
+];
+
+const declaredTools = [
+  ["Form di contatto", "Non presente sul sito protcity.com; le comunicazioni avvengono tramite email."],
+  [
+    "Email",
+    "Cloudflare Email Routing per l'instradamento della posta aziendale; non installa cookie nel browser del visitatore come conseguenza della sola visita al sito."
+  ],
+  [
+    "Analytics",
+    "Firebase Analytics per misurazione e miglioramento del servizio, senza finalita di marketing, remarketing o profilazione pubblicitaria dichiarate."
+  ],
+  [
+    "Diagnostica",
+    "Firebase Crashlytics per crash report, stabilita, errori e sicurezza dell'app."
+  ],
+  [
+    "Notifiche push",
+    "Firebase Cloud Messaging per invio di notifiche tecniche, alert e comunicazioni di servizio abilitate dall'utente."
+  ],
+  [
+    "Pagamenti",
+    "Stripe e PayPal gia attivi per piani partner, aziende, professionisti, enti o abbonamenti collegati."
+  ],
+  [
+    "Console partner/enti",
+    "Partner ed enti accedono solo a contenuti o segnalazioni aggregate, non a dati identificativi degli utenti, salvo diversa base giuridica specifica e aggiornamento documentale."
+  ],
+  [
+    "Marketing/profilazione",
+    "Non risultano attivi Meta Pixel, TikTok Pixel, Google Ads, remarketing, Google Signals o strumenti equivalenti di profilazione pubblicitaria."
+  ]
+];
+
+const registryRows = [
+  {
+    tool: "Cookie o storage di consenso, es. protcity_cookie_consent o equivalente",
+    provider: "Kurbi Labs",
+    where: "Sito",
+    purpose:
+      "Memorizza scelta dell'utente su cookie e categorie. Tecnico, senza consenso. Durata consigliata: 6 mesi, salvo modifiche sostanziali."
+  },
+  {
+    tool: "Cookie/session storage tecnico di navigazione",
+    provider: "Kurbi Labs / hosting",
+    where: "Sito",
+    purpose:
+      "Consente funzionamento, sicurezza, caricamento pagine e coerenza sessione. Tecnico, senza consenso. Durata: sessione o breve termine."
+  },
+  {
+    tool: "Firebase Analytics / Google Analytics for Firebase",
+    provider: "Google/Firebase",
+    where: "App e, se integrato, sito",
+    purpose:
+      "Misurazione eventi, statistiche aggregate e miglioramento. Non usato per marketing o advertising personalization. Da attivare con consenso quando non qualificabile come tecnico."
+  },
+  {
+    tool: "Firebase Crashlytics Installation UUID, Firebase Installation ID e dati crash",
+    provider: "Google/Firebase",
+    where: "App",
+    purpose:
+      "Diagnostica, crash report e stabilita. Nessuna finalita pubblicitaria. Raccolta configurata in modo proporzionato; opt-in/opt-out dove richiesto o tecnicamente implementato."
+  },
+  {
+    tool: "Firebase Cloud Messaging token / Firebase Installation ID",
+    provider: "Google/Firebase",
+    where: "App",
+    purpose:
+      "Invio notifiche push abilitate dall'utente. Il token e usato per consegnare notifiche al dispositivo e non per marketing senza consenso."
+  },
+  {
+    tool: "Stripe.js, cookie/identificatori Stripe",
+    provider: "Stripe",
+    where: "Checkout e pagamenti",
+    purpose:
+      "Funzionamento checkout, sicurezza, prevenzione frodi, pagamenti, autenticazione e contestazioni. Cookie essenziali di pagamento; ulteriori cookie Stripe soggetti alle impostazioni del provider."
+  },
+  {
+    tool: "PayPal cookie e tecnologie simili",
+    provider: "PayPal",
+    where: "Checkout e pagamenti",
+    purpose:
+      "Pagamento, sicurezza account, prevenzione frodi, autenticazione e servizi PayPal. Gestiti anche secondo policy e preferenze PayPal."
+  },
+  {
+    tool: "Cloudflare Email Routing",
+    provider: "Cloudflare",
+    where: "Email",
+    purpose:
+      "Instradamento email aziendali. Non comporta cookie sul browser del visitatore. Se saranno attivati CDN/WAF/Bot Management Cloudflare, i relativi cookie tecnici di sicurezza saranno aggiunti al registro."
+  }
+];
+
+const consentControls = [
+  "banner cookie o pannello di preferenze del sito, quando sono presenti strumenti non tecnici;",
+  "link “Rivedi le tue scelte sui cookie” nel footer o in area equivalente del sito;",
+  "impostazioni del browser per blocco o cancellazione cookie;",
+  "impostazioni dell'app e del dispositivo per notifiche push, geolocalizzazione, analytics, diagnostica e autorizzazioni;",
+  `richiesta diretta a Kurbi Labs scrivendo a ${cookieEmail}.`
+];
+
+const operationalRows = [
+  [
+    "Banner sito",
+    "Mostrare informativa breve al primo accesso se esistono strumenti non tecnici. Pulsanti: Rifiuta non necessari, Personalizza, Accetta tutti. X = nessun consenso ai non necessari. Pulsanti con pari evidenza grafica."
+  ],
+  [
+    "Default tecnico",
+    "Prima della scelta dell'utente non caricare analytics, pixel, tag o SDK non necessari. Caricare solo cookie e strumenti tecnici indispensabili."
+  ],
+  [
+    "Footer",
+    "Inserire link permanente: Cookie Policy, Privacy Policy e Rivedi le tue scelte sui cookie."
+  ],
+  [
+    "Firebase Analytics",
+    "Per UE/SEE, disattivare la raccolta analytics fino al consenso o configurarla come strettamente tecnica/aggregata se si intende applicare l'esenzione. Disattivare advertising personalization, Google Signals e remarketing."
+  ],
+  [
+    "Firebase Crashlytics",
+    "Limitare i dati inviati; non includere testi, coordinate precise o dati personali non necessari. Valutare opt-in/opt-out o impostazione proporzionata secondo rischio e normativa."
+  ],
+  [
+    "Firebase Cloud Messaging",
+    "Usare token solo per notifiche richieste o di servizio. Marketing push solo con consenso separato. Permettere disattivazione tramite impostazioni app/dispositivo."
+  ],
+  [
+    "Stripe e PayPal",
+    "Integrare checkout in modo sicuro. Informare gli utenti che i provider possono usare cookie e tecnologie proprie. Non conservare carte complete, CVV o credenziali PayPal."
+  ],
+  [
+    "Nessun form",
+    "Non indicare form di contatto se il sito non li usa. Le richieste arrivano via email e sono disciplinate dalla Privacy Policy."
+  ],
+  [
+    "Store app",
+    "Allineare Google Play Data Safety e Apple App Privacy a Firebase Analytics, Crashlytics, FCM, geolocalizzazione, pagamenti e dati tecnici realmente trattati."
+  ],
+  [
+    "Registro interno",
+    "Mantenere registro cookie/SDK, DPA fornitori, SCC/DPF ove applicabile, retention e prova delle scelte di consenso."
+  ]
 ];
 ---
 
 <LegalLayout
-  title="Cookie Policy"
-  description="Informazioni sull'uso di cookie, tecnologie simili, misurazione, sicurezza e pagamenti partner sul sito proTcity."
+  title="Cookie Policy e tecnologie simili"
+  description="Informativa sull'uso di cookie, SDK, analytics, sicurezza, notifiche e pagamenti partner."
   canonicalPath="/cookie-policy"
 >
   <p class="legal-note">
-    La presente Cookie Policy e' predisposta per il sito protcity.com e per le pagine collegate di Kurbi Labs s.r.l.s. Il registro cookie effettivo e il banner di consenso devono essere aggiornati in base agli strumenti realmente attivi al momento della pubblicazione.
+    Ultimo aggiornamento: <strong>19 maggio 2026</strong>. La presente Cookie Policy e' predisposta per il sito protcity.com, per le pagine informative e partner collegate e, per quanto compatibile, per le tecnologie equivalenti utilizzate nell'app mobile proTcity.
   </p>
 
-  <h2>1. Titolare e ambito</h2>
   <p>
-    Il titolare del trattamento e' <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}, REA {companyInfo.rea}. Per richieste privacy e cookie e' possibile scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
+    I trattamenti di dati personali connessi a cookie, SDK, identificatori tecnici e strumenti di misurazione sono disciplinati anche dalla <a href="/privacy">Privacy Policy</a> di proTcity.
   </p>
   <p>
-    Questa policy riguarda il sito <strong>protcity.com</strong>, le pagine informative del progetto proTcity, le pagine partner, i moduli di contatto e le eventuali aree di pagamento per aziende, enti o partner. L'app mobile proTcity puo' usare tecnologie diverse dai cookie web, come identificatori tecnici, token dispositivo, log di sicurezza e SDK; tali trattamenti sono descritti nella Privacy Policy.
-  </p>
-
-  <h2>2. Cosa sono cookie e tecnologie simili</h2>
-  <p>
-    I cookie sono piccoli file o identificatori salvati nel browser o nel dispositivo dell'utente. Tecnologie simili includono local storage, pixel, SDK, tag, identificatori di sessione e strumenti che consentono lettura o scrittura di informazioni sul terminale dell'utente.
-  </p>
-  <p>
-    Alcuni strumenti sono necessari per far funzionare il sito o proteggerlo. Altri, come analytics avanzati, marketing o profilazione, richiedono una valutazione specifica e, quando previsto dalla normativa, il consenso preventivo tramite banner.
+    La versione e' stata redatta sulla base della configurazione dichiarata da Kurbi Labs s.r.l.s.: assenza di form di contatto sul sito, comunicazioni tramite email, utilizzo di Cloudflare Email Routing per la posta, Firebase Analytics, Firebase Crashlytics, Firebase Cloud Messaging, pagamenti Stripe e PayPal gia attivi, nessun accesso identificativo ai dati utenti da parte di partner/enti e assenza di strumenti di marketing o profilazione pubblicitaria dichiarati alla data di aggiornamento.
   </p>
 
-  <h2>3. Categorie utilizzate o previste</h2>
+  <h2>0. Informativa breve per banner cookie</h2>
+  <p>
+    Questo testo puo' essere usato come primo livello informativo nel banner cookie del sito proTcity. Deve essere accompagnato da pulsanti di scelta chiari e da un link alla presente Cookie Policy estesa.
+  </p>
+  <p>
+    <strong>Testo consigliato per il banner.</strong> proTcity utilizza cookie tecnici e tecnologie necessarie per far funzionare il sito, proteggerlo, ricordare le preferenze privacy e gestire le pagine di pagamento partner. Con il Suo consenso, possiamo usare strumenti analytics e di misurazione, inclusi Firebase Analytics, per statistiche aggregate e miglioramento del servizio. Nell'app mobile possono essere usati SDK e identificatori tecnici, tra cui Firebase Analytics, Firebase Crashlytics e Firebase Cloud Messaging, secondo le preferenze dell'utente, i permessi del dispositivo e la Privacy Policy. Alla data indicata non utilizziamo cookie o SDK di marketing, remarketing o profilazione pubblicitaria. Può accettare, rifiutare i non necessari o personalizzare le preferenze. Chiudendo il banner con la X restano attivi solo cookie e strumenti tecnici necessari. Può revocare o modificare le scelte in qualsiasi momento tramite il link “Rivedi le tue scelte sui cookie”.
+  </p>
+  <p>
+    Pulsanti consigliati: <strong>Rifiuta non necessari</strong>, <strong>Personalizza</strong>, <strong>Accetta tutti</strong>. La chiusura tramite X deve avere la stessa evidenza grafica delle altre opzioni e deve mantenere le impostazioni predefinite, cioe' nessun cookie o strumento non tecnico attivo.
+  </p>
+  <p>
+    Il semplice scroll, la prosecuzione della navigazione o caselle preselezionate non devono essere usati come consenso per cookie o strumenti non necessari.
+  </p>
+
+  <h2>1. Titolare del trattamento e contatti</h2>
+  <p>
+    Il titolare del trattamento e' <strong>{company.name}</strong>, con sede in {company.address}, P. IVA {company.vat}, telefono {company.phone}, email <a href={`mailto:${cookieEmail}`}>{cookieEmail}</a>.
+  </p>
+  <p>
+    Per richieste relative a cookie, tecnologie simili, consenso, revoca, dati personali o esercizio dei diritti privacy e' possibile scrivere a <a href={`mailto:${cookieEmail}`}>{cookieEmail}</a>.
+  </p>
+  <p>
+    Alla data della presente informativa, Kurbi Labs s.r.l.s. gestisce internamente le richieste privacy e cookie. Il Responsabile della Protezione dei Dati / Data Protection Officer non e' formalmente nominato come soggetto separato; la valutazione sulla nomina sara' aggiornata qualora l'evoluzione del servizio, la scala dei trattamenti o nuove funzioni lo rendano necessario o opportuno ai sensi del GDPR.
+  </p>
+  <p>
+    Cloudflare Email Routing e' utilizzato per l'instradamento delle email aziendali. Tale servizio, di per se', non installa cookie nel browser del visitatore del sito. I dati volontariamente inviati via email sono trattati secondo la Privacy Policy di proTcity.
+  </p>
+
+  <h2>2. Ambito di applicazione</h2>
+  <p>La presente Cookie Policy si applica a:</p>
+  <ul>
+    <li>sito protcity.com e pagine informative collegate;</li>
+    <li>pagine dedicate a partner, aziende, professionisti o enti;</li>
+    <li>eventuali pagine di checkout, abbonamento o pagamento tramite Stripe e PayPal;</li>
+    <li>tecnologie equivalenti usate nell'app mobile proTcity, come SDK, token notifiche, identificatori tecnici, log diagnostici e strumenti di misurazione, nei limiti descritti nella presente policy e nella Privacy Policy.</li>
+  </ul>
+  <p>
+    Il sito non contiene form di contatto alla data della presente informativa. Le comunicazioni con Kurbi Labs avvengono tramite email dedicata. La presente policy non disciplina i siti, le app o le piattaforme di terzi raggiungibili tramite link esterni, che restano soggetti alle rispettive informative privacy e cookie.
+  </p>
+
+  <h2>3. Cosa sono cookie, SDK e tecnologie simili</h2>
+  <p>
+    I cookie sono piccoli file di testo o identificatori salvati nel browser o nel dispositivo dell'utente quando visita un sito. Possono essere di sessione, se scadono alla chiusura del browser, o persistenti, se rimangono per un periodo piu' lungo.
+  </p>
+  <p>
+    Tecnologie simili comprendono local storage, session storage, pixel, tag, script, identificatori di sessione, SDK, token notifiche, identificativi di installazione, log tecnici e altri strumenti che leggono, scrivono o trattano informazioni nel dispositivo dell'utente.
+  </p>
+  <p>
+    Nell'app mobile proTcity non vengono necessariamente usati cookie web tradizionali. Possono pero' essere usate tecnologie equivalenti, come SDK Firebase, token Firebase Cloud Messaging, identificatori tecnici e log diagnostici, che devono essere descritti in modo trasparente e gestiti secondo GDPR, normativa ePrivacy, Codice Privacy italiano e regole degli store.
+  </p>
+
+  <h2>4. Principi di consenso e impostazioni predefinite</h2>
+  <p>Kurbi Labs applica i seguenti principi:</p>
+  <ul>
+    <li>per impostazione predefinita, al primo accesso non devono essere installati cookie o strumenti non tecnici prima della scelta dell'utente;</li>
+    <li>i cookie tecnici e gli strumenti strettamente necessari al funzionamento, alla sicurezza o al servizio richiesto possono essere usati senza consenso preventivo, fermo restando l'obbligo di informativa;</li>
+    <li>cookie analytics, SDK di misurazione, strumenti di profilazione, marketing, remarketing o tracciamento non necessari sono attivati solo previo consenso, salvo i casi in cui siano configurati in modo tale da poter essere assimilati a strumenti tecnici secondo la normativa applicabile;</li>
+    <li>il consenso deve essere libero, specifico, informato, inequivocabile, granulare e revocabile;</li>
+    <li>la chiusura del banner con X equivale al mantenimento delle impostazioni di default e non all'accettazione dei cookie non necessari;</li>
+    <li>lo scroll, la prosecuzione della navigazione, il silenzio o caselle preselezionate non sono considerati consenso valido;</li>
+    <li>l'utente deve poter rivedere le scelte in ogni momento tramite un link chiaro, ad esempio “Rivedi le tue scelte sui cookie”, presente nel footer o in area equivalente;</li>
+    <li>il banner non deve essere riproposto inutilmente se la scelta e' gia stata registrata, salvo modifiche sostanziali, impossibilita tecnica di riconoscere la scelta precedente o decorso del termine configurato, normalmente almeno 6 mesi.</li>
+  </ul>
+
+  <h2>5. Categorie di cookie e tecnologie utilizzate</h2>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
           <th>Categoria</th>
-          <th>Esempi</th>
           <th>Finalita'</th>
           <th>Base/consenso</th>
           <th>Durata indicativa</th>
         </tr>
       </thead>
       <tbody>
-        {cookieRows.map((row) => (
+        {cookieCategories.map((row) => (
           <tr>
             <td><strong>{row.category}</strong></td>
-            <td>{row.examples}</td>
             <td>{row.purpose}</td>
             <td>{row.basis}</td>
             <td>{row.duration}</td>
@@ -107,63 +327,143 @@ const cookieRows = [
     </table>
   </div>
 
-  <h2>4. Cookie tecnici necessari</h2>
+  <h2>6. Strumenti attivi dichiarati da Kurbi Labs</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Strumento</th><th>Configurazione dichiarata</th></tr></thead>
+      <tbody>
+        {declaredTools.map(([tool, detail]) => <tr><td><strong>{tool}</strong></td><td>{detail}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
   <p>
-    I cookie tecnici servono a rendere il sito navigabile, sicuro e coerente con le scelte dell'utente. Possono essere usati per mantenere una sessione, ricordare una preferenza privacy, applicare misure anti-abuso o distribuire correttamente il traffico.
-  </p>
-  <p>
-    Quando tali strumenti sono strettamente necessari al servizio richiesto, non e' richiesto il consenso preventivo. L'utente puo' comunque bloccarli dal browser, ma alcune parti del sito potrebbero non funzionare correttamente.
-  </p>
-
-  <h2>5. Analytics, prestazioni e miglioramento</h2>
-  <p>
-    proTcity puo' usare strumenti di misurazione per capire quali pagine vengono consultate, individuare errori, migliorare prestazioni e rendere piu' chiare le informazioni sul servizio. Se gli strumenti raccolgono dati personali o identificatori non strettamente tecnici, saranno attivati solo secondo la base giuridica corretta e, ove necessario, dopo consenso.
-  </p>
-  <p>
-    Quando possibile, Kurbi Labs privilegia misurazioni aggregate, configurazioni privacy-friendly, riduzione dell'indirizzo IP, tempi di conservazione limitati e disattivazione di funzioni pubblicitarie non necessarie.
+    Qualsiasi attivazione futura di strumenti pubblicitari, tracciamenti cross-site, pixel marketing, funzioni di profilazione o condivisione dati per finalita commerciali richiedera' aggiornamento del registro strumenti, informativa e banner, nonche' raccolta del consenso preventivo ove previsto.
   </p>
 
-  <h2>6. Marketing e profilazione</h2>
+  <h2>7. Registro operativo cookie e tecnologie simili</h2>
   <p>
-    Salvo diversa indicazione nel banner cookie, il sito proTcity non deve attivare cookie di marketing, remarketing o profilazione senza consenso esplicito. Se in futuro saranno usati strumenti pubblicitari, il banner dovra' indicare provider, finalita', durata, trasferimenti internazionali e possibilita' di revoca.
+    Il registro seguente deve essere mantenuto allineato agli strumenti tecnicamente attivi. I nomi tecnici possono variare in base all'implementazione; in caso di variazione, il sito deve aggiornare il registro pubblico prima o contestualmente all'attivazione del nuovo strumento.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Strumento / identificatore</th>
+          <th>Provider</th>
+          <th>Dove opera</th>
+          <th>Finalita' e consenso</th>
+        </tr>
+      </thead>
+      <tbody>
+        {registryRows.map((row) => (
+          <tr>
+            <td><strong>{row.tool}</strong></td>
+            <td>{row.provider}</td>
+            <td>{row.where}</td>
+            <td>{row.purpose}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8. Firebase Analytics, Crashlytics e Cloud Messaging</h2>
+  <h3>8.1 Firebase Analytics</h3>
+  <p>
+    Firebase Analytics e' utilizzato per comprendere l'uso del sito o dell'app, misurare prestazioni, eventi, schermate o pagine consultate, correggere problemi e migliorare chiarezza, stabilita e sicurezza del servizio.
+  </p>
+  <p>
+    Kurbi Labs configura Firebase Analytics secondo principi di minimizzazione: nessun uso dichiarato per marketing comportamentale, remarketing, profilazione pubblicitaria, Google Signals o advertising personalization; nessun invio intenzionale di dati sensibili, immagini, contenuti privati, coordinate precise non necessarie o informazioni direttamente identificative negli eventi analytics.
+  </p>
+  <p>
+    Per utenti nell'Unione Europea o nello Spazio Economico Europeo, gli strumenti analytics non strettamente tecnici devono essere disattivati fino al consenso oppure configurati in modo compatibile con le esenzioni applicabili. In caso di revoca, Kurbi Labs interrompe l'uso degli analytics non necessari e, ove tecnicamente possibile, resetta o disassocia gli identificatori analytics collegati al dispositivo o all'account.
   </p>
 
-  <h2>7. PayPal e Stripe per i partner</h2>
+  <h3>8.2 Firebase Crashlytics</h3>
   <p>
-    Le pagine dedicate ai partner commerciali potranno integrare <strong>Stripe</strong> e <strong>PayPal</strong> per checkout, abbonamenti, ricevute, fatturazione, prevenzione frodi, contestazioni e gestione del ciclo di pagamento. Durante tali operazioni i provider di pagamento possono trattare dati identificativi, fiscali, societari, recapiti, dati di transazione, indirizzi IP, dati tecnici del dispositivo e informazioni necessarie alla sicurezza del pagamento.
+    Firebase Crashlytics e' usato per ricevere informazioni su crash, errori, blocchi, anomalie, stato dell'app, versione, sistema operativo, dispositivo e dati tecnici necessari a individuare e correggere malfunzionamenti. I crash report non devono contenere intenzionalmente dati personali non necessari, testi privati, immagini, coordinate precise, dati sanitari o contenuti sensibili.
   </p>
   <p>
-    Stripe e PayPal possono operare, secondo il caso, come fornitori, responsabili, autonomi titolari o soggetti tenuti a obblighi normativi propri in materia di pagamenti, antiriciclaggio, frodi e contenzioso. L'utente o partner deve consultare anche le rispettive privacy policy prima di completare una transazione.
-  </p>
-
-  <h2>8. Gestione del consenso</h2>
-  <p>
-    Se il sito usa strumenti non tecnici, l'utente deve poter accettare, rifiutare o modificare le preferenze tramite un banner o un pannello di gestione. Il consenso, quando richiesto, deve essere libero, specifico, informato, inequivocabile e revocabile in qualsiasi momento.
-  </p>
-  <p>
-    La chiusura del banner, lo scroll o la prosecuzione della navigazione non devono essere interpretati automaticamente come consenso per cookie non necessari, salvo diverse previsioni normative applicabili e configurazioni conformi.
+    Crashlytics e' trattato come strumento di diagnostica e sicurezza dell'app. Kurbi Labs lo configura in modo proporzionato, con riduzione dei dati inviati e accesso limitato al personale autorizzato. Dove richiesto dalla normativa, dalle impostazioni dell'app o dalle scelte dell'utente, la raccolta puo' essere subordinata a opt-in o resa disattivabile.
   </p>
 
-  <h2>9. Browser e dispositivo</h2>
+  <h3>8.3 Firebase Cloud Messaging</h3>
   <p>
-    L'utente puo' cancellare o bloccare i cookie dalle impostazioni del browser. Le modalita' variano in base a Chrome, Safari, Firefox, Edge e altri browser. Il blocco totale dei cookie tecnici puo' ridurre la funzionalita' del sito, impedire l'uso dei moduli o alterare il salvataggio delle preferenze.
+    Firebase Cloud Messaging consente a proTcity di inviare notifiche push relative ad alert, sicurezza, stato segnalazioni, aggiornamenti di servizio, percorsi, SOS/WalkGuard/Buddy ove attivi e altre funzioni richieste dall'utente. L'invio richiede permessi del dispositivo e puo' essere disattivato dalle impostazioni del sistema operativo o dell'app.
+  </p>
+  <p>
+    Le notifiche push non sono usate per marketing diretto senza consenso separato. Il token di notifica e' trattato solo per consegnare comunicazioni al dispositivo e viene eliminato o disassociato quando non piu' necessario, in caso di disattivazione, cancellazione account o rotazione tecnica del token.
   </p>
 
-  <h2>10. App mobile e tecnologie SDK</h2>
+  <h2>9. Pagamenti tramite Stripe e PayPal</h2>
   <p>
-    L'app proTcity non usa necessariamente cookie web, ma puo' usare SDK, token notifiche, identificatori tecnici, log di sicurezza, Firebase, Mapbox e altri strumenti necessari alle funzioni mobile. Tali trattamenti sono regolati dalla Privacy Policy dell'app e dalle impostazioni del dispositivo.
+    Le pagine dedicate a partner, aziende, professionisti o enti possono usare Stripe e PayPal per checkout, abbonamenti, piani partner, ricevute, fatturazione, rinnovi, sicurezza delle transazioni, prevenzione frodi, contestazioni e gestione del ciclo di pagamento.
+  </p>
+  <p>
+    Durante il pagamento, Stripe e PayPal possono installare cookie o usare tecnologie simili per finalita essenziali di sicurezza, autenticazione, antifrode, funzionamento del checkout e compliance. Tali provider possono trattare dati identificativi, fiscali, societari, di contatto, transazione, indirizzo IP, dispositivo e informazioni tecniche necessarie al pagamento.
+  </p>
+  <p>
+    Kurbi Labs non conserva numero completo della carta, CVV o credenziali PayPal. Riceve solo informazioni necessarie a gestire piano, stato pagamento, fatturazione, ricevute, rinnovi, contestazioni, contabilita e assistenza. Stripe e PayPal possono agire, secondo il caso, come responsabili del trattamento, autonomi titolari o soggetti obbligati a specifiche norme finanziarie, antifrode, antiriciclaggio, sicurezza e contabilita.
+  </p>
+  <p>
+    Prima di completare un pagamento, l'utente o partner deve consultare anche le informative privacy e cookie dei rispettivi provider, soprattutto quando il checkout avviene su pagine, iframe, pop-up o domini gestiti direttamente da Stripe o PayPal.
   </p>
 
-  <h2>11. Provider terzi e trasferimenti internazionali</h2>
+  <h2>10. Gestione del consenso, revoca e impostazioni</h2>
+  <p>L'utente puo' gestire cookie e tecnologie simili attraverso:</p>
+  <ul>
+    {consentControls.map((item) => <li>{item}</li>)}
+  </ul>
   <p>
-    Alcuni provider possono trattare dati fuori dallo Spazio Economico Europeo o tramite societa' globali. In tali casi Kurbi Labs valuta, ove applicabile, Clausole Contrattuali Standard, misure supplementari, configurazioni regionali, DPA e documentazione privacy del fornitore.
+    La revoca del consenso non pregiudica la liceita dei trattamenti effettuati prima della revoca. Il blocco dei cookie tecnici o degli strumenti strettamente necessari puo' impedire il corretto funzionamento di pagine, pagamenti, sicurezza, preferenze o servizi richiesti dall'utente.
+  </p>
+  <p>
+    Il consenso registrato puo' essere conservato tramite cookie tecnico, storage locale o soluzione CMP per documentare la scelta, evitarne la ripetizione e rispettare gli obblighi di accountability. La durata consigliata della preferenza e' 6 mesi, salvo modifiche sostanziali o necessita di aggiornare l'informativa.
   </p>
 
-  <h2>12. Aggiornamenti e contatti</h2>
+  <h2>11. Trasferimenti internazionali e fornitori terzi</h2>
   <p>
-    Ultimo aggiornamento: {legalMeta.lastUpdated}. La Cookie Policy sara' aggiornata se cambiano gli strumenti del sito, le modalita' di pagamento, i provider analytics, il banner consenso o la normativa applicabile.
+    Alcuni fornitori, inclusi Google/Firebase, Stripe, PayPal, Cloudflare o eventuali provider infrastrutturali, possono trattare dati personali in Paesi diversi dall'Italia o dallo Spazio Economico Europeo, anche tramite infrastrutture globali.
   </p>
   <p>
-    Per informazioni scrivere a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>.
+    Kurbi Labs valuta e applica, ove necessario, Data Processing Agreement, Clausole Contrattuali Standard approvate dalla Commissione europea, decisioni di adeguatezza, EU-US Data Privacy Framework ove applicabile, misure tecniche e organizzative supplementari, minimizzazione, configurazioni regionali disponibili e controlli sui sub-responsabili.
+  </p>
+  <p>
+    I dati inviati a fornitori terzi sono limitati a quanto necessario per fornire il servizio richiesto, proteggere la piattaforma, effettuare pagamenti, inviare notifiche, misurare l'uso del servizio o correggere malfunzionamenti.
+  </p>
+
+  <h2>12. Diritti degli utenti</h2>
+  <p>
+    L'utente puo' esercitare i diritti previsti dagli articoli 15-22 GDPR, tra cui accesso, rettifica, cancellazione, limitazione, opposizione, portabilita ove applicabile e revoca del consenso.
+  </p>
+  <p>
+    Le richieste possono essere inviate a <a href={`mailto:${cookieEmail}`}>{cookieEmail}</a>. Kurbi Labs risponde entro i termini previsti dalla normativa applicabile, normalmente entro un mese dalla ricezione della richiesta, salvo proroga nei casi complessi consentiti dal GDPR.
+  </p>
+  <p>
+    L'utente puo' proporre reclamo al Garante per la protezione dei dati personali o all'autorita di controllo competente del proprio Paese, se ritiene che il trattamento violi la normativa applicabile.
+  </p>
+
+  <h2>13. Aggiornamenti</h2>
+  <p>
+    Kurbi Labs puo' aggiornare la presente Cookie Policy in caso di modifiche tecniche, nuove funzioni, nuovi provider, variazioni delle impostazioni di consenso, attivazione di analytics, marketing, profilazione, pagamenti, SDK, notifiche, cookie di sicurezza o cambiamenti normativi.
+  </p>
+  <p>
+    In caso di modifiche sostanziali, il banner o il pannello di preferenze deve essere aggiornato e, se necessario, deve essere nuovamente richiesta la scelta dell'utente. La versione pubblicata indica sempre la data dell'ultimo aggiornamento.
+  </p>
+
+  <h2>14. Allegato operativo per banner e app</h2>
+  <p>
+    Le seguenti indicazioni operative sono pensate per mantenere sito, app, banner, Firebase e pagine di pagamento coerenti con la presente Cookie Policy.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Area</th><th>Configurazione da applicare</th></tr></thead>
+      <tbody>
+        {operationalRows.map(([area, config]) => <tr><td><strong>{area}</strong></td><td>{config}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>Nota finale:</strong> la pubblicazione della presente Cookie Policy deve essere accompagnata da configurazioni tecniche coerenti. Se nel sito o nell'app vengono attivati nuovi strumenti non indicati, la policy, il registro operativo e il banner devono essere aggiornati prima o contestualmente all'attivazione.
   </p>
 </LegalLayout>
