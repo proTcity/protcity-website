@@ -1,5 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import { site } from "../data/site";
+import { absoluteUrl } from "../utils/seo";
 
 const intelligenceCards = [
   {
@@ -79,6 +81,27 @@ const ecosystemCards = [
       "proTcity valorizza segnalazioni utili e geolocalizzate, con moderazione e controlli per proteggere persone, privacy e qualità delle informazioni."
   }
 ] as const;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "proTcity",
+  url: absoluteUrl("/"),
+  logo: absoluteUrl("/images/logo-tm.png"),
+  description:
+    "proTcity e' un ecosistema urbano con AI, Safety Score, WalkGuard, segnalazioni, notifiche intelligenti e GuestSafe.",
+  parentOrganization: {
+    "@type": "Organization",
+    name: site.company.legalName,
+    url: "https://www.kurbilabs.com"
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: site.emails.contact,
+    contactType: "customer support",
+    availableLanguage: ["it", "en", "es", "fr", "de", "pt"]
+  }
+};
 ---
 
 <MainLayout
@@ -86,6 +109,7 @@ const ecosystemCards = [
   description="proTcity è l'ecosistema urbano con AI, Safety Score, WalkGuard, segnalazioni, notifiche intelligenti e GuestSafe."
   canonicalPath="/"
   bodyClass="home-cinematic"
+  schema={schema}
 >
   <section class="cinematic-hero" aria-labelledby="hero-title">
     <div class="cinematic-hero__media" aria-hidden="true"></div>
@@ -128,6 +152,30 @@ const ecosystemCards = [
         <strong>Resta prudente</strong>
         <p>L'AI spiega, non decide al posto tuo. Nessuna profilazione delle persone, solo analisi di aree e percorsi.</p>
       </article>
+    </div>
+  </section>
+
+  <section class="cinematic-band" aria-labelledby="seo-hub-title">
+    <div class="container feature-split glass-panel">
+      <div class="feature-split__copy">
+        <p class="cinematic-kicker">Sicurezza urbana intelligente</p>
+        <h2 id="seo-hub-title">Guide, risorse e casi d'uso per capire meglio proTcity.</h2>
+        <p>
+          Abbiamo raccolto le ricerche piu importanti su app sicurezza personale, percorsi sicuri, segnalazioni cittadini, Comuni, hotel, turisti e AI urbana in un hub dedicato.
+        </p>
+        <div class="metric-row">
+          <span>Sicurezza urbana</span>
+          <span>App personale</span>
+          <span>Comuni e hotel</span>
+        </div>
+        <div class="cinematic-actions">
+          <a class="glass-button glass-button--primary" href="/sicurezza-urbana-intelligente">Apri l'hub</a>
+          <a class="glass-button" href="/risorse/app-sicurezza-personale">App sicurezza personale</a>
+        </div>
+      </div>
+      <figure class="image-frame image-frame--wide">
+        <img src="/images/features/optimized/citta-si-accende.webp" alt="Hub proTcity sulla sicurezza urbana intelligente" loading="lazy" decoding="async" />
+      </figure>
     </div>
   </section>
 

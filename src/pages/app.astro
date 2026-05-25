@@ -1,6 +1,31 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import { appCapabilities } from "../data/features";
+import { site } from "../data/site";
+import { absoluteUrl } from "../utils/seo";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  name: "proTcity",
+  applicationCategory: "SafetyApplication",
+  operatingSystem: "iOS, Android",
+  description:
+    "App mobile per sicurezza urbana collaborativa con mappa, alert, WalkGuard, SOS, segnalazioni, contatti fidati e assistente AI.",
+  url: absoluteUrl("/app"),
+  image: absoluteUrl("/images/app-preview.png"),
+  publisher: {
+    "@type": "Organization",
+    name: site.company.legalName,
+    url: absoluteUrl("/")
+  },
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+    availability: "https://schema.org/PreOrder"
+  }
+};
 ---
 
 <MainLayout
@@ -8,6 +33,7 @@ import { appCapabilities } from "../data/features";
   description="La pagina dedicata all'app proTcity: mappa, alert, WalkGuard, contatti fidati e strumenti di sicurezza personale."
   canonicalPath="/app"
   bodyClass="cinematic-site"
+  schema={schema}
 >
   <section class="cinematic-hero feature-hero feature-hero--app">
     <div class="cinematic-hero__media"></div>
