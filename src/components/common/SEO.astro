@@ -9,6 +9,7 @@ interface Props {
   image?: string;
   robots?: string;
   type?: "website" | "article";
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -17,12 +18,14 @@ const {
   canonicalPath = Astro.url.pathname,
   image = site.defaultOgImage,
   robots = "index, follow, max-image-preview:large",
-  type = "website"
+  type = "website",
+  schema
 } = Astro.props;
 
 const pageTitle = composeTitle(title);
 const canonical = absoluteUrl(canonicalPath);
 const ogImage = absoluteUrl(image);
+const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <title>{pageTitle}</title>
@@ -43,3 +46,4 @@ const ogImage = absoluteUrl(image);
 <meta name="theme-color" content="#0b1320" />
 <link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+{schemaItems.map((item) => <script type="application/ld+json" is:inline set:html={JSON.stringify(item)} />)}

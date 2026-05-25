@@ -13,9 +13,10 @@ interface Props {
   image?: string;
   robots?: string;
   bodyClass?: string;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, canonicalPath, image, robots, bodyClass = "" } = Astro.props;
+const { title, description, canonicalPath, image, robots, bodyClass = "", schema } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +24,7 @@ const { title, description, canonicalPath, image, robots, bodyClass = "" } = Ast
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <SEO title={title} description={description} canonicalPath={canonicalPath} image={image} robots={robots} />
+    <SEO title={title} description={description} canonicalPath={canonicalPath} image={image} robots={robots} schema={schema} />
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main-content">Vai al contenuto</a>

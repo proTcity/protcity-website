@@ -1,0 +1,224 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { site } from "../../data/site";
+import { getSeoResourcePath, seoHubPages, seoHubPath, type SeoHubPage } from "../../data/seoHub";
+import { absoluteUrl } from "../../utils/seo";
+
+export function getStaticPaths() {
+  return seoHubPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props as { page: SeoHubPage };
+const canonicalPath = getSeoResourcePath(page.slug);
+const relatedPages = seoHubPages.filter((item) => item.slug !== page.slug).slice(0, 3);
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${page.title} | ${site.name}`,
+    description: page.description,
+    url: absoluteUrl(canonicalPath),
+    image: absoluteUrl(page.image),
+    inLanguage: "it-IT",
+    isPartOf: {
+      "@type": "WebSite",
+      name: site.name,
+      url: absoluteUrl("/")
+    },
+    publisher: {
+      "@type": "Organization",
+      name: site.company.legalName,
+      url: absoluteUrl("/")
+    },
+    about: [
+      {
+        "@type": "Thing",
+        name: page.eyebrow
+      },
+      {
+        "@type": "Thing",
+        name: "Sicurezza urbana intelligente"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "proTcity",
+        item: absoluteUrl("/")
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Sicurezza urbana intelligente",
+        item: absoluteUrl(seoHubPath)
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: page.eyebrow,
+        item: absoluteUrl(canonicalPath)
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  }
+];
+---
+
+<MainLayout
+  title={page.title}
+  description={page.description}
+  canonicalPath={canonicalPath}
+  image={page.image}
+  bodyClass="cinematic-site"
+  schema={schema}
+>
+  <section class:list={["cinematic-hero", "feature-hero", page.heroClass]}>
+    <div class="cinematic-hero__media"></div>
+    <div class="cinematic-hero__shade"></div>
+    <div class="container cinematic-hero__content">
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1>{page.title}</h1>
+      <p class="cinematic-hero__lead">{page.lead}</p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" href="/app">Scopri proTcity</a>
+        <a class="glass-button" href={seoHubPath}>Hub sicurezza urbana</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="signal-strip signal-strip--floating" aria-label={`Punti chiave: ${page.eyebrow}`}>
+    <div class="container">
+      <div class="signal-strip__grid">
+        {page.stats.map((stat) => (
+          <article>
+            <span>{stat.label}</span>
+            <h3>{stat.title}</h3>
+            <p>{stat.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="intent-title">
+    <div class="container feature-split glass-panel">
+      <figure class="image-frame image-frame--wide">
+        <img src={page.image} alt={page.imageAlt} loading="lazy" decoding="async" />
+      </figure>
+      <div class="feature-split__copy">
+        <p class="eyebrow">Intento di ricerca</p>
+        <h2 id="intent-title">Questa pagina risponde a una domanda precisa.</h2>
+        <p>{page.intent}</p>
+        <p>
+          proTcity affronta il tema con un principio chiaro: aiutare persone e territori a leggere meglio il contesto, senza promettere sicurezza assoluta e senza sostituire autorita o canali ufficiali.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {page.sections.map((section, index) => (
+    <section class={index % 2 === 0 ? "cinematic-band" : "cinematic-section"}>
+      <div class:list={["container", "feature-split", section.reverse && "feature-split--reverse", "glass-panel"]}>
+        {section.reverse ? (
+          <>
+            <div class="feature-split__copy">
+              <p class="eyebrow">{section.kicker}</p>
+              <h2>{section.title}</h2>
+              <p>{section.text}</p>
+              {section.bullets && (
+                <ul class="glass-list">
+                  {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              )}
+              {section.metrics && (
+                <div class="metric-row">
+                  {section.metrics.map((metric) => <span>{metric}</span>)}
+                </div>
+              )}
+            </div>
+            <figure class="image-frame image-frame--wide">
+              <img src={section.image} alt={section.imageAlt} loading="lazy" decoding="async" />
+            </figure>
+          </>
+        ) : (
+          <>
+            <figure class="image-frame image-frame--wide">
+              <img src={section.image} alt={section.imageAlt} loading="lazy" decoding="async" />
+            </figure>
+            <div class="feature-split__copy">
+              <p class="eyebrow">{section.kicker}</p>
+              <h2>{section.title}</h2>
+              <p>{section.text}</p>
+              {section.bullets && (
+                <ul class="glass-list">
+                  {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              )}
+              {section.metrics && (
+                <div class="metric-row">
+                  {section.metrics.map((metric) => <span>{metric}</span>)}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <section class="cinematic-band" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-intro">
+        <p class="cinematic-kicker">Domande frequenti</p>
+        <h2 id="faq-title">Risposte rapide su {page.eyebrow.toLowerCase()}.</h2>
+      </div>
+      <div class="seo-faq-grid">
+        {page.faqs.map((faq) => (
+          <article class="seo-faq-card">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="related-title">
+    <div class="container section-intro">
+      <p class="cinematic-kicker">Approfondisci</p>
+      <h2 id="related-title">Altre risorse sulla sicurezza urbana intelligente.</h2>
+    </div>
+    <div class="container seo-topic-grid seo-topic-grid--compact">
+      {relatedPages.map((related) => (
+        <a class="seo-topic-card" href={getSeoResourcePath(related.slug)}>
+          <img src={related.image} alt="" loading="lazy" decoding="async" />
+          <div>
+            <span>{related.eyebrow}</span>
+            <h3>{related.title}</h3>
+            <p>{related.intent}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</MainLayout>

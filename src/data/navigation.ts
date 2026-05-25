@@ -5,6 +5,7 @@ export const primaryNavigation = [
   { label: "GuestSafe", href: "/guestsafe" },
   { label: "Partner", href: "/partner" },
   { label: "Tecnologia", href: "/technology" },
+  { label: "Sicurezza", href: "/sicurezza-urbana-intelligente" },
   { label: "Supporto", href: "/support" }
 ] as const;
 
@@ -23,6 +24,7 @@ export const footerGroups = [
     title: "Istituzioni",
     links: [
       { label: "Citta e territori", href: "/cities" },
+      { label: "Sicurezza urbana intelligente", href: "/sicurezza-urbana-intelligente" },
       { label: "Sicurezza", href: "/safety" },
       { label: "Contatti", href: "/contact" }
     ]
