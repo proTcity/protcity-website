@@ -13,6 +13,14 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    if (url.pathname === "/googleca8852126a17d04f.html") {
+      return new Response("google-site-verification: googleca8852126a17d04f.html", {
+        headers: {
+          "content-type": "text/html; charset=UTF-8"
+        }
+      });
+    }
+
     return env.ASSETS.fetch(request);
   }
 };
