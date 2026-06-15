@@ -49,7 +49,10 @@ async function handleGuestSafeHotelApi(
   const endpoint =
     `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/appContent/${docId}?key=${apiKey}`;
   const upstream = await fetch(endpoint, {
-    headers: { Accept: "application/json" }
+    headers: {
+      Accept: "application/json",
+      Referer: `${url.origin}/guestsafe/${slug}`
+    }
   });
   const body = request.method === "HEAD" ? null : await upstream.text();
   const response = new Response(body, {
