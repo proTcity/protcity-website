@@ -7,9 +7,10 @@ interface Props {
   title: string;
   description: string;
   canonicalPath: string;
+  lastUpdated?: string;
 }
 
-const { title, description, canonicalPath } = Astro.props;
+const { title, description, canonicalPath, lastUpdated = legalMeta.lastUpdated } = Astro.props;
 const pathname = Astro.url.pathname;
 ---
 
@@ -30,7 +31,7 @@ const pathname = Astro.url.pathname;
       <p class="eyebrow">Documento legale</p>
       <h1>{title}</h1>
       <p class="legal-content__intro">{description}</p>
-      <p class="legal-content__meta">Ultimo aggiornamento: {legalMeta.lastUpdated}</p>
+      <p class="legal-content__meta">Ultimo aggiornamento: {lastUpdated}</p>
       <p class="legal-note">{legalMeta.disclaimer}</p>
       <slot />
     </article>

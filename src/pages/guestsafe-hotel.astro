@@ -1,0 +1,319 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout
+  title="GuestSafe hotel"
+  description="Apri la scheda GuestSafe dell'hotel in proTcity: contatti, servizi, punti utili e rientro sicuro."
+  canonicalPath="/guestsafe"
+  robots="noindex,follow"
+  bodyClass="cinematic-site guestsafe-hotel-page"
+>
+  <section class="guestsafe-hotel-hero">
+    <div class="guestsafe-hotel-hero__media"></div>
+    <div class="guestsafe-hotel-hero__shade"></div>
+    <div class="container guestsafe-hotel-hero__content">
+      <p class="eyebrow">GuestSafe</p>
+      <h1 data-hotel-name>Apri la scheda hotel in proTcity.</h1>
+      <p data-hotel-summary>
+        Scansiona il QR dell'hotel per vedere informazioni utili, contatti, servizi e rientro sicuro dentro proTcity.
+      </p>
+      <div class="cinematic-hero__actions">
+        <a class="glass-button glass-button--primary" data-open-app href="/app">Apri in proTcity</a>
+        <a class="glass-button" href="/app">Scarica app</a>
+      </div>
+      <p class="guestsafe-hotel-hero__hint">
+        Il QR non crea un account hotel separato: apre una base ospite, poi puoi usare tutta l'app liberamente.
+      </p>
+    </div>
+  </section>
+
+  <section class="cinematic-section guestsafe-hotel-section">
+    <div class="container guestsafe-hotel-grid">
+      <article class="glass-panel guestsafe-hotel-card guestsafe-hotel-card--main">
+        <div>
+          <p class="eyebrow">Info hotel</p>
+          <h2 data-hotel-tagline>Informazioni pratiche per il tuo soggiorno.</h2>
+          <p data-hotel-info>
+            Stiamo caricando la scheda GuestSafe pubblicata dalla struttura.
+          </p>
+        </div>
+        <div class="guestsafe-hotel-meta">
+          <span data-hotel-address>Indirizzo in caricamento</span>
+          <span data-hotel-hours>Orari in caricamento</span>
+        </div>
+        <div class="guestsafe-hotel-services" data-hotel-services></div>
+      </article>
+
+      <aside class="glass-panel guestsafe-hotel-card guestsafe-hotel-card--contacts">
+        <p class="eyebrow">Contatti</p>
+        <h2>Reception e supporto.</h2>
+        <div class="guestsafe-hotel-actions">
+          <a class="glass-button" data-call-hotel hidden>Chiama hotel</a>
+          <a class="glass-button" data-email-hotel hidden>Email hotel</a>
+          <a class="glass-button" data-web-hotel hidden target="_blank" rel="noreferrer">Sito hotel</a>
+        </div>
+        <p class="guestsafe-hotel-muted">
+          Per emergenze reali usa sempre i numeri ufficiali del Paese in cui ti trovi.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cinematic-band guestsafe-hotel-section">
+    <div class="container glass-panel guestsafe-hotel-guide">
+      <div>
+        <p class="eyebrow">Citta e rientro</p>
+        <h2>Punti utili vicino a te.</h2>
+        <p>
+          L'hotel puo mettere in evidenza attrazioni, servizi e percorsi utili. Aprendo l'app puoi avviare GuestSafe e tornare alla struttura con un punto di riferimento chiaro.
+        </p>
+      </div>
+      <div class="guestsafe-hotel-places" data-hotel-places>
+        <article>
+          <span>01</span>
+          <strong>Rientro in hotel</strong>
+          <p>Punto base sempre disponibile dentro proTcity.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Attrazioni vicine</strong>
+          <p>Luoghi suggeriti dalla struttura e dal catalogo GuestSafe.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Servizi utili</strong>
+          <p>Reception, trasporti, salute, punti pratici e informazioni locali.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section guestsafe-hotel-section">
+    <div class="container glass-panel guestsafe-hotel-faq">
+      <div class="guestsafe-hotel-faq__head">
+        <p class="eyebrow">Domande frequenti</p>
+        <h2>Risposte rapide per il soggiorno.</h2>
+        <p>
+          La struttura puo preparare le risposte piu richieste dagli ospiti: arrivo,
+          camera, servizi, rientro in hotel, pagamenti e supporto.
+        </p>
+      </div>
+      <div class="guestsafe-hotel-faq__grid" data-hotel-faqs>
+        <article>
+          <span>01</span>
+          <strong>Arrivo e accesso</strong>
+          <p>Check-in, documenti, bagagli e accesso serale.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Servizi e comfort</strong>
+          <p>Wi-Fi, colazione, pulizie, parcheggio e supporto reception.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Spostamenti sicuri</strong>
+          <p>Rientro in hotel, trasporti vicini e luoghi utili.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section guestsafe-hotel-section" data-loading-state>
+    <div class="container">
+      <div class="inline-note guestsafe-hotel-status" data-status-message>
+        Caricamento scheda GuestSafe...
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const PROJECT_ID = "protcity-8f1a9";
+    const API_KEY = "AIzaSyA1WnId0p-CJmy6tTuTzKCapC5-qeGZ8OE";
+
+    const normalizeSlug = (value) =>
+      String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+
+    const decodeFirestoreValue = (value) => {
+      if (!value || typeof value !== "object") return null;
+      if ("stringValue" in value) return value.stringValue;
+      if ("booleanValue" in value) return value.booleanValue;
+      if ("integerValue" in value) return Number(value.integerValue);
+      if ("doubleValue" in value) return Number(value.doubleValue);
+      if ("timestampValue" in value) return value.timestampValue;
+      if ("nullValue" in value) return null;
+      if ("arrayValue" in value) {
+        return (value.arrayValue.values || []).map(decodeFirestoreValue);
+      }
+      if ("mapValue" in value) {
+        const fields = value.mapValue.fields || {};
+        return Object.fromEntries(
+          Object.entries(fields).map(([key, nestedValue]) => [
+            key,
+            decodeFirestoreValue(nestedValue),
+          ]),
+        );
+      }
+      return null;
+    };
+
+    const decodeFirestoreDocument = (document) => {
+      const fields = document?.fields || {};
+      return Object.fromEntries(
+        Object.entries(fields).map(([key, value]) => [key, decodeFirestoreValue(value)]),
+      );
+    };
+
+    const text = (selector, value) => {
+      const element = document.querySelector(selector);
+      if (element && value) element.textContent = value;
+    };
+
+    const showLink = (selector, href) => {
+      const element = document.querySelector(selector);
+      if (!element || !href) return;
+      element.href = href;
+      element.hidden = false;
+    };
+
+    const renderList = (selector, items, renderer) => {
+      const element = document.querySelector(selector);
+      if (!element) return;
+      element.innerHTML = "";
+      items.forEach((item, index) => {
+        element.insertAdjacentHTML("beforeend", renderer(item, index));
+      });
+    };
+
+    const localized = (value) => {
+      if (typeof value === "string") return value;
+      if (!value || typeof value !== "object") return "";
+      return value.it || value.en || Object.values(value).find(Boolean) || "";
+    };
+
+    const escapeHtml = (value) =>
+      String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    async function loadGuestSafeHotel() {
+      const slug = normalizeSlug(window.location.pathname.split("/").filter(Boolean)[1]);
+      const appLink = slug
+        ? `protcity://guestsafe?hotel=${encodeURIComponent(slug)}`
+        : "protcity://guestsafe";
+      const openApp = document.querySelector("[data-open-app]");
+      if (openApp) openApp.href = appLink;
+
+      if (!slug) {
+        text("[data-status-message]", "Scheda hotel non trovata. Apri proTcity o chiedi un nuovo QR alla reception.");
+        return;
+      }
+
+      const docId = `guestsafe-hotel-${slug}`;
+      const endpoint =
+        `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/appContent/${docId}?key=${API_KEY}`;
+
+      try {
+        const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
+        if (!response.ok) throw new Error(`Firestore ${response.status}`);
+
+        const data = decodeFirestoreDocument(await response.json());
+        const guestSafe = data.guestSafe || {};
+        const hotelInfo = guestSafe.hotelInfo || {};
+        const hotelName = data.organizationName || data.title || guestSafe.name || "Hotel GuestSafe";
+        const cityLine = [data.addressLine || hotelInfo.addressLine, data.areaLabel, data.city]
+          .filter(Boolean)
+          .join(" · ");
+
+        document.title = `${hotelName} GuestSafe | proTcity`;
+        text("[data-hotel-name]", hotelName);
+        text("[data-hotel-summary]", guestSafe.summary || data.summary || "Scheda GuestSafe dell'hotel.");
+        text("[data-hotel-tagline]", guestSafe.tagline || data.description || "Informazioni pratiche per il tuo soggiorno.");
+        text("[data-hotel-info]", hotelInfo.notes || "Apri proTcity per vedere percorsi, punti utili e rientro sicuro.");
+        text("[data-hotel-address]", cityLine || "Indirizzo disponibile in app");
+        text("[data-hotel-hours]", hotelInfo.openingHours || "Orari disponibili presso la reception");
+
+        showLink("[data-call-hotel]", hotelInfo.phone ? `tel:${hotelInfo.phone}` : "");
+        showLink("[data-email-hotel]", hotelInfo.email ? `mailto:${hotelInfo.email}` : "");
+        showLink("[data-web-hotel]", hotelInfo.websiteUrl || "");
+
+        const services = Array.isArray(hotelInfo.services) ? hotelInfo.services.filter(Boolean) : [];
+        renderList("[data-hotel-services]", services, (item) => `<span>${escapeHtml(item)}</span>`);
+
+        const places = [
+          ...(Array.isArray(guestSafe.featuredAttractions) ? guestSafe.featuredAttractions : []),
+          ...(Array.isArray(guestSafe.featuredUtilities) ? guestSafe.featuredUtilities : []),
+          ...(Array.isArray(guestSafe.featuredRoutes) ? guestSafe.featuredRoutes : []),
+        ].slice(0, 3);
+
+        if (places.length) {
+          renderList(
+            "[data-hotel-places]",
+            places,
+            (place, index) => `
+              <article>
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${escapeHtml(localized(place.name) || "Punto GuestSafe")}</strong>
+                <p>${escapeHtml(localized(place.reason) || localized(place.subtitle) || "Suggerito dalla struttura.")}</p>
+              </article>
+            `,
+          );
+        }
+
+        const faqCategories = Array.isArray(guestSafe.faqCategories)
+          ? guestSafe.faqCategories
+          : [];
+        const visibleFaqs = faqCategories
+          .map((category) => ({
+            title: localized(category.title) || "Domande ospiti",
+            items: Array.isArray(category.items)
+              ? category.items.filter((item) => item && item.enabled !== false).slice(0, 3)
+              : [],
+          }))
+          .filter((category) => category.items.length)
+          .slice(0, 6);
+
+        if (visibleFaqs.length) {
+          renderList(
+            "[data-hotel-faqs]",
+            visibleFaqs,
+            (category, index) => `
+              <article>
+                <span>${String(index + 1).padStart(2, "0")}</span>
+                <strong>${escapeHtml(category.title)}</strong>
+                ${category.items
+                  .map(
+                    (item) => `
+                      <details>
+                        <summary>${escapeHtml(localized(item.question) || "Domanda")}</summary>
+                        <p>${escapeHtml(localized(item.answer) || "")}</p>
+                      </details>
+                    `,
+                  )
+                  .join("")}
+              </article>
+            `,
+          );
+        }
+
+        text("[data-status-message]", "Scheda GuestSafe caricata. Per navigazione, percorsi e rientro sicuro apri l'app proTcity.");
+      } catch (error) {
+        console.warn("GuestSafe hotel page load failed", error);
+        text(
+          "[data-status-message]",
+          "Non siamo riusciti a caricare questa scheda hotel. Puoi comunque aprire proTcity o chiedere assistenza alla reception.",
+        );
+      }
+    }
+
+    void loadGuestSafeHotel();
+  </script>
+</MainLayout>

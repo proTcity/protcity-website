@@ -18,7 +18,7 @@ const firstLevelRows = [
   ],
   [
     "Quali dati raccogliamo",
-    "Dati account e contatto, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, notifiche push, dati analytics/diagnostici, dati di pagamento dei partner e comunicazioni email."
+    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici, dati di pagamento dei partner e comunicazioni email."
   ],
   [
     "Perché usiamo la posizione",
@@ -31,6 +31,10 @@ const firstLevelRows = [
   [
     "Segnalazioni pubbliche",
     "Le segnalazioni e gli alert possono diventare visibili agli altri utenti solo dopo controlli e moderazione. Di regola non rendiamo pubblico il nome o l'email dell'utente che segnala."
+  ],
+  [
+    "Verifica telefono e audit sicurezza",
+    "Le funzioni sensibili possono richiedere un numero di telefono verificato una sola volta. Per sicurezza, moderazione, contestazioni e richieste legittime delle autorità, proTcity registra log server-side non visibili agli altri utenti."
   ],
   [
     "Safety Score",
@@ -71,11 +75,11 @@ const dataCategories = [
   ],
   [
     "Dati account e autenticazione",
-    "UID Firebase, identificativi account, accesso anonimo, token tecnici, ruoli utente/admin/partner/ente, stato account, preferenze e impostazioni."
+    "UID Firebase, identificativi account, provider login, stato email verificata, stato telefono verificato, numero telefono verificato, accesso anonimo, token tecnici, ruoli utente/admin/partner/ente, stato account, preferenze e impostazioni."
   ],
   [
     "Dati tecnici e dispositivo",
-    "Indirizzo IP, sistema operativo, modello dispositivo, lingua, versione app, log tecnici, eventi di sicurezza, dati di accesso, crash report e diagnostica."
+    "Indirizzo IP, user-agent, sistema operativo, modello/nome dispositivo, piattaforma, lingua, versione app, build app, token FCM in forma hash, log tecnici, eventi di sicurezza, dati di accesso, crash report e diagnostica."
   ],
   [
     "Geolocalizzazione",
@@ -91,7 +95,7 @@ const dataCategories = [
   ],
   [
     "Dati di moderazione e abuso",
-    "Segnalazioni di abuso, motivi di rimozione, decisioni di moderazione, note interne, sospensioni, ban, contestazioni e audit essenziali."
+    "Segnalazioni di abuso, motivi di rimozione, decisioni di moderazione, note interne, sospensioni, ban per UID/telefono hash/segnali dispositivo, contestazioni e audit essenziali delle azioni sensibili. Gli audit possono includere UID Firebase, provider login, stato email/telefono, IP e user-agent in hash e, ove configurato, cifrati, data/ora, device/platform/app version, FCM token hash, posizione collegata, contenuto creato/modificato/eliminato, stato moderazione e segnalazioni ricevute contro l'utente."
   ],
   [
     "Dati AI e Safety Score",
@@ -99,7 +103,7 @@ const dataCategories = [
   ],
   [
     "Notifiche push",
-    "Token Firebase Cloud Messaging, preferenze di notifica, stato consegna e log tecnici necessari all'invio di comunicazioni di servizio e alert."
+    "Token Firebase Cloud Messaging, token FCM in forma hash per audit e ban dispositivo, preferenze di notifica, stato consegna e log tecnici necessari all'invio di comunicazioni di servizio e alert."
   ],
   [
     "Analytics e diagnostica",
@@ -172,6 +176,11 @@ const legalBases = [
     "Legittimo interesse; obblighi legali; accertamento, esercizio o difesa di diritti."
   ],
   [
+    "Verifica telefono e audit azioni sensibili",
+    "Verificare il numero di telefono per funzioni sensibili, registrare audit server-side, applicare ban per UID, telefono hash o segnali dispositivo, ricostruire azioni in caso di abusi, contestazioni o richieste legittime delle autorità.",
+    "Legittimo interesse alla sicurezza e prevenzione abusi; esecuzione del servizio richiesto; obblighi legali; accertamento, esercizio o difesa di diritti."
+  ],
+  [
     "Safety Score, AI e sistemi predittivi",
     "Generare indicatori informativi su aree e situazioni urbane, spiegazioni contestuali e controlli di coerenza.",
     "Esecuzione del servizio; legittimo interesse a fornire informazioni contestuali prudenti; consenso ove richiesto per dati specifici."
@@ -211,8 +220,8 @@ const legalBases = [
 const providers = [
   [
     "Firebase / Google Cloud",
-    "Autenticazione, database, storage, backend, sicurezza, log, Firebase Analytics, Crashlytics e Firebase Cloud Messaging.",
-    "Dati account, UID, dati app, segnalazioni, media, log, eventi analytics/diagnostici, token push e dati tecnici.",
+    "Autenticazione, database, storage, backend, sicurezza, log, audit azioni sensibili, Firebase Analytics, Crashlytics e Firebase Cloud Messaging.",
+    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, media, security audit log, eventi analytics/diagnostici, token push/hash e dati tecnici.",
     "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
   ],
   [
@@ -266,7 +275,7 @@ const providers = [
   [
     "Autorità competenti",
     "Adempimento obblighi legali, richieste dell'autorità, tutela di diritti, sicurezza o prevenzione di illeciti.",
-    "Dati necessari e proporzionati alla richiesta o all'obbligo.",
+    "Dati necessari e proporzionati alla richiesta o all'obbligo, inclusi log sicurezza e audit azioni sensibili quando legittimamente richiesti.",
     "Destinatari previsti dalla legge."
   ]
 ];
@@ -322,7 +331,7 @@ const retentionRows = [
   ],
   [
     "Moderazione, ban, abuso e audit",
-    "Fino a 24 mesi. Nei casi gravi, frodi, minacce, violazioni ripetute o contenzioso, fino a 5 anni o per il tempo necessario alla tutela dei diritti."
+    "Fino a 24 mesi con cancellazione programmata quando non più necessari. Nei casi gravi, frodi, minacce, violazioni ripetute, richieste dell'autorità o contenzioso, fino a 5 anni o per il tempo necessario alla tutela dei diritti."
   ],
   [
     "Richieste privacy",
@@ -351,6 +360,7 @@ const retentionRows = [
   title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
+  lastUpdated="15 giugno 2026"
 >
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
@@ -385,6 +395,7 @@ const retentionRows = [
     <li>La posizione può essere precisa quando necessaria e autorizzata. Puoi revocarla dalle impostazioni del dispositivo, ma alcune funzioni potrebbero non funzionare.</li>
     <li>Le segnalazioni possono essere rese pubbliche solo dopo controlli e moderazione; evita dati di persone, minori, targhe, documenti o contenuti illeciti.</li>
     <li>Il Safety Score è solo informativo e non sostituisce i numeri di emergenza. In caso di pericolo chiama il 112 o gli altri numeri competenti.</li>
+    <li>Le azioni sensibili possono richiedere telefono verificato e generare audit server-side riservati ad admin autorizzati, non visibili agli altri utenti.</li>
     <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Per assistenza sull'app: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</li>
   </ul>
 
@@ -482,7 +493,21 @@ const retentionRows = [
     L'utente può contestare rimozioni, limitazioni, sospensioni, ban, mancata pubblicazione o altre decisioni di moderazione scrivendo a <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Kurbi Labs riesamina le contestazioni tenendo conto di legge, privacy, sicurezza, diritti di terzi, regole community, rischio di abuso e integrità della piattaforma.
   </p>
 
-  <h2>7. Safety Score, AI e sistemi predittivi</h2>
+  <h2>7. Verifica telefono, audit sicurezza e richieste autorità</h2>
+  <p>
+    Per ridurre account falsi, segnalazioni manipolative, molestie, abusi delle funzioni di sicurezza e uso improprio della piattaforma, proTcity può richiedere la verifica del numero di telefono per azioni sensibili. La verifica è registrata sull'account e non deve essere ripetuta a ogni riapertura dell'app, salvo cambi numero, anomalie, cancellazione account o controlli di sicurezza necessari.
+  </p>
+  <p>
+    Le azioni sensibili possono includere, a titolo esemplificativo, creazione, modifica o eliminazione di segnalazioni, alert, eventi o meetup, uso di Friends, persone fidate, SOS interno, condivisioni sensibili e altre funzioni che incidono su sicurezza, moderazione o fiducia della community.
+  </p>
+  <p>
+    Per ciascuna azione sensibile Kurbi Labs può registrare log server-side riservati, non mostrati agli altri utenti e non scrivibili dal client. Tali log possono includere UID Firebase, provider login, stato email verificata, stato telefono verificato, IP, data e ora, user-agent, device/platform/app version, FCM token hash, eventuale posizione collegata all'azione, contenuto creato/modificato/eliminato, stato moderazione, ban applicati e segnalazioni ricevute contro l'utente.
+  </p>
+  <p>
+    I log sono usati per sicurezza, moderazione, prevenzione frodi, contestazioni, tutela dei diritti e gestione di richieste legittime delle autorità competenti. L'accesso è limitato ad admin autorizzati nella console amministrativa. IP, user-agent, telefono e token push sono trattati con misure di minimizzazione, hash e, ove configurato lato server, cifratura applicativa. Non sono usati per pubblicità comportamentale o vendita di dati.
+  </p>
+
+  <h2>8. Safety Score, AI e sistemi predittivi</h2>
   <p>
     Il Safety Score è un indicatore informativo e contestuale relativo ad aree, zone, percorsi, eventi o condizioni urbane. Non è una valutazione dell'affidabilità, pericolosità, reputazione, comportamento o rischio individuale di una persona fisica.
   </p>
@@ -501,7 +526,7 @@ const retentionRows = [
     OpenAI e altri fornitori AI, se utilizzati, sono impiegati lato backend con dati minimizzati e pertinenti alla funzione. Kurbi Labs evita, per quanto possibile, di inviare dati identificativi, dati di contatto, dati sensibili, immagini di persone, dati di minori o informazioni non necessarie. L'AI può supportare classificazioni, spiegazioni, controlli di coerenza o assistenza, ma non deve essere usata per decisioni automatizzate su persone fisiche con effetti giuridici o analogamente significativi.
   </p>
 
-  <h2>8. Notifiche push, analytics, crash report e cookie</h2>
+  <h2>9. Notifiche push, analytics, crash report e cookie</h2>
   <h3>Notifiche push</h3>
   <p>
     proTcity usa Firebase Cloud Messaging per inviare notifiche push relative a alert, stato delle segnalazioni, comunicazioni di servizio, sicurezza, aggiornamenti tecnici e funzioni richieste. Su dispositivi Apple, l'invio può coinvolgere anche Apple Push Notification service secondo la configurazione tecnica del sistema operativo. L'utente può disattivare le notifiche dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app.
@@ -515,7 +540,7 @@ const retentionRows = [
     Il sito protcity.com non contiene form di contatto. Può usare cookie tecnici e log necessari per funzionamento, sicurezza, prevenzione abusi, gestione preferenze e protezione dell'infrastruttura. Eventuali cookie analytics non tecnici, pixel, SDK pubblicitari, marketing comportamentale o strumenti equivalenti verranno attivati solo previo consenso dell'utente, ove richiesto, e dopo aggiornamento della Cookie Policy o del pannello consensi. Alla data della presente informativa proTcity non dichiara l'uso di Meta Pixel, TikTok Pixel, Google Ads remarketing o altri strumenti di advertising tracking.
   </p>
 
-  <h2>9. Destinatari, fornitori e partner/enti</h2>
+  <h2>10. Destinatari, fornitori e partner/enti</h2>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Destinatario/Fornitore</th><th>Finalità</th><th>Dati trattati</th><th>Ruolo privacy</th></tr></thead>
@@ -528,7 +553,7 @@ const retentionRows = [
     Partner ed enti non vedono dati identificativi degli utenti che effettuano segnalazioni. La visualizzazione è limitata a contenuti, mappe, metriche, statistiche, aree, categorie e segnalazioni aggregate o non direttamente identificative, salvo necessità specifica, obbligo legale o autorizzazione espressa conforme alla normativa applicabile.
   </p>
 
-  <h2>10. Trasferimenti extra UE/SEE</h2>
+  <h2>11. Trasferimenti extra UE/SEE</h2>
   <p>
     Alcuni fornitori possono trattare dati personali in Paesi diversi dall'Italia e dallo Spazio Economico Europeo, inclusi Stati Uniti, Regno Unito o altri Paesi in cui i fornitori o subfornitori operano. Quando necessario, Kurbi Labs adotta strumenti adeguati quali decisioni di adeguatezza, EU-US Data Privacy Framework ove applicabile, Standard Contractual Clauses approvate dalla Commissione europea, Data Processing Agreement, misure tecniche e organizzative supplementari, configurazioni regionali, limitazione degli accessi, cifratura, pseudonimizzazione e controlli sui subfornitori.
   </p>
@@ -536,7 +561,7 @@ const retentionRows = [
     I trasferimenti internazionali vengono valutati in base al fornitore, al servizio utilizzato, alla tipologia di dati, alla regione di trattamento, ai contratti applicabili e al rischio per gli interessati. Kurbi Labs privilegia configurazioni che riducano i dati trasferiti e il livello di identificabilità.
   </p>
 
-  <h2>11. Tempi di conservazione</h2>
+  <h2>12. Tempi di conservazione</h2>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Categoria</th><th>Durata/criterio</th></tr></thead>
@@ -549,7 +574,7 @@ const retentionRows = [
     La cancellazione può richiedere tempi tecnici ragionevoli per sincronizzazione, backup, log di sicurezza e sistemi distribuiti. I backup vengono sovrascritti o resi non disponibili secondo cicli tecnici e non sono usati per nuove finalità.
   </p>
 
-  <h2>12. Diritti degli utenti e reclamo al Garante</h2>
+  <h2>13. Diritti degli utenti e reclamo al Garante</h2>
   <p>
     L'utente può esercitare i diritti previsti dagli articoli 15-22 GDPR, nei limiti e alle condizioni applicabili:
   </p>
@@ -573,7 +598,7 @@ const retentionRows = [
     L'utente ha diritto di proporre reclamo al Garante per la protezione dei dati personali, con sede in Piazza Venezia n. 11, 00187 Roma, o all'autorità di controllo competente del proprio Paese, secondo le modalità pubblicate sui rispettivi siti istituzionali.
   </p>
 
-  <h2>13. Minori</h2>
+  <h2>14. Minori</h2>
   <p>
     proTcity non è destinata a minori di 14 anni. Gli utenti di età compresa tra 14 e 17 anni possono utilizzare il servizio solo con il consenso, l'autorizzazione o la supervisione di un genitore o tutore, ove richiesto dalla normativa applicabile e tenendo conto della natura dell'app. Account business, partner, enti, professionisti, aziende, amministratori, acquisti, abbonamenti e funzioni contrattuali sono riservati a maggiorenni.
   </p>
@@ -581,7 +606,7 @@ const retentionRows = [
     È vietato pubblicare dati, immagini, video, segnalazioni o informazioni che rendano identificabile un minore, salvo casi leciti, necessari, proporzionati e compatibili con la legge. Kurbi Labs può rimuovere contenuti che coinvolgono minori, oscurare dati identificativi, sospendere account o segnalare situazioni alle autorità competenti quando necessario.
   </p>
 
-  <h2>14. Sicurezza, DPIA e privacy by design</h2>
+  <h2>15. Sicurezza, DPIA e privacy by design</h2>
   <p>Kurbi Labs adotta misure tecniche e organizzative adeguate al rischio, tra cui:</p>
   <ul>
     <li>autenticazione e gestione ruoli per utenti, admin, partner ed enti;</li>
@@ -590,6 +615,8 @@ const retentionRows = [
     <li>cifratura in transito e protezione delle comunicazioni;</li>
     <li>protezione delle chiavi API e dei segreti lato server o in ambienti sicuri;</li>
     <li>logging proporzionato, monitoraggio abusi e controlli antifrode;</li>
+    <li>audit azioni sensibili in raccolte server-side non accessibili agli utenti dell'app;</li>
+    <li>hash e cifratura applicativa opzionale per dati forensi come IP, user-agent e telefono verificato;</li>
     <li>moderazione automatica e manuale, ove necessaria;</li>
     <li>minimizzazione dei dati inviati a fornitori AI e servizi terzi;</li>
     <li>separazione tra dati identificativi, contenuti pubblici e dati aggregati ove tecnicamente possibile;</li>
@@ -599,7 +626,7 @@ const retentionRows = [
     Nessun sistema può garantire sicurezza assoluta. In caso di violazione dei dati personali, Kurbi Labs applica le procedure previste dal GDPR e, quando necessario, notifica l'evento al Garante e agli interessati nei termini di legge.
   </p>
 
-  <h2>15. Utenti extra UE e aggiornamenti</h2>
+  <h2>16. Utenti extra UE e aggiornamenti</h2>
   <p>
     La presente informativa è predisposta principalmente per utenti situati in Italia, Unione Europea e Spazio Economico Europeo. Per utenti situati in altri Paesi possono applicarsi normative locali, tra cui UK GDPR, leggi statali USA sulla privacy, PIPEDA, LGPD, APPI o altre discipline applicabili. Kurbi Labs gestisce le richieste privacy in base alla normativa applicabile, al luogo dell'utente, al servizio usato e al ruolo effettivo della società.
   </p>
@@ -607,7 +634,7 @@ const retentionRows = [
     Kurbi Labs può aggiornare questa informativa in caso di modifiche normative, nuove funzioni, nuovi fornitori, aggiornamenti tecnici, nuove finalità, modifiche del Safety Score/AI, nuove console partner/enti o variazioni dei tempi di conservazione. La versione aggiornata viene pubblicata nel sito, nell'app o nei canali ufficiali. In caso di modifiche sostanziali, Kurbi Labs informa gli utenti con modalità proporzionate, ad esempio notifica in app, email o avviso sul sito.
   </p>
 
-  <h2>16. Coerenza tecnica, app store e ulteriori documenti collegati</h2>
+  <h2>17. Coerenza tecnica, app store e ulteriori documenti collegati</h2>
   <p>
     Kurbi Labs mantiene la presente informativa coerente con le configurazioni tecniche dell'app, del sito, dei fornitori e delle dichiarazioni rese sugli store. In particolare:
   </p>
@@ -615,6 +642,7 @@ const retentionRows = [
     <li>Firebase Analytics è configurato con meccanismi di consenso e revoca ove richiesti dalla normativa applicabile;</li>
     <li>Firebase Crashlytics è limitato a diagnostica, sicurezza, correzione errori e affidabilità;</li>
     <li>le notifiche push sono disattivabili dall'utente dalle impostazioni del dispositivo e, ove previsto, dall'app;</li>
+    <li>la verifica telefono e gli audit di sicurezza sono dichiarati in Google Play Data Safety e Apple App Privacy quando applicabile;</li>
     <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni necessarie;</li>
     <li>la posizione live è cancellata o anonimizzata entro i termini indicati nella presente informativa;</li>
     <li>partner ed enti visualizzano solo dati aggregati o non direttamente identificativi, salvo obblighi legali o basi giuridiche specifiche;</li>

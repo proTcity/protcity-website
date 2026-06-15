@@ -43,9 +43,9 @@ export const seoHubPages: SeoHubPage[] = [
       "La sicurezza urbana non vive in un solo dato. Nasce dall'incontro tra percezione, contesto, segnalazioni, orario, luoghi sicuri e risposta del territorio.",
     intent:
       "Per chi cerca informazioni su sicurezza urbana, smart city, prevenzione locale e strumenti digitali per leggere meglio una città.",
-    heroClass: "feature-hero--cities",
-    image: "/images/features/optimized/citta-si-accende.webp",
-    imageAlt: "proTcity mostra la città come ecosistema urbano intelligente",
+    heroClass: "feature-hero--seo-urban",
+    image: "/images/app-real/optimized/walkguard6.png",
+    imageAlt: "Schermata reale proTcity con mappa e strumenti di sicurezza urbana",
     stats: [
       {
         label: "Persone",
@@ -111,9 +111,9 @@ export const seoHubPages: SeoHubPage[] = [
       "Una buona app di sicurezza personale non deve spaventare l'utente. Deve ridurre incertezza, rendere più chiaro il contesto e semplificare le azioni nei momenti importanti.",
     intent:
       "Per chi cerca app sicurezza personale, app per muoversi sicuri, SOS, contatti fidati e strumenti digitali per spostamenti urbani.",
-    heroClass: "feature-hero--app",
-    image: "/images/features/optimized/sos-protcity.webp",
-    imageAlt: "Funzione SOS proTcity per condividere supporto con contatti fidati",
+    heroClass: "feature-hero--seo-personal-app",
+    image: "/images/app-real/optimized/sos.png",
+    imageAlt: "Schermata reale della modalita SOS proTcity",
     stats: [
       {
         label: "Prima",
@@ -179,9 +179,9 @@ export const seoHubPages: SeoHubPage[] = [
       "Il percorso migliore non è sempre quello più breve. Orario, illuminazione, area, eventi e segnali recenti possono cambiare la scelta più prudente.",
     intent:
       "Per chi cerca percorsi sicuri, rientro sicuro, app per camminare in sicurezza e tragitti più prudenti in città.",
-    heroClass: "feature-hero--walkguard",
-    image: "/images/features/optimized/walkguard-safe-route.webp",
-    imageAlt: "WalkGuard suggerisce un percorso più prudente con segnalazioni e punti sicuri",
+    heroClass: "feature-hero--seo-routes",
+    image: "/images/app-real/optimized/walkguard5.png",
+    imageAlt: "Schermata reale del timer WalkGuard e dei controlli di sicurezza",
     stats: [
       {
         label: "Route",
@@ -247,9 +247,9 @@ export const seoHubPages: SeoHubPage[] = [
       "Una segnalazione utile non è solo un messaggio. Deve avere contesto, categoria, posizione, stato e un modo chiaro per seguirne l'evoluzione.",
     intent:
       "Per chi cerca app segnalazioni cittadini, segnalazioni al Comune, problemi urbani, degrado, illuminazione, sicurezza e presa in carico.",
-    heroClass: "feature-hero--cities",
-    image: "/images/features/optimized/segnalazioni-enti.webp",
-    imageAlt: "Segnalazioni proTcity con stato e timeline",
+    heroClass: "feature-hero--seo-reports",
+    image: "/images/app-real/optimized/segnalazione.png",
+    imageAlt: "Schermata reale di una segnalazione proTcity",
     stats: [
       {
         label: "Invio",

@@ -8,6 +8,18 @@ const title = "Sicurezza urbana intelligente";
 const description =
   "Hub proTcity sulla sicurezza urbana intelligente: app sicurezza personale, percorsi sicuri, segnalazioni cittadini, Comuni, hotel, turisti e AI responsabile.";
 
+const hubPreviewImages = [
+  "/images/app-real/optimized/walkguard6.png",
+  "/images/app-real/optimized/sos.png",
+  "/images/app-real/optimized/walkguard5.png",
+  "/images/app-real/optimized/segnalazione.png"
+];
+
+const hubCards = seoHubPages.map((page, index) => ({
+  ...page,
+  displayImage: hubPreviewImages[index] ?? page.image
+}));
+
 const schema = [
   {
     "@context": "https://schema.org",
@@ -66,7 +78,7 @@ const schema = [
   bodyClass="cinematic-site"
   schema={schema}
 >
-  <section class="cinematic-hero feature-hero feature-hero--cities">
+  <section class="cinematic-hero feature-hero feature-hero--urban-safety">
     <div class="cinematic-hero__media"></div>
     <div class="cinematic-hero__shade"></div>
     <div class="container cinematic-hero__content">
@@ -115,9 +127,9 @@ const schema = [
     </div>
 
     <div class="container seo-topic-grid">
-      {seoHubPages.map((page) => (
+      {hubCards.map((page) => (
         <a class="seo-topic-card" href={getSeoResourcePath(page.slug)}>
-          <img src={page.image} alt="" loading="lazy" decoding="async" />
+          <img src={page.displayImage} alt="" loading="lazy" decoding="async" />
           <div>
             <span>{page.eyebrow}</span>
             <h3>{page.title}</h3>

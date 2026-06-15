@@ -21,6 +21,12 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    if (/^\/guestsafe\/[^/]+\/?$/.test(url.pathname)) {
+      const assetUrl = new URL(request.url);
+      assetUrl.pathname = "/guestsafe-hotel";
+      return env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+    }
+
     return env.ASSETS.fetch(request);
   }
 };
