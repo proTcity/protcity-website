@@ -128,9 +128,6 @@ import MainLayout from "../layouts/MainLayout.astro";
   </section>
 
   <script is:inline>
-    const PROJECT_ID = "protcity-8f1a9";
-    const API_KEY = "AIzaSyA1WnId0p-CJmy6tTuTzKCapC5-qeGZ8OE";
-
     const normalizeSlug = (value) =>
       String(value || "")
         .trim()
@@ -217,9 +214,7 @@ import MainLayout from "../layouts/MainLayout.astro";
         return;
       }
 
-      const docId = `guestsafe-hotel-${slug}`;
-      const endpoint =
-        `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/appContent/${docId}?key=${API_KEY}`;
+      const endpoint = `/api/guestsafe-hotel/${encodeURIComponent(slug)}`;
 
       try {
         const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
