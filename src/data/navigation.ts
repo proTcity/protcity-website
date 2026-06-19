@@ -49,7 +49,9 @@ export const footerGroups = [
 
 export const legalNavigation = [
   { label: "Privacy Policy", href: "/privacy" },
+  { label: "Geolocation Policy", href: "/geolocation-policy" },
   { label: "Cookie Policy", href: "/cookie-policy" },
   { label: "Termini di utilizzo", href: "/terms" },
+  { label: "Community Guidelines", href: "/community-guidelines" },
   { label: "Eliminazione dati", href: "/data-deletion" }
 ] as const;
