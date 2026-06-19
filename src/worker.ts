@@ -86,6 +86,11 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    if (url.pathname === "/account-deletion" || url.pathname === "/account-deletion/") {
+      url.pathname = "/data-deletion";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (/^\/api\/guestsafe-hotel\/[^/]+\/?$/.test(url.pathname)) {
       return handleGuestSafeHotelApi(request, env);
     }

@@ -1,0 +1,151 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { companyInfo, contactEmails } from "../data/site";
+
+const locationRows = [
+  {
+    type: "Posizione approssimata",
+    use:
+      "Mostrare contenuti vicini, aree rilevanti, contesto territoriale e funzioni che non richiedono coordinate precise."
+  },
+  {
+    type: "Posizione precisa",
+    use:
+      "Abilitare mappa, segnalazioni geolocalizzate, alert vicini, routing, Safe Points, WalkGuard, SOS, controlli anti-abuso e funzioni richieste dall'utente."
+  },
+  {
+    type: "Posizione live temporanea",
+    use:
+      "Supportare sessioni di sicurezza personale, WalkGuard, Buddy/Guardian, condivisione volontaria con contatti fidati e stato della sessione."
+  },
+  {
+    type: "Posizione associata a contenuti",
+    use:
+      "Collegare una segnalazione, un alert, un evento o un contenuto civico al luogo rilevante, anche dopo la chiusura della sessione se il contenuto resta attivo."
+  },
+  {
+    type: "Dati derivati o aggregati",
+    use:
+      "Generare indicatori territoriali, statistiche, Safety Score, trend o analisi non direttamente identificative quando possibile."
+  }
+];
+
+const userControls = [
+  [
+    "Permessi dispositivo",
+    "L'utente puo consentire, limitare o revocare la posizione dalle impostazioni iOS o Android. La revoca puo limitare mappa, alert, WalkGuard, SOS, routing o contenuti vicini."
+  ],
+  [
+    "Impostazioni app",
+    "Quando disponibili, le impostazioni dell'app permettono di gestire funzioni che usano posizione, notifiche, contatti fidati o sessioni live."
+  ],
+  [
+    "Fine sessione live",
+    "La posizione live deve essere limitata alla durata della sessione o della funzione richiesta, salvo log tecnici o dati minimi necessari per sicurezza e abusi."
+  ],
+  [
+    "Cancellazione dati",
+    "L'utente puo chiedere cancellazione, anonimizzazione o limitazione dei dati collegati all'account tramite /data-deletion o scrivendo a privacy@protcity.com."
+  ]
+];
+
+const retentionRows = [
+  [
+    "Posizione live",
+    "Trattata solo per la sessione e cancellata o anonimizzata normalmente entro 24 ore dalla chiusura, salvo log tecnici, sicurezza, abusi o obblighi documentati."
+  ],
+  [
+    "Segnalazioni geolocalizzate",
+    "Conservate finche il contenuto resta attivo o verificabile; successivamente cancellate, oscurate, aggregate o anonimizzate ove possibile."
+  ],
+  [
+    "Log tecnici e anti-abuso",
+    "Conservati per il tempo necessario a sicurezza, integrita, frodi, moderazione, contestazioni o obblighi, normalmente con minimizzazione e accessi limitati."
+  ],
+  [
+    "Dati aggregati",
+    "Possono essere conservati per statistiche, sicurezza urbana, qualita del servizio e analisi territoriali se non sono piu riconducibili a una persona fisica."
+  ]
+];
+---
+
+<LegalLayout
+  title="Geolocation Policy"
+  description="Informativa specifica sull'uso della posizione precisa, approssimata e live nelle funzioni proTcity."
+  canonicalPath="/geolocation-policy"
+>
+  <p class="legal-note">
+    Ultimo aggiornamento: <strong>19 giugno 2026</strong>. Questa policy integra la <a href="/privacy">Privacy Policy</a> e descrive in modo specifico come proTcity usa la geolocalizzazione.
+  </p>
+
+  <p>
+    proTcity usa la posizione per funzioni di mappa, segnalazioni, alert, percorsi, Safe Points, Safety Score, WalkGuard, SOS, Buddy/Guardian, prevenzione abusi e servizi collegati. La posizione puo essere precisa, approssimata, temporanea o associata a contenuti creati dall'utente.
+  </p>
+  <p>
+    Il titolare del trattamento e' <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}. Per richieste privacy o posizione: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per assistenza sull'app: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>.
+  </p>
+
+  <h2>1. Quando viene usata la posizione</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Tipo di dato</th><th>Uso previsto</th></tr></thead>
+      <tbody>
+        {locationRows.map((row) => <tr><td><strong>{row.type}</strong></td><td>{row.use}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>2. Principi di trattamento</h2>
+  <ul>
+    <li>La posizione precisa e' usata solo quando necessaria alla funzione richiesta o autorizzata.</li>
+    <li>La posizione live e' temporanea e collegata a funzioni volontarie come WalkGuard, SOS o contatti fidati.</li>
+    <li>proTcity non vende dati di geolocalizzazione e non li usa per advertising comportamentale.</li>
+    <li>proTcity non conserva uno storico permanente degli spostamenti individuali.</li>
+    <li>I dati territoriali vengono minimizzati, aggregati o anonimizzati quando possibile.</li>
+    <li>Partner ed enti vedono dati aggregati o non direttamente identificativi, salvo diversa base giuridica, obbligo legale o autorizzazione specifica.</li>
+  </ul>
+
+  <h2>3. Consenso, permessi e controllo dell'utente</h2>
+  <p>
+    L'app richiede i permessi di localizzazione secondo le regole di iOS e Android. Quando richiesto dalle policy degli store o dalla normativa applicabile, la richiesta di permesso deve essere preceduta da una spiegazione chiara della funzione, del tipo di posizione usata e dello scopo.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Controllo</th><th>Effetto</th></tr></thead>
+      <tbody>
+        {userControls.map(([control, effect]) => <tr><td>{control}</td><td>{effect}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4. Background location e disclosure prominente</h2>
+  <p>
+    Se una funzione usa o aggiorna la posizione quando l'app non e' visibile, in background o durante una sessione continuativa, l'app deve mostrare una disclosure prominente e comprensibile prima della raccolta, separata da testi generici di marketing o da soli Termini/Privacy Policy.
+  </p>
+  <p>
+    La disclosure deve indicare quale posizione viene raccolta, per quale funzione, in quali scenari e con chi puo essere condivisa. L'utente deve compiere un'azione affermativa prima dell'accesso alla posizione, oltre ai permessi richiesti dal sistema operativo.
+  </p>
+
+  <h2>5. Retention e cancellazione</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Categoria</th><th>Criterio</th></tr></thead>
+      <tbody>
+        {retentionRows.map(([category, criterion]) => <tr><td>{category}</td><td>{criterion}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    La cancellazione dei dati di posizione puo essere richiesta tramite la pagina <a href="/data-deletion">Eliminazione dati e cancellazione account</a> o scrivendo a <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Alcuni dati possono essere conservati quando necessario per obblighi legali, sicurezza, prevenzione abusi, moderazione, contestazioni, richieste autorita o difesa di diritti.
+  </p>
+
+  <h2>6. Uso vietato o improprio</h2>
+  <p>
+    E' vietato usare funzioni di posizione, alert, mappa, WalkGuard, Buddy/Guardian o condivisione live per seguire, molestare, intimidire, esporre, profilare o mettere a rischio altre persone. proTcity puo limitare funzioni, rimuovere contenuti, conservare log essenziali e sospendere account in caso di abuso.
+  </p>
+
+  <h2>7. Documenti collegati</h2>
+  <p>
+    Questa policy si legge insieme a <a href="/privacy">Privacy Policy</a>, <a href="/terms">Termini di utilizzo</a>, <a href="/community-guidelines">Community Guidelines</a>, <a href="/cookie-policy">Cookie Policy</a> e <a href="/data-deletion">procedura di eliminazione dati/account</a>.
+  </p>
+</LegalLayout>

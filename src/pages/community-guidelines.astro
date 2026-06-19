@@ -1,0 +1,142 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { companyInfo, contactEmails } from "../data/site";
+
+const guidelineRows = [
+  {
+    topic: "Segnalazioni e alert",
+    rule:
+      "Devono descrivere fatti, contesto urbano o situazioni utili alla community. Non devono contenere accuse personali, informazioni false, minacce, contenuti discriminatori o dati non necessari di terzi."
+  },
+  {
+    topic: "Immagini e allegati",
+    rule:
+      "Non caricare volti riconoscibili, minori, targhe, documenti, interni privati, feriti, vittime o scene violente, salvo casi leciti, necessari e proporzionati. proTcity puo rimuovere, oscurare o limitare gli allegati."
+  },
+  {
+    topic: "Geolocalizzazione",
+    rule:
+      "La posizione deve essere usata per descrivere il luogo dell'evento o per funzioni richieste dall'utente. Non usare la mappa per seguire, molestare, esporre o mettere a rischio altre persone."
+  },
+  {
+    topic: "Friends, Buddy, Guardian e WalkGuard",
+    rule:
+      "Inviti, posizione live, notifiche e funzioni personali devono essere usati solo con persone autorizzate e per finalita di sicurezza, accompagnamento o coordinamento volontario."
+  },
+  {
+    topic: "Sicurezza ed emergenze",
+    rule:
+      "proTcity non sostituisce 112, 113, 115, 118, forze dell'ordine, vigili del fuoco, servizi sanitari o autorita competenti. In caso di pericolo reale o urgenza l'utente deve chiamare i numeri ufficiali."
+  },
+  {
+    topic: "Partner, enti e operatori",
+    rule:
+      "Account partner, business, strutture ricettive, Comuni o enti devono usare i dati solo per finalita autorizzate, proporzionate e coerenti con Privacy Policy, contratti e ruoli assegnati."
+  }
+];
+
+const prohibitedRows = [
+  "contenuti illegali, violenti, discriminatori, diffamatori, molesti, sessualmente espliciti o che incitano a danni verso persone, gruppi o beni;",
+  "dati personali non necessari, inclusi nomi, indirizzi privati, numeri di telefono, email, documenti, targhe, dati sanitari o informazioni su minori;",
+  "falsi allarmi, segnalazioni manipolative, spam, truffe, promozioni non autorizzate, impersonificazione o uso coordinato per alterare la percezione di una zona;",
+  "uso della posizione, degli alert o delle funzioni di sicurezza personale per stalking, sorveglianza non autorizzata, intimidazione o esposizione pubblica di terzi;",
+  "tentativi di aggirare moderazione, limiti tecnici, verifiche account, controlli anti-abuso o misure di sicurezza della piattaforma."
+];
+
+const moderationRows = [
+  [
+    "Revisione automatica o manuale",
+    "I contenuti possono essere controllati prima o dopo la pubblicazione, soprattutto quando includono posizione, immagini, categorie sensibili, segnalazioni ripetute o rischio per terzi."
+  ],
+  [
+    "Azioni possibili",
+    "proTcity puo rifiutare, oscurare, modificare metadati, deindicizzare, limitare visibilita, rimuovere contenuti, sospendere funzioni o bloccare account in modo proporzionato."
+  ],
+  [
+    "Conservazione minima",
+    "Log e prove essenziali possono essere conservati per sicurezza, prevenzione abusi, contestazioni, richieste autorita, obblighi legali o difesa di diritti."
+  ],
+  [
+    "Contestazioni",
+    "L'utente puo chiedere riesame scrivendo a privacy@protcity.com o legal@protcity.com con riferimenti al contenuto, account e motivo della contestazione."
+  ]
+];
+---
+
+<LegalLayout
+  title="Community Guidelines"
+  description="Regole di uso corretto per segnalazioni, alert, contenuti, sicurezza personale, posizione e funzioni community di proTcity."
+  canonicalPath="/community-guidelines"
+>
+  <p class="legal-note">
+    Ultimo aggiornamento: <strong>19 giugno 2026</strong>. Queste linee guida integrano Privacy Policy, Termini di utilizzo, Geolocation Policy e procedura di eliminazione dati/account.
+  </p>
+
+  <p>
+    proTcity e' un servizio informativo e collaborativo per sicurezza urbana, segnalazioni, alert, mappe, percorsi, WalkGuard, funzioni di supporto alla sicurezza personale e servizi partner. L'obiettivo e' aiutare persone, territori e operatori locali a condividere informazioni utili senza esporre inutilmente dati personali o creare rischi per altri.
+  </p>
+  <p>
+    Il titolare del servizio e' <strong>{companyInfo.name}</strong>, con sede in {companyInfo.address}, P. IVA {companyInfo.vat}. Per assistenza account: <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a>. Per privacy, rimozione dati o contenuti: <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. Per questioni legali: <a href={`mailto:${contactEmails.legal}`}>{contactEmails.legal}</a>.
+  </p>
+
+  <h2>1. Principi generali</h2>
+  <ul>
+    <li>Usare proTcity in modo lecito, responsabile, proporzionato e rispettoso delle persone.</li>
+    <li>Condividere solo informazioni pertinenti al contesto urbano, alla sicurezza o alla funzione richiesta.</li>
+    <li>Evitare dati personali, immagini identificative o dettagli non necessari su altre persone.</li>
+    <li>Non usare proTcity per sostituire numeri di emergenza, autorita pubbliche, interventi professionali o decisioni ufficiali.</li>
+    <li>Rispettare permessi, consensi e limiti delle funzioni che coinvolgono posizione, notifiche, contatti fidati o condivisioni.</li>
+  </ul>
+
+  <h2>2. Regole per area funzionale</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Area</th><th>Regola</th></tr></thead>
+      <tbody>
+        {guidelineRows.map((row) => <tr><td><strong>{row.topic}</strong></td><td>{row.rule}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3. Contenuti vietati o limitati</h2>
+  <p>
+    Sono vietati o possono essere rimossi, limitati o sottoposti a revisione:
+  </p>
+  <ul>
+    {prohibitedRows.map((row) => <li>{row}</li>)}
+  </ul>
+
+  <h2>4. Dati personali, minori e terzi</h2>
+  <p>
+    Gli utenti non devono pubblicare dati personali non necessari di altre persone. Questo include nomi, indirizzi privati, numeri di telefono, email, documenti, targhe, volti riconoscibili, dati sanitari, dati giudiziari, informazioni su minori o dettagli che rendano identificabile una persona senza una base lecita.
+  </p>
+  <p>
+    I contenuti che riguardano minori sono trattati con particolare cautela. proTcity puo rimuovere o oscurare immagini, testi o dettagli che possano identificare un minore, anche senza richiesta dell'interessato, quando cio e' necessario per tutela, privacy o sicurezza.
+  </p>
+
+  <h2>5. Moderazione e misure di sicurezza</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Misura</th><th>Descrizione</th></tr></thead>
+      <tbody>
+        {moderationRows.map(([measure, description]) => <tr><td>{measure}</td><td>{description}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Le decisioni di moderazione tengono conto di legge, privacy, sicurezza personale, rischio per terzi, qualita dell'informazione, integrita della piattaforma e contesto della segnalazione. Quando possibile, le misure sono proporzionate al rischio e alla gravita della violazione.
+  </p>
+
+  <h2>6. Segnalazione di abusi e richiesta di rimozione</h2>
+  <p>
+    Per segnalare un contenuto, un abuso, un account sospetto o una richiesta di rimozione, l'utente puo usare gli strumenti disponibili nell'app oppure scrivere a <a href={`mailto:${contactEmails.support}`}>{contactEmails.support}</a> o <a href={`mailto:${contactEmails.privacy}`}>{contactEmails.privacy}</a>. La richiesta dovrebbe indicare, se disponibili, link, screenshot, data, categoria, posizione approssimativa, ID segnalazione o altri riferimenti utili.
+  </p>
+  <p>
+    Non inviare password, OTP, documenti, dati sanitari, dati completi di pagamento o informazioni sensibili se non strettamente necessari. Kurbi Labs puo chiedere elementi aggiuntivi solo quando servono per verificare identita, legittimazione o contenuto indicato.
+  </p>
+
+  <h2>7. Rapporto con gli altri documenti</h2>
+  <p>
+    Queste Community Guidelines si leggono insieme a <a href="/terms">Termini di utilizzo</a>, <a href="/privacy">Privacy Policy</a>, <a href="/geolocation-policy">Geolocation Policy</a>, <a href="/cookie-policy">Cookie Policy</a> e <a href="/data-deletion">procedura di eliminazione dati/account</a>. In caso di differenze, prevalgono le regole piu specifiche e la versione piu recente pubblicata sui canali ufficiali di proTcity, nel rispetto della normativa applicabile.
+  </p>
+</LegalLayout>
