@@ -9,6 +9,15 @@ export const primaryNavigation = [
   { label: "Supporto", href: "/support" }
 ] as const;
 
+export const legalNavigation = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Geolocation Policy", href: "/geolocation-policy" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
+  { label: "Termini di utilizzo", href: "/terms" },
+  { label: "Community Guidelines", href: "/community-guidelines" },
+  { label: "Eliminazione dati", href: "/data-deletion" }
+] as const;
+
 export const footerGroups = [
   {
     title: "Prodotto",
@@ -39,19 +48,6 @@ export const footerGroups = [
   },
   {
     title: "Legale",
-    links: [
-      { label: "Cookie Policy", href: "/cookie-policy" },
-      { label: "Termini", href: "/terms" },
-      { label: "Privacy Policy", href: "/privacy" }
-    ]
+    links: legalNavigation
   }
-] as const;
-
-export const legalNavigation = [
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Geolocation Policy", href: "/geolocation-policy" },
-  { label: "Cookie Policy", href: "/cookie-policy" },
-  { label: "Termini di utilizzo", href: "/terms" },
-  { label: "Community Guidelines", href: "/community-guidelines" },
-  { label: "Eliminazione dati", href: "/data-deletion" }
 ] as const;
