@@ -22,7 +22,7 @@ export const legalCards = [
   },
   {
     title: "Eliminazione dati",
-    href: "/data-deletion",
+    href: "/account-deletion",
     description: "Procedura per richiedere la cancellazione di account e dati collegati."
   }
 ] as const;

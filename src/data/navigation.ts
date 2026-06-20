@@ -15,7 +15,7 @@ export const legalNavigation = [
   { label: "Cookie Policy", href: "/cookie-policy" },
   { label: "Termini di utilizzo", href: "/terms" },
   { label: "Community Guidelines", href: "/community-guidelines" },
-  { label: "Eliminazione dati", href: "/data-deletion" }
+  { label: "Eliminazione dati", href: "/account-deletion" }
 ] as const;
 
 export const footerGroups = [
@@ -42,7 +42,7 @@ export const footerGroups = [
     title: "Assistenza",
     links: [
       { label: "Supporto", href: "/support" },
-      { label: "Eliminazione dati", href: "/data-deletion" },
+      { label: "Eliminazione dati", href: "/account-deletion" },
       { label: "Privacy", href: "/privacy" }
     ]
   },
