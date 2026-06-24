@@ -1,0 +1,156 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import { companyInfo, contactEmails } from "../data/site";
+
+const reportEmail = contactEmails.privacy;
+const supportEmail = contactEmails.support;
+
+const prohibitedStandards = [
+  [
+    "Child sexual abuse or exploitation",
+    "Content or conduct involving child sexual abuse material, exploitation, sexual coercion, sextortion, trafficking, solicitation or any sexualized depiction of a minor is strictly prohibited."
+  ],
+  [
+    "Grooming and predatory contact",
+    "Users must not groom, pressure, manipulate, threaten or ask minors for sexual content, intimate images, private meetings, off-platform contact or other inappropriate communication."
+  ],
+  [
+    "Identification of minors",
+    "Users must not publish images, videos, names, private addresses, school details, live location, documents, phone numbers or other data that identifies or exposes a minor."
+  ],
+  [
+    "Harassment and endangerment",
+    "Users must not bully, harass, stalk, intimidate, shame, dox, target or otherwise endanger minors through reports, comments, alerts, images, location features or messages."
+  ]
+];
+
+const enforcementRows = [
+  [
+    "Removal",
+    "proTcity may remove, hide, restrict or de-index content that violates these standards or creates a safety, privacy or legal risk for a minor."
+  ],
+  [
+    "Account action",
+    "proTcity may limit features, suspend accounts, ban users or block access where abuse, exploitation, predatory behavior, repeat violations or serious risk is identified."
+  ],
+  [
+    "Audit and retention",
+    "Kurbi Labs may keep limited logs, reports, moderation notes and evidence where necessary for safety, abuse prevention, legal compliance, authority requests or defense of rights."
+  ],
+  [
+    "Authority escalation",
+    "Where required or reasonably necessary under applicable law, proTcity may report suspected child sexual abuse, exploitation or imminent danger to competent authorities."
+  ]
+];
+
+const protectionRows = [
+  [
+    "Age gate and eligibility",
+    "proTcity is not intended for children under 14. Users aged 14 to 17 may use the service only with parental consent, authorization or supervision where required by law and by the nature of the feature."
+  ],
+  [
+    "Parental consent",
+    "Where legally required, minors may need consent or supervision from a parent or legal guardian. Business, partner, admin, payment and contractual features are reserved for adults."
+  ],
+  [
+    "Optional data minimization",
+    "Optional treatments such as precise location, live safety sessions, media upload, analytics or notifications are limited to the relevant feature and can be restricted or revoked where supported by the app or device."
+  ],
+  [
+    "Content and media controls",
+    "Reports, media and safety-related content may be reviewed, limited or removed when they include minors, faces, private places, unnecessary location data, sensitive details or illegal content."
+  ]
+];
+---
+
+<LegalLayout
+  title="Child Safety Standards / Standard di sicurezza dei minori"
+  description="Public child safety standards for proTcity, including rules against child sexual abuse, exploitation, grooming, harassment and endangerment."
+  canonicalPath="/child-safety-standards"
+  lastUpdated="24 giugno 2026"
+>
+  <p class="legal-note">
+    Public Google Play child safety standards for proTcity. Last updated: <strong>24 June 2026</strong>.
+  </p>
+
+  <p>
+    proTcity is a service by <strong>{companyInfo.name}</strong>, {companyInfo.address}, P. IVA {companyInfo.vat}. These standards apply to the proTcity app, website, reports, alerts, maps, safety features, media, support channels and any community or partner features connected to the service.
+  </p>
+  <p>
+    proTcity strictly prohibits content or behavior involving child sexual abuse, child sexual exploitation, grooming, harassment, threats, predatory contact, trafficking, sextortion, sexualized content involving minors or any conduct that puts minors at risk.
+  </p>
+
+  <h2>1. Scope and zero-tolerance rule</h2>
+  <p>
+    These standards apply to all users, partners, operators and administrators. A minor means any person under the age of 18. proTcity does not allow child sexual abuse material (CSAM), sexual exploitation of minors, grooming, sexual solicitation, inappropriate contact requests, harassment, threats, doxing or publication of unnecessary identifying information about minors.
+  </p>
+  <p>
+    proTcity is not a law-enforcement or emergency service. In case of immediate danger, users should contact local emergency numbers or competent authorities directly.
+  </p>
+
+  <h2>2. Rules for users</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Standard</th><th>Requirement</th></tr></thead>
+      <tbody>
+        {prohibitedStandards.map(([standard, requirement]) => (
+          <tr><td><strong>{standard}</strong></td><td>{requirement}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Users must not upload, request, share, describe, promote or link to sexualized content involving minors. Users must not use reports, geolocation, safety alerts, trusted contacts, media or support channels to identify, follow, expose, shame, intimidate or contact minors inappropriately.
+  </p>
+
+  <h2>3. Reporting child safety concerns</h2>
+  <p>
+    Users can report abusive content or behavior through the reporting tools available in the app, support flows, or by email. For child safety reports, suspected abuse or urgent moderation requests, contact: <a href={`mailto:${reportEmail}`}>{reportEmail}</a>. For account or app support, contact: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.
+  </p>
+  <p>
+    When reporting, users should include only necessary information, such as account references, report IDs, approximate date/time, screenshots or content references. Do not send passwords, OTP codes, payment details, medical data or unnecessary sensitive documents.
+  </p>
+
+  <h2>4. Moderation and enforcement</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Action</th><th>How proTcity may respond</th></tr></thead>
+      <tbody>
+        {enforcementRows.map(([action, response]) => (
+          <tr><td><strong>{action}</strong></td><td>{response}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Enforcement decisions are based on the nature of the content, legal risk, privacy risk, safety impact, available evidence, repeat behavior and the need to protect minors and other users. Serious violations may result in immediate action.
+  </p>
+
+  <h2>5. Protections for minors</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Protection</th><th>Standard</th></tr></thead>
+      <tbody>
+        {protectionRows.map(([protection, standard]) => (
+          <tr><td><strong>{protection}</strong></td><td>{standard}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6. Designated contact for Google Play</h2>
+  <p>
+    The designated public contact for Google Play child safety standards and child safety reports is <a href={`mailto:${reportEmail}`}>{reportEmail}</a>. If a report concerns app access, login or support workflow, users may also contact <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.
+  </p>
+
+  <h2>7. Italian summary / Sintesi in italiano</h2>
+  <p>
+    proTcity vieta contenuti o comportamenti relativi ad abuso o sfruttamento sessuale di minori, adescamento, molestie, minacce, pubblicazione di immagini/video/dati identificativi di minori, richieste di contatto inappropriate o qualunque condotta che possa mettere un minore in pericolo.
+  </p>
+  <p>
+    I contenuti o comportamenti sospetti possono essere segnalati tramite gli strumenti disponibili nell'app o via email a <a href={`mailto:${reportEmail}`}>{reportEmail}</a>. Kurbi Labs puo rimuovere contenuti, limitare funzioni, sospendere o bloccare account, conservare evidenze minime necessarie e segnalare alle autorita competenti quando richiesto o necessario dalla legge.
+  </p>
+  <p>
+    proTcity non e' destinata a minori di 14 anni. Gli utenti tra 14 e 17 anni possono usare il servizio solo con consenso, autorizzazione o supervisione genitoriale quando richiesto dalla normativa applicabile e dalla funzione utilizzata.
+  </p>
+</LegalLayout>

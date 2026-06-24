@@ -21,6 +21,11 @@ export const legalCards = [
     description: "Regole di accesso, responsabilita e uso corretto dei servizi."
   },
   {
+    title: "Child Safety Standards",
+    href: "/child-safety-standards",
+    description: "Standard pubblici contro abuso, sfruttamento, molestie e rischi per minori."
+  },
+  {
     title: "Eliminazione dati",
     href: "/account-deletion",
     description: "Procedura per richiedere la cancellazione di account e dati collegati."

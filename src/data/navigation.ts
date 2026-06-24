@@ -15,6 +15,7 @@ export const legalNavigation = [
   { label: "Cookie Policy", href: "/cookie-policy" },
   { label: "Termini di utilizzo", href: "/terms" },
   { label: "Community Guidelines", href: "/community-guidelines" },
+  { label: "Child Safety Standards", href: "/child-safety-standards" },
   { label: "Eliminazione dati", href: "/account-deletion" }
 ] as const;
 
