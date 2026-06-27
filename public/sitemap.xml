@@ -116,19 +116,31 @@
   </url>
   <url>
     <loc>https://www.protcity.com/privacy</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.protcity.com/geolocation-policy</loc>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.protcity.com/cookie-policy</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://www.protcity.com/terms</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://www.protcity.com/community-guidelines</loc>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>

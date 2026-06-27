@@ -86,7 +86,12 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    if (url.pathname === "/data-deletion" || url.pathname === "/data-deletion/") {
+    if (
+      url.pathname === "/data-deletion" ||
+      url.pathname === "/data-deletion/" ||
+      url.pathname === "/delete-account" ||
+      url.pathname === "/delete-account/"
+    ) {
       url.pathname = "/account-deletion";
       return Response.redirect(url.toString(), 301);
     }

@@ -18,15 +18,15 @@ const firstLevelRows = [
   ],
   [
     "Quali dati raccogliamo",
-    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici, dati di pagamento dei partner e comunicazioni email."
+    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici solo secondo consenso o configurazione applicabile, dati di pagamento dei partner e comunicazioni email."
   ],
   [
     "Perché usiamo la posizione",
-    "La posizione serve per mostrare la mappa, creare segnalazioni geolocalizzate, ricevere alert vicini, calcolare percorsi, usare funzioni SOS/WalkGuard/Buddy, limitare abusi e generare indicatori territoriali come il Safety Score."
+    "La posizione serve per mostrare la mappa, usare WalkGuard, ricevere contenuti informativi vicini, calcolare percorsi, creare segnalazioni geolocalizzate e usare funzioni richieste dall'utente. Nella versione 1.0 la posizione è foreground / while using the app."
   ],
   [
     "Posizione precisa o approssimata",
-    "Quando autorizzata, l'app può usare la posizione precisa. Alcune funzioni possono usare una posizione approssimata. La posizione live è usata solo per le funzioni che la richiedono e per la durata necessaria."
+    "Quando autorizzata, l'app può usare la posizione precisa. Alcune funzioni possono usare una posizione approssimata. Non dichiariamo tracciamento continuo in background nella versione 1.0."
   ],
   [
     "Segnalazioni pubbliche",
@@ -42,7 +42,7 @@ const firstLevelRows = [
   ],
   [
     "Emergenze",
-    "proTcity non sostituisce il 112, 113, 115, 118, forze dell'ordine, vigili del fuoco o servizi sanitari. In caso di pericolo o emergenza contatta subito i numeri ufficiali."
+    "proTcity non sostituisce il 112, 113, 115, 118, forze dell'ordine, vigili del fuoco o servizi sanitari, non è un canale ufficiale di denuncia e non invia segnalazioni community a centrali operative. In caso di pericolo o emergenza contatta subito i numeri ufficiali."
   ],
   [
     "Consensi e revoche",
@@ -83,7 +83,7 @@ const dataCategories = [
   ],
   [
     "Geolocalizzazione",
-    "Coordinate GPS, posizione precisa o approssimata, posizione corrente, indirizzi ricavati da geocoding, area o zona di segnalazione, destinazione e percorso se l'utente usa funzioni di routing o WalkGuard."
+    "Coordinate GPS, posizione precisa o approssimata in foreground / while using the app, posizione corrente, indirizzi ricavati da geocoding, area o zona di segnalazione, destinazione e percorso se l'utente usa funzioni di routing o WalkGuard."
   ],
   [
     "Contenuti generati dagli utenti",
@@ -107,7 +107,7 @@ const dataCategories = [
   ],
   [
     "Analytics e diagnostica",
-    "Eventi di utilizzo tramite Firebase Analytics, identificativi pseudonimi, dati aggregati, crash e diagnostica tramite Firebase Crashlytics, configurati per finalità tecniche e di miglioramento del servizio."
+    "Eventi di utilizzo tramite Firebase Analytics, identificativi pseudonimi, dati aggregati, crash, performance e diagnostica tramite Firebase Crashlytics e Firebase Performance, disattivati di default lato app e abilitati solo secondo consenso facoltativo o configurazione applicabile."
   ],
   [
     "Pagamenti partner",
@@ -133,12 +133,12 @@ const locationRows = [
     "Può essere usata quando sufficiente alla funzione, ad esempio per mostrare contesto urbano, aree vicine, Safety Score o contenuti generali senza necessità di coordinate esatte."
   ],
   [
-    "Foreground",
-    "Durante l'uso dell'app la posizione può essere trattata per aggiornare mappa, percorso, segnalazioni e alert."
+    "Foreground / while using the app",
+    "Nella versione 1.0 la posizione può essere trattata mentre l'app è aperta o la funzione richiesta è attiva, per aggiornare mappa, WalkGuard, percorso, contenuti informativi vicini, segnalazioni e alert."
   ],
   [
-    "Background",
-    "Il trattamento in background è ammesso solo se l'utente abilita funzioni specifiche che lo richiedono, come WalkGuard, SOS o condivisione temporanea con Buddy/Guardian, e deve essere revocabile."
+    "Nessuna background location nella versione 1.0",
+    "La versione iOS 1.0 usa solo posizione foreground / while using the app. La versione Android non dichiara ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuo in background nella versione 1.0."
   ],
   [
     "Posizione live",
@@ -193,12 +193,12 @@ const legalBases = [
   [
     "Firebase Analytics",
     "Misurare uso dell'app, funzioni, stabilità, prestazioni e migliorare il servizio con eventi pseudonimi o aggregati.",
-    "Consenso ove richiesto per strumenti non strettamente necessari; legittimo interesse solo per metriche tecniche essenziali e minimizzate quando applicabile."
+    "Consenso facoltativo e revocabile per analytics non essenziali; legittimo interesse solo per metriche tecniche essenziali e minimizzate quando applicabile."
   ],
   [
-    "Firebase Crashlytics",
-    "Rilevare errori, crash, malfunzionamenti e vulnerabilità per garantire sicurezza e continuità del servizio.",
-    "Legittimo interesse alla sicurezza e affidabilità; consenso ove richiesto dalla normativa o dalla configurazione tecnica."
+    "Firebase Crashlytics e Performance",
+    "Rilevare errori, crash, malfunzionamenti, performance e vulnerabilità per migliorare sicurezza, stabilità e qualità tecnica.",
+    "Consenso facoltativo e revocabile quando la diagnostica non è essenziale; legittimo interesse solo per sicurezza tecnica essenziale e minimizzata quando applicabile."
   ],
   [
     "Pagamenti partner",
@@ -220,8 +220,8 @@ const legalBases = [
 const providers = [
   [
     "Firebase / Google Cloud",
-    "Autenticazione, database, storage, backend, sicurezza, log, audit azioni sensibili, Firebase Analytics, Crashlytics e Firebase Cloud Messaging.",
-    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, media, security audit log, eventi analytics/diagnostici, token push/hash e dati tecnici.",
+    "Firebase Auth, Firestore, Storage, Functions, App Check, Firebase Cloud Messaging, Firebase Analytics, Crashlytics, Performance, database, backend, sicurezza, log e audit azioni sensibili.",
+    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, media, security audit log, eventi analytics/diagnostici/performance quando abilitati, token push/hash e dati tecnici.",
     "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
   ],
   [
@@ -249,6 +249,12 @@ const providers = [
     "Fornitore AI secondo accordi, DPA, impostazioni privacy e configurazione adottata."
   ],
   [
+    "Apple e Google",
+    "Distribuzione dell'app, sistemi operativi, store, notifiche, review, sicurezza piattaforma, eventuali acquisti gestiti dagli store e dichiarazioni Apple App Privacy / Google Play Data Safety.",
+    "Dati gestiti dagli store e dai sistemi operativi secondo le rispettive policy; per proTcity, dati tecnici necessari a distribuzione, sicurezza, notifiche e funzionamento dell'app.",
+    "Piattaforme terze e, per i propri trattamenti, titolari autonomi secondo le rispettive condizioni."
+  ],
+  [
     "Stripe",
     "Pagamenti, piani partner, abbonamenti, fatturazione, antifrode, ricevute e contestazioni.",
     "Dati aziendali/partner, email, P.IVA, piano, ID cliente, transazione, stato pagamento e dati contabili. Kurbi Labs non conserva numero carta completo o CVV.",
@@ -268,13 +274,13 @@ const providers = [
   ],
   [
     "Enti autorizzati",
-    "Collaborazione, consultazione di dati aggregati, sicurezza urbana, gestione segnalazioni e contesto territoriale.",
-    "Solo contenuti e segnalazioni aggregate o non direttamente identificative. Non vengono forniti nome/email dell'utente segnalante salvo obbligo legale, richiesta dell'autorità o specifica base giuridica.",
+    "Solo eventuali rapporti futuri o specificamente autorizzati per consultazione di dati aggregati, contesto informativo urbano e statistiche non identificative.",
+    "Solo contenuti e segnalazioni aggregate o non direttamente identificative. Non vengono forniti nome/email dell'utente segnalante salvo obbligo legale, richiesta legittima dell'autorità o specifica base giuridica.",
     "Titolari autonomi o destinatari autorizzati secondo accordi e finalità."
   ],
   [
     "Autorità competenti",
-    "Adempimento obblighi legali, richieste dell'autorità, tutela di diritti, sicurezza o prevenzione di illeciti.",
+    "Adempimento obblighi legali, richieste legittime dell'autorità, tutela di diritti, sicurezza o prevenzione di illeciti. proTcity non invia ordinariamente le segnalazioni community a forze dell'ordine, servizi di emergenza o centrali operative.",
     "Dati necessari e proporzionati alla richiesta o all'obbligo, inclusi log sicurezza e audit azioni sensibili quando legittimamente richiesti.",
     "Destinatari previsti dalla legge."
   ]
@@ -315,11 +321,11 @@ const retentionRows = [
   ],
   [
     "Firebase Analytics",
-    "Dati analytics pseudonimi o aggregati fino a 14 mesi, salvo configurazioni più brevi, cancellazione richiesta, revoca del consenso o necessità tecniche diverse conformi alla normativa."
+    "Dati analytics pseudonimi o aggregati fino a 14 mesi solo se abilitati secondo consenso o configurazione applicabile, salvo configurazioni più brevi, cancellazione richiesta, revoca del consenso o necessità tecniche diverse conformi alla normativa."
   ],
   [
-    "Crashlytics e diagnostica",
-    "Indicativamente fino a 90 giorni per crash report e diagnostica ordinaria; fino a 24 mesi per incidenti di sicurezza, frodi, abusi o problemi tecnici gravi."
+    "Crashlytics, Performance e diagnostica",
+    "Indicativamente fino a 90 giorni per crash report, performance e diagnostica ordinaria solo se abilitati secondo consenso o configurazione applicabile; fino a 24 mesi per incidenti di sicurezza, frodi, abusi o problemi tecnici gravi."
   ],
   [
     "Token notifiche push",
@@ -360,7 +366,7 @@ const retentionRows = [
   title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
-  lastUpdated="15 giugno 2026"
+  lastUpdated="24 giugno 2026"
 >
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
@@ -374,6 +380,9 @@ const retentionRows = [
   </p>
   <p>
     proTcity non è un servizio di emergenza, non sostituisce il Numero Unico Europeo 112, il 113, il 115, il 118, le forze dell'ordine, i vigili del fuoco, i servizi sanitari o altre autorità competenti. In caso di pericolo reale, urgenza, emergenza sanitaria, incendio, aggressione, incidente o situazione che richieda intervento immediato, l'utente deve contattare direttamente i numeri di emergenza competenti.
+  </p>
+  <p>
+    proTcity è un servizio privato di community safety, sicurezza urbana preventiva e contesto informativo urbano. Non è affiliato a Comuni, autorità pubbliche, forze dell'ordine, protezione civile, servizi sanitari o centrali operative. Le segnalazioni e gli avvisi urbani sono contenuti informativi e contestuali: non costituiscono denuncia ufficiale, istruzione operativa, richiesta di intervento pubblico o invito a intervenire fisicamente. proTcity non invia ordinariamente segnalazioni community a forze dell'ordine, servizi di emergenza o centrali operative.
   </p>
 
   <h2>A. Informativa privacy di primo livello</h2>
@@ -417,7 +426,7 @@ const retentionRows = [
     <strong>Referente privacy e DPO/RPD.</strong> Le richieste relative alla protezione dei dati personali sono gestite internamente da Kurbi Labs srls tramite il proprio referente privacy, contattabile all'indirizzo <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a> indicando nell'oggetto "Privacy" o "Richiesta dati personali". Alla data della presente informativa Kurbi Labs srls non ha nominato un Responsabile della Protezione dei Dati / Data Protection Officer formale. La valutazione sulla nomina del DPO/RPD è documentata e viene aggiornata in caso di crescita significativa del servizio, trattamento su larga scala, nuove funzioni ad alto rischio, accordi con enti pubblici o ulteriori trattamenti che rendano la nomina obbligatoria o opportuna.
   </p>
   <p>
-    <strong>Nota sulla DPIA.</strong> Kurbi Labs srls ha svolto una valutazione d'impatto sulla protezione dei dati personali ("DPIA") con riferimento ai trattamenti più rilevanti, inclusi geolocalizzazione, segnalazioni, moderazione, Safety Score, funzioni di sicurezza personale, analytics/diagnostica e accessi da parte di amministratori, partner o enti autorizzati. La DPIA viene aggiornata in caso di modifiche sostanziali del servizio o del rischio.
+    <strong>Nota su DPIA, ROPA e accountability.</strong> Kurbi Labs srls mantiene o aggiorna documentazione interna di accountability privacy, valutazioni di impatto ove richieste o opportune, registro dei trattamenti, vendor assessment e verifica dello stato degli accordi di trattamento dati ove richiesto dal GDPR. Tali documenti interni non sono pubblicati integralmente sul sito e vengono aggiornati in caso di modifiche sostanziali del servizio, dei fornitori, dei rischi o delle basi giuridiche.
   </p>
 
   <h2>2. Ambito di applicazione</h2>
@@ -461,6 +470,9 @@ const retentionRows = [
   </div>
   <p>
     proTcity non vende dati di geolocalizzazione, non conserva uno storico permanente degli spostamenti individuali e non usa la posizione per advertising comportamentale. Eventuali controlli antifrode o anti-abuso basati sulla distanza tra posizione reale e segnalazione sono limitati alla verifica di coerenza del servizio e alla prevenzione di segnalazioni false o manipolative.
+  </p>
+  <p>
+    Nella versione iOS 1.0 la posizione è usata in foreground / while using the app, cioè mentre l'app è aperta o la funzione richiesta è attiva. Nella versione Android aggiornata non è dichiarato l'uso del permesso ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuativo in background nella versione 1.0. Eventuali funzioni future di background location richiederanno disclosure prominente, permessi del sistema operativo, aggiornamento delle dichiarazioni Apple App Privacy/Google Play Data Safety e aggiornamento della presente informativa prima dell'attivazione ove richiesto.
   </p>
 
   <h2>5. Finalità e basi giuridiche</h2>
@@ -523,7 +535,10 @@ const retentionRows = [
     Eventuali funzioni predittive di proTcity devono restare limitate a trend, anomalie, pattern territoriali o contesti urbani aggregati. Non sono progettate per predire il rischio che una persona specifica commetta un reato, non sono strumenti di polizia predittiva individuale, non effettuano social scoring, non deducono caratteristiche protette e non sostituiscono valutazioni umane, autorità pubbliche, servizi sanitari o forze dell'ordine.
   </p>
   <p>
-    OpenAI e altri fornitori AI, se utilizzati, sono impiegati lato backend con dati minimizzati e pertinenti alla funzione. Kurbi Labs evita, per quanto possibile, di inviare dati identificativi, dati di contatto, dati sensibili, immagini di persone, dati di minori o informazioni non necessarie. L'AI può supportare classificazioni, spiegazioni, controlli di coerenza o assistenza, ma non deve essere usata per decisioni automatizzate su persone fisiche con effetti giuridici o analogamente significativi.
+    Il Livello informativo urbano / Urban information layer, ove presente, è un layer statistico e informativo della mappa riferito al contesto urbano. Non rende invisibile l'utente, non nasconde l'identità, non abilita condotte stealth, non identifica persone, non predice crimini e non trasforma proTcity in uno strumento di sorveglianza individuale.
+  </p>
+  <p>
+    OpenAI e altri fornitori AI, se utilizzati, sono impiegati lato backend con dati minimizzati e pertinenti alla funzione. Kurbi Labs evita, per quanto possibile, di inviare dati identificativi, dati di contatto, dati sensibili, immagini di persone, dati di minori o informazioni non necessarie. L'AI può supportare classificazioni, spiegazioni, controlli di coerenza o assistenza, ma non deve essere usata per decisioni automatizzate su persone fisiche con effetti giuridici o analogamente significativi. Eventuali cambiamenti rilevanti delle funzioni AI/statistiche devono essere soggetti a supervisione, valutazione privacy e aggiornamento della DPIA o documentazione interna ove il rischio cambi.
   </p>
 
   <h2>9. Notifiche push, analytics, crash report e cookie</h2>
@@ -531,9 +546,12 @@ const retentionRows = [
   <p>
     proTcity usa Firebase Cloud Messaging per inviare notifiche push relative a alert, stato delle segnalazioni, comunicazioni di servizio, sicurezza, aggiornamenti tecnici e funzioni richieste. Su dispositivi Apple, l'invio può coinvolgere anche Apple Push Notification service secondo la configurazione tecnica del sistema operativo. L'utente può disattivare le notifiche dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app.
   </p>
-  <h3>Firebase Analytics e Crashlytics</h3>
+  <h3>Firebase Analytics, Crashlytics e Performance</h3>
   <p>
-    proTcity usa Firebase Analytics per statistiche di utilizzo, miglioramento del servizio, misurazione di funzioni e prestazioni, e Firebase Crashlytics per crash report, diagnostica, correzione errori, affidabilità e sicurezza. Kurbi Labs non usa tali strumenti per advertising comportamentale, vendita di dati, profilazione commerciale o tracciamento pubblicitario. Firebase Analytics viene gestito con meccanismi di consenso e revoca ove richiesti dalla normativa applicabile. Crashlytics è limitato a finalità tecniche, diagnostiche e di sicurezza.
+    Firebase Analytics, Firebase Crashlytics e Firebase Performance sono disattivati di default lato app per analytics e diagnostica non essenziali. Quando abilitati, sono usati solo previo consenso facoltativo e revocabile ove richiesto, oppure secondo configurazioni tecniche minimizzate compatibili con la normativa applicabile. Gli eventi analytics, crash e performance sono usati per miglioramento tecnico/prodotto, metriche aggregate o pseudonime, diagnostica, sicurezza, stabilità e correzione errori. Kurbi Labs non usa tali strumenti per advertising comportamentale, vendita di dati, profilazione commerciale o tracciamento pubblicitario.
+  </p>
+  <p>
+    Alla data della presente informativa proTcity non usa IDFA, SDK pubblicitari, data broker, vendita o condivisione di dati per pubblicità comportamentale, advertising tracking cross-app/cross-site, remarketing o advertising personalization. Firebase Analytics iOS è configurato senza supporto Ad ID / WithoutAdIdSupport. Qualsiasi futura introduzione di identificatori pubblicitari, SDK marketing, pixel o trattamenti equivalenti richiederà aggiornamento delle informative, configurazione del consenso ove necessario e coerenza con le dichiarazioni rese agli store.
   </p>
   <h3>Cookie e sito protcity.com</h3>
   <p>
@@ -620,10 +638,13 @@ const retentionRows = [
     <li>moderazione automatica e manuale, ove necessaria;</li>
     <li>minimizzazione dei dati inviati a fornitori AI e servizi terzi;</li>
     <li>separazione tra dati identificativi, contenuti pubblici e dati aggregati ove tecnicamente possibile;</li>
-    <li>valutazione d'impatto DPIA e aggiornamento periodico in caso di modifiche sostanziali.</li>
+    <li>valutazioni d'impatto DPIA ove richieste o opportune e aggiornamento della documentazione interna in caso di modifiche sostanziali del rischio.</li>
   </ul>
   <p>
     Nessun sistema può garantire sicurezza assoluta. In caso di violazione dei dati personali, Kurbi Labs applica le procedure previste dal GDPR e, quando necessario, notifica l'evento al Garante e agli interessati nei termini di legge.
+  </p>
+  <p>
+    Kurbi Labs valuta, mantiene o aggiorna registri interni dei trattamenti, valutazioni privacy by design/by default, vendor assessment, verifica dello stato dei DPA o accordi sul trattamento dati quando necessari, istruzioni ai responsabili del trattamento, controlli sui subfornitori, basi giuridiche, retention e documentazione di accountability ove richiesto dal GDPR. Tali documenti non sostituiscono questa informativa pubblica e non vengono pubblicati integralmente sul sito.
   </p>
 
   <h2>16. Utenti extra UE e aggiornamenti</h2>
@@ -633,21 +654,27 @@ const retentionRows = [
   <p>
     Kurbi Labs può aggiornare questa informativa in caso di modifiche normative, nuove funzioni, nuovi fornitori, aggiornamenti tecnici, nuove finalità, modifiche del Safety Score/AI, nuove console partner/enti o variazioni dei tempi di conservazione. La versione aggiornata viene pubblicata nel sito, nell'app o nei canali ufficiali. In caso di modifiche sostanziali, Kurbi Labs informa gli utenti con modalità proporzionate, ad esempio notifica in app, email o avviso sul sito.
   </p>
+  <p>
+    Ove il Digital Services Act o norme di trasparenza per servizi digitali siano applicabili, Kurbi Labs gestisce segnalazioni di contenuti illeciti, reclami e decisioni di moderazione con criteri proporzionati, tracciabili e non discriminatori. proTcity resta un servizio privato: eventuali riferimenti a enti, partner o territori non implicano affiliazione istituzionale, canale ufficiale di denuncia o presa in carico da parte di autorità pubbliche.
+  </p>
 
   <h2>17. Coerenza tecnica, app store e ulteriori documenti collegati</h2>
   <p>
     Kurbi Labs mantiene la presente informativa coerente con le configurazioni tecniche dell'app, del sito, dei fornitori e delle dichiarazioni rese sugli store. In particolare:
   </p>
   <ul>
-    <li>Firebase Analytics è configurato con meccanismi di consenso e revoca ove richiesti dalla normativa applicabile;</li>
-    <li>Firebase Crashlytics è limitato a diagnostica, sicurezza, correzione errori e affidabilità;</li>
+    <li>la posizione nella versione iOS 1.0 è foreground / while using the app e Android non dichiara ACCESS_BACKGROUND_LOCATION;</li>
+    <li>Firebase Analytics, Crashlytics e Performance sono disattivati di default lato app per analytics/diagnostica non essenziali e sono abilitati solo con consenso facoltativo e revocabile ove richiesto;</li>
+    <li>Firebase Analytics iOS è configurato senza supporto Ad ID / WithoutAdIdSupport;</li>
+    <li>non sono dichiarati IDFA, SDK pubblicitari, data broker, vendita dati, behavioral advertising, advertising personalization o tracking cross-app/cross-site;</li>
     <li>le notifiche push sono disattivabili dall'utente dalle impostazioni del dispositivo e, ove previsto, dall'app;</li>
     <li>la verifica telefono e gli audit di sicurezza sono dichiarati in Google Play Data Safety e Apple App Privacy quando applicabile;</li>
-    <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni necessarie;</li>
+    <li>i dati sono raccolti per funzionalità app, sicurezza, moderazione, prevenzione abusi, diagnostica, performance e miglioramento tecnico/prodotto, non per pubblicità comportamentale;</li>
+    <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni richieste o necessarie;</li>
     <li>la posizione live è cancellata o anonimizzata entro i termini indicati nella presente informativa;</li>
     <li>partner ed enti visualizzano solo dati aggregati o non direttamente identificativi, salvo obblighi legali o basi giuridiche specifiche;</li>
     <li>le segnalazioni vengono controllate e moderate prima della pubblicazione quando ciò è necessario per privacy, sicurezza e qualità del servizio;</li>
-    <li>la DPIA è conservata e aggiornata in caso di modifiche sostanziali;</li>
+    <li>Kurbi Labs mantiene o aggiorna documentazione interna di accountability, DPIA/ROPA, vendor register e verifica DPA ove richiesto o opportuno;</li>
     <li>la Cookie Policy, i Termini di servizio, le Community Guidelines, le informative Google Play Data Safety e Apple App Privacy sono mantenute coerenti con questa informativa.</li>
   </ul>
 </LegalLayout>
