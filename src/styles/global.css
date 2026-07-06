@@ -2916,7 +2916,8 @@ body.download-page {
 
 .download-hero,
 .download-section,
-.download-final {
+.download-final,
+.download-trust {
   position: relative;
   overflow: hidden;
 }
@@ -3023,6 +3024,37 @@ body.download-page {
   backdrop-filter: blur(14px);
 }
 
+.download-trust {
+  padding: 18px 0;
+  border-top: 1px solid rgba(56, 182, 255, 0.16);
+  border-bottom: 1px solid rgba(56, 182, 255, 0.16);
+  background:
+    linear-gradient(90deg, rgba(56, 182, 255, 0.1), rgba(255, 255, 255, 0.03), rgba(226, 20, 17, 0.07)),
+    #02050b;
+}
+
+.download-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.download-trust__grid span {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(56, 182, 255, 0.22);
+  border-radius: 8px;
+  color: rgba(239, 247, 255, 0.86);
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1.24;
+  text-align: center;
+}
+
 .download-section {
   padding: 92px 0;
   background:
@@ -3045,6 +3077,13 @@ body.download-page {
     radial-gradient(circle at 18% 12%, rgba(56, 182, 255, 0.14), transparent 34%),
     radial-gradient(circle at 84% 16%, rgba(226, 20, 17, 0.1), transparent 32%),
     #02050b;
+}
+
+.download-section--videos,
+.download-section--reasons {
+  background:
+    linear-gradient(135deg, rgba(56, 182, 255, 0.12), rgba(226, 20, 17, 0.07)),
+    #030812;
 }
 
 .download-section__intro {
@@ -3088,7 +3127,9 @@ body.download-page {
 .download-feature-grid article,
 .download-audience-grid article,
 .download-faq details,
-.download-screen-card {
+.download-screen-card,
+.download-video-card,
+.download-reason-grid article {
   border: 1px solid rgba(56, 182, 255, 0.22);
   border-radius: 8px;
   background:
@@ -3117,7 +3158,10 @@ body.download-page {
 .download-card p,
 .download-feature-grid p,
 .download-audience-grid p,
-.download-faq p {
+.download-faq p,
+.download-reason-grid p,
+.download-video-card p,
+.download-video-card li {
   margin: 0;
   color: rgba(239, 247, 255, 0.74);
   line-height: 1.58;
@@ -3280,8 +3324,88 @@ body.download-page {
   background: rgba(255, 255, 255, 0.06);
 }
 
+.download-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.download-video-card {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(190px, 0.54fr) minmax(0, 1fr);
+}
+
+.download-video-card__media {
+  border-right: 1px solid rgba(56, 182, 255, 0.18);
+  background: #02050b;
+}
+
+.download-video-card video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 470px;
+  aspect-ratio: 9 / 19.5;
+  object-fit: cover;
+  object-position: top center;
+  background: #02050b;
+}
+
+.download-video-card__body {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.download-video-card__body span {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 12px;
+  color: #38b6ff;
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.download-video-card__body h3,
+.download-reason-grid h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 1.22rem;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.download-video-card__body ul {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.download-video-card__body li {
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left-color: #38b6ff;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
 .download-audience-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.download-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.download-reason-grid article {
+  min-height: 180px;
+  padding: 24px;
 }
 
 .download-faq {
@@ -3329,6 +3453,25 @@ body.download-page {
   text-align: center;
 }
 
+.download-final__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.download-final__brand img:first-child {
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
+}
+
+.download-final__brand img:last-child {
+  width: min(220px, 62vw);
+  height: auto;
+}
+
 .download-final .cinematic-actions {
   justify-content: center;
 }
@@ -3350,6 +3493,10 @@ body.download-page {
 
 .download-final__links a:hover {
   color: #ffffff;
+}
+
+.download-sticky-cta {
+  display: none;
 }
 
 body.cinematic-site .pricing-card__button {
@@ -4021,7 +4168,16 @@ body.cinematic-site .pricing-card--featured {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .download-trust__grid,
+  .download-reason-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .download-community-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .download-video-grid {
     grid-template-columns: 1fr;
   }
 
@@ -4078,9 +4234,27 @@ body.cinematic-site .pricing-card--featured {
   .download-benefit-grid,
   .download-feature-grid,
   .download-community-grid,
+  .download-video-grid,
+  .download-reason-grid,
+  .download-trust__grid,
   .download-screen-grid,
   .download-audience-grid {
     grid-template-columns: 1fr;
+  }
+
+  .download-video-card {
+    grid-template-columns: 1fr;
+  }
+
+  .download-video-card__media {
+    border-right: 0;
+    border-bottom: 1px solid rgba(56, 182, 255, 0.18);
+  }
+
+  .download-video-card video {
+    height: auto;
+    max-height: 680px;
+    min-height: 0;
   }
 
   .download-community-card {
@@ -4103,7 +4277,8 @@ body.cinematic-site .pricing-card--featured {
 
   .download-card,
   .download-feature-grid article,
-  .download-audience-grid article {
+  .download-audience-grid article,
+  .download-reason-grid article {
     min-height: auto;
   }
 
@@ -4117,6 +4292,33 @@ body.cinematic-site .pricing-card--featured {
 
   .download-faq details p {
     padding: 0 18px 18px;
+  }
+
+  body.download-page {
+    padding-bottom: 74px;
+  }
+
+  .download-sticky-cta {
+    position: fixed;
+    right: 16px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    left: 16px;
+    z-index: 60;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(56, 182, 255, 0.5);
+    border-radius: 8px;
+    color: #02050b;
+    background: linear-gradient(180deg, #ffffff, #dff7ff);
+    box-shadow: 0 18px 54px rgba(0, 0, 0, 0.38);
+    font-weight: 950;
+    text-decoration: none;
+  }
+
+  body.cookie-consent-open .download-sticky-cta {
+    display: none;
   }
 }
 

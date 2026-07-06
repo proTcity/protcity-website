@@ -3,20 +3,27 @@ import MainLayout from "../layouts/MainLayout.astro";
 import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
-const appStoreCampaignUrl = `${site.stores.appStore}?utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_prospecting_mappaurbana_v1&utm_content=landing_download`;
+const appStoreCampaignUrl = `${site.stores.appStore}?utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_download_landing_v1`;
 
-const benefits = [
+const trustSignals = [
+  "Disponibile su App Store",
+  "Sviluppata in Italia",
+  "Community urbana",
+  "Privacy e preferenze sotto controllo"
+] as const;
+
+const differentiators = [
   {
-    title: "Mappa urbana",
-    text: "Consulta informazioni locali e punti utili intorno a te."
+    title: "Leggi il territorio",
+    text: "La mappa mette in ordine luoghi, contenuti vicini e contesto locale per aiutarti a orientarti con piu consapevolezza."
   },
   {
-    title: "Segnali informativi",
-    text: "Leggi dettagli, stato e aggiornamenti in modo ordinato."
+    title: "Consulta segnali informativi",
+    text: "Schede, categorie e dettagli aiutano a capire meglio cosa viene condiviso dalla community e dai soggetti registrati."
   },
   {
-    title: "Contesto locale",
-    text: "Ottieni una visione più chiara dell'area in cui ti trovi."
+    title: "Resta connesso ai contatti fidati",
+    text: "Contatti, inviti e preferenze restano sotto controllo dell'utente, senza trasformare l'app in un canale ufficiale."
   }
 ] as const;
 
@@ -26,16 +33,16 @@ const features = [
     text: "Visualizza la zona, i punti utili e i contenuti informativi disponibili in un'unica esperienza."
   },
   {
-    title: "Segnali urbani",
-    text: "Consulta schede, categorie e aggiornamenti pensati per rendere più leggibile il territorio."
+    title: "Segnali informativi",
+    text: "Consulta categorie, descrizioni e aggiornamenti pensati per rendere piu leggibile il territorio."
   },
   {
     title: "WalkGuard",
-    text: "Segui un percorso e mantieni visibile il contesto mentre ti muovi."
+    text: "Prepara un percorso, consulta il contesto locale e scegli strumenti collegati ai tuoi contatti fidati."
   },
   {
     title: "Contatti fidati",
-    text: "Gestisci una rete privata di persone importanti per inviti e funzioni dedicate."
+    text: "Gestisci una rete privata di persone importanti per funzioni dedicate, inviti e aggiornamenti."
   },
   {
     title: "Eventi locali",
@@ -47,7 +54,7 @@ const features = [
   },
   {
     title: "Assistente app",
-    text: "Ricevi supporto per leggere meglio contenuti, funzioni e informazioni disponibili nell'app."
+    text: "Ricevi supporto per comprendere funzioni, preferenze e informazioni disponibili nell'app."
   }
 ] as const;
 
@@ -95,6 +102,65 @@ const communityTools = [
       "Può essere pubblico, limitato ai Friends o selettivo.",
       "Aiuta community e cittadini a scoprire luoghi adatti a incontrarsi."
     ]
+  }
+] as const;
+
+const demoVideos = [
+  {
+    video: "/videos/download/urban-map-notifications.mp4",
+    poster: "/images/app-real/optimized/vicino-a-te-adesso.png",
+    label: "Mappa urbana",
+    title: "Vicino a te adesso e contenuti sulla mappa",
+    text: "Mostra come proTcity organizza contenuti vicini, notifiche e segnali informativi direttamente nella mappa, con una lettura visiva pensata per il contesto urbano.",
+    points: ["Contenuti vicini ordinati nella mappa.", "Notifiche e dettagli consultabili senza uscire dal flusso."]
+  },
+  {
+    video: "/videos/download/walkguard.mp4",
+    poster: "/images/app-real/optimized/walkguard-download.png",
+    label: "WalkGuard",
+    title: "Percorsi, contesto e contatti fidati",
+    text: "Il video mostra il flusso WalkGuard: scelta del percorso, impostazioni e strumenti informativi collegati alla navigazione e ai contatti selezionati.",
+    points: ["Percorso e contesto in un'unica vista.", "Preferenze e contatti controllati dall'utente."]
+  },
+  {
+    video: "/videos/download/urban-signal.mp4",
+    poster: "/images/app-real/optimized/create-urban-signal.png",
+    label: "Segnale urbano",
+    title: "Creare un nuovo segnale informativo",
+    text: "Mostra la creazione di un segnale con posizione, categoria, descrizione e opzioni media. Se un Comune o partner aderisce a proTcity, puo usare questi contenuti come quadro informativo ordinato della zona.",
+    points: ["Posizione tramite GPS, mappa o indirizzo.", "Categorie chiare per leggere meglio il territorio."]
+  },
+  {
+    video: "/videos/download/community-alert.mp4",
+    poster: "/images/app-real/optimized/create-alert.png",
+    label: "Avviso",
+    title: "Pubblicare un avviso informativo",
+    text: "Mostra come inserire un avviso temporaneo per la community, con titolo, indirizzo, tipologia e descrizione del contesto.",
+    points: ["Informazioni rapide e contestuali.", "Copy in-app orientato alla responsabilita dell'utente."]
+  },
+  {
+    video: "/videos/download/event-flash.mp4",
+    poster: "/images/app-real/optimized/create-event.png",
+    label: "Evento",
+    title: "Creare un evento flash",
+    text: "Mostra il flusso per proporre un evento locale scegliendo categoria, luogo, orario, visibilita e inviti.",
+    points: ["Eventi pubblici, Friends o selezionati.", "Presenza nella mappa quando l'evento e pubblico."]
+  },
+  {
+    video: "/videos/download/meetup-spot.mp4",
+    poster: "/images/app-real/optimized/create-meetup.png",
+    label: "Meetup",
+    title: "Proporre un Meetup Spot",
+    text: "Mostra come suggerire un punto d'incontro con rating, indirizzo, dettagli, tag e visibilita controllata.",
+    points: ["Luoghi d'incontro descritti in modo ordinato.", "Visibilita pubblica o limitata secondo la scelta dell'utente."]
+  },
+  {
+    video: "/videos/download/prevision-settings-ai.mp4",
+    poster: "/images/app-real/optimized/impostazioni.png",
+    label: "Preferenze",
+    title: "PreVision, lingue e assistente AI",
+    text: "Mostra preferenze, impostazioni lingua e supporto AI come strumenti informativi e configurabili dall'utente.",
+    points: ["Preferenze e lingua in area impostazioni.", "Supporto AI presentato come aiuto informativo."]
   }
 ] as const;
 
@@ -149,6 +215,25 @@ const audiences = [
   }
 ] as const;
 
+const downloadReasons = [
+  {
+    title: "Disponibile ora su iPhone",
+    text: "Puoi provarla subito da App Store e iniziare a esplorare la mappa urbana nella tua zona."
+  },
+  {
+    title: "Funzioni gia pronte da testare",
+    text: "Mappa, segnali informativi, WalkGuard, contatti fidati, eventi e meetup sono parte del flusso attuale."
+  },
+  {
+    title: "Community in costruzione",
+    text: "Ogni nuovo utente contribuisce a validare il linguaggio, la qualita dei contenuti e l'utilita reale del servizio."
+  },
+  {
+    title: "Controllo delle preferenze",
+    text: "Permessi, privacy, lingua e notifiche sono gestibili dall'utente secondo le impostazioni disponibili."
+  }
+] as const;
+
 const faqs = [
   {
     question: "proTcity è gratuita?",
@@ -171,8 +256,16 @@ const faqs = [
     answer: "WalkGuard aiuta a seguire un percorso mantenendo visibile il contesto locale e alcuni strumenti rapidi durante lo spostamento."
   },
   {
+    question: "Cosa sono i segnali informativi?",
+    answer: "Sono contenuti contestuali pubblicati nella mappa per descrivere luoghi, dettagli urbani o informazioni utili alla community. Non sono istruzioni operative e non sostituiscono canali ufficiali."
+  },
+  {
     question: "Posso usare proTcity quando visito una città nuova?",
     answer: "Sì. proTcity può aiutarti a orientarti meglio, consultare punti utili e leggere il contesto intorno a te."
+  },
+  {
+    question: "proTcity usa tracking pubblicitario?",
+    answer: "La pagina download non inserisce pixel pubblicitari, SDK esterni o script di remarketing. Eventuali strumenti non necessari devono essere attivati solo con consenso ove richiesto."
   },
   {
     question: "proTcity sostituisce i canali ufficiali per situazioni urgenti?",
@@ -187,7 +280,7 @@ const schema = [
     name: "Scarica proTcity",
     url: absoluteUrl("/download"),
     description:
-      "Scarica proTcity su App Store: mappa urbana, segnali informativi, WalkGuard, contatti fidati e contesto locale per orientarti meglio nel territorio.",
+      "Scarica proTcity su App Store: mappa urbana/community, segnali informativi, WalkGuard, contatti fidati e contesto locale per orientarti meglio nel territorio.",
     isPartOf: {
       "@type": "WebSite",
       name: site.name,
@@ -231,12 +324,12 @@ const schema = [
 ---
 
 <MainLayout
-  title="Scarica proTcity | Mappa urbana e segnali informativi"
-  description="Scarica proTcity su App Store: mappa urbana, segnali informativi, WalkGuard, contatti fidati e contesto locale per orientarti meglio nel territorio."
+  title="Scarica proTcity | App Store e mappa urbana community"
+  description="Scarica proTcity su App Store: mappa urbana/community per leggere il territorio, consultare segnali informativi, usare WalkGuard e gestire contatti fidati. Google Play in arrivo."
   canonicalPath="/download"
   image="/images/app-preview.png"
-  ogTitle="proTcity è su App Store"
-  ogDescription="La mappa urbana per leggere meglio il territorio, consultare segnali informativi e orientarti con più consapevolezza."
+  ogTitle="Scarica proTcity su App Store"
+  ogDescription="Non e una semplice mappa: proTcity aiuta cittadini e visitatori a leggere meglio il territorio e restare connessi ai contatti fidati."
   bodyClass="download-page cinematic-site"
   schema={schema}
 >
@@ -244,9 +337,9 @@ const schema = [
     <div class="container download-hero__grid">
       <div class="download-hero__copy">
         <p class="cinematic-kicker">Disponibile ora per iPhone</p>
-        <h1 id="download-title">La città, più chiara.</h1>
+        <h1 id="download-title">Non è una semplice mappa.</h1>
         <p class="download-hero__lead">
-          proTcity ti aiuta a leggere meglio il territorio con mappa urbana, segnali informativi e contesto locale.
+          proTcity aiuta cittadini e visitatori a leggere meglio il territorio, orientarsi con piu consapevolezza e restare connessi ai propri contatti fidati.
         </p>
         <div class="cinematic-actions" aria-label="Azioni principali">
           <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
@@ -276,14 +369,25 @@ const schema = [
     </div>
   </section>
 
-  <section class="download-section download-section--raised" aria-labelledby="benefits-title">
+  <section class="download-trust" aria-label="Elementi di fiducia">
+    <div class="container download-trust__grid">
+      {trustSignals.map((signal) => (
+        <span>{signal}</span>
+      ))}
+    </div>
+  </section>
+
+  <section class="download-section download-section--raised" id="come-funziona" aria-labelledby="difference-title">
     <div class="container">
       <div class="download-section__intro">
         <p class="cinematic-kicker">Per orientarti meglio</p>
-        <h2 id="benefits-title">Un modo nuovo di orientarti nel territorio</h2>
+        <h2 id="difference-title">La mappa urbana che mette ordine al contesto intorno a te.</h2>
+        <p>
+          proTcity non promette interventi, non sostituisce canali ufficiali e non invita ad agire fisicamente: organizza informazioni e strumenti per leggere meglio cio che hai intorno.
+        </p>
       </div>
       <div class="download-benefit-grid">
-        {benefits.map((benefit) => (
+        {differentiators.map((benefit) => (
           <article class="download-card">
             <span>{benefit.title}</span>
             <p>{benefit.text}</p>
@@ -293,13 +397,13 @@ const schema = [
     </div>
   </section>
 
-  <section class="download-section" id="come-funziona" aria-labelledby="features-title">
+  <section class="download-section" aria-labelledby="features-title">
     <div class="container download-split">
       <div class="download-section__intro">
         <p class="cinematic-kicker">Funzioni principali</p>
         <h2 id="features-title">Cosa puoi fare con proTcity</h2>
         <p>
-          Ogni funzione è pensata per aiutarti a leggere segnali, luoghi e informazioni locali senza trasformare l'app in un canale ufficiale o in una promessa di protezione.
+          Ogni funzione è pensata per mappa, community e contesto locale: contenuti brevi, categorie chiare e preferenze sempre gestibili.
         </p>
         <div class="cinematic-actions">
           <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
@@ -370,6 +474,45 @@ const schema = [
     </div>
   </section>
 
+  <section class="download-section download-section--videos" aria-labelledby="videos-title">
+    <div class="container">
+      <div class="download-section__intro download-section__intro--center">
+        <p class="cinematic-kicker">Video reali dell'app</p>
+        <h2 id="videos-title">Guarda i flussi principali prima di scaricare.</h2>
+        <p>
+          Video dimostrativi registrati dall'app: mappa, WalkGuard, segnali, avvisi, eventi, meetup, preferenze e supporto informativo.
+        </p>
+      </div>
+      <div class="download-video-grid">
+        {demoVideos.map((item) => (
+          <article class="download-video-card">
+            <div class="download-video-card__media">
+              <video
+                controls
+                playsinline
+                preload="none"
+                poster={item.poster}
+                aria-label={`${item.title} in proTcity`}
+              >
+                <source src={item.video} type="video/mp4" />
+              </video>
+            </div>
+            <div class="download-video-card__body">
+              <span>{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <ul>
+                {item.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="download-section" aria-labelledby="audience-title">
     <div class="container">
       <div class="download-section__intro">
@@ -381,6 +524,23 @@ const schema = [
           <article>
             <h3>{audience.title}</h3>
             <p>{audience.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="download-section download-section--reasons" aria-labelledby="reasons-title">
+    <div class="container">
+      <div class="download-section__intro download-section__intro--center">
+        <p class="cinematic-kicker">Perche scaricarla ora</p>
+        <h2 id="reasons-title">Inizia dalla tua zona e guarda come cambia la lettura della mappa.</h2>
+      </div>
+      <div class="download-reason-grid">
+        {downloadReasons.map((reason) => (
+          <article>
+            <h3>{reason.title}</h3>
+            <p>{reason.text}</p>
           </article>
         ))}
       </div>
@@ -406,9 +566,13 @@ const schema = [
 
   <section class="download-final" aria-labelledby="final-download-title">
     <div class="container download-final__inner">
+      <div class="download-final__brand" aria-hidden="true">
+        <img src="/apple-touch-icon.png" alt="" loading="lazy" decoding="async" />
+        <img src="/images/logo-tm.png" alt="" loading="lazy" decoding="async" />
+      </div>
       <p class="cinematic-kicker">App Store</p>
-      <h2 id="final-download-title">Scarica proTcity e scopri una nuova mappa urbana.</h2>
-      <p>Disponibile ora per iPhone. Google Play in arrivo.</p>
+      <h2 id="final-download-title">Scarica proTcity e porta la mappa urbana sul tuo iPhone.</h2>
+      <p>Disponibile ora su App Store. Google Play in arrivo.</p>
       <div class="cinematic-actions">
         <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
         <a class="glass-button" href="/">Homepage</a>
@@ -421,4 +585,5 @@ const schema = [
       </div>
     </div>
   </section>
+  <a class="download-sticky-cta" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">Scarica su App Store</a>
 </MainLayout>
