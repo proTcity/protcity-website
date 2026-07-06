@@ -1,5 +1,6 @@
 export const primaryNavigation = [
   { label: "App", href: "/app" },
+  { label: "Download", href: "/download" },
   { label: "WalkGuard", href: "/walkguard" },
   { label: "Citta", href: "/cities" },
   { label: "GuestSafe", href: "/guestsafe" },
@@ -24,6 +25,7 @@ export const footerGroups = [
     title: "Prodotto",
     links: [
       { label: "App mobile", href: "/app" },
+      { label: "Download", href: "/download" },
       { label: "WalkGuard", href: "/walkguard" },
       { label: "GuestSafe", href: "/guestsafe" },
       { label: "Diventa Partner", href: "/partner" },
