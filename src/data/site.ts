@@ -33,7 +33,8 @@ export const site = {
     rea: "FR - 336362"
   },
   stores: {
-    appStore: "https://apps.apple.com/it/app/protcity/id6776195391"
+    appStore: "https://apps.apple.com/it/app/protcity/id6776195391",
+    playStore: "https://play.google.com/store/apps/details?id=com.kurbilabs.protcity"
   }
 } as const;
 

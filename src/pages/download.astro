@@ -4,9 +4,10 @@ import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
 const appStoreCampaignUrl = `${site.stores.appStore}?utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_download_landing_v1`;
+const playStoreCampaignUrl = `${site.stores.playStore}&referrer=${encodeURIComponent("utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_download_landing_v1")}`;
 
 const trustSignals = [
-  "Disponibile su App Store",
+  "Disponibile su App Store e Google Play",
   "Sviluppata in Italia",
   "Community urbana",
   "Privacy e preferenze sotto controllo"
@@ -217,8 +218,8 @@ const audiences = [
 
 const downloadReasons = [
   {
-    title: "Disponibile ora su iPhone",
-    text: "Puoi provarla subito da App Store e iniziare a esplorare la mappa urbana nella tua zona."
+    title: "Disponibile ora su iPhone e Android",
+    text: "Puoi provarla subito da App Store o Google Play e iniziare a esplorare la mappa urbana nella tua zona."
   },
   {
     title: "Funzioni gia pronte da testare",
@@ -237,11 +238,11 @@ const downloadReasons = [
 const faqs = [
   {
     question: "proTcity è gratuita?",
-    answer: "Sì, proTcity è disponibile gratuitamente su App Store."
+    answer: "Sì, proTcity è disponibile gratuitamente su App Store e Google Play."
   },
   {
     question: "È disponibile per Android?",
-    answer: "Al momento proTcity è disponibile per iPhone. La versione Google Play è in arrivo."
+    answer: "Sì. proTcity è ora disponibile anche su Google Play per Android."
   },
   {
     question: "proTcity è un'app ufficiale delle autorità?",
@@ -280,7 +281,7 @@ const schema = [
     name: "Scarica proTcity",
     url: absoluteUrl("/download"),
     description:
-      "Scarica proTcity su App Store: mappa urbana/community, segnali informativi, WalkGuard, contatti fidati e contesto locale per orientarti meglio nel territorio.",
+      "Scarica proTcity su App Store e Google Play: mappa urbana/community, segnali informativi, WalkGuard, contatti fidati e contesto locale per orientarti meglio nel territorio.",
     isPartOf: {
       "@type": "WebSite",
       name: site.name,
@@ -292,21 +293,32 @@ const schema = [
     "@type": "MobileApplication",
     name: "proTcity",
     applicationCategory: "LifestyleApplication",
-    operatingSystem: "iOS",
-    url: site.stores.appStore,
+    operatingSystem: "iOS, Android",
+    url: absoluteUrl("/download"),
+    sameAs: [site.stores.appStore, site.stores.playStore],
+    downloadUrl: [site.stores.appStore, site.stores.playStore],
     image: absoluteUrl("/images/app-preview.png"),
     publisher: {
       "@type": "Organization",
       name: site.company.legalName,
       url: absoluteUrl("/")
     },
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "EUR",
-      availability: "https://schema.org/InStock",
-      url: site.stores.appStore
-    }
+    offers: [
+      {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: site.stores.appStore
+      },
+      {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: site.stores.playStore
+      }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -324,11 +336,11 @@ const schema = [
 ---
 
 <MainLayout
-  title="Scarica proTcity | App Store e mappa urbana community"
-  description="Scarica proTcity su App Store: mappa urbana/community per leggere il territorio, consultare segnali informativi, usare WalkGuard e gestire contatti fidati. Google Play in arrivo."
+  title="Scarica proTcity | App Store e Google Play"
+  description="Scarica proTcity su App Store e Google Play: mappa urbana/community per leggere il territorio, consultare segnali informativi, usare WalkGuard e gestire contatti fidati."
   canonicalPath="/download"
   image="/images/app-preview.png"
-  ogTitle="Scarica proTcity su App Store"
+  ogTitle="Scarica proTcity su App Store e Google Play"
   ogDescription="Non e una semplice mappa: proTcity aiuta cittadini e visitatori a leggere meglio il territorio e restare connessi ai contatti fidati."
   bodyClass="download-page cinematic-site"
   schema={schema}
@@ -336,30 +348,30 @@ const schema = [
   <section class="download-hero" aria-labelledby="download-title">
     <div class="container download-hero__grid">
       <div class="download-hero__copy">
-        <p class="cinematic-kicker">Disponibile ora per iPhone</p>
+        <p class="cinematic-kicker">Disponibile ora per iPhone e Android</p>
         <h1 id="download-title">Non è una semplice mappa.</h1>
         <p class="download-hero__lead">
           proTcity aiuta cittadini e visitatori a leggere meglio il territorio, orientarsi con piu consapevolezza e restare connessi ai propri contatti fidati.
         </p>
         <div class="cinematic-actions" aria-label="Azioni principali">
           <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
+          <a class="glass-button glass-button--primary" href={playStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su Google Play</a>
           <a class="glass-button" href="#come-funziona">Scopri come funziona</a>
         </div>
-        <div class="store-badges" aria-label="Disponibilita sugli store">
+        <div class="store-badges" id="store-downloads" aria-label="Disponibilita sugli store">
           <a class="store-badge store-badge--apple" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">
             <img src="/images/store/app-store-badge.svg" alt="Download on the App Store" loading="eager" decoding="async" />
           </a>
-          <span class="store-badge store-badge--disabled" aria-disabled="true">
+          <a class="store-badge store-badge--google" href={playStoreCampaignUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su Google Play">
             <img src="/images/store/google-play-badge.png" alt="Disponibile su Google Play" loading="eager" decoding="async" />
-            <span>In arrivo</span>
-          </span>
+          </a>
         </div>
-        <p class="download-hero__note">Disponibile ora per iPhone. Google Play in arrivo.</p>
+        <p class="download-hero__note">Disponibile ora su App Store e Google Play.</p>
       </div>
 
       <div class="download-hero__visual" aria-label="Schermata reale della mappa proTcity">
         <figure class="download-phone download-phone--main">
-          <img src="/images/app-real/optimized/home-mappa.png" alt="Mappa urbana di proTcity su iPhone" decoding="async" />
+          <img src="/images/app-real/optimized/home-mappa.png" alt="Mappa urbana di proTcity su smartphone" decoding="async" />
           <figcaption>Mappa urbana</figcaption>
         </figure>
         <figure class="download-phone download-phone--side" aria-hidden="true">
@@ -407,6 +419,7 @@ const schema = [
         </p>
         <div class="cinematic-actions">
           <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
+          <a class="glass-button glass-button--primary" href={playStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su Google Play</a>
         </div>
       </div>
       <div class="download-feature-grid">
@@ -570,11 +583,12 @@ const schema = [
         <img src="/apple-touch-icon.png" alt="" loading="lazy" decoding="async" />
         <img src="/images/logo-tm.png" alt="" loading="lazy" decoding="async" />
       </div>
-      <p class="cinematic-kicker">App Store</p>
-      <h2 id="final-download-title">Scarica proTcity e porta la mappa urbana sul tuo iPhone.</h2>
-      <p>Disponibile ora su App Store. Google Play in arrivo.</p>
+      <p class="cinematic-kicker">Download app</p>
+      <h2 id="final-download-title">Scarica proTcity su iPhone o Android.</h2>
+      <p>Disponibile ora su App Store e Google Play.</p>
       <div class="cinematic-actions">
         <a class="glass-button glass-button--primary" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
+        <a class="glass-button glass-button--primary" href={playStoreCampaignUrl} target="_blank" rel="noopener noreferrer">Scarica su Google Play</a>
         <a class="glass-button" href="/">Homepage</a>
       </div>
       <div class="download-final__links" aria-label="Link utili">
@@ -585,5 +599,5 @@ const schema = [
       </div>
     </div>
   </section>
-  <a class="download-sticky-cta" href={appStoreCampaignUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">Scarica su App Store</a>
+  <a class="download-sticky-cta" href="#store-downloads" aria-label="Scegli lo store per scaricare proTcity">Scarica l'app</a>
 </MainLayout>
