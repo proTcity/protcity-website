@@ -51,6 +51,53 @@ const features = [
   }
 ] as const;
 
+const communityTools = [
+  {
+    image: "/images/app-real/optimized/create-urban-signal.png",
+    label: "Nuovo Segnale Urbano",
+    title: "Rendi leggibile una problematica urbana",
+    text: "Il Segnale Urbano serve a descrivere un contesto di zona, come illuminazione, strada o marciapiede, pulizia urbana, ostacoli o altri elementi utili da conoscere.",
+    points: [
+      "Usa GPS, punto scelto sulla mappa o indirizzo inserito.",
+      "Aiuta cittadini e visitatori a leggere cosa succede intorno.",
+      "Se un Comune aderisce a proTcity, può gestire i segnali come quadro informativo della città o del paese, con aggiornamenti visibili nell'app."
+    ]
+  },
+  {
+    image: "/images/app-real/optimized/create-alert.png",
+    label: "Nuovo Avviso",
+    title: "Comunica un contesto temporaneo",
+    text: "L'Avviso è pensato per informazioni rapide e contestuali, come un'area affollata, visibilità ridotta, un percorso da rivalutare o un dettaglio temporaneo utile alla community.",
+    points: [
+      "Organizza titolo, tipo, indirizzo e descrizione.",
+      "Resta un contenuto informativo, non un canale ufficiale.",
+      "Aiuta la community a orientarsi con più consapevolezza."
+    ]
+  },
+  {
+    image: "/images/app-real/optimized/create-event.png",
+    label: "Evento Flash",
+    title: "Crea momenti locali con inviti chiari",
+    text: "Gli Eventi Flash aiutano a proporre attività locali come musica, sport, studio, aperitivi o passeggiate, scegliendo luogo, orario, visibilità e inviti.",
+    points: [
+      "Può essere aperto a tutti, ai Friends o a persone selezionate.",
+      "Compare nella mappa e nelle notifiche di zona quando pubblico.",
+      "Favorisce partecipazione locale senza appesantire la mappa."
+    ]
+  },
+  {
+    image: "/images/app-real/optimized/create-meetup.png",
+    label: "Meetup Spot",
+    title: "Proponi luoghi di incontro utili",
+    text: "Il Meetup Spot permette di suggerire un punto di incontro, aggiungere dettagli e renderlo visibile alla community con una logica semplice e verificabile.",
+    points: [
+      "Include posizione, nome, data o ora, recensione e tag.",
+      "Può essere pubblico, limitato ai Friends o selettivo.",
+      "Aiuta community e cittadini a scoprire luoghi adatti a incontrarsi."
+    ]
+  }
+] as const;
+
 const screenshots = [
   {
     image: "/images/app-real/optimized/home-mappa.png",
@@ -287,6 +334,37 @@ const schema = [
               <strong>{screen.title}</strong>
             </figcaption>
           </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="download-section download-section--community-tools" aria-labelledby="community-tools-title">
+    <div class="container">
+      <div class="download-section__intro download-section__intro--center">
+        <p class="cinematic-kicker">Community e territorio</p>
+        <h2 id="community-tools-title">Crea segnali, avvisi, eventi e meetup utili alla zona</h2>
+        <p>
+          proTcity permette di pubblicare contenuti informativi e momenti locali con categorie chiare, posizione e visibilità controllata. Per cittadini e community significa leggere meglio il territorio; per Comuni o partner registrati significa avere un quadro più ordinato delle problematiche urbane segnalate.
+        </p>
+      </div>
+      <div class="download-community-grid">
+        {communityTools.map((tool) => (
+          <article class="download-community-card">
+            <figure>
+              <img src={tool.image} alt={`${tool.label} in proTcity`} loading="lazy" decoding="async" />
+            </figure>
+            <div>
+              <span>{tool.label}</span>
+              <h3>{tool.title}</h3>
+              <p>{tool.text}</p>
+              <ul>
+                {tool.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </article>
         ))}
       </div>
     </div>
