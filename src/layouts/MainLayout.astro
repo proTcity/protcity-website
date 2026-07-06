@@ -13,10 +13,26 @@ interface Props {
   image?: string;
   robots?: string;
   bodyClass?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, canonicalPath, image, robots, bodyClass = "", schema } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath,
+  image,
+  robots,
+  bodyClass = "",
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription,
+  schema
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -24,7 +40,18 @@ const { title, description, canonicalPath, image, robots, bodyClass = "", schema
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <SEO title={title} description={description} canonicalPath={canonicalPath} image={image} robots={robots} schema={schema} />
+    <SEO
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      image={image}
+      robots={robots}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+      twitterTitle={twitterTitle}
+      twitterDescription={twitterDescription}
+      schema={schema}
+    />
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main-content">Vai al contenuto</a>

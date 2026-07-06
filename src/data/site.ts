@@ -31,6 +31,9 @@ export const site = {
     phoneHref: "+393299399838",
     vat: "03342090606",
     rea: "FR - 336362"
+  },
+  stores: {
+    appStore: "https://apps.apple.com/it/app/protcity/id6776195391"
   }
 } as const;
 

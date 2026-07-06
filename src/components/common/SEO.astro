@@ -9,6 +9,10 @@ interface Props {
   image?: string;
   robots?: string;
   type?: "website" | "article";
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -19,12 +23,20 @@ const {
   image = site.defaultOgImage,
   robots = "index, follow, max-image-preview:large",
   type = "website",
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription,
   schema
 } = Astro.props;
 
 const pageTitle = composeTitle(title);
 const canonical = absoluteUrl(canonicalPath);
 const ogImage = absoluteUrl(image);
+const resolvedOgTitle = ogTitle ?? pageTitle;
+const resolvedOgDescription = ogDescription ?? description;
+const resolvedTwitterTitle = twitterTitle ?? resolvedOgTitle;
+const resolvedTwitterDescription = twitterDescription ?? resolvedOgDescription;
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
@@ -35,13 +47,13 @@ const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:locale" content={site.locale} />
-<meta property="og:title" content={pageTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={resolvedOgTitle} />
+<meta property="og:description" content={resolvedOgDescription} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={ogImage} />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:title" content={resolvedTwitterTitle} />
+<meta name="twitter:description" content={resolvedTwitterDescription} />
 <meta name="twitter:image" content={ogImage} />
 <meta name="theme-color" content="#0b1320" />
 <link rel="icon" type="image/png" href="/favicon.png" />

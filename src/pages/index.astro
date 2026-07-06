@@ -143,6 +143,8 @@ const schema = {
     availableLanguage: ["it", "en", "es", "fr", "de", "pt"]
   }
 };
+
+const appStoreUrl = site.stores.appStore;
 ---
 
 <MainLayout
@@ -155,7 +157,7 @@ const schema = {
   <section class="real-hero" aria-labelledby="hero-title">
     <div class="container real-hero__grid">
       <div class="real-hero__copy">
-        <p class="cinematic-kicker">proTcity beta</p>
+        <p class="cinematic-kicker">Disponibile su App Store</p>
         <h1 id="hero-title">Muoviti in citta con piu consapevolezza.</h1>
         <p class="real-hero__claim">
           Non puoi conoscere una citta in anticipo. Ma puoi entrarci piu preparato.
@@ -164,11 +166,20 @@ const schema = {
           Alert, segnalazioni, percorsi piu consapevoli e supporto AI per capire meglio le aree che visiti.
         </p>
         <div class="cinematic-actions" aria-label="Azioni principali">
-          <a class="glass-button glass-button--primary" href="/app">Prova la Beta</a>
+          <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
           <a class="glass-button" href="#come-funziona">Scopri come funziona</a>
         </div>
+        <div class="store-badges" aria-label="Disponibilita sugli store">
+          <a class="store-badge store-badge--apple" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">
+            <img src="/images/store/app-store-badge.svg" alt="Download on the App Store" loading="eager" decoding="async" />
+          </a>
+          <span class="store-badge store-badge--disabled" aria-disabled="true">
+            <img src="/images/store/google-play-badge.png" alt="Disponibile su Google Play" loading="eager" decoding="async" />
+            <span>In arrivo</span>
+          </span>
+        </div>
         <p class="real-hero__microcopy">
-          iOS e Android · beta pubblica · schermate reali dell'app
+          iOS disponibile su App Store · Google Play in arrivo · schermate reali dell'app
         </p>
       </div>
 
@@ -423,7 +434,7 @@ const schema = {
           <li>Usa WalkGuard o chiedi supporto a proTcity AI.</li>
         </ul>
         <div class="cinematic-actions">
-          <a class="glass-button glass-button--primary" href="/app">Prova la Beta</a>
+          <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
           <a class="glass-button" href="/privacy">Privacy</a>
         </div>
       </div>
@@ -440,13 +451,13 @@ const schema = {
 
   <section class="real-final" aria-labelledby="final-title">
     <div class="container real-final__inner">
-      <p class="cinematic-kicker">Test pubblico</p>
-      <h2 id="final-title">Ok, questa app potrebbe servirmi quando sono in una zona che non conosco.</h2>
+      <p class="cinematic-kicker">Disponibile ora su iOS</p>
+      <h2 id="final-title">Scarica proTcity e prova gli strumenti di contesto urbano.</h2>
       <p>
-        Questo e l'obiettivo: meno promesse futuristiche, piu utilita concreta. Stiamo cercando feedback sinceri da persone che useranno davvero mappa, alert, WalkGuard, SOS e notifiche locali.
+        proTcity e disponibile su App Store per iPhone. La versione Google Play e in arrivo.
       </p>
       <div class="cinematic-actions">
-        <a class="glass-button glass-button--primary" href="/app">Apri la pagina app</a>
+        <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
         <a class="glass-button" href="/contact">Contattaci</a>
       </div>
     </div>

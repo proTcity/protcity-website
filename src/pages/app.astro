@@ -4,12 +4,14 @@ import { appCapabilities } from "../data/features";
 import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
+const appStoreUrl = site.stores.appStore;
+
 const schema = {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   name: "proTcity",
   applicationCategory: "SafetyApplication",
-  operatingSystem: "iOS, Android",
+  operatingSystem: "iOS",
   description:
     "App mobile per sicurezza urbana collaborativa con mappa, alert, WalkGuard, SOS, segnalazioni, contatti fidati e assistente AI.",
   url: absoluteUrl("/app"),
@@ -23,7 +25,8 @@ const schema = {
     "@type": "Offer",
     price: "0",
     priceCurrency: "EUR",
-    availability: "https://schema.org/PreOrder"
+    availability: "https://schema.org/InStock",
+    url: appStoreUrl
   }
 };
 ---
@@ -45,8 +48,17 @@ const schema = {
         Mappa, alert, segnalazioni, WalkGuard, SOS, notifiche e assistente AI convivono in una schermata pensata per essere chiara anche quando il contesto cambia rapidamente.
       </p>
       <div class="cinematic-hero__actions">
-        <a class="glass-button glass-button--primary" href="/walkguard">Scopri WalkGuard</a>
-        <a class="glass-button" href="/support">Supporto app</a>
+        <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
+        <a class="glass-button" href="/walkguard">Scopri WalkGuard</a>
+      </div>
+      <div class="store-badges" aria-label="Disponibilita sugli store">
+        <a class="store-badge store-badge--apple" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">
+          <img src="/images/store/app-store-badge.svg" alt="Download on the App Store" loading="eager" decoding="async" />
+        </a>
+        <span class="store-badge store-badge--disabled" aria-disabled="true">
+          <img src="/images/store/google-play-badge.png" alt="Disponibile su Google Play" loading="eager" decoding="async" />
+          <span>In arrivo</span>
+        </span>
       </div>
     </div>
   </section>
