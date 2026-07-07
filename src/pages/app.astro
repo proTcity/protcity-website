@@ -5,29 +5,41 @@ import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
 const appStoreUrl = site.stores.appStore;
+const playStoreUrl = site.stores.playStore;
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
   name: "proTcity",
   applicationCategory: "SafetyApplication",
-  operatingSystem: "iOS",
+  operatingSystem: "iOS, Android",
   description:
     "App mobile per sicurezza urbana collaborativa con mappa, alert, WalkGuard, SOS, segnalazioni, contatti fidati e assistente AI.",
   url: absoluteUrl("/app"),
+  sameAs: [appStoreUrl, playStoreUrl],
+  downloadUrl: [appStoreUrl, playStoreUrl],
   image: absoluteUrl("/images/app-preview.png"),
   publisher: {
     "@type": "Organization",
     name: site.company.legalName,
     url: absoluteUrl("/")
   },
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "EUR",
-    availability: "https://schema.org/InStock",
-    url: appStoreUrl
-  }
+  offers: [
+    {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: appStoreUrl
+    },
+    {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: playStoreUrl
+    }
+  ]
 };
 ---
 
@@ -49,16 +61,16 @@ const schema = {
       </p>
       <div class="cinematic-hero__actions">
         <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
+        <a class="glass-button glass-button--primary" href={playStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su Google Play</a>
         <a class="glass-button" href="/walkguard">Scopri WalkGuard</a>
       </div>
       <div class="store-badges" aria-label="Disponibilita sugli store">
         <a class="store-badge store-badge--apple" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">
           <img src="/images/store/app-store-badge.svg" alt="Download on the App Store" loading="eager" decoding="async" />
         </a>
-        <span class="store-badge store-badge--disabled" aria-disabled="true">
+        <a class="store-badge store-badge--google" href={playStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su Google Play">
           <img src="/images/store/google-play-badge.png" alt="Disponibile su Google Play" loading="eager" decoding="async" />
-          <span>In arrivo</span>
-        </span>
+        </a>
       </div>
     </div>
   </section>
