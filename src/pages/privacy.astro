@@ -18,7 +18,7 @@ const firstLevelRows = [
   ],
   [
     "Quali dati raccogliamo",
-    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini e, facoltativamente, video e audio Safety Clip inviati dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici solo secondo consenso o configurazione applicabile, dati di pagamento dei partner e comunicazioni email."
+    "Dati account e contatto, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini e, facoltativamente, video e audio Safety Clip inviati dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici solo secondo consenso o configurazione applicabile, dati di pagamento dei partner e comunicazioni email."
   ],
   [
     "Perché usiamo la posizione",
@@ -37,8 +37,8 @@ const firstLevelRows = [
     "Gli utenti autenticati possono facoltativamente registrare o selezionare un video, anche con audio, da allegare a Segnalazioni urbane, Nuovi avvisi, Eventi e Meetup. La durata massima è di 15 secondi e i file vengono eliminati automaticamente dai sistemi di archiviazione entro 30 giorni."
   ],
   [
-    "Verifica telefono e audit sicurezza",
-    "Le funzioni sensibili possono richiedere un numero di telefono verificato una sola volta. Per sicurezza, moderazione, contestazioni e richieste legittime delle autorità, proTcity registra log server-side non visibili agli altri utenti."
+    "Audit sicurezza",
+    "Le azioni sensibili possono generare audit server-side riservati ad amministratori autorizzati e non visibili agli altri utenti, per sicurezza, moderazione, contestazioni e richieste legittime delle autorità."
   ],
   [
     "Safety Score",
@@ -79,7 +79,7 @@ const dataCategories = [
   ],
   [
     "Dati account e autenticazione",
-    "UID Firebase, identificativi account, provider login, stato email verificata, stato telefono verificato, numero telefono verificato, accesso anonimo, token tecnici, ruoli utente/admin/partner/ente, stato account, preferenze e impostazioni."
+    "UID Firebase, identificativi account, provider login, stato email, accesso anonimo, token tecnici, ruoli utente/admin/partner/ente, stato account, preferenze e impostazioni."
   ],
   [
     "Dati tecnici e dispositivo",
@@ -103,7 +103,7 @@ const dataCategories = [
   ],
   [
     "Dati di moderazione e abuso",
-    "Segnalazioni di abuso, motivi di rimozione, decisioni di moderazione, note interne, sospensioni, ban per UID/telefono hash/segnali dispositivo, contestazioni e audit essenziali delle azioni sensibili. Gli audit possono includere UID Firebase, provider login, stato email/telefono, IP e user-agent in hash e, ove configurato, cifrati, data/ora, device/platform/app version, FCM token hash, posizione collegata, contenuto creato/modificato/eliminato, stato moderazione e segnalazioni ricevute contro l'utente."
+    "Segnalazioni di abuso, motivi di rimozione, decisioni di moderazione, note interne, sospensioni, limitazioni per UID o segnali dispositivo, contestazioni e audit essenziali delle azioni sensibili. Gli audit possono includere UID Firebase, provider login, stato email, IP e user-agent in hash e, ove configurato, cifrati, data/ora, device/platform/app version, FCM token hash, posizione collegata, contenuto creato/modificato/eliminato, stato moderazione e segnalazioni ricevute contro l'utente."
   ],
   [
     "Dati AI e Safety Score",
@@ -189,8 +189,8 @@ const legalBases = [
     "Legittimo interesse; obblighi legali; accertamento, esercizio o difesa di diritti."
   ],
   [
-    "Verifica telefono e audit azioni sensibili",
-    "Verificare il numero di telefono per funzioni sensibili, registrare audit server-side, applicare ban per UID, telefono hash o segnali dispositivo, ricostruire azioni in caso di abusi, contestazioni o richieste legittime delle autorità.",
+    "Audit delle azioni sensibili",
+    "Registrare audit server-side, applicare limitazioni per UID o segnali dispositivo e ricostruire azioni in caso di abusi, contestazioni o richieste legittime delle autorità.",
     "Legittimo interesse alla sicurezza e prevenzione abusi; esecuzione del servizio richiesto; obblighi legali; accertamento, esercizio o difesa di diritti."
   ],
   [
@@ -234,7 +234,7 @@ const providers = [
   [
     "Firebase / Google Cloud",
     "Firebase Auth, Firestore, Storage, Functions, App Check, Firebase Cloud Messaging, Firebase Analytics, Crashlytics, Performance, database, backend, sicurezza, log e audit azioni sensibili.",
-    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, immagini, video e audio Safety Clip facoltativi, altri media, security audit log, eventi analytics/diagnostici/performance quando abilitati, token push/hash e dati tecnici.",
+    "Dati account, UID, stato email, dati app, segnalazioni, immagini, video e audio Safety Clip facoltativi, altri media, security audit log, eventi analytics/diagnostici/performance quando abilitati, token push/hash e dati tecnici.",
     "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
   ],
   [
@@ -422,7 +422,7 @@ const retentionRows = [
     <li>Le segnalazioni possono essere rese pubbliche solo dopo controlli e moderazione; evita dati di persone, minori, targhe, documenti o contenuti illeciti.</li>
     <li>I Safety Clip sono video facoltativi, anche con audio, collegati al contenuto pubblicato e cancellati automaticamente dai sistemi di archiviazione entro 30 giorni.</li>
     <li>Il Safety Score è solo informativo e non sostituisce i numeri di emergenza. In caso di pericolo chiama il 112 o gli altri numeri competenti.</li>
-    <li>Le azioni sensibili possono richiedere telefono verificato e generare audit server-side riservati ad admin autorizzati, non visibili agli altri utenti.</li>
+    <li>Le azioni sensibili possono generare audit server-side riservati ad amministratori autorizzati e non visibili agli altri utenti.</li>
     <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Per assistenza sull'app: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</li>
   </ul>
 
@@ -536,18 +536,15 @@ const retentionRows = [
     L'utente può contestare rimozioni, limitazioni, sospensioni, ban, mancata pubblicazione o altre decisioni di moderazione scrivendo a <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Kurbi Labs riesamina le contestazioni tenendo conto di legge, privacy, sicurezza, diritti di terzi, regole community, rischio di abuso e integrità della piattaforma.
   </p>
 
-  <h2>7. Verifica telefono, audit sicurezza e richieste autorità</h2>
-  <p>
-    Per ridurre account falsi, segnalazioni manipolative, molestie, abusi delle funzioni di sicurezza e uso improprio della piattaforma, proTcity può richiedere la verifica del numero di telefono per azioni sensibili. La verifica è registrata sull'account e non deve essere ripetuta a ogni riapertura dell'app, salvo cambi numero, anomalie, cancellazione account o controlli di sicurezza necessari.
-  </p>
+  <h2>7. Audit sicurezza e richieste autorità</h2>
   <p>
     Le azioni sensibili possono includere, a titolo esemplificativo, creazione, modifica o eliminazione di segnalazioni, alert, eventi o meetup, uso di Friends, persone fidate, SOS interno, condivisioni sensibili e altre funzioni che incidono su sicurezza, moderazione o fiducia della community.
   </p>
   <p>
-    Per ciascuna azione sensibile Kurbi Labs può registrare log server-side riservati, non mostrati agli altri utenti e non scrivibili dal client. Tali log possono includere UID Firebase, provider login, stato email verificata, stato telefono verificato, IP, data e ora, user-agent, device/platform/app version, FCM token hash, eventuale posizione collegata all'azione, contenuto creato/modificato/eliminato, stato moderazione, ban applicati e segnalazioni ricevute contro l'utente.
+    Per ciascuna azione sensibile Kurbi Labs può registrare log server-side riservati, non mostrati agli altri utenti e non scrivibili dal client. Tali log possono includere UID Firebase, provider login, stato email, IP, data e ora, user-agent, device/platform/app version, FCM token hash, eventuale posizione collegata all'azione, contenuto creato/modificato/eliminato, stato moderazione, limitazioni applicate e segnalazioni ricevute contro l'utente.
   </p>
   <p>
-    I log sono usati per sicurezza, moderazione, prevenzione frodi, contestazioni, tutela dei diritti e gestione di richieste legittime delle autorità competenti. L'accesso è limitato ad admin autorizzati nella console amministrativa. IP, user-agent, telefono e token push sono trattati con misure di minimizzazione, hash e, ove configurato lato server, cifratura applicativa. Non sono usati per pubblicità comportamentale o vendita di dati.
+    I log sono usati per sicurezza, moderazione, prevenzione frodi, contestazioni, tutela dei diritti e gestione di richieste legittime delle autorità competenti. L'accesso è limitato ad amministratori autorizzati nella console amministrativa. IP, user-agent e token push sono trattati con misure di minimizzazione, hash e, ove configurato lato server, cifratura applicativa. Non sono usati per pubblicità comportamentale o vendita di dati.
   </p>
 
   <h2>8. Safety Score, AI e sistemi predittivi</h2>
@@ -665,7 +662,7 @@ const retentionRows = [
     <li>protezione delle chiavi API e dei segreti lato server o in ambienti sicuri;</li>
     <li>logging proporzionato, monitoraggio abusi e controlli antifrode;</li>
     <li>audit azioni sensibili in raccolte server-side non accessibili agli utenti dell'app;</li>
-    <li>hash e cifratura applicativa opzionale per dati forensi come IP, user-agent e telefono verificato;</li>
+    <li>hash e cifratura applicativa opzionale per dati forensi come IP e user-agent;</li>
     <li>moderazione automatica e manuale, ove necessaria;</li>
     <li>minimizzazione dei dati inviati a fornitori AI e servizi terzi;</li>
     <li>separazione tra dati identificativi, contenuti pubblici e dati aggregati ove tecnicamente possibile;</li>
@@ -699,7 +696,7 @@ const retentionRows = [
     <li>Firebase Analytics iOS è configurato senza supporto Ad ID / WithoutAdIdSupport;</li>
     <li>non sono dichiarati IDFA, SDK pubblicitari, data broker, vendita dati, behavioral advertising, advertising personalization o tracking cross-app/cross-site;</li>
     <li>le notifiche push sono disattivabili dall'utente dalle impostazioni del dispositivo e, ove previsto, dall'app;</li>
-    <li>la verifica telefono e gli audit di sicurezza sono dichiarati in Google Play Data Safety e Apple App Privacy quando applicabile;</li>
+    <li>i dati tecnici e gli audit di sicurezza sono dichiarati in Google Play Data Safety e Apple App Privacy quando applicabile;</li>
     <li>i dati sono raccolti per funzionalità app, sicurezza, moderazione, prevenzione abusi, diagnostica, performance e miglioramento tecnico/prodotto, non per pubblicità comportamentale;</li>
     <li>video e audio Safety Clip sono facoltativi, associati internamente all'account, raccolti per la funzionalità richiesta e cancellati automaticamente dai sistemi di archiviazione entro 30 giorni;</li>
     <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni richieste o necessarie;</li>
