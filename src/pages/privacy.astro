@@ -18,19 +18,23 @@ const firstLevelRows = [
   ],
   [
     "Quali dati raccogliamo",
-    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini inviate dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici solo secondo consenso o configurazione applicabile, dati di pagamento dei partner e comunicazioni email."
+    "Dati account e contatto, telefono verificato, dati tecnici, posizione precisa o approssimata, segnalazioni, alert, immagini e, facoltativamente, video e audio Safety Clip inviati dall'utente, dati di moderazione, audit sicurezza, notifiche push, dati analytics/diagnostici solo secondo consenso o configurazione applicabile, dati di pagamento dei partner e comunicazioni email."
   ],
   [
     "Perché usiamo la posizione",
-    "La posizione serve per mostrare la mappa, usare WalkGuard, ricevere contenuti informativi vicini, calcolare percorsi, creare segnalazioni geolocalizzate e usare funzioni richieste dall'utente. Nella versione 1.0 la posizione è foreground / while using the app."
+    "La posizione serve per mostrare la mappa, usare WalkGuard, ricevere contenuti informativi vicini, calcolare percorsi, creare segnalazioni geolocalizzate e usare funzioni richieste dall'utente. Nella versione 1.0.2 la posizione è foreground / while using the app."
   ],
   [
     "Posizione precisa o approssimata",
-    "Quando autorizzata, l'app può usare la posizione precisa. Alcune funzioni possono usare una posizione approssimata. Non dichiariamo tracciamento continuo in background nella versione 1.0."
+    "Quando autorizzata, l'app può usare la posizione precisa. Alcune funzioni possono usare una posizione approssimata. Non dichiariamo tracciamento continuo in background nella versione 1.0.2."
   ],
   [
     "Segnalazioni pubbliche",
     "Le segnalazioni e gli alert possono diventare visibili agli altri utenti solo dopo controlli e moderazione. Di regola non rendiamo pubblico il nome o l'email dell'utente che segnala."
+  ],
+  [
+    "Safety Clip",
+    "Gli utenti autenticati possono facoltativamente registrare o selezionare un video, anche con audio, da allegare a Segnalazioni urbane, Nuovi avvisi, Eventi e Meetup. La durata massima è di 15 secondi e i file vengono eliminati automaticamente dai sistemi di archiviazione entro 30 giorni."
   ],
   [
     "Verifica telefono e audit sicurezza",
@@ -87,7 +91,11 @@ const dataCategories = [
   ],
   [
     "Contenuti generati dagli utenti",
-    "Segnalazioni, alert, categorie, note, conferme, commenti o riscontri, immagini e media caricati, metadati collegati, data/ora, stato moderazione e coordinate della segnalazione."
+    "Segnalazioni, alert, eventi, meetup, categorie, note, conferme, commenti o riscontri, immagini e altri media caricati, metadati collegati, data/ora, stato moderazione e coordinate del contenuto."
+  ],
+  [
+    "Safety Clip: video e audio facoltativi",
+    "Video registrati con la videocamera o selezionati dalla libreria da utenti autenticati e relativo audio, se presente. I Safety Clip hanno durata massima di 15 secondi, sono associati internamente all'account e possono essere allegati a Segnalazioni urbane, Nuovi avvisi, Eventi e Meetup."
   ],
   [
     "Funzioni SOS, WalkGuard, Buddy/Guardian",
@@ -134,11 +142,11 @@ const locationRows = [
   ],
   [
     "Foreground / while using the app",
-    "Nella versione 1.0 la posizione può essere trattata mentre l'app è aperta o la funzione richiesta è attiva, per aggiornare mappa, WalkGuard, percorso, contenuti informativi vicini, segnalazioni e alert."
+    "Nella versione 1.0.2 la posizione può essere trattata mentre l'app è aperta o la funzione richiesta è attiva, per aggiornare mappa, WalkGuard, percorso, contenuti informativi vicini, segnalazioni e alert."
   ],
   [
-    "Nessuna background location nella versione 1.0",
-    "La versione iOS 1.0 usa solo posizione foreground / while using the app. La versione Android non dichiara ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuo in background nella versione 1.0."
+    "Nessuna background location nella versione 1.0.2",
+    "La versione iOS 1.0.2 usa solo posizione foreground / while using the app. La versione Android non dichiara ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuo in background nella versione 1.0.2."
   ],
   [
     "Posizione live",
@@ -164,6 +172,11 @@ const legalBases = [
     "Mappa, posizione, segnalazioni e alert",
     "Mostrare contenuti vicini, creare segnalazioni geolocalizzate, gestire mappa, geocoding, routing, Safe Points e alert.",
     "Consenso alla posizione precisa quando richiesto; esecuzione del servizio richiesto; legittimo interesse a sicurezza e prevenzione abusi."
+  ],
+  [
+    "Safety Clip",
+    "Consentire agli utenti autenticati di registrare o selezionare facoltativamente un breve video, anche con audio, e allegarlo a Segnalazioni urbane, Nuovi avvisi, Eventi e Meetup.",
+    "Esecuzione del servizio richiesto dall'utente; consenso o autorizzazione del sistema operativo per fotocamera, microfono o libreria quando richiesti; legittimo interesse alla moderazione e alla sicurezza della piattaforma."
   ],
   [
     "SOS, WalkGuard, Buddy/Guardian",
@@ -221,7 +234,7 @@ const providers = [
   [
     "Firebase / Google Cloud",
     "Firebase Auth, Firestore, Storage, Functions, App Check, Firebase Cloud Messaging, Firebase Analytics, Crashlytics, Performance, database, backend, sicurezza, log e audit azioni sensibili.",
-    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, media, security audit log, eventi analytics/diagnostici/performance quando abilitati, token push/hash e dati tecnici.",
+    "Dati account, UID, stato verifica telefono/email, dati app, segnalazioni, immagini, video e audio Safety Clip facoltativi, altri media, security audit log, eventi analytics/diagnostici/performance quando abilitati, token push/hash e dati tecnici.",
     "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
   ],
   [
@@ -316,8 +329,12 @@ const retentionRows = [
     "Fino a 90 giorni per sicurezza, integrità del servizio, contestazioni e prevenzione abusi, salvo casi gravi o obblighi legali."
   ],
   [
-    "Immagini e media allegati",
-    "Fino a 6 mesi o fino alla rimozione della segnalazione, se precedente. Se necessari per moderazione, abusi, contestazioni o difesa, conservazione limitata fino a 24 mesi."
+    "Safety Clip (video e relativo audio)",
+    "Eliminazione automatica dai sistemi di archiviazione entro 30 giorni dal caricamento. L'utente può rimuovere il video prima della pubblicazione o anticiparne la cancellazione eliminando il contenuto secondo le funzioni disponibili nell'app."
+  ],
+  [
+    "Altre immagini e contenuti multimediali allegati, esclusi i Safety Clip",
+    "Fino a 6 mesi o fino alla rimozione del contenuto, se precedente. Se necessari per moderazione, abusi, contestazioni o difesa, conservazione limitata fino a 24 mesi."
   ],
   [
     "Firebase Analytics",
@@ -366,7 +383,7 @@ const retentionRows = [
   title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
-  lastUpdated="24 giugno 2026"
+  lastUpdated="23 luglio 2026"
 >
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
@@ -403,6 +420,7 @@ const retentionRows = [
     <li>Usiamo i tuoi dati per far funzionare proTcity: account, sicurezza, mappa, posizione, segnalazioni, alert, notifiche, moderazione, diagnostica e servizi partner.</li>
     <li>La posizione può essere precisa quando necessaria e autorizzata. Puoi revocarla dalle impostazioni del dispositivo, ma alcune funzioni potrebbero non funzionare.</li>
     <li>Le segnalazioni possono essere rese pubbliche solo dopo controlli e moderazione; evita dati di persone, minori, targhe, documenti o contenuti illeciti.</li>
+    <li>I Safety Clip sono video facoltativi, anche con audio, collegati al contenuto pubblicato e cancellati automaticamente dai sistemi di archiviazione entro 30 giorni.</li>
     <li>Il Safety Score è solo informativo e non sostituisce i numeri di emergenza. In caso di pericolo chiama il 112 o gli altri numeri competenti.</li>
     <li>Le azioni sensibili possono richiedere telefono verificato e generare audit server-side riservati ad admin autorizzati, non visibili agli altri utenti.</li>
     <li>Per richieste privacy e cancellazione dati: <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Per assistenza sull'app: <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</li>
@@ -472,7 +490,7 @@ const retentionRows = [
     proTcity non vende dati di geolocalizzazione, non conserva uno storico permanente degli spostamenti individuali e non usa la posizione per advertising comportamentale. Eventuali controlli antifrode o anti-abuso basati sulla distanza tra posizione reale e segnalazione sono limitati alla verifica di coerenza del servizio e alla prevenzione di segnalazioni false o manipolative.
   </p>
   <p>
-    Nella versione iOS 1.0 la posizione è usata in foreground / while using the app, cioè mentre l'app è aperta o la funzione richiesta è attiva. Nella versione Android aggiornata non è dichiarato l'uso del permesso ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuativo in background nella versione 1.0. Eventuali funzioni future di background location richiederanno disclosure prominente, permessi del sistema operativo, aggiornamento delle dichiarazioni Apple App Privacy/Google Play Data Safety e aggiornamento della presente informativa prima dell'attivazione ove richiesto.
+    Nella versione iOS 1.0.2 la posizione è usata in foreground / while using the app, cioè mentre l'app è aperta o la funzione richiesta è attiva. Nella versione Android aggiornata non è dichiarato l'uso del permesso ACCESS_BACKGROUND_LOCATION. proTcity non dichiara tracciamento continuativo in background nella versione 1.0.2. Eventuali funzioni future di background location richiederanno disclosure prominente, permessi del sistema operativo, aggiornamento delle dichiarazioni Apple App Privacy/Google Play Data Safety e aggiornamento della presente informativa prima dell'attivazione ove richiesto.
   </p>
 
   <h2>5. Finalità e basi giuridiche</h2>
@@ -499,6 +517,19 @@ const retentionRows = [
   </ul>
   <p>
     Kurbi Labs può rimuovere, oscurare, limitare, correggere, deindicizzare, sospendere o non pubblicare contenuti che violano la legge, la privacy, la sicurezza, i diritti di terzi, le regole community o l'integrità del servizio. Kurbi Labs può inoltre bloccare utenti abusivi, limitare funzioni, conservare log di moderazione e gestire contestazioni in modo proporzionato.
+  </p>
+  <h3>6.1 Safety Clip: video e audio facoltativi</h3>
+  <p>
+    Safety Clip è una funzione facoltativa riservata agli utenti autenticati. L'utente può registrare un video con la videocamera del dispositivo oppure selezionarlo dalla libreria; il video può contenere audio. La durata massima è di 15 secondi: se il file selezionato è più lungo, l'app lo taglia e lo comprime prima del caricamento.
+  </p>
+  <p>
+    Un Safety Clip può essere allegato a <strong>Segnalazioni urbane, Nuovi avvisi, Eventi e Meetup</strong>. Video e relativo audio sono raccolti esclusivamente per fornire queste funzionalità dell'app. Il contenuto è associato internamente all'account che lo carica e diventa visibile secondo le impostazioni e la visibilità del contenuto pubblicato cui è allegato.
+  </p>
+  <p>
+    L'utente può rimuovere il video prima della pubblicazione. Dopo la pubblicazione può anticiparne la cancellazione eliminando il contenuto secondo le funzioni disponibili nell'app oppure esercitando i propri diritti tramite <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. Video e relativo audio vengono eliminati automaticamente dai sistemi di archiviazione entro 30 giorni dal caricamento.
+  </p>
+  <p>
+    Safety Clip è trasmesso tramite connessioni cifrate e conservato sull'infrastruttura Firebase/Google Cloud utilizzata da proTcity. Video e audio non vengono venduti e non sono utilizzati per pubblicità, profilazione pubblicitaria o tracciamento cross-app/cross-site.
   </p>
   <h3>Contestazioni di moderazione</h3>
   <p>
@@ -663,13 +694,14 @@ const retentionRows = [
     Kurbi Labs mantiene la presente informativa coerente con le configurazioni tecniche dell'app, del sito, dei fornitori e delle dichiarazioni rese sugli store. In particolare:
   </p>
   <ul>
-    <li>la posizione nella versione iOS 1.0 è foreground / while using the app e Android non dichiara ACCESS_BACKGROUND_LOCATION;</li>
+    <li>la posizione nella versione iOS 1.0.2 è foreground / while using the app e Android non dichiara ACCESS_BACKGROUND_LOCATION;</li>
     <li>Firebase Analytics, Crashlytics e Performance sono disattivati di default lato app per analytics/diagnostica non essenziali e sono abilitati solo con consenso facoltativo e revocabile ove richiesto;</li>
     <li>Firebase Analytics iOS è configurato senza supporto Ad ID / WithoutAdIdSupport;</li>
     <li>non sono dichiarati IDFA, SDK pubblicitari, data broker, vendita dati, behavioral advertising, advertising personalization o tracking cross-app/cross-site;</li>
     <li>le notifiche push sono disattivabili dall'utente dalle impostazioni del dispositivo e, ove previsto, dall'app;</li>
     <li>la verifica telefono e gli audit di sicurezza sono dichiarati in Google Play Data Safety e Apple App Privacy quando applicabile;</li>
     <li>i dati sono raccolti per funzionalità app, sicurezza, moderazione, prevenzione abusi, diagnostica, performance e miglioramento tecnico/prodotto, non per pubblicità comportamentale;</li>
+    <li>video e audio Safety Clip sono facoltativi, associati internamente all'account, raccolti per la funzionalità richiesta e cancellati automaticamente dai sistemi di archiviazione entro 30 giorni;</li>
     <li>la geolocalizzazione precisa è volontaria, revocabile e limitata alle funzioni richieste o necessarie;</li>
     <li>la posizione live è cancellata o anonimizzata entro i termini indicati nella presente informativa;</li>
     <li>partner ed enti visualizzano solo dati aggregati o non direttamente identificativi, salvo obblighi legali o basi giuridiche specifiche;</li>
