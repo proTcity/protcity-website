@@ -7,6 +7,7 @@ import "../styles/tokens.css";
 import "../styles/global.css";
 
 interface Props {
+  lang?: string;
   title?: string;
   description?: string;
   canonicalPath?: string;
@@ -21,6 +22,7 @@ interface Props {
 }
 
 const {
+  lang = "it",
   title,
   description,
   canonicalPath,
@@ -33,10 +35,14 @@ const {
   twitterDescription,
   schema
 } = Astro.props;
+
+const skipLinkLabel = lang.toLowerCase().startsWith("en")
+  ? "Skip to content"
+  : "Vai al contenuto";
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,7 +60,7 @@ const {
     />
   </head>
   <body class={bodyClass}>
-    <a class="skip-link" href="#main-content">Vai al contenuto</a>
+    <a class="skip-link" href="#main-content">{skipLinkLabel}</a>
     <Header />
     <main id="main-content">
       <slot />

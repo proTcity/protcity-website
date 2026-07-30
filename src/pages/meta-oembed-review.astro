@@ -1,0 +1,872 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { site } from "../data/site";
+
+const pageTitle = "Meta oEmbed Read Review – proTcity";
+const pageDescription =
+  "Public Meta App Review demonstration of the official Instagram embed flow requested by proTcity.";
+const pageUrl = `${site.url}/meta-oembed-review`;
+const instagramPermalink = "https://www.instagram.com/p/DbECcBysbaG/";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: pageTitle,
+  description: pageDescription,
+  url: pageUrl,
+  inLanguage: "en",
+  isPartOf: {
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url
+  },
+  publisher: {
+    "@type": "Organization",
+    name: site.company.legalName,
+    url: site.url
+  }
+};
+---
+
+<MainLayout
+  lang="en"
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/meta-oembed-review"
+  bodyClass="meta-review-page"
+  ogTitle={pageTitle}
+  ogDescription={pageDescription}
+  twitterTitle={pageTitle}
+  twitterDescription={pageDescription}
+  schema={schema}
+>
+  <section class="review-hero" aria-labelledby="review-title">
+    <div class="container review-hero__inner">
+      <p class="review-eyebrow">PUBLIC META APP REVIEW DEMONSTRATION</p>
+      <h1 id="review-title">Meta oEmbed Read Review – proTcity</h1>
+      <p class="review-hero__lead">
+        This no-login page demonstrates the official, attributed Instagram
+        embed experience requested for the proTcity Meta oEmbed Read review.
+      </p>
+      <ul class="review-trust-list" aria-label="Review page characteristics">
+        <li>Public access</li>
+        <li>No account required</li>
+        <li>Official Meta source</li>
+        <li>User-initiated loading</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="review-section review-section--demo" aria-labelledby="embed-demo-title">
+    <div class="container embed-layout">
+      <div class="embed-column">
+        <div class="section-heading">
+          <p class="review-eyebrow review-eyebrow--dark">LIVE REVIEW ASSET</p>
+          <h2 id="embed-demo-title">Official Instagram embed</h2>
+          <p>
+            The public permalink used in the previous review request is kept
+            visible below. proTcity does not download or host the post's image
+            or video.
+          </p>
+        </div>
+
+        <div class="source-reference">
+          <span>Public source permalink</span>
+          <a href={instagramPermalink} target="_blank" rel="noopener noreferrer">
+            {instagramPermalink}
+          </a>
+        </div>
+
+        <div class="embed-stage" data-instagram-stage>
+          <div class="embed-consent" data-instagram-consent>
+            <p class="embed-consent__label">PRIVACY CHOICE</p>
+            <h3>Load content directly from Instagram</h3>
+            <p>
+              Nothing from Instagram or Meta is loaded before you choose.
+              Loading the official embed connects your browser to Meta
+              services. Meta may receive your IP address, browser or device
+              information and may read or set cookies under its own terms.
+            </p>
+            <button
+              class="review-button review-button--primary"
+              type="button"
+              data-load-instagram
+            >
+              Load official Instagram embed
+            </button>
+          </div>
+
+          <div
+            class="embed-host"
+            data-instagram-host
+            data-permalink={instagramPermalink}
+            aria-live="polite"
+            aria-busy="false"
+          ></div>
+
+          <p class="embed-status" data-instagram-status role="status">
+            Official Instagram content has not been loaded.
+          </p>
+        </div>
+
+        <a
+          class="review-button review-button--secondary source-button"
+          href={instagramPermalink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open original Instagram post
+        </a>
+      </div>
+
+      <aside class="review-context" aria-labelledby="demo-purpose-title">
+        <p class="review-eyebrow review-eyebrow--dark">DEMONSTRATION PURPOSE</p>
+        <h2 id="demo-purpose-title">What this page verifies</h2>
+        <p>
+          This page displays a real public Instagram post through Instagram's
+          official embedding system after an explicit privacy choice. Official
+          Instagram attribution remains part of the embed and is not removed
+          or modified by proTcity.
+        </p>
+        <dl class="review-facts">
+          <div>
+            <dt>Media hosting</dt>
+            <dd>Instagram / Meta</dd>
+          </div>
+          <div>
+            <dt>Meta credentials in browser</dt>
+            <dd>None</dd>
+          </div>
+          <div>
+            <dt>proTcity metadata storage</dt>
+            <dd>None on this page</dd>
+          </div>
+          <div>
+            <dt>Login required</dt>
+            <dd>No</dd>
+          </div>
+        </dl>
+        <p class="review-note">
+          The Firebase oEmbed resolver and the server-only
+          <code>META_OEMBED_CONFIG</code> secret remain disabled until Meta
+          approval. This review page does not expose, simulate or call that
+          resolver.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="review-section review-section--muted" aria-labelledby="mobile-flow-title">
+    <div class="container review-copy-grid">
+      <div class="section-heading">
+        <p class="review-eyebrow review-eyebrow--dark">EQUIVALENT PRODUCT FLOW</p>
+        <h2 id="mobile-flow-title">How proTcity uses Meta oEmbed Read</h2>
+        <p>
+          The feature is limited to user-initiated previews of public Facebook
+          or Instagram permalinks.
+        </p>
+      </div>
+      <ol class="flow-list">
+        <li>
+          <strong>Explicit share.</strong> The user shares a public Facebook or
+          Instagram permalink with proTcity.
+        </li>
+        <li>
+          <strong>Official request.</strong> The proTcity backend requests the
+          official Meta oEmbed response for that public permalink.
+        </li>
+        <li>
+          <strong>Attributed preview.</strong> proTcity displays the official
+          attributed preview and a link to the original source.
+        </li>
+        <li>
+          <strong>Manual confirmation.</strong> Nothing is published
+          automatically. The user must manually confirm any optional proTcity
+          draft and complete its required details.
+        </li>
+        <li>
+          <strong>Limited use.</strong> proTcity does not access private
+          content, download or republish Meta media, or use Meta content for
+          advertising, profiling or analytics.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="review-section" aria-labelledby="data-handling-title">
+    <div class="container handling-layout">
+      <div class="section-heading">
+        <p class="review-eyebrow review-eyebrow--dark">DATA HANDLING</p>
+        <h2 id="data-handling-title">Purpose-limited and source-attributed</h2>
+      </div>
+      <div class="handling-grid">
+        <article>
+          <h3>Public content only</h3>
+          <p>
+            The requested feature is not used to access private accounts,
+            private posts or restricted media.
+          </p>
+        </article>
+        <article>
+          <h3>No automatic publishing</h3>
+          <p>
+            Sharing a link creates no public proTcity content. A user decision
+            and manual confirmation are always required.
+          </p>
+        </article>
+        <article>
+          <h3>No media copying</h3>
+          <p>
+            Meta images and videos are not downloaded, copied or hosted by this
+            page or by the oEmbed preview flow.
+          </p>
+        </article>
+        <article>
+          <h3>No secondary use</h3>
+          <p>
+            Meta content is not used for advertising, profiling, behavioral
+            tracking, analytics or model training.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="review-section review-section--steps" aria-labelledby="reviewer-steps-title">
+    <div class="container steps-layout">
+      <div class="section-heading section-heading--inverse">
+        <p class="review-eyebrow">REVIEWER INSTRUCTIONS</p>
+        <h2 id="reviewer-steps-title">Reviewer test steps</h2>
+        <p>These steps require no proTcity account or authentication.</p>
+      </div>
+      <ol class="reviewer-steps">
+        <li>Open this page without signing in.</li>
+        <li>Click “Load official Instagram embed”.</li>
+        <li>
+          Confirm that the public Instagram post appears with official
+          attribution.
+        </li>
+        <li>
+          Click “Open original Instagram post” to verify the source.
+        </li>
+        <li>
+          Review the explanation of the equivalent proTcity mobile flow.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="review-section review-section--links" aria-labelledby="review-links-title">
+    <div class="container review-links-layout">
+      <div class="section-heading">
+        <p class="review-eyebrow review-eyebrow--dark">PUBLIC RESOURCES</p>
+        <h2 id="review-links-title">proTcity review links</h2>
+      </div>
+      <nav class="review-links" aria-label="proTcity review resources">
+        <a href="https://www.protcity.com/privacy">Privacy Policy</a>
+        <a href="https://www.protcity.com/terms">Terms of Service</a>
+        <a href="https://www.protcity.com/data-deletion">Data deletion</a>
+        <a href={site.stores.appStore} target="_blank" rel="noopener noreferrer">
+          proTcity on the App Store
+        </a>
+      </nav>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  const loadButton = document.querySelector<HTMLButtonElement>(
+    "[data-load-instagram]"
+  );
+  const consentPanel = document.querySelector<HTMLElement>(
+    "[data-instagram-consent]"
+  );
+  const host = document.querySelector<HTMLElement>("[data-instagram-host]");
+  const status = document.querySelector<HTMLElement>(
+    "[data-instagram-status]"
+  );
+
+  const setStatus = (message: string) => {
+    if (status) status.textContent = message;
+  };
+
+  const processEmbed = () => {
+    const instagramWindow = window as typeof window & {
+      instgrm?: {
+        Embeds?: {
+          process?: () => void;
+        };
+      };
+    };
+    instagramWindow.instgrm?.Embeds?.process?.();
+  };
+
+  const loadOfficialEmbed = () => {
+    if (!loadButton || !consentPanel || !host) return;
+
+    const permalink = host.dataset.permalink;
+    if (!permalink) {
+      setStatus("The source permalink is unavailable.");
+      return;
+    }
+
+    loadButton.disabled = true;
+    loadButton.textContent = "Loading official Instagram embed…";
+    host.setAttribute("aria-busy", "true");
+    setStatus("Connecting to Instagram after your privacy choice…");
+
+    const embed = document.createElement("blockquote");
+    embed.className = "instagram-media";
+    embed.setAttribute("data-instgrm-permalink", permalink);
+    embed.setAttribute("data-instgrm-version", "14");
+    embed.setAttribute("data-instgrm-captioned", "");
+    host.replaceChildren(embed);
+    consentPanel.hidden = true;
+
+    const observer = new MutationObserver(() => {
+      if (host.querySelector("iframe")) {
+        host.setAttribute("aria-busy", "false");
+        setStatus("Official Instagram embed loaded.");
+        observer.disconnect();
+      }
+    });
+    observer.observe(host, { childList: true, subtree: true });
+
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      "script[data-protcity-instagram-embed]"
+    );
+
+    if (existingScript) {
+      processEmbed();
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.instagram.com/embed.js";
+    script.dataset.protcityInstagramEmbed = "true";
+    script.addEventListener("load", processEmbed, { once: true });
+    script.addEventListener(
+      "error",
+      () => {
+        host.setAttribute("aria-busy", "false");
+        setStatus(
+          "Instagram could not be loaded. The original public permalink remains available."
+        );
+        observer.disconnect();
+      },
+      { once: true }
+    );
+    document.body.append(script);
+  };
+
+  loadButton?.addEventListener("click", loadOfficialEmbed, { once: true });
+</script>
+
+<style>
+  :global(body.meta-review-page) {
+    background: var(--color-surface);
+  }
+
+  .review-hero {
+    color: #ffffff;
+    background: var(--color-navy);
+    border-bottom: 4px solid var(--color-blue);
+  }
+
+  .review-hero__inner {
+    padding-block: 76px 68px;
+  }
+
+  .review-eyebrow {
+    margin-bottom: 12px;
+    color: #8bd5ff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .review-eyebrow--dark {
+    color: var(--color-blue-deep);
+  }
+
+  .review-hero h1 {
+    max-width: 850px;
+    margin-bottom: 18px;
+    font-size: clamp(2.35rem, 5vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+  }
+
+  .review-hero__lead {
+    max-width: 760px;
+    margin-bottom: 28px;
+    color: #d9e8f4;
+    font-size: 1.15rem;
+  }
+
+  .review-trust-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-size: 0.92rem;
+    font-weight: 700;
+    list-style: none;
+  }
+
+  .review-trust-list li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .review-trust-list li::before {
+    width: 9px;
+    height: 9px;
+    background: var(--color-mint);
+    border: 2px solid #bff4e7;
+    border-radius: 50%;
+    content: "";
+  }
+
+  .review-section {
+    padding-block: 76px;
+  }
+
+  .review-section--demo {
+    background: var(--color-surface);
+  }
+
+  .review-section--muted,
+  .review-section--links {
+    background: var(--color-surface-soft);
+  }
+
+  .review-section--steps {
+    color: #ffffff;
+    background: #122034;
+  }
+
+  .section-heading {
+    max-width: 690px;
+  }
+
+  .section-heading h2,
+  .review-context h2 {
+    margin-bottom: 14px;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    line-height: 1.12;
+    letter-spacing: 0;
+  }
+
+  .section-heading p,
+  .review-context p {
+    font-size: 1rem;
+  }
+
+  .section-heading--inverse p {
+    color: #cad8e5;
+  }
+
+  .embed-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.75fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  .source-reference {
+    display: grid;
+    gap: 5px;
+    margin: 30px 0 20px;
+    padding-left: 15px;
+    border-left: 3px solid var(--color-blue);
+  }
+
+  .source-reference span {
+    color: var(--color-muted);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .source-reference a {
+    overflow-wrap: anywhere;
+    color: var(--color-blue-deep);
+    font-weight: 750;
+  }
+
+  .embed-stage {
+    min-height: 410px;
+    padding: 28px;
+    background: #f3f6f9;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  .embed-consent {
+    max-width: 560px;
+    margin-inline: auto;
+    padding-block: 42px 22px;
+    text-align: center;
+  }
+
+  .embed-consent[hidden] {
+    display: none;
+  }
+
+  .embed-consent__label {
+    margin-bottom: 8px;
+    color: var(--color-red);
+    font-size: 0.78rem;
+    font-weight: 850;
+  }
+
+  .embed-consent h3 {
+    margin-bottom: 12px;
+    font-size: 1.45rem;
+    letter-spacing: 0;
+  }
+
+  .embed-consent p {
+    margin-bottom: 24px;
+    color: var(--color-ink-soft);
+  }
+
+  .review-button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .review-button:focus-visible,
+  .review-links a:focus-visible {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+
+  .review-button--primary {
+    color: #ffffff;
+    background: var(--color-blue-deep);
+  }
+
+  .review-button--primary:hover {
+    background: #065f91;
+  }
+
+  .review-button--primary:disabled {
+    cursor: progress;
+    opacity: 0.75;
+  }
+
+  .review-button--secondary {
+    color: var(--color-navy);
+    background: #ffffff;
+    border-color: var(--color-navy);
+  }
+
+  .review-button--secondary:hover {
+    color: #ffffff;
+    background: var(--color-navy);
+  }
+
+  .source-button {
+    margin-top: 18px;
+  }
+
+  .embed-host {
+    display: grid;
+    width: 100%;
+    justify-items: center;
+  }
+
+  .embed-host:empty {
+    display: none;
+  }
+
+  .embed-host :global(.instagram-media),
+  .embed-host :global(iframe) {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .embed-status {
+    margin: 22px 0 0;
+    color: var(--color-muted);
+    font-size: 0.87rem;
+    text-align: center;
+  }
+
+  .review-context {
+    position: sticky;
+    top: calc(var(--header-height) + 28px);
+    padding-left: 30px;
+    border-left: 1px solid var(--color-line);
+  }
+
+  .review-facts {
+    margin: 30px 0;
+  }
+
+  .review-facts div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .review-facts dt {
+    color: var(--color-ink-soft);
+  }
+
+  .review-facts dd {
+    margin: 0;
+    color: var(--color-ink);
+    font-weight: 800;
+    text-align: right;
+  }
+
+  .review-note {
+    padding: 16px;
+    color: #374151;
+    background: #fff8e9;
+    border-left: 3px solid var(--color-amber);
+    font-size: 0.9rem !important;
+  }
+
+  .review-note code {
+    overflow-wrap: anywhere;
+  }
+
+  .review-copy-grid,
+  .steps-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+    gap: 68px;
+    align-items: start;
+  }
+
+  .flow-list,
+  .reviewer-steps {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: review-step;
+  }
+
+  .flow-list li,
+  .reviewer-steps li {
+    position: relative;
+    min-height: 62px;
+    padding: 0 0 22px 58px;
+    color: var(--color-ink-soft);
+    counter-increment: review-step;
+  }
+
+  .flow-list li::before,
+  .reviewer-steps li::before {
+    position: absolute;
+    top: -3px;
+    left: 0;
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    color: #ffffff;
+    background: var(--color-blue-deep);
+    border-radius: 50%;
+    font-weight: 850;
+    content: counter(review-step);
+  }
+
+  .flow-list strong {
+    color: var(--color-ink);
+  }
+
+  .handling-layout {
+    display: grid;
+    gap: 38px;
+  }
+
+  .handling-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: 1px solid var(--color-line);
+  }
+
+  .handling-grid article {
+    padding: 28px;
+    border-right: 1px solid var(--color-line);
+  }
+
+  .handling-grid article:first-child {
+    padding-left: 0;
+  }
+
+  .handling-grid article:last-child {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .handling-grid h3 {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+  }
+
+  .handling-grid p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+
+  .reviewer-steps li {
+    color: #e8f0f7;
+    font-size: 1.03rem;
+  }
+
+  .reviewer-steps li::before {
+    color: var(--color-navy);
+    background: #8bd5ff;
+  }
+
+  .review-links-layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
+    gap: 60px;
+    align-items: end;
+  }
+
+  .review-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .review-links a {
+    min-height: 50px;
+    padding: 13px 16px;
+    color: var(--color-navy);
+    background: #ffffff;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .review-links a:hover {
+    border-color: var(--color-blue-deep);
+  }
+
+  @media (max-width: 900px) {
+    .embed-layout,
+    .review-copy-grid,
+    .steps-layout,
+    .review-links-layout {
+      grid-template-columns: 1fr;
+      gap: 42px;
+    }
+
+    .review-context {
+      position: static;
+      padding: 30px 0 0;
+      border-top: 1px solid var(--color-line);
+      border-left: 0;
+    }
+
+    .handling-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .handling-grid article:nth-child(2) {
+      border-right: 0;
+    }
+
+    .handling-grid article:first-child,
+    .handling-grid article:last-child {
+      padding: 28px;
+    }
+
+    .handling-grid article:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--color-line);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .review-hero__inner {
+      padding-block: 54px 48px;
+    }
+
+    .review-hero h1 {
+      font-size: 2.35rem;
+    }
+
+    .review-section {
+      padding-block: 54px;
+    }
+
+    .embed-stage {
+      min-height: 380px;
+      padding: 18px 10px;
+    }
+
+    .embed-consent {
+      padding: 30px 8px 18px;
+    }
+
+    .review-button {
+      width: 100%;
+    }
+
+    .review-facts div {
+      grid-template-columns: 1fr;
+      gap: 3px;
+    }
+
+    .review-facts dd {
+      text-align: left;
+    }
+
+    .handling-grid,
+    .review-links {
+      grid-template-columns: 1fr;
+    }
+
+    .handling-grid article,
+    .handling-grid article:first-child,
+    .handling-grid article:last-child {
+      padding: 24px 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .handling-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .flow-list li,
+    .reviewer-steps li {
+      padding-left: 52px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .review-button {
+      transition: none;
+    }
+  }
+</style>
