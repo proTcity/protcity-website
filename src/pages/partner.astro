@@ -315,6 +315,74 @@ function mailtoPlan(subject: string) {
         </p>
       </div>
 
+      <div class="partner-video-grid">
+        <article class="partner-video-card">
+          <div class="partner-video-card__media">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/images/video-posters/partner/comune-segnalazioni.jpg"
+              aria-label="Dimostrazione della gestione delle segnalazioni urbane nella Console Partner proTcity"
+            >
+              <source src="/videos/partner/comune-segnalazioni.mp4" type="video/mp4" />
+              Il browser non supporta la riproduzione video.
+              <a href="/videos/partner/comune-segnalazioni.mp4">Scarica il video sulle segnalazioni</a>.
+            </video>
+          </div>
+          <div class="partner-video-card__copy">
+            <span>Console Comuni · Segnalazioni</span>
+            <h3>Dalla segnalazione al monitoraggio territoriale.</h3>
+            <p>
+              Un flusso unico aiuta uffici e operatori autorizzati a consultare le segnalazioni
+              geolocalizzate, verificarne il contesto e aggiornarne lo stato senza disperdere
+              informazioni tra strumenti separati.
+            </p>
+            <ul>
+              <li>Mappa, fotografie, video e dettagli raccolti in una pratica ordinata.</li>
+              <li>Stati, cronologia e documenti utili al lavoro degli uffici competenti.</li>
+              <li>Dati aggregati come supporto informativo, senza decisioni automatiche.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="partner-video-card">
+          <div class="partner-video-card__media">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/images/video-posters/partner/comune-eventi.jpg"
+              aria-label="Dimostrazione della pubblicazione di eventi e comunicazioni territoriali nella Console Partner proTcity"
+            >
+              <source src="/videos/partner/comune-eventi.mp4" type="video/mp4" />
+              Il browser non supporta la riproduzione video.
+              <a href="/videos/partner/comune-eventi.mp4">Scarica il video su eventi e comunicazioni</a>.
+            </video>
+          </div>
+          <div class="partner-video-card__copy">
+            <span>Console Comuni · Eventi e avvisi</span>
+            <h3>Comunicazioni territoriali più coordinate e accessibili.</h3>
+            <p>
+              La Console Partner consente all'Ente aderente di preparare eventi, campagne
+              informative, avvisi e aggiornamenti di pubblica utilità, definendo contenuti,
+              periodo e area di diffusione prevista dal servizio.
+            </p>
+            <ul>
+              <li>Testi, fotografie, video, riferimenti e collegamenti in un solo contenuto.</li>
+              <li>Pubblicazione in app e notifiche agli utenti interessati, secondo le impostazioni scelte.</li>
+              <li>Una fonte coerente da rilanciare anche sui canali istituzionali dell'Ente.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <p class="partner-video-disclaimer">
+        proTcity è un servizio privato fornito da Kurbi Labs srls. Non è un canale ufficiale di
+        emergenza o denuncia e non sostituisce il 112, gli altri numeri competenti o le procedure
+        istituzionali dell'Ente. Analisi e indicatori hanno finalità esclusivamente informative.
+      </p>
+
       <div class="public-sector-grid">
         {publicSectorPlans.map((plan) => (
           <article class="info-panel">
