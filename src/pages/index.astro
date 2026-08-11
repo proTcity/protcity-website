@@ -8,19 +8,19 @@ const appScreens = [
     image: "/images/app-real/optimized/home-mappa.png",
     label: "Mappa live",
     title: "Consulta alert e segnalazioni vicino a te.",
-    text: "La home aiuta a capire cosa succede intorno: avvisi, criticita, eventi locali e contatti autorizzati."
+    text: "La home aiuta a capire cosa succede intorno: avvisi, criticità, eventi locali e contatti autorizzati."
   },
   {
     image: "/images/app-real/optimized/walkguard2.png",
     label: "WalkGuard",
-    title: "Scegli percorsi piu consapevoli.",
+    title: "Scegli percorsi più consapevoli.",
     text: "WalkGuard mette in evidenza percorso, indicazioni, tempo stimato e strumenti rapidi per muoverti meglio."
   },
   {
     image: "/images/app-real/optimized/sos.png",
     label: "SOS",
     title: "Attiva un aiuto chiaro quando serve.",
-    text: "La posizione puo essere condivisa con i contatti fidati e l'utente mantiene un controllo leggibile sull'emergenza."
+    text: "La posizione può essere condivisa con i contatti fidati e l'utente mantiene un controllo leggibile sull'emergenza."
   },
   {
     image: "/images/app-real/optimized/persone-fidate.png",
@@ -32,7 +32,7 @@ const appScreens = [
     image: "/images/app-real/optimized/eventi.png",
     label: "Eventi Flash",
     title: "Scopri cosa succede nella zona.",
-    text: "Eventi e attivita locali aiutano a leggere meglio il territorio, anche quando non lo conosci ancora."
+    text: "Eventi e attività locali aiutano a leggere meglio il territorio, anche quando non lo conosci ancora."
   },
   {
     image: "/images/app-real/optimized/friends.png",
@@ -94,22 +94,22 @@ const dataSourceCards = [
   {
     label: "Community",
     title: "Segnalazioni e alert degli utenti",
-    text: "Una parte delle informazioni nasce dalle segnalazioni inviate dagli utenti dell'app: criticita urbane, situazioni sospette, disagi, eventi locali e aggiornamenti utili nella zona. Questi contenuti vengono trattati come segnali da verificare e contestualizzare, non come verita assolute."
+    text: "Una parte delle informazioni nasce dalle segnalazioni inviate dagli utenti dell'app: criticità urbane, situazioni sospette, disagi, eventi locali e aggiornamenti utili nella zona. Questi contenuti vengono trattati come segnali da verificare e contestualizzare, non come verità assolute."
   },
   {
     label: "Fonti pubbliche",
     title: "Open data e dati istituzionali",
-    text: "Quando disponibili, proTcity puo integrare dati pubblici e istituzionali, come dataset open data territoriali, informazioni statistiche, dati storici aggregati e indicatori urbani. Queste fonti servono a rafforzare il contesto, soprattutto dove sono presenti coordinate, aree o serie storiche affidabili."
+    text: "Quando disponibili, proTcity può integrare dati pubblici e istituzionali, come dataset open data territoriali, informazioni statistiche, dati storici aggregati e indicatori urbani. Queste fonti servono a rafforzare il contesto, soprattutto dove sono presenti coordinate, aree o serie storiche affidabili."
   },
   {
     label: "Contesto urbano",
-    title: "Mappa, posizione, orario e prossimita",
-    text: "La posizione dell'utente, la distanza dai punti rilevanti, l'orario, il percorso selezionato e la concentrazione dei segnali aiutano a ordinare le informazioni sulla mappa. Il sistema usa questi elementi per dare priorita e leggibilita, non per etichettare definitivamente una zona."
+    title: "Mappa, posizione, orario e prossimità",
+    text: "La posizione dell'utente, la distanza dai punti rilevanti, l'orario, il percorso selezionato e la concentrazione dei segnali aiutano a ordinare le informazioni sulla mappa. Il sistema usa questi elementi per dare priorità e leggibilità, non per etichettare definitivamente una zona."
   },
   {
     label: "Partner",
     title: "Strutture, enti e punti utili",
-    text: "Hotel, partner, enti o luoghi utili possono rendere piu chiaro il contesto per residenti, ospiti e viaggiatori: punti di riferimento, aree informative, servizi disponibili, comunicazioni locali e contenuti pensati per chi non conosce bene il territorio."
+    text: "Hotel, partner, enti o luoghi utili possono rendere più chiaro il contesto per residenti, ospiti e viaggiatori: punti di riferimento, aree informative, servizi disponibili, comunicazioni locali e contenuti pensati per chi non conosce bene il territorio."
   },
   {
     label: "Consenso",
@@ -119,38 +119,77 @@ const dataSourceCards = [
   {
     label: "AI",
     title: "Analisi e sintesi assistita",
-    text: "L'AI aiuta a riassumere, ordinare e spiegare le informazioni disponibili in modo piu comprensibile. Non prevede reati, non decide da sola, non sostituisce autorita, servizi di emergenza o valutazioni personali dell'utente."
+    text: "L'AI aiuta a riassumere, ordinare e spiegare le informazioni disponibili in modo più comprensibile. Non prevede reati, non decide da sola, non sostituisce autorità, servizi di emergenza o valutazioni personali dell'utente."
   }
 ] as const;
 
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "proTcity",
-  url: absoluteUrl("/"),
-  logo: absoluteUrl("/images/logo-tm.png"),
-  description:
-    "proTcity e' una piattaforma di sicurezza urbana intelligente che aiuta cittadini, turisti e viaggiatori a ricevere informazioni utili, consultare alert, segnalare criticita e scegliere percorsi piu consapevoli.",
-  parentOrganization: {
+const organizationId = absoluteUrl("/#organization");
+const websiteId = absoluteUrl("/#website");
+const applicationId = absoluteUrl("/#application");
+
+const schema = [
+  {
+    "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: site.company.legalName,
-    url: "https://www.kurbilabs.com"
+    alternateName: "proTcity",
+    url: absoluteUrl("/"),
+    logo: absoluteUrl("/images/logo-tm.png"),
+    taxID: site.company.vat,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.company.street,
+      addressLocality: "Trivigliano",
+      addressRegion: "FR",
+      postalCode: site.company.postalCode,
+      addressCountry: "IT"
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: site.emails.contact,
+      telephone: site.company.phone,
+      contactType: "customer support",
+      availableLanguage: ["it", "en", "es", "fr", "de", "pt"]
+    },
+    sameAs: ["https://www.kurbilabs.com", site.stores.appStore, site.stores.playStore]
   },
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: site.emails.contact,
-    contactType: "customer support",
-    availableLanguage: ["it", "en", "es", "fr", "de", "pt"]
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "proTcity",
+    url: absoluteUrl("/"),
+    inLanguage: "it-IT",
+    publisher: { "@id": organizationId }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "@id": applicationId,
+    name: "proTcity",
+    applicationCategory: "SafetyApplication",
+    operatingSystem: "iOS, Android",
+    url: absoluteUrl("/app"),
+    description:
+      "App per leggere meglio il contesto urbano con mappa, alert, segnalazioni, WalkGuard, eventi e strumenti personali.",
+    downloadUrl: [site.stores.appStore, site.stores.playStore],
+    publisher: { "@id": organizationId },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "EUR"
+    }
   }
-};
+];
 
 const appStoreUrl = site.stores.appStore;
 const playStoreUrl = site.stores.playStore;
 ---
 
 <MainLayout
-  title="proTcity | Muoviti in citta con piu consapevolezza"
-  description="proTcity aiuta cittadini, turisti e viaggiatori a consultare alert, segnalazioni e informazioni utili, scegliere percorsi piu consapevoli e orientarsi meglio grazie al supporto dell'AI."
+  title="proTcity | App per città, sicurezza urbana e mobilità"
+  description="proTcity riunisce mappa, alert, segnalazioni, WalkGuard ed eventi per aiutare cittadini e visitatori a leggere meglio la città e muoversi con più consapevolezza."
   canonicalPath="/"
   bodyClass="home-cinematic real-home"
   schema={schema}
@@ -159,12 +198,12 @@ const playStoreUrl = site.stores.playStore;
     <div class="container real-hero__grid">
       <div class="real-hero__copy">
         <p class="cinematic-kicker">Disponibile su App Store e Google Play</p>
-        <h1 id="hero-title">Muoviti in citta con piu consapevolezza.</h1>
+        <h1 id="hero-title">Muoviti in città con più consapevolezza.</h1>
         <p class="real-hero__claim">
-          Non puoi conoscere una citta in anticipo. Ma puoi entrarci piu preparato.
+          Non puoi conoscere una città in anticipo. Ma puoi entrarci più preparato.
         </p>
         <p class="real-hero__lead">
-          Alert, segnalazioni, percorsi piu consapevoli e supporto AI per capire meglio le aree che visiti.
+          Alert, segnalazioni, percorsi più consapevoli e supporto AI per capire meglio le aree che visiti.
         </p>
         <div class="cinematic-actions" aria-label="Azioni principali">
           <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
@@ -203,7 +242,7 @@ const playStoreUrl = site.stores.playStore;
       <article>
         <span>02</span>
         <strong>Meno incertezza</strong>
-        <p>proTcity non sostituisce buon senso o autorita, ma organizza segnali utili per muoverti con piu tranquillita.</p>
+        <p>proTcity non sostituisce buon senso o autorità, ma organizza segnali utili per muoverti con più tranquillità.</p>
       </article>
       <article>
         <span>03</span>
@@ -218,7 +257,7 @@ const playStoreUrl = site.stores.playStore;
       <p class="cinematic-kicker">Cosa puoi fare</p>
       <h2 id="screens-title">Informazioni utili, mappa e strumenti pratici nello stesso posto.</h2>
       <p>
-        proTcity nasce per aiutarti a leggere meglio un'area, contribuire alla community e scegliere percorsi piu consapevoli, soprattutto quando sei in una zona che non conosci.
+        proTcity nasce per aiutarti a leggere meglio un'area, contribuire alla community e scegliere percorsi più consapevoli, soprattutto quando sei in una zona che non conosci.
       </p>
     </div>
 
@@ -244,16 +283,16 @@ const playStoreUrl = site.stores.playStore;
         <p class="cinematic-kicker">Sicurezza urbana intelligente</p>
         <h2 id="intelligent-safety-title">proTcity non promette di prevedere i reati.</h2>
         <p>
-          Il suo obiettivo e analizzare e organizzare segnali utili come alert, segnalazioni, posizione, contesto urbano, orario e informazioni disponibili, per aiutare l'utente a prendere decisioni piu consapevoli.
+          Il suo obiettivo è analizzare e organizzare segnali utili come alert, segnalazioni, posizione, contesto urbano, orario e informazioni disponibili, per aiutare l'utente a prendere decisioni più consapevoli.
         </p>
         <div class="real-note real-note--statement">
-          <strong>proTcity non ti dice cosa succedera.</strong>
+          <strong>proTcity non ti dice cosa succederà.</strong>
           <span>Ti aiuta a capire meglio dove sei.</span>
         </div>
       </div>
       <div class="real-copy real-copy--panel">
         <p>
-          In altre parole: meno incertezza, piu informazioni e piu controllo sui propri spostamenti. La tecnologia resta uno strumento di supporto, non una promessa assoluta.
+          In altre parole: meno incertezza, più informazioni e più controllo sui propri spostamenti. La tecnologia resta uno strumento di supporto, non una promessa assoluta.
         </p>
         <ul class="real-check-list">
           <li>Alert e segnalazioni consultabili sulla mappa.</li>
@@ -287,19 +326,19 @@ const playStoreUrl = site.stores.playStore;
       <article>
         <h3>Come vengono usati i dati</h3>
         <p>
-          proTcity combina i segnali disponibili per costruire una lettura contestuale: cosa e' stato segnalato, quanto e' vicino, quanto e' recente, quanto e' coerente con altri elementi e quale funzione l'utente sta usando in quel momento. Un alert vicino a un percorso, una segnalazione recente o un dato storico aggregato non hanno lo stesso peso: vengono valutati in modo diverso e mostrati con linguaggio prudente.
+          proTcity combina i segnali disponibili per costruire una lettura contestuale: cosa è stato segnalato, quanto è vicino, quanto è recente, quanto è coerente con altri elementi e quale funzione l'utente sta usando in quel momento. Un alert vicino a un percorso, una segnalazione recente o un dato storico aggregato non hanno lo stesso peso: vengono valutati in modo diverso e mostrati con linguaggio prudente.
         </p>
       </article>
       <article>
-        <h3>Aggiornamento e qualita</h3>
+        <h3>Aggiornamento e qualità</h3>
         <p>
-          Le informazioni generate dagli utenti possono essere aggiornate in tempo reale o quasi reale. I dati pubblici e istituzionali dipendono invece dalla frequenza di pubblicazione dell'ente che li rende disponibili. Quando una fonte e' storica, aggregata, incompleta o non aggiornata, viene usata solo come supporto statistico e non come indicazione certa di rischio attuale.
+          Le informazioni generate dagli utenti possono essere aggiornate in tempo reale o quasi reale. I dati pubblici e istituzionali dipendono invece dalla frequenza di pubblicazione dell'ente che li rende disponibili. Quando una fonte è storica, aggregata, incompleta o non aggiornata, viene usata solo come supporto statistico e non come indicazione certa di rischio attuale.
         </p>
       </article>
       <article>
         <h3>Cosa proTcity non fa</h3>
         <p>
-          proTcity non prevede reati, non assegna colpe, non classifica persone, non garantisce che una zona sia sicura o pericolosa e non sostituisce Forze dell'Ordine, Protezione Civile, Comune, servizi sanitari o numero unico di emergenza. L'obiettivo e' rendere le informazioni piu ordinate e comprensibili.
+          proTcity non prevede reati, non assegna colpe, non classifica persone, non garantisce che una zona sia sicura o pericolosa e non sostituisce Forze dell'Ordine, Protezione Civile, Comune, servizi sanitari o numero unico di emergenza. L'obiettivo è rendere le informazioni più ordinate e comprensibili.
         </p>
       </article>
       <article>
@@ -311,39 +350,39 @@ const playStoreUrl = site.stores.playStore;
     </div>
 
     <div class="container data-source-statement">
-      <strong>Il dato e' un supporto, non una sentenza.</strong>
+      <strong>Il dato è un supporto, non una sentenza.</strong>
       <span>
-        Ogni alert, segnalazione o indicatore viene interpretato come parte di un contesto piu ampio: freschezza dell'informazione, prossimita, ricorrenza, fonte, livello di dettaglio e coerenza con altri segnali. Dove i dati sono incompleti, vecchi, non verificati o solo statistici, proTcity mantiene messaggi prudenti e non presenta conclusioni assolute.
+        Ogni alert, segnalazione o indicatore viene interpretato come parte di un contesto più ampio: freschezza dell'informazione, prossimità, ricorrenza, fonte, livello di dettaglio e coerenza con altri segnali. Dove i dati sono incompleti, vecchi, non verificati o solo statistici, proTcity mantiene messaggi prudenti e non presenta conclusioni assolute.
       </span>
       <span>
-        Le informazioni mostrate nell'app servono a ridurre l'incertezza e a rendere una zona piu leggibile. Non sostituiscono il buon senso, le autorita competenti, il numero unico di emergenza o i canali ufficiali di pubblica sicurezza.
+        Le informazioni mostrate nell'app servono a ridurre l'incertezza e a rendere una zona più leggibile. Non sostituiscono il buon senso, le autorità competenti, il numero unico di emergenza o i canali ufficiali di pubblica sicurezza.
       </span>
     </div>
   </section>
 
   <section class="real-section" aria-labelledby="audience-title">
     <div class="container section-intro section-intro--center">
-      <p class="cinematic-kicker">A chi e utile</p>
-      <h2 id="audience-title">Pensata per chi vive, visita o accompagna una citta.</h2>
+      <p class="cinematic-kicker">A chi è utile</p>
+      <h2 id="audience-title">Pensata per chi vive, visita o accompagna una città.</h2>
       <p>
-        proTcity puo essere utile a turisti, viaggiatori, studenti fuori sede, residenti, famiglie e strutture ricettive che vogliono offrire ai propri ospiti un servizio piu chiaro.
+        proTcity può essere utile a turisti, viaggiatori, studenti fuori sede, residenti, famiglie e strutture ricettive che vogliono offrire ai propri ospiti un servizio più chiaro.
       </p>
     </div>
     <div class="container audience-grid">
       <article>
         <span>01</span>
         <strong>Turisti e viaggiatori</strong>
-        <p>Per entrare in una zona nuova con piu contesto e meno improvvisazione.</p>
+        <p>Per entrare in una zona nuova con più contesto e meno improvvisazione.</p>
       </article>
       <article>
         <span>02</span>
         <strong>Residenti e studenti</strong>
-        <p>Per restare informati su alert, segnalazioni e cambiamenti vicino a casa, universita o lavoro.</p>
+        <p>Per restare informati su alert, segnalazioni e cambiamenti vicino a casa, università o lavoro.</p>
       </article>
       <article>
         <span>03</span>
         <strong>Hotel e famiglie</strong>
-        <p>Per offrire strumenti digitali di orientamento e maggiore tranquillita negli spostamenti.</p>
+        <p>Per offrire strumenti digitali di orientamento e maggiore tranquillità negli spostamenti.</p>
       </article>
     </div>
   </section>
@@ -352,7 +391,7 @@ const playStoreUrl = site.stores.playStore;
     <div class="container real-split">
       <div class="real-copy">
         <p class="cinematic-kicker">WalkGuard</p>
-        <h2 id="walkguard-title">WalkGuard rende piu leggibile il percorso quando devi rientrare o spostarti.</h2>
+        <h2 id="walkguard-title">WalkGuard rende più leggibile il percorso quando devi rientrare o spostarti.</h2>
         <p>
           WalkGuard mette in primo piano destinazione, percorso, tempo stimato e controlli rapidi. L'obiettivo e aiutarti a orientarti meglio durante gli spostamenti a piedi, soprattutto in aree che non conosci.
         </p>

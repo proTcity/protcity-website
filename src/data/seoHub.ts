@@ -36,7 +36,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "sicurezza-urbana",
     eyebrow: "Sicurezza urbana",
-    title: "Sicurezza urbana intelligente: segnali, dati e collaborazione locale",
+    title: "Sicurezza urbana: dati e collaborazione locale",
     description:
       "Guida proTcity alla sicurezza urbana intelligente: segnalazioni, alert, Safety Score, AI responsabile e collaborazione tra cittadini, Comuni e partner locali.",
     lead:
@@ -104,7 +104,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "app-sicurezza-personale",
     eyebrow: "App sicurezza personale",
-    title: "App per sicurezza personale: orientamento, contatti fidati e supporto AI",
+    title: "App per sicurezza personale e spostamenti urbani",
     description:
       "Come un'app per sicurezza personale può aiutare negli spostamenti urbani con WalkGuard, SOS, contatti fidati, alert e assistente AI.",
     lead:
@@ -172,7 +172,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "percorsi-sicuri",
     eyebrow: "Percorsi sicuri",
-    title: "Percorsi sicuri a piedi: come WalkGuard aiuta a scegliere tragitti più prudenti",
+    title: "Percorsi a piedi più consapevoli con WalkGuard",
     description:
       "Percorsi sicuri a piedi con proTcity WalkGuard: analisi del contesto, punti sicuri, alert di zona, contatti fidati e ricalcolo prudente.",
     lead:
@@ -240,7 +240,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "segnalazioni-cittadini",
     eyebrow: "Segnalazioni cittadini",
-    title: "Segnalazioni dei cittadini: dalla foto alla presa in carico",
+    title: "Segnalazioni dei cittadini e presa in carico",
     description:
       "Come proTcity organizza segnalazioni dei cittadini, conferme community, categorie, stati e timeline per rendere più leggibili i problemi urbani.",
     lead:
@@ -308,7 +308,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "sicurezza-comuni",
     eyebrow: "Sicurezza per Comuni",
-    title: "Sicurezza urbana per Comuni: dati aggregati, segnalazioni e comunicazione locale",
+    title: "Sicurezza urbana per Comuni ed enti pubblici",
     description:
       "proTcity per Comuni ed enti pubblici: segnalazioni urbane, dashboard, alert, dati aggregati e strumenti per leggere meglio il territorio.",
     lead:
@@ -376,7 +376,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "sicurezza-turisti",
     eyebrow: "Sicurezza turisti",
-    title: "Sicurezza per turisti: orientarsi meglio in una città nuova",
+    title: "Sicurezza per turisti in una città nuova",
     description:
       "proTcity aiuta turisti e visitatori con percorsi prudenti, punti utili, alert locali, GuestSafe e supporto multilingua.",
     lead:
@@ -444,7 +444,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "sicurezza-hotel",
     eyebrow: "Sicurezza hotel",
-    title: "Sicurezza per hotel e ospiti: GuestSafe, percorsi e informazioni locali",
+    title: "GuestSafe: sicurezza per hotel e ospiti",
     description:
       "GuestSafe porta proTcity nell'hospitality: sicurezza per hotel, ospiti, turisti, percorsi prudenti, punti utili e comunicazioni locali.",
     lead:
@@ -512,7 +512,7 @@ export const seoHubPages: SeoHubPage[] = [
   {
     slug: "ai-sicurezza-urbana",
     eyebrow: "AI sicurezza urbana",
-    title: "AI per sicurezza urbana: spiegazioni prudenti, dati aggregati e limiti chiari",
+    title: "AI responsabile per la sicurezza urbana",
     description:
       "Come proTcity usa AI, Safety Score e dati aggregati per supportare la sicurezza urbana senza profilazione personale e senza allarmismo.",
     lead:

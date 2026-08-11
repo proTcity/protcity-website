@@ -7,7 +7,7 @@ export const site = {
   locale: "it_IT",
   language: "it",
   defaultDescription:
-    "proTcity aiuta persone, Comuni e partner locali a leggere meglio la sicurezza urbana, segnalare situazioni critiche e muoversi con piu consapevolezza.",
+    "proTcity aiuta persone, Comuni e partner locali a leggere meglio la sicurezza urbana, segnalare situazioni critiche e muoversi con più consapevolezza.",
   defaultOgImage: "/og-image.jpg",
   emails: {
     general: "info@protcity.com",

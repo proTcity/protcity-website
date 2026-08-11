@@ -26,6 +26,19 @@ const jsonResponse = (body: unknown, init: ResponseInit = {}) =>
     }
   });
 
+const withHeaders = (response: Response, values: Record<string, string>) => {
+  const headers = new Headers(response.headers);
+  for (const [name, value] of Object.entries(values)) {
+    headers.set(name, value);
+  }
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+};
+
 async function handleGuestSafeHotelApi(
   request: Request,
   env: Env
@@ -66,11 +79,11 @@ async function handleGuestSafeHotelApi(
     }
   });
 
-  return response;
+  return withHeaders(response, { "x-robots-tag": "noindex, nofollow" });
 }
 
 export default {
-  fetch(request: Request, env: Env) {
+  async fetch(request: Request, env: Env) {
     const url = new URL(request.url);
 
     if (url.pathname === "/googleca8852126a17d04f.html") {
@@ -103,9 +116,15 @@ export default {
     if (/^\/guestsafe\/[^/]+\/?$/.test(url.pathname)) {
       const assetUrl = new URL(request.url);
       assetUrl.pathname = "/guestsafe-hotel";
-      return env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      const response = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      return withHeaders(response, { "x-robots-tag": "noindex, follow" });
     }
 
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    if (url.pathname === "/meta-oembed-review" || url.pathname === "/guestsafe-hotel") {
+      return withHeaders(response, { "x-robots-tag": "noindex, nofollow" });
+    }
+
+    return response;
   }
 };

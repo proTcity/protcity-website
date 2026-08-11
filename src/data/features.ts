@@ -20,7 +20,7 @@ export const coreFeatures = [
   {
     title: "Safety Score",
     description:
-      "Una lettura sintetica e trasparente del rischio urbano, pensata per orientare decisioni e non per sostituire le autorita.",
+      "Una lettura sintetica e trasparente del rischio urbano, pensata per orientare decisioni e non per sostituire le autorità.",
     tone: "mint"
   },
   {
@@ -38,7 +38,7 @@ export const productPillars = [
   },
   {
     title: "Per i Comuni",
-    text: "Insight aggregati e una narrativa piu chiara delle criticita sul territorio."
+    text: "Insight aggregati e una narrativa più chiara delle criticità sul territorio."
   },
   {
     title: "Per hotel e partner",
@@ -71,7 +71,7 @@ export const walkguardSteps = [
 export const cityBenefits = [
   "Canale ordinato per raccogliere segnali ricorrenti dal territorio",
   "Quadro aggregato per individuare zone, fasce orarie e pattern",
-  "Comunicazione piu chiara con cittadini, visitatori e operatori locali"
+  "Comunicazione più chiara con cittadini, visitatori e operatori locali"
 ] as const;
 
 export const guestsafeBenefits = [
