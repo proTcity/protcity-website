@@ -80,13 +80,13 @@ p {
   min-height: var(--header-height);
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  width: 156px;
+  width: 148px;
   flex: 0 0 auto;
 }
 
@@ -111,10 +111,10 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px;
+  padding: 0 8px;
   border-radius: var(--radius-sm);
   color: var(--color-ink-soft);
-  font-size: 0.94rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;
 }

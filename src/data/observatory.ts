@@ -91,6 +91,13 @@ export type ObservatoryCityProfile = {
   intro: string;
   municipalityUrl: string;
   civilProtectionUrl: string;
+  map: {
+    latitude: number;
+    longitude: number;
+    embedUrl: string;
+    openStreetMapUrl: string;
+    googleMapsUrl: string;
+  };
   officialLinks: OfficialLink[];
 };
 
@@ -106,6 +113,16 @@ export const observatoryCityProfiles: ObservatoryCityProfile[] = [
       "Informazioni pratiche e dati ufficiali per leggere il contesto urbano di Roma senza allarmismi e senza classificare persone o quartieri.",
     municipalityUrl: "https://www.comune.roma.it/",
     civilProtectionUrl: "https://www.comune.roma.it/web/it/protezione-civile.page",
+    map: {
+      latitude: 41.9028,
+      longitude: 12.4964,
+      embedUrl:
+        "https://www.openstreetmap.org/export/embed.html?bbox=12.2880%2C41.7930%2C12.7040%2C42.0100&layer=mapnik&marker=41.9028%2C12.4964",
+      openStreetMapUrl:
+        "https://www.openstreetmap.org/?mlat=41.9028&mlon=12.4964#map=11/41.9028/12.4964",
+      googleMapsUrl:
+        "https://www.google.com/maps/search/?api=1&query=41.9028%2C12.4964"
+    },
     officialLinks: [
       {
         label: "Avvisi e informazioni di servizio",
@@ -142,6 +159,16 @@ export const observatoryCityProfiles: ObservatoryCityProfile[] = [
       "Informazioni pratiche e dati ufficiali per leggere il contesto urbano di Milano senza allarmismi e senza classificare persone o quartieri.",
     municipalityUrl: "https://www.comune.milano.it/",
     civilProtectionUrl: "https://www.comune.milano.it/servizi/polizia-locale-e-sicurezza/sistema-di-allerta-della-protezione-civile",
+    map: {
+      latitude: 45.4642,
+      longitude: 9.19,
+      embedUrl:
+        "https://www.openstreetmap.org/export/embed.html?bbox=8.9990%2C45.3600%2C9.3820%2C45.5650&layer=mapnik&marker=45.4642%2C9.1900",
+      openStreetMapUrl:
+        "https://www.openstreetmap.org/?mlat=45.4642&mlon=9.1900#map=11/45.4642/9.1900",
+      googleMapsUrl:
+        "https://www.google.com/maps/search/?api=1&query=45.4642%2C9.1900"
+    },
     officialLinks: [
       {
         label: "Sistema di allerta",

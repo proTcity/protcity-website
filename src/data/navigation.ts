@@ -3,6 +3,7 @@ export const primaryNavigation = [
   { label: "Download", href: "/download" },
   { label: "WalkGuard", href: "/walkguard" },
   { label: "Citta", href: "/cities" },
+  { label: "Osservatorio", href: "/osservatorio" },
   { label: "GuestSafe", href: "/guestsafe" },
   { label: "Partner", href: "/partner" },
   { label: "Tecnologia", href: "/technology" },

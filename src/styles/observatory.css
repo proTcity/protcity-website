@@ -257,6 +257,12 @@
     #030a13;
 }
 
+.observatory-section--map {
+  background:
+    radial-gradient(circle at 82% 16%, rgba(92, 232, 202, 0.08), transparent 24%),
+    linear-gradient(180deg, #02070f, #05111d);
+}
+
 .observatory-section__head {
   max-width: 820px;
   margin-bottom: 38px;
@@ -613,6 +619,70 @@
   background: rgba(103, 211, 255, 0.06);
 }
 
+.observatory-map-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.48fr) minmax(280px, 0.52fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.observatory-map-frame,
+.observatory-map-info {
+  overflow: hidden;
+  border: 1px solid rgba(105, 212, 255, 0.22);
+  border-radius: 16px;
+  background: rgba(4, 14, 26, 0.82);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.observatory-map-frame {
+  min-height: 560px;
+}
+
+.observatory-map-frame iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  display: block;
+  border: 0;
+  background: #dce8ec;
+}
+
+.observatory-map-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 4vw, 38px);
+}
+
+.observatory-map-info h3 {
+  margin: 8px 0 14px;
+  color: #fff;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+
+.observatory-map-info > p {
+  color: rgba(234, 247, 255, 0.68);
+}
+
+.observatory-map-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.observatory-map-attribution {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(105, 212, 255, 0.14);
+  font-size: 0.82rem;
+}
+
+.observatory-map-attribution a {
+  color: #80ddff;
+}
+
 .observatory-disclaimer strong {
   color: #fff;
 }
@@ -624,6 +694,7 @@
 
 @media (max-width: 1100px) {
   .observatory-hero__grid,
+  .observatory-map-grid,
   .observatory-action-grid,
   .observatory-source-grid,
   .observatory-metric-grid {
@@ -646,6 +717,7 @@
   }
 
   .observatory-hero__grid,
+  .observatory-map-grid,
   .observatory-city-grid,
   .observatory-purpose-grid,
   .observatory-action-grid,
@@ -671,6 +743,11 @@
   .observatory-city-card {
     min-height: 360px;
     padding: 22px;
+  }
+
+  .observatory-map-frame,
+  .observatory-map-frame iframe {
+    min-height: 430px;
   }
 
   .observatory-chart__head {

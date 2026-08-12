@@ -91,6 +91,10 @@ const declaredTools = [
     "Google Analytics 4 sul sito e Firebase Analytics nell'app, attivi soltanto secondo il consenso applicabile e senza finalita di marketing, remarketing, Google Signals o profilazione pubblicitaria."
   ],
   [
+    "Mappe OpenStreetMap",
+    "Le schede pubbliche dell'Osservatorio incorporano cartografia OpenStreetMap. Il caricamento comporta una connessione tecnica ai servizi OSMF, senza invio intenzionale di dati account o posizione precisa dell'utente da parte di proTcity."
+  ],
+  [
     "Diagnostica",
     "Firebase Crashlytics per crash report, stabilita, errori e sicurezza dell'app."
   ],
@@ -168,6 +172,13 @@ const registryRows = [
     where: "Email",
     purpose:
       "Instradamento, ricezione e conservazione delle email aziendali. Non comporta cookie sul browser del visitatore come conseguenza della sola visita."
+  },
+  {
+    tool: "OpenStreetMap embedded map",
+    provider: "OpenStreetMap Foundation",
+    where: "Pagine città dell'Osservatorio",
+    purpose:
+      "Cartografia interattiva richiesta dall'utente. Il browser comunica al provider IP, user-agent, referrer e dati tecnici necessari; proTcity non usa la mappa per profilazione pubblicitaria."
   }
 ];
 

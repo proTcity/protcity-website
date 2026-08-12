@@ -115,7 +115,16 @@ const schema = [
     url: absoluteUrl(canonicalPath),
     dateModified: cityData.upstreamGeneratedAt ?? snapshot.refreshedAt,
     inLanguage: "it-IT",
-    about: { "@type": "City", name: profile.name },
+    about: {
+      "@type": "City",
+      name: profile.name,
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: profile.map.latitude,
+        longitude: profile.map.longitude
+      },
+      hasMap: profile.map.openStreetMapUrl
+    },
     isPartOf: {
       "@type": "CollectionPage",
       name: "Osservatorio urbano proTcity",
@@ -198,6 +207,45 @@ const categoryLabels = {
           <span>{cityData.weather.source}</span>
           <time datetime={cityData.weather.validAt ?? undefined}>Valido {weatherValidLabel}</time>
         </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--map" aria-labelledby="map-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Mappa della città</p>
+      <h2 id="map-title">Esplora {profile.name} sulla mappa.</h2>
+      <p>
+        Usa zoom e trascinamento per orientarti. Il marcatore indica il centro cittadino: non rappresenta un allarme, un incidente o una valutazione di sicurezza.
+      </p>
+    </div>
+    <div class="container observatory-map-grid">
+      <div class="observatory-map-frame">
+        <iframe
+          src={profile.map.embedUrl}
+          title={`Mappa interattiva OpenStreetMap di ${profile.name}`}
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <aside class="observatory-map-info">
+        <span class="observatory-status">Mappa interattiva</span>
+        <h3>{profile.name}</h3>
+        <p>
+          Centro mappa: {profile.map.latitude.toFixed(4)}, {profile.map.longitude.toFixed(4)}. La cartografia serve per l’orientamento generale e può essere esplorata liberamente.
+        </p>
+        <div class="observatory-map-actions">
+          <a class="observatory-button observatory-button--primary" href={profile.map.openStreetMapUrl} target="_blank" rel="noopener noreferrer">
+            Apri OpenStreetMap
+          </a>
+          <a class="observatory-button" href={profile.map.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+            Apri Google Maps
+          </a>
+        </div>
+        <p class="observatory-map-attribution">
+          Cartografia © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>.
+        </p>
       </aside>
     </div>
   </section>
