@@ -1,0 +1,51 @@
+name: Update proTcity Observatory
+
+on:
+  schedule:
+    - cron: "17 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-observatory
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh official city data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh official sources
+        run: npm run update:observatory
+
+      - name: Validate generated pages
+        run: npm run build
+
+      - name: Publish updated snapshot
+        run: |
+          if git diff --quiet -- src/data/generated/observatory.json public/sitemap.xml; then
+            echo "No official data changes detected."
+            exit 0
+          fi
+          git config user.name "proTcity Observatory"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/data/generated/observatory.json public/sitemap.xml
+          git commit -m "chore: update official observatory data"
+          git push

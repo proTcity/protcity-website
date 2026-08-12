@@ -36,6 +36,7 @@ export const footerGroups = [
     title: "Istituzioni",
     links: [
       { label: "Citta e territori", href: "/cities" },
+      { label: "Osservatorio urbano", href: "/osservatorio" },
       { label: "Sicurezza urbana intelligente", href: "/sicurezza-urbana-intelligente" },
       { label: "Sicurezza", href: "/safety" },
       { label: "Contatti", href: "/contact" }

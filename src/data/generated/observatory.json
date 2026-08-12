@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "refreshedAt": "2026-08-12T09:04:46+00:00",
+  "attribution": {
+    "provider": "AgID - Cruscotto Italia",
+    "providerUrl": "https://cruscotto-italia.dati.gov.it/",
+    "sourceUrlTemplate": "https://cruscotto-italia.dati.gov.it/data/dashboard/{istat}.json",
+    "license": "Fonti pubbliche con licenze aperte indicate nei singoli dataset"
+  },
+  "cities": {
+    "roma": {
+      "slug": "roma",
+      "istatCode": "058091",
+      "name": "Roma",
+      "province": "RM",
+      "region": "Lazio",
+      "upstreamGeneratedAt": "2026-08-12T09:04:46+00:00",
+      "population": {
+        "value": 2745062,
+        "reference": "1 gennaio 2026 (stima)",
+        "source": "ISTAT POSAS"
+      },
+      "weather": {
+        "validAt": "2026-08-12T09:00:00Z",
+        "run": "2026081200",
+        "description": "Parzialmente nuvoloso",
+        "temperatureC": 33.9,
+        "min24hC": 21.9,
+        "max24hC": 38.6,
+        "precipitation24hMm": 0.1,
+        "humidityPct": 43,
+        "windKmh": 3,
+        "maxGust24hKmh": 88.4,
+        "source": "ItaliaMeteo ICON-2I",
+        "license": "CC BY 4.0"
+      },
+      "roadSafety": {
+        "year": 2024,
+        "incidents": 13924,
+        "deaths": 134,
+        "injured": 17196,
+        "deathsPer10k": 0.49,
+        "injuredPer10k": 62.64,
+        "series": [
+          {
+            "year": 2020,
+            "incidents": 8229,
+            "deaths": 104,
+            "injured": 10452
+          },
+          {
+            "year": 2021,
+            "incidents": 11129,
+            "deaths": 121,
+            "injured": 13862
+          },
+          {
+            "year": 2022,
+            "incidents": 13181,
+            "deaths": 150,
+            "injured": 16618
+          },
+          {
+            "year": 2023,
+            "incidents": 12817,
+            "deaths": 154,
+            "injured": 16023
+          },
+          {
+            "year": 2024,
+            "incidents": 13924,
+            "deaths": 134,
+            "injured": 17196
+          }
+        ],
+        "source": "ISTAT 41_983"
+      },
+      "airQuality": {
+        "year": 2022,
+        "pm10Average": 24.8,
+        "pm25Average": 13.4,
+        "no2Average": 29.2,
+        "source": "ISPRA SNPA"
+      },
+      "healthServices": {
+        "pharmacies": 831,
+        "paraPharmacies": 292,
+        "hospitals": 68,
+        "hospitalBeds": 13731,
+        "source": "Ministero della Salute"
+      },
+      "tourism": {
+        "year": 2024,
+        "accommodationFacilities": 24831,
+        "beds": 299983,
+        "tourismIndexPer100Residents": 10.9,
+        "source": "ISTAT"
+      }
+    },
+    "milano": {
+      "slug": "milano",
+      "istatCode": "015146",
+      "name": "Milano",
+      "province": "MI",
+      "region": "Lombardia",
+      "upstreamGeneratedAt": "2026-08-12T09:01:39+00:00",
+      "population": {
+        "value": 1362863,
+        "reference": "1 gennaio 2026 (stima)",
+        "source": "ISTAT POSAS"
+      },
+      "weather": {
+        "validAt": "2026-08-12T09:00:00Z",
+        "run": "2026081200",
+        "description": "Pioggia leggera",
+        "temperatureC": 24,
+        "min24hC": 23.7,
+        "max24hC": 34.4,
+        "precipitation24hMm": 0,
+        "humidityPct": 80,
+        "windKmh": 15.6,
+        "maxGust24hKmh": 39.3,
+        "source": "ItaliaMeteo ICON-2I",
+        "license": "CC BY 4.0"
+      },
+      "roadSafety": {
+        "year": 2024,
+        "incidents": 7743,
+        "deaths": 38,
+        "injured": 9585,
+        "deathsPer10k": 0.28,
+        "injuredPer10k": 70.33,
+        "series": [
+          {
+            "year": 2020,
+            "incidents": 4856,
+            "deaths": 28,
+            "injured": 6035
+          },
+          {
+            "year": 2021,
+            "incidents": 7465,
+            "deaths": 34,
+            "injured": 9286
+          },
+          {
+            "year": 2022,
+            "incidents": 7783,
+            "deaths": 44,
+            "injured": 9865
+          },
+          {
+            "year": 2023,
+            "incidents": 7812,
+            "deaths": 47,
+            "injured": 9709
+          },
+          {
+            "year": 2024,
+            "incidents": 7743,
+            "deaths": 38,
+            "injured": 9585
+          }
+        ],
+        "source": "ISTAT 41_983"
+      },
+      "airQuality": {
+        "year": 2022,
+        "pm10Average": 34.8,
+        "pm25Average": 23.3,
+        "no2Average": 38.4,
+        "source": "ISPRA SNPA"
+      },
+      "healthServices": {
+        "pharmacies": 428,
+        "paraPharmacies": 80,
+        "hospitals": 32,
+        "hospitalBeds": 9076,
+        "source": "Ministero della Salute"
+      },
+      "tourism": {
+        "year": 2024,
+        "accommodationFacilities": 9937,
+        "beds": 106662,
+        "tourismIndexPer100Residents": 7.8,
+        "source": "ISTAT"
+      }
+    }
+  }
+}

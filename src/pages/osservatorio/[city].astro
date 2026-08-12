@@ -1,0 +1,412 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import snapshotJson from "../../data/generated/observatory.json";
+import {
+  getObservatoryCityPath,
+  observatoryBasePath,
+  observatoryCityProfiles,
+  type ObservatoryCityProfile,
+  type ObservatoryCitySnapshot,
+  type ObservatorySnapshot
+} from "../../data/observatory";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
+import "../../styles/observatory.css";
+
+const snapshot = snapshotJson as ObservatorySnapshot;
+
+export function getStaticPaths() {
+  return observatoryCityProfiles.map((profile) => ({
+    params: { city: profile.slug },
+    props: {
+      profile,
+      cityData: (snapshotJson as ObservatorySnapshot).cities[profile.slug]
+    }
+  }));
+}
+
+const { profile, cityData } = Astro.props as {
+  profile: ObservatoryCityProfile;
+  cityData: ObservatoryCitySnapshot;
+};
+
+const canonicalPath = getObservatoryCityPath(profile.slug);
+const title = `Sicurezza urbana a ${profile.name}: dati ufficiali e informazioni utili`;
+const description = `Informazioni utili e dati ufficiali per ${profile.name}: meteo, avvisi, mobilità, eventi, servizi e indicatori con fonti e date verificabili.`;
+const numberFormatter = new Intl.NumberFormat("it-IT");
+const decimalFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 1 });
+const dateFormatter = new Intl.DateTimeFormat("it-IT", {
+  dateStyle: "long",
+  timeStyle: "short",
+  timeZone: "Europe/Rome"
+});
+const refreshedLabel = dateFormatter.format(new Date(cityData.upstreamGeneratedAt ?? snapshot.refreshedAt));
+const weatherValidLabel = cityData.weather.validAt
+  ? dateFormatter.format(new Date(cityData.weather.validAt))
+  : "orario non disponibile";
+const otherCities = observatoryCityProfiles.filter((city) => city.slug !== profile.slug);
+const maxIncidentValue = Math.max(...cityData.roadSafety.series.map((item) => item.incidents ?? 0), 1);
+
+const formatNumber = (value: number | null) => value === null ? "—" : numberFormatter.format(value);
+const formatDecimal = (value: number | null, suffix = "") =>
+  value === null ? "—" : `${decimalFormatter.format(value)}${suffix}`;
+
+const practicalNotices: Array<{ mark: string; title: string; text: string }> = [];
+if ((cityData.weather.max24hC ?? 0) >= 35) {
+  practicalNotices.push({
+    mark: "°C",
+    title: "Temperatura massima elevata nelle prossime 24 ore",
+    text: `Il modello ufficiale indica fino a ${formatDecimal(cityData.weather.max24hC, " °C")}. Verifica eventuali avvisi comunali e pianifica gli spostamenti tenendo conto del caldo.`
+  });
+}
+if ((cityData.weather.maxGust24hKmh ?? 0) >= 60) {
+  practicalNotices.push({
+    mark: "↗",
+    title: "Possibili raffiche intense nel modello meteo",
+    text: `Raffica massima prevista: ${formatDecimal(cityData.weather.maxGust24hKmh, " km/h")}. Il dato non equivale a un’allerta: consulta sempre la Protezione Civile per gli avvisi ufficiali.`
+  });
+}
+if ((cityData.weather.precipitation24hMm ?? 0) >= 5) {
+  practicalNotices.push({
+    mark: "H₂O",
+    title: "Precipitazioni da considerare",
+    text: `Il modello indica ${formatDecimal(cityData.weather.precipitation24hMm, " mm")} nelle 24 ore. Controlla viabilità e trasporto pubblico prima di partire.`
+  });
+}
+if (
+  (cityData.weather.precipitation24hMm ?? 0) < 5 &&
+  /pioggia|temporale|neve/i.test(cityData.weather.description ?? "")
+) {
+  practicalNotices.push({
+    mark: "H₂O",
+    title: "Precipitazioni indicate nelle condizioni attuali",
+    text: `${cityData.weather.description}. Controlla viabilità e trasporto pubblico prima di partire, soprattutto se devi rispettare un orario.`
+  });
+}
+if (!practicalNotices.length) {
+  practicalNotices.push({
+    mark: "i",
+    title: "Nessun fattore meteo rilevante evidenziato da questa sintesi",
+    text: "È comunque consigliabile consultare avvisi comunali e mobilità ufficiale: la situazione locale può cambiare più rapidamente dei dataset aggregati."
+  });
+}
+
+const faqs = [
+  {
+    question: `${profile.name} è una città sicura?`,
+    answer: `Nessuna pagina può certificare che un’intera città o un quartiere sia sempre sicuro o pericoloso. Questa scheda fornisce dati aggregati, condizioni del momento e collegamenti ufficiali per aiutare l’utente a valutare il contesto.`
+  },
+  {
+    question: `Quanto sono aggiornati i dati di ${profile.name}?`,
+    answer: `La pagina viene rigenerata automaticamente ogni giorno. Ogni indicatore mantiene però la propria data di riferimento, determinata dall’ente pubblico titolare del dataset.`
+  },
+  {
+    question: "Cosa devo fare in caso di emergenza?",
+    answer: "In caso di pericolo reale o urgenza, contatta il Numero Unico Europeo 112. proTcity non sostituisce le autorità, la Protezione Civile o i servizi sanitari."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${title} | ${site.name}`,
+    description,
+    url: absoluteUrl(canonicalPath),
+    dateModified: cityData.upstreamGeneratedAt ?? snapshot.refreshedAt,
+    inLanguage: "it-IT",
+    about: { "@type": "City", name: profile.name },
+    isPartOf: {
+      "@type": "CollectionPage",
+      name: "Osservatorio urbano proTcity",
+      url: absoluteUrl(observatoryBasePath)
+    },
+    mainEntity: {
+      "@type": "Dataset",
+      name: `Indicatori urbani ufficiali di ${profile.name}`,
+      description: `Dati aggregati su popolazione, meteo, incidentalità stradale, servizi sanitari, qualità dell’aria e turismo per ${profile.name}.`,
+      url: absoluteUrl(canonicalPath),
+      dateModified: cityData.upstreamGeneratedAt ?? snapshot.refreshedAt,
+      spatialCoverage: { "@type": "Place", name: profile.name },
+      creator: { "@type": "GovernmentOrganization", name: "AgID - Cruscotto Italia" },
+      isBasedOn: snapshot.attribution.providerUrl,
+      variableMeasured: ["Popolazione", "Meteo", "Incidenti stradali", "Servizi sanitari", "Qualità dell’aria", "Turismo"]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "proTcity", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Osservatorio urbano", item: absoluteUrl(observatoryBasePath) },
+      { "@type": "ListItem", position: 3, name: profile.name, item: absoluteUrl(canonicalPath) }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer }
+    }))
+  }
+];
+
+const categoryLabels = {
+  alerts: "Avvisi",
+  mobility: "Mobilità",
+  events: "Eventi",
+  data: "Open data"
+} as const;
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  image="/images/observatory/og-observatory.png"
+  bodyClass="cinematic-site observatory-site"
+  schema={schema}
+>
+  <section class="observatory-hero">
+    <div class="container observatory-hero__grid">
+      <div class="observatory-hero__copy">
+        <p class="observatory-kicker">Osservatorio urbano · {profile.region}</p>
+        <h1>{profile.name}, dati utili per orientarsi.</h1>
+        <p class="observatory-hero__lead">{profile.intro}</p>
+        <div class="observatory-city-switch" aria-label="Cambia città">
+          <a class="observatory-button observatory-button--primary" href="#prima-di-uscire">Controlla adesso</a>
+          {otherCities.map((city) => (
+            <a class="observatory-button" href={getObservatoryCityPath(city.slug)}>Vai a {city.name}</a>
+          ))}
+          <a class="observatory-button" href={observatoryBasePath}>Tutte le città</a>
+        </div>
+      </div>
+
+      <aside class="observatory-live-panel" aria-label={`Condizioni meteo sintetiche per ${profile.name}`}>
+        <div class="observatory-live-panel__top">
+          <strong>{profile.name}</strong>
+          <span class="observatory-status">Fonte ufficiale</span>
+        </div>
+        <div class="observatory-live-panel__metric">
+          <span>{cityData.weather.description ?? "Dato meteo non disponibile"}</span>
+          <strong>{formatDecimal(cityData.weather.temperatureC, "°")}</strong>
+          <small>Min {formatDecimal(cityData.weather.min24hC, "°")} · Max {formatDecimal(cityData.weather.max24hC, "°")}</small>
+        </div>
+        <div class="observatory-live-panel__footer">
+          <span>{cityData.weather.source}</span>
+          <time datetime={cityData.weather.validAt ?? undefined}>Valido {weatherValidLabel}</time>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="observatory-section" id="prima-di-uscire" aria-labelledby="today-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Prima di uscire</p>
+      <h2 id="today-title">Cosa considerare adesso.</h2>
+      <p>
+        Sintesi automatica basata sui dati disponibili. Non è un bollettino di allerta e non sostituisce le comunicazioni della Protezione Civile.
+      </p>
+    </div>
+    <div class="container">
+      {practicalNotices.map((notice) => (
+        <article class="observatory-notice">
+          <div class="observatory-notice__mark" aria-hidden="true">{notice.mark}</div>
+          <div>
+            <h3>{notice.title}</h3>
+            <p>{notice.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--alternate" aria-labelledby="quick-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Azioni rapide</p>
+      <h2 id="quick-title">Le destinazioni che servono davvero.</h2>
+    </div>
+    <div class="container observatory-action-grid">
+      <a class="observatory-action-card observatory-action-card--emergency" href="tel:112">
+        <span>Solo emergenze</span>
+        <h3>Chiama il 112</h3>
+        <p>Numero Unico Europeo per situazioni reali di pericolo o urgenza.</p>
+      </a>
+      <a class="observatory-action-card" href={profile.civilProtectionUrl} target="_blank" rel="noopener noreferrer">
+        <span>Canale ufficiale</span>
+        <h3>Protezione Civile</h3>
+        <p>Controlla allerte e indicazioni pubblicate per il territorio.</p>
+      </a>
+      {profile.officialLinks.filter((link) => link.category === "mobility").map((link) => (
+        <a class="observatory-action-card" href={link.href} target="_blank" rel="noopener noreferrer">
+          <span>Mobilità</span>
+          <h3>{link.label}</h3>
+          <p>{link.description}</p>
+        </a>
+      ))}
+      <a class="observatory-action-card" href="/download">
+        <span>proTcity</span>
+        <h3>Apri l’app</h3>
+        <p>Consulta la mappa, i contenuti e gli strumenti personali disponibili nell’app.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="observatory-section" aria-labelledby="profile-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Personalizza la lettura</p>
+      <h2 id="profile-title">Cosa ti serve {profile.preposition}?</h2>
+      <p>Scegli il contesto: la pagina mostra una checklist pratica senza memorizzare la tua scelta.</p>
+    </div>
+    <div class="container" data-observatory-profiles>
+      <div class="observatory-profile-controls" aria-label="Scegli il tuo contesto">
+        <button type="button" aria-pressed="true" aria-controls="profile-resident" data-profile-button="resident">Vivo qui</button>
+        <button type="button" aria-pressed="false" aria-controls="profile-visitor" data-profile-button="visitor">Visito la città</button>
+        <button type="button" aria-pressed="false" aria-controls="profile-evening" data-profile-button="evening">Mi muovo di sera</button>
+      </div>
+
+      <section class="observatory-profile-panel" id="profile-resident" data-profile-panel="resident">
+        <h3>Controlli rapidi per chi vive a {profile.name}</h3>
+        <ul class="observatory-checklist">
+          <li>Verifica avvisi comunali prima di uno spostamento insolito.</li>
+          <li>Consulta modifiche alla mobilità e al trasporto pubblico.</li>
+          <li>Usa i canali ufficiali per emergenze e segnalazioni amministrative.</li>
+        </ul>
+      </section>
+      <section class="observatory-profile-panel" id="profile-visitor" data-profile-panel="visitor" hidden>
+        <h3>Controlli rapidi per chi visita {profile.name}</h3>
+        <ul class="observatory-checklist">
+          <li>Salva indirizzo e contatti della struttura in cui alloggi.</li>
+          <li>Controlla mobilità ed eventi ufficiali prima di partire.</li>
+          <li>Condividi il programma con una persona fidata se lo ritieni utile.</li>
+        </ul>
+      </section>
+      <section class="observatory-profile-panel" id="profile-evening" data-profile-panel="evening" hidden>
+        <h3>Controlli rapidi per gli spostamenti serali</h3>
+        <ul class="observatory-checklist">
+          <li>Pianifica percorso e alternative di trasporto in anticipo.</li>
+          <li>Controlla gli ultimi orari dei servizi che userai.</li>
+          <li>Tieni accessibili batteria, contatti utili e punto di destinazione.</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--alternate" aria-labelledby="context-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Contesto urbano</p>
+      <h2 id="context-title">Numeri con fonte e periodo, non etichette.</h2>
+      <p>Gli indicatori seguenti descrivono fenomeni aggregati. Non misurano il rischio individuale e non sono dati in tempo reale.</p>
+    </div>
+    <div class="container observatory-metric-grid">
+      <article class="observatory-metric-card">
+        <span>Popolazione</span>
+        <strong>{formatNumber(cityData.population.value)}</strong>
+        <h3>Residenti</h3>
+        <p>{cityData.population.reference ?? "Riferimento non disponibile"} · {cityData.population.source}</p>
+      </article>
+      <article class="observatory-metric-card">
+        <span>Incidentalità {cityData.roadSafety.year}</span>
+        <strong>{formatNumber(cityData.roadSafety.incidents)}</strong>
+        <h3>Incidenti stradali</h3>
+        <p>Dato storico aggregato · {cityData.roadSafety.source}</p>
+      </article>
+      <article class="observatory-metric-card">
+        <span>Servizi sanitari</span>
+        <strong>{formatNumber(cityData.healthServices.pharmacies)}</strong>
+        <h3>Farmacie</h3>
+        <p>{formatNumber(cityData.healthServices.hospitals)} ospedali · {cityData.healthServices.source}</p>
+      </article>
+      <article class="observatory-metric-card">
+        <span>Ricettività {cityData.tourism.year}</span>
+        <strong>{formatNumber(cityData.tourism.accommodationFacilities)}</strong>
+        <h3>Strutture</h3>
+        <p>{formatNumber(cityData.tourism.beds)} posti letto · {cityData.tourism.source}</p>
+      </article>
+    </div>
+
+    <div class="container observatory-chart">
+      <div class="observatory-chart__head">
+        <div>
+          <p class="observatory-label">Serie storica</p>
+          <h3>Incidenti stradali registrati</h3>
+        </div>
+        <p>Confronto descrittivo dei valori annuali ISTAT. Non è una previsione e non indica quali zone siano più o meno sicure.</p>
+      </div>
+      <div class="observatory-bars" aria-label={`Incidenti stradali annuali a ${profile.name}`}>
+        {cityData.roadSafety.series.map((item) => (
+          <div class="observatory-bar">
+            <span>{item.year}</span>
+            <div class="observatory-bar__track" aria-hidden="true">
+              <div class="observatory-bar__fill" style={`--bar-width: ${Math.max(((item.incidents ?? 0) / maxIncidentValue) * 100, 2)}%`}></div>
+            </div>
+            <strong>{formatNumber(item.incidents)}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="observatory-section" aria-labelledby="sources-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Canali verificati</p>
+      <h2 id="sources-title">Fonti ufficiali per {profile.name}.</h2>
+      <p>Apri sempre la fonte per leggere il testo completo, l’orario e l’area interessata.</p>
+    </div>
+    <div class="container observatory-source-grid">
+      {profile.officialLinks.map((link) => (
+        <a class="observatory-source-card" href={link.href} target="_blank" rel="noopener noreferrer">
+          <span>{categoryLabels[link.category]}</span>
+          <h3>{link.label}</h3>
+          <p>{link.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--alternate" aria-labelledby="limits-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Trasparenza</p>
+      <h2 id="limits-title">Come leggere correttamente questa pagina.</h2>
+    </div>
+    <div class="container observatory-method">
+      {faqs.map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+      <details>
+        <summary>Quali altre fonti alimentano gli indicatori?</summary>
+        <p>
+          Meteo: {cityData.weather.source}. Popolazione: {cityData.population.source}. Aria: {cityData.airQuality.source}, anno {cityData.airQuality.year ?? "non disponibile"}. Servizi sanitari: {cityData.healthServices.source}. La raccolta è distribuita attraverso il Cruscotto Italia di AgID.
+        </p>
+      </details>
+      <p class="observatory-source-note">
+        Fotografia dati generata il <time datetime={cityData.upstreamGeneratedAt ?? snapshot.refreshedAt}>{refreshedLabel}</time>. Le date dei singoli indicatori restano quelle dichiarate dagli enti titolari.
+      </p>
+    </div>
+    <div class="container observatory-disclaimer">
+      <strong>Nota importante.</strong> proTcity è un servizio privato e indipendente. Non garantisce la sicurezza di persone o luoghi e non sostituisce Forze dell’Ordine, servizi sanitari, Protezione Civile o canali ufficiali. In caso di emergenza chiama il 112.
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll<HTMLElement>("[data-observatory-profiles]").forEach((root) => {
+      const buttons = root.querySelectorAll<HTMLButtonElement>("[data-profile-button]");
+      const panels = root.querySelectorAll<HTMLElement>("[data-profile-panel]");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const selected = button.dataset.profileButton;
+          buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+          panels.forEach((panel) => {
+            panel.hidden = panel.dataset.profilePanel !== selected;
+          });
+        });
+      });
+    });
+  </script>
+</MainLayout>

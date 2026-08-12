@@ -1,0 +1,194 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import snapshotJson from "../../data/generated/observatory.json";
+import {
+  getObservatoryCityPath,
+  observatoryBasePath,
+  observatoryCityProfiles,
+  type ObservatorySnapshot
+} from "../../data/observatory";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
+import "../../styles/observatory.css";
+
+const snapshot = snapshotJson as ObservatorySnapshot;
+const title = "Osservatorio urbano: dati ufficiali per Roma e Milano";
+const description =
+  "Dati urbani ufficiali e informazioni pratiche aggiornate per Roma e Milano: meteo, mobilità, servizi, eventi e fonti pubbliche verificabili.";
+
+const dateFormatter = new Intl.DateTimeFormat("it-IT", {
+  dateStyle: "long",
+  timeStyle: "short",
+  timeZone: "Europe/Rome"
+});
+const numberFormatter = new Intl.NumberFormat("it-IT");
+const decimalFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 1 });
+const updatedLabel = dateFormatter.format(new Date(snapshot.refreshedAt));
+
+const cityCards = observatoryCityProfiles.map((profile) => ({
+  profile,
+  data: snapshot.cities[profile.slug]
+}));
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${title} | ${site.name}`,
+    description,
+    url: absoluteUrl(observatoryBasePath),
+    dateModified: snapshot.refreshedAt,
+    inLanguage: "it-IT",
+    isPartOf: {
+      "@type": "WebSite",
+      name: site.name,
+      url: absoluteUrl("/")
+    },
+    mainEntity: observatoryCityProfiles.map((profile) => ({
+      "@type": "Dataset",
+      name: `Dati urbani ufficiali di ${profile.name}`,
+      description: profile.intro,
+      url: absoluteUrl(getObservatoryCityPath(profile.slug)),
+      temporalCoverage: snapshot.cities[profile.slug].upstreamGeneratedAt,
+      creator: {
+        "@type": "GovernmentOrganization",
+        name: "AgID - Cruscotto Italia"
+      }
+    }))
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "proTcity", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Osservatorio urbano", item: absoluteUrl(observatoryBasePath) }
+    ]
+  }
+];
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  canonicalPath={observatoryBasePath}
+  image="/images/observatory/og-observatory.png"
+  bodyClass="cinematic-site observatory-site"
+  schema={schema}
+>
+  <section class="observatory-hero">
+    <div class="container observatory-hero__grid">
+      <div class="observatory-hero__copy">
+        <p class="observatory-kicker">Osservatorio proTcity</p>
+        <h1>Capire la città, prima di muoversi.</h1>
+        <p class="observatory-hero__lead">
+          Dati pubblici, aggiornamenti ufficiali e collegamenti pratici riuniti in una pagina leggibile. Nessuna etichetta sui quartieri, nessun allarmismo: solo contesto verificabile per residenti e visitatori.
+        </p>
+        <div class="observatory-actions">
+          <a class="observatory-button observatory-button--primary" href="#citta">Scegli la città</a>
+          <a class="observatory-button" href="/app">Scopri proTcity</a>
+        </div>
+      </div>
+
+      <aside class="observatory-live-panel" aria-label="Stato aggiornamento dati">
+        <div class="observatory-live-panel__top">
+          <strong>Fonti istituzionali</strong>
+          <span class="observatory-status">Aggiornato</span>
+        </div>
+        <div class="observatory-live-panel__metric">
+          <span>Città disponibili</span>
+          <strong>{cityCards.length}</strong>
+          <small>Roma e Milano, con fonti selezionate città per città</small>
+        </div>
+        <div class="observatory-live-panel__footer">
+          <span>Ultima fotografia</span>
+          <time datetime={snapshot.refreshedAt}>{updatedLabel}</time>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="observatory-section" id="citta" aria-labelledby="cities-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Esplora</p>
+      <h2 id="cities-title">Una pagina pratica per ogni città.</h2>
+      <p>
+        Il punto di partenza non è una classifica, ma ciò che serve davvero: condizioni del momento, avvisi ufficiali, mobilità, eventi, numeri utili e dati con anno di riferimento.
+      </p>
+    </div>
+
+    <div class="container observatory-city-grid">
+      {cityCards.map(({ profile, data }) => (
+        <a class="observatory-city-card" data-code={data.istatCode} href={getObservatoryCityPath(profile.slug)}>
+          <div class="observatory-city-card__head">
+            <span class="observatory-status">Dati disponibili</span>
+            <h3>{profile.name}</h3>
+            <p>{profile.region} · {numberFormatter.format(data.population.value ?? 0)} residenti</p>
+          </div>
+          <div class="observatory-city-card__weather">
+            <strong>{data.weather.temperatureC === null ? "—" : `${decimalFormatter.format(data.weather.temperatureC)}°`}</strong>
+            <span>{data.weather.description ?? "Condizioni non disponibili"}</span>
+          </div>
+          <div class="observatory-city-card__foot">
+            <span>Fonti ufficiali</span>
+            <span>Apri la scheda →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--alternate" aria-labelledby="utility-title">
+    <div class="container observatory-section__head observatory-section__head--center">
+      <p class="observatory-label">Progettato per le persone</p>
+      <h2 id="utility-title">Tre domande a cui la pagina deve rispondere subito.</h2>
+      <p>Ogni scheda organizza le informazioni in base alle azioni dell’utente, non in base alla struttura tecnica dei dataset.</p>
+    </div>
+    <div class="container observatory-purpose-grid">
+      <article class="observatory-purpose-card">
+        <span>01 · Adesso</span>
+        <h3>Cosa devo controllare prima di uscire?</h3>
+        <p>Condizioni meteo, eventuali fattori da considerare e accesso diretto agli avvisi istituzionali.</p>
+      </article>
+      <article class="observatory-purpose-card">
+        <span>02 · In città</span>
+        <h3>Dove trovo mobilità ed eventi ufficiali?</h3>
+        <p>Collegamenti selezionati ai servizi del Comune, ai trasporti e alle agende cittadine.</p>
+      </article>
+      <article class="observatory-purpose-card">
+        <span>03 · Contesto</span>
+        <h3>Quanto sono recenti e affidabili i numeri?</h3>
+        <p>Ogni indicatore mostra fonte, anno o orario di validità e limiti di interpretazione.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="observatory-section" aria-labelledby="method-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Metodo e trasparenza</p>
+      <h2 id="method-title">Aggiornamento automatico, con controlli e limiti chiari.</h2>
+    </div>
+    <div class="container observatory-method">
+      <details open>
+        <summary>Da dove arrivano i dati?</summary>
+        <p>
+          La fotografia quantitativa è acquisita dal Cruscotto Italia di AgID, che integra dataset istituzionali tra cui ISTAT, ItaliaMeteo, ISPRA e Ministero della Salute. Gli avvisi locali rimandano sempre ai canali ufficiali dei Comuni.
+        </p>
+      </details>
+      <details>
+        <summary>Cosa succede se una fonte non risponde?</summary>
+        <p>
+          Il sistema convalida codice ISTAT e identità del Comune. Se una singola fonte è temporaneamente indisponibile conserva l’ultima fotografia valida; se tutte le fonti falliscono, l’aggiornamento non viene pubblicato.
+        </p>
+      </details>
+      <details>
+        <summary>Perché non ci sono classifiche dei quartieri?</summary>
+        <p>
+          Dati aggregati e storici non permettono di stabilire che un luogo sia sicuro o pericoloso in ogni momento. proTcity offre contesto e accesso alle fonti, senza profilare persone o attribuire etichette semplicistiche ai territori.
+        </p>
+      </details>
+      <p class="observatory-source-note">
+        Ultimo aggiornamento automatico: <time datetime={snapshot.refreshedAt}>{updatedLabel}</time>. Le frequenze dei singoli dataset dipendono dagli enti titolari.
+      </p>
+    </div>
+  </section>
+</MainLayout>
