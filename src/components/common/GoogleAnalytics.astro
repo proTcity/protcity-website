@@ -1,0 +1,72 @@
+---
+const measurementId = "G-E8V16P6X6Z";
+---
+
+<script is:inline define:vars={{ measurementId }}>
+  (() => {
+    const maxAgeSeconds = 180 * 24 * 60 * 60;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+
+    window.gtag("consent", "default", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      wait_for_update: 500,
+    });
+    window.gtag("set", "ads_data_redaction", true);
+
+    const removeAnalyticsCookies = () => {
+      const domains = [null, window.location.hostname, ".protcity.com"];
+      document.cookie.split(";").forEach((item) => {
+        const name = item.split("=")[0]?.trim();
+        if (!name || (name !== "_ga" && !name.startsWith("_ga_"))) return;
+        domains.forEach((domain) => {
+          document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax; Secure${domain ? `; Domain=${domain}` : ""}`;
+        });
+      });
+    };
+
+    const loadAnalytics = () => {
+      if (window.protcityAnalyticsLoaded) return;
+      window.protcityAnalyticsLoaded = true;
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+      script.dataset.protcityGa = measurementId;
+      document.head.appendChild(script);
+      window.gtag("js", new Date());
+      window.gtag("set", {
+        page_path: window.location.pathname,
+        page_location: `${window.location.origin}${window.location.pathname}`,
+      });
+      window.gtag("config", measurementId, {
+        send_page_view: false,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        cookie_expires: maxAgeSeconds,
+      });
+      window.gtag("event", "page_view", {
+        page_path: window.location.pathname,
+        page_location: `${window.location.origin}${window.location.pathname}`,
+        page_title: document.title,
+      });
+    };
+
+    const applyConsent = (consent) => {
+      const granted = consent?.analytics === true;
+      window.gtag("consent", "update", {
+        analytics_storage: granted ? "granted" : "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      });
+      if (granted) loadAnalytics();
+      else removeAnalyticsCookies();
+    };
+
+    window.addEventListener("protcity:cookie-consent", (event) => applyConsent(event.detail));
+    if (window.protcityCookieConsent) applyConsent(window.protcityCookieConsent);
+  })();
+</script>

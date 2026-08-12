@@ -1,5 +1,5 @@
 ---
-const consentVersion = "2026-05-19";
+const consentVersion = "2026-08-12";
 ---
 
 <div
@@ -121,7 +121,7 @@ const consentVersion = "2026-05-19";
     const root = document.querySelector("[data-cookie-consent]");
     if (!root) return;
 
-    const version = root.getAttribute("data-consent-version") || "2026-05-19";
+    const version = root.getAttribute("data-consent-version") || "2026-08-12";
     const storageKey = "protcity_cookie_consent";
     const maxAgeDays = 180;
     const settings = root.querySelector("[data-cookie-settings]");

@@ -7,6 +7,8 @@ const pageDescription =
   "Public Meta App Review demonstration of the official Instagram embed flow requested by proTcity.";
 const pageUrl = `${site.url}/meta-oembed-review`;
 const instagramPermalink = "https://www.instagram.com/p/DbECcBysbaG/";
+const reviewResolverEndpoint =
+  "https://us-central1-protcity-8f1a9.cloudfunctions.net/metaOEmbedReviewDemo";
 
 const schema = {
   "@context": "https://schema.org",
@@ -80,19 +82,20 @@ const schema = {
         <div class="embed-stage" data-instagram-stage>
           <div class="embed-consent" data-instagram-consent>
             <p class="embed-consent__label">PRIVACY CHOICE</p>
-            <h3>Load content directly from Instagram</h3>
+            <h3>Run the official Meta oEmbed API test</h3>
             <p>
-              Nothing from Instagram or Meta is loaded before you choose.
-              Loading the official embed connects your browser to Meta
-              services. Meta may receive your IP address, browser or device
-              information and may read or set cookies under its own terms.
+              Nothing from Instagram or Meta is loaded before you choose. The
+              proTcity server will request the official Meta oEmbed response;
+              the browser then loads the attributed Instagram embed. Meta may
+              receive your IP address, browser or device information and may
+              read or set cookies under its own terms.
             </p>
             <button
               class="review-button review-button--primary"
               type="button"
               data-load-instagram
             >
-              Load official Instagram embed
+              Run official Meta oEmbed API test
             </button>
           </div>
 
@@ -100,6 +103,7 @@ const schema = {
             class="embed-host"
             data-instagram-host
             data-permalink={instagramPermalink}
+            data-resolver-endpoint={reviewResolverEndpoint}
             aria-live="polite"
             aria-busy="false"
           ></div>
@@ -138,6 +142,10 @@ const schema = {
             <dd>None</dd>
           </div>
           <div>
+            <dt>Official server request</dt>
+            <dd>Live /instagram_oembed</dd>
+          </div>
+          <div>
             <dt>proTcity metadata storage</dt>
             <dd>None on this page</dd>
           </div>
@@ -147,10 +155,10 @@ const schema = {
           </div>
         </dl>
         <p class="review-note">
-          The Firebase oEmbed resolver and the server-only
-          <code>META_OEMBED_CONFIG</code> secret remain disabled until Meta
-          approval. This review page does not expose, simulate or call that
-          resolver.
+          This is not a static mock. The button calls the same hardened
+          server-side oEmbed resolver used by the controlled app-review flow.
+          The endpoint accepts no user-provided URL and resolves only the
+          public test permalink shown on this page.
         </p>
       </aside>
     </div>
@@ -180,9 +188,9 @@ const schema = {
           attributed preview and a link to the original source.
         </li>
         <li>
-          <strong>Manual confirmation.</strong> Nothing is published
-          automatically. The user must manually confirm any optional proTcity
-          draft and complete its required details.
+          <strong>Separate user input.</strong> The Meta response is never
+          copied into a proTcity draft. Any proTcity title, description or
+          media is provided separately by the user.
         </li>
         <li>
           <strong>Limited use.</strong> proTcity does not access private
@@ -241,10 +249,10 @@ const schema = {
       </div>
       <ol class="reviewer-steps">
         <li>Open this page without signing in.</li>
-        <li>Click “Load official Instagram embed”.</li>
+        <li>Click “Run official Meta oEmbed API test”.</li>
         <li>
-          Confirm that the public Instagram post appears with official
-          attribution.
+          Confirm that the page reports a successful official API response and
+          that the public Instagram post appears with official attribution.
         </li>
         <li>
           Click “Open original Instagram post” to verify the source.
@@ -300,32 +308,67 @@ const schema = {
     instagramWindow.instgrm?.Embeds?.process?.();
   };
 
-  const loadOfficialEmbed = () => {
+  const loadOfficialEmbed = async () => {
     if (!loadButton || !consentPanel || !host) return;
 
     const permalink = host.dataset.permalink;
-    if (!permalink) {
-      setStatus("The source permalink is unavailable.");
+    const resolverEndpoint = host.dataset.resolverEndpoint;
+    if (!permalink || !resolverEndpoint) {
+      setStatus("The controlled review configuration is unavailable.");
       return;
     }
 
     loadButton.disabled = true;
-    loadButton.textContent = "Loading official Instagram embed…";
+    loadButton.textContent = "Requesting official Meta oEmbed…";
     host.setAttribute("aria-busy", "true");
-    setStatus("Connecting to Instagram after your privacy choice…");
+    setStatus("The proTcity server is requesting the official Meta oEmbed response…");
 
-    const embed = document.createElement("blockquote");
-    embed.className = "instagram-media";
-    embed.setAttribute("data-instgrm-permalink", permalink);
-    embed.setAttribute("data-instgrm-version", "14");
-    embed.setAttribute("data-instgrm-captioned", "");
-    host.replaceChildren(embed);
-    consentPanel.hidden = true;
+    try {
+      const response = await fetch(resolverEndpoint, {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store"
+      });
+      const payload = (await response.json()) as {
+        status?: string;
+        sourceUrl?: string;
+        sourcePlatform?: string;
+        embedHtml?: string;
+        resolutionMode?: string;
+      };
+      if (
+        !response.ok ||
+        payload.status !== "resolved" ||
+        payload.sourcePlatform !== "instagram" ||
+        payload.resolutionMode !== "oembed_preview" ||
+        payload.sourceUrl !== permalink ||
+        !payload.embedHtml
+      ) {
+        throw new Error("INVALID_OEMBED_RESPONSE");
+      }
+
+      host.innerHTML = payload.embedHtml;
+      consentPanel.hidden = true;
+      setStatus(
+        "Official Meta oEmbed API response received. Loading the attributed preview…"
+      );
+    } catch {
+      host.replaceChildren();
+      host.setAttribute("aria-busy", "false");
+      loadButton.disabled = false;
+      loadButton.textContent = "Retry official Meta oEmbed API test";
+      setStatus(
+        "The official oEmbed response is temporarily unavailable. No content was copied or published."
+      );
+      return;
+    }
 
     const observer = new MutationObserver(() => {
       if (host.querySelector("iframe")) {
         host.setAttribute("aria-busy", "false");
-        setStatus("Official Instagram embed loaded.");
+        setStatus(
+          "Official Meta oEmbed API response received and attributed Instagram preview loaded."
+        );
         observer.disconnect();
       }
     });
@@ -359,7 +402,7 @@ const schema = {
     document.body.append(script);
   };
 
-  loadButton?.addEventListener("click", loadOfficialEmbed, { once: true });
+  loadButton?.addEventListener("click", loadOfficialEmbed);
 </script>
 
 <style>

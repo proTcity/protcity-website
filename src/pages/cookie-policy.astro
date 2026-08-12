@@ -84,11 +84,11 @@ const declaredTools = [
   ["Form di contatto", "Non presente sul sito protcity.com; le comunicazioni avvengono tramite email."],
   [
     "Email",
-    "Cloudflare Email Routing per l'instradamento della posta aziendale; non installa cookie nel browser del visitatore come conseguenza della sola visita al sito."
+    "Cloudflare Email Routing per l'instradamento e Zoho Mail per ricezione e conservazione della posta aziendale; tali servizi non installano cookie nel browser come conseguenza della sola visita al sito."
   ],
   [
     "Analytics",
-    "Firebase Analytics per misurazione e miglioramento del servizio, senza finalita di marketing, remarketing o profilazione pubblicitaria dichiarate."
+    "Google Analytics 4 sul sito e Firebase Analytics nell'app, attivi soltanto secondo il consenso applicabile e senza finalita di marketing, remarketing, Google Signals o profilazione pubblicitaria."
   ],
   [
     "Diagnostica",
@@ -128,11 +128,11 @@ const registryRows = [
       "Consente funzionamento, sicurezza, caricamento pagine e coerenza sessione. Tecnico, senza consenso. Durata: sessione o breve termine."
   },
   {
-    tool: "Firebase Analytics / Google Analytics for Firebase",
+    tool: "Google Analytics 4 / Firebase Analytics",
     provider: "Google/Firebase",
-    where: "App e, se integrato, sito",
+    where: "Sito e app",
     purpose:
-      "Misurazione eventi, statistiche aggregate e miglioramento. Non usato per marketing o advertising personalization. Da attivare con consenso quando non qualificabile come tecnico."
+      "Misurazione di pagine ed eventi, statistiche aggregate e miglioramento. Sul sito il tag e' bloccato fino al consenso, non riceve le query dell'URL ed e' configurato senza Google Signals o advertising personalization."
   },
   {
     tool: "Firebase Crashlytics Installation UUID, Firebase Installation ID e dati crash",
@@ -163,11 +163,11 @@ const registryRows = [
       "Pagamento, sicurezza account, prevenzione frodi, autenticazione e servizi PayPal. Gestiti anche secondo policy e preferenze PayPal."
   },
   {
-    tool: "Cloudflare Email Routing",
-    provider: "Cloudflare",
+    tool: "Cloudflare Email Routing / Zoho Mail",
+    provider: "Cloudflare / Zoho",
     where: "Email",
     purpose:
-      "Instradamento email aziendali. Non comporta cookie sul browser del visitatore. Se saranno attivati CDN/WAF/Bot Management Cloudflare, i relativi cookie tecnici di sicurezza saranno aggiunti al registro."
+      "Instradamento, ricezione e conservazione delle email aziendali. Non comporta cookie sul browser del visitatore come conseguenza della sola visita."
   }
 ];
 
@@ -229,17 +229,17 @@ const operationalRows = [
   canonicalPath="/cookie-policy"
 >
   <p class="legal-note">
-    Ultimo aggiornamento: <strong>24 giugno 2026</strong>. La presente Cookie Policy e' predisposta per il sito protcity.com, per le pagine informative e partner collegate e, per quanto compatibile, per le tecnologie equivalenti utilizzate nell'app mobile proTcity.
+    Ultimo aggiornamento: <strong>12 agosto 2026</strong>. La presente Cookie Policy e' predisposta per il sito protcity.com, per le pagine informative e partner collegate e, per quanto compatibile, per le tecnologie equivalenti utilizzate nell'app mobile proTcity.
   </p>
 
   <p>
     I trattamenti di dati personali connessi a cookie, SDK, identificatori tecnici e strumenti di misurazione sono disciplinati anche dalla <a href="/privacy">Privacy Policy</a> di proTcity.
   </p>
   <p>
-    La versione e' stata redatta sulla base della configurazione dichiarata da Kurbi Labs s.r.l.s.: assenza di form di contatto sul sito, comunicazioni tramite email, utilizzo di Cloudflare Email Routing per la posta, Firebase Analytics, Firebase Crashlytics, Firebase Cloud Messaging, pagamenti Stripe e PayPal gia attivi, nessun accesso identificativo ai dati utenti da parte di partner/enti e assenza di strumenti di marketing o profilazione pubblicitaria dichiarati alla data di aggiornamento.
+    La versione e' stata redatta sulla base della configurazione dichiarata da Kurbi Labs s.r.l.s.: assenza di form di contatto sul sito, comunicazioni tramite email, utilizzo di Cloudflare Email Routing e Zoho Mail per la posta, Google Analytics 4 sul sito, Firebase Analytics, Firebase Crashlytics e Firebase Cloud Messaging nell'app, pagamenti Stripe e PayPal gia attivi, nessun accesso identificativo ai dati utenti da parte di partner/enti e assenza di strumenti di marketing o profilazione pubblicitaria dichiarati alla data di aggiornamento.
   </p>
   <p>
-    Alla data indicata il sito proTcity non dichiara form web, newsletter, Meta Pixel, TikTok Pixel, Google Ads remarketing, Google Signals, IDFA, data broker, vendita di dati o strumenti di advertising comportamentale. Eventuali strumenti non necessari, inclusi analytics non tecnici, pixel, SDK marketing o remarketing, saranno attivati solo dopo aggiornamento della presente policy e consenso preventivo ove richiesto.
+    Alla data indicata il sito proTcity non dichiara form web, newsletter, Meta Pixel, TikTok Pixel, Google Ads remarketing, Google Signals, IDFA, data broker, vendita di dati o strumenti di advertising comportamentale. Google Analytics 4 viene caricato soltanto dopo consenso facoltativo; le query dell'URL non sono inviate e gli indicatori pubblicitari restano negati. Eventuali ulteriori strumenti non necessari saranno attivati solo dopo aggiornamento della presente policy e consenso preventivo ove richiesto.
   </p>
 
   <h2>0. Informativa breve per banner cookie</h2>
@@ -247,7 +247,7 @@ const operationalRows = [
     Questo testo puo' essere usato come primo livello informativo nel banner cookie del sito proTcity. Deve essere accompagnato da pulsanti di scelta chiari e da un link alla presente Cookie Policy estesa.
   </p>
   <p>
-    <strong>Testo consigliato per il banner.</strong> proTcity utilizza cookie tecnici e tecnologie necessarie per far funzionare il sito, proteggerlo, ricordare le preferenze privacy e gestire le pagine di pagamento partner. Con il Suo consenso, possiamo usare strumenti analytics e di misurazione, inclusi Firebase Analytics, per statistiche aggregate e miglioramento del servizio. Nell'app mobile possono essere usati SDK e identificatori tecnici, tra cui Firebase Analytics, Firebase Crashlytics e Firebase Cloud Messaging, secondo le preferenze dell'utente, i permessi del dispositivo e la Privacy Policy. Alla data indicata non utilizziamo cookie, SDK o identificatori per marketing, remarketing, profilazione pubblicitaria o advertising personalization. Può accettare, rifiutare i non necessari o personalizzare le preferenze. Chiudendo il banner con la X restano attivi solo cookie e strumenti tecnici necessari. Può revocare o modificare le scelte in qualsiasi momento tramite il link “Rivedi le tue scelte sui cookie”.
+    <strong>Testo consigliato per il banner.</strong> proTcity utilizza cookie tecnici e tecnologie necessarie per far funzionare il sito, proteggerlo, ricordare le preferenze privacy e gestire le pagine di pagamento partner. Con il Suo consenso, possiamo usare Google Analytics 4 sul sito e Firebase Analytics nell'app per statistiche aggregate e miglioramento del servizio. Nell'app mobile possono essere usati anche Firebase Crashlytics e Firebase Cloud Messaging, secondo le preferenze dell'utente, i permessi del dispositivo e la Privacy Policy. Alla data indicata non utilizziamo cookie, SDK o identificatori per marketing, remarketing, profilazione pubblicitaria o advertising personalization. Può accettare, rifiutare i non necessari o personalizzare le preferenze. Chiudendo il banner con la X restano attivi solo cookie e strumenti tecnici necessari. Può revocare o modificare le scelte in qualsiasi momento tramite il link “Rivedi le tue scelte sui cookie”.
   </p>
   <p>
     Pulsanti consigliati: <strong>Rifiuta non necessari</strong>, <strong>Personalizza</strong>, <strong>Accetta tutti</strong>. La chiusura tramite X deve avere la stessa evidenza grafica delle altre opzioni e deve mantenere le impostazioni predefinite, cioe' nessun cookie o strumento non tecnico attivo.
@@ -267,7 +267,7 @@ const operationalRows = [
     Alla data della presente informativa, Kurbi Labs s.r.l.s. gestisce internamente le richieste privacy e cookie. Il Responsabile della Protezione dei Dati / Data Protection Officer non e' formalmente nominato come soggetto separato; la valutazione sulla nomina sara' aggiornata qualora l'evoluzione del servizio, la scala dei trattamenti o nuove funzioni lo rendano necessario o opportuno ai sensi del GDPR.
   </p>
   <p>
-    Cloudflare Email Routing e' utilizzato per l'instradamento delle email aziendali. Tale servizio, di per se', non installa cookie nel browser del visitatore del sito. I dati volontariamente inviati via email sono trattati secondo la Privacy Policy di proTcity.
+    Cloudflare Email Routing e' utilizzato per l'instradamento delle email aziendali e Zoho Mail per la ricezione e conservazione nella casella aziendale. Tali servizi, di per se', non installano cookie nel browser come conseguenza della sola visita al sito. I dati volontariamente inviati via email sono trattati secondo la Privacy Policy di proTcity.
   </p>
 
   <h2>2. Ambito di applicazione</h2>
@@ -373,7 +373,7 @@ const operationalRows = [
   <h2>8. Firebase Analytics, Crashlytics e Cloud Messaging</h2>
   <h3>8.1 Firebase Analytics</h3>
   <p>
-    Firebase Analytics e' utilizzato per comprendere l'uso del sito o dell'app, misurare prestazioni, eventi, schermate o pagine consultate, correggere problemi e migliorare chiarezza, stabilita e sicurezza del servizio.
+    Google Analytics 4 sul sito e Firebase Analytics nell'app sono utilizzati per comprendere l'uso del servizio, misurare eventi, schermate o pagine consultate e migliorare chiarezza, stabilita e qualita. Sul sito il tag esterno non viene caricato prima del consenso.
   </p>
   <p>
     Kurbi Labs configura Firebase Analytics secondo principi di minimizzazione: nessun uso dichiarato per marketing comportamentale, remarketing, profilazione pubblicitaria, Google Signals o advertising personalization; nessun invio intenzionale di dati sensibili, immagini, contenuti privati, coordinate precise non necessarie o informazioni direttamente identificative negli eventi analytics.

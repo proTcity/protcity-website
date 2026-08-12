@@ -115,7 +115,7 @@ const dataCategories = [
   ],
   [
     "Analytics e diagnostica",
-    "Eventi di utilizzo tramite Firebase Analytics, identificativi pseudonimi, dati aggregati, crash, performance e diagnostica tramite Firebase Crashlytics e Firebase Performance, disattivati di default lato app e abilitati solo secondo consenso facoltativo o configurazione applicabile."
+    "Sul sito, pagine visitate senza query dell'URL, provenienza, dispositivo/browser, Paese o area approssimativa e interazioni aggregate tramite Google Analytics 4; nell'app, eventi di utilizzo tramite Firebase Analytics, identificativi pseudonimi, crash, performance e diagnostica. Gli strumenti non essenziali sono abilitati solo secondo consenso facoltativo o configurazione applicabile."
   ],
   [
     "Pagamenti partner",
@@ -209,6 +209,11 @@ const legalBases = [
     "Consenso facoltativo e revocabile per analytics non essenziali; legittimo interesse solo per metriche tecniche essenziali e minimizzate quando applicabile."
   ],
   [
+    "Google Analytics 4 sul sito",
+    "Misurare visite e provenienza sulle pagine pubbliche senza query dell'URL, Google Signals o personalizzazione pubblicitaria.",
+    "Consenso facoltativo e revocabile per analytics non essenziali."
+  ],
+  [
     "Firebase Crashlytics e Performance",
     "Rilevare errori, crash, malfunzionamenti, performance e vulnerabilità per migliorare sicurezza, stabilità e qualità tecnica.",
     "Consenso facoltativo e revocabile quando la diagnostica non è essenziale; legittimo interesse solo per sicurezza tecnica essenziale e minimizzata quando applicabile."
@@ -238,6 +243,12 @@ const providers = [
     "Responsabile del trattamento o fornitore cloud secondo i contratti applicabili."
   ],
   [
+    "Google Analytics 4",
+    "Misurazione delle pagine pubbliche del sito, attiva soltanto dopo consenso facoltativo e senza Google Signals o personalizzazione pubblicitaria.",
+    "Percorso della pagina senza query URL, provenienza, dispositivo/browser, Paese o area approssimativa e interazioni aggregate.",
+    "Responsabile del trattamento o fornitore di misurazione secondo i contratti e le impostazioni applicabili."
+  ],
+  [
     "Mapbox",
     "Mappe, geocoding, ricerca luoghi, routing, percorsi e contesto territoriale.",
     "Coordinate, query indirizzo, percorsi, dati tecnici di richiesta API e dati dispositivo necessari.",
@@ -250,10 +261,10 @@ const providers = [
     "Fornitore infrastrutturale e di instradamento email secondo i servizi attivi."
   ],
   [
-    "Provider della casella email di destinazione",
+    "Zoho Mail",
     "Ricezione e conservazione delle email inoltrate tramite Cloudflare Email Routing.",
     "Email del mittente, oggetto, contenuto del messaggio, allegati e metadati necessari alla gestione della comunicazione.",
-    "Fornitore di posta elettronica utilizzato da Kurbi Labs per la casella aziendale."
+    "Fornitore della casella di posta aziendale e responsabile del trattamento secondo il DPA e la configurazione applicabile."
   ],
   [
     "OpenAI o fornitori AI equivalenti",
@@ -337,8 +348,8 @@ const retentionRows = [
     "Fino a 6 mesi o fino alla rimozione del contenuto, se precedente. Se necessari per moderazione, abusi, contestazioni o difesa, conservazione limitata fino a 24 mesi."
   ],
   [
-    "Firebase Analytics",
-    "Dati analytics pseudonimi o aggregati fino a 14 mesi solo se abilitati secondo consenso o configurazione applicabile, salvo configurazioni più brevi, cancellazione richiesta, revoca del consenso o necessità tecniche diverse conformi alla normativa."
+    "Google Analytics 4 e Firebase Analytics",
+    "Eventi analytics del sito e dell'app conservati per 2 mesi; dati utente analytics fino a 14 mesi, solo se abilitati secondo consenso o configurazione applicabile, salvo configurazioni più brevi, cancellazione richiesta o revoca del consenso."
   ],
   [
     "Crashlytics, Performance e diagnostica",
@@ -383,7 +394,7 @@ const retentionRows = [
   title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
-  lastUpdated="23 luglio 2026"
+  lastUpdated="12 agosto 2026"
 >
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
@@ -574,16 +585,16 @@ const retentionRows = [
   <p>
     proTcity usa Firebase Cloud Messaging per inviare notifiche push relative a alert, stato delle segnalazioni, comunicazioni di servizio, sicurezza, aggiornamenti tecnici e funzioni richieste. Su dispositivi Apple, l'invio può coinvolgere anche Apple Push Notification service secondo la configurazione tecnica del sistema operativo. L'utente può disattivare le notifiche dalle impostazioni del dispositivo e, ove previsto, dalle impostazioni dell'app.
   </p>
-  <h3>Firebase Analytics, Crashlytics e Performance</h3>
+  <h3>Google Analytics 4, Firebase Analytics, Crashlytics e Performance</h3>
   <p>
-    Firebase Analytics, Firebase Crashlytics e Firebase Performance sono disattivati di default lato app per analytics e diagnostica non essenziali. Quando abilitati, sono usati solo previo consenso facoltativo e revocabile ove richiesto, oppure secondo configurazioni tecniche minimizzate compatibili con la normativa applicabile. Gli eventi analytics, crash e performance sono usati per miglioramento tecnico/prodotto, metriche aggregate o pseudonime, diagnostica, sicurezza, stabilità e correzione errori. Kurbi Labs non usa tali strumenti per advertising comportamentale, vendita di dati, profilazione commerciale o tracciamento pubblicitario.
+    Google Analytics 4 sul sito e Firebase Analytics, Firebase Crashlytics e Firebase Performance nell'app sono disattivati di default per analytics e diagnostica non essenziali. Quando abilitati, sono usati solo previo consenso facoltativo e revocabile ove richiesto, oppure secondo configurazioni tecniche minimizzate compatibili con la normativa applicabile. Sul sito il tag GA4 viene caricato solo dopo il consenso, non riceve le query dell'URL ed e' configurato senza Google Signals o advertising personalization. Gli eventi sono usati per miglioramento tecnico/prodotto, metriche aggregate o pseudonime, diagnostica, sicurezza, stabilita e correzione errori. Kurbi Labs non usa tali strumenti per advertising comportamentale, vendita di dati, profilazione commerciale o tracciamento pubblicitario.
   </p>
   <p>
     Alla data della presente informativa proTcity non usa IDFA, SDK pubblicitari, data broker, vendita o condivisione di dati per pubblicità comportamentale, advertising tracking cross-app/cross-site, remarketing o advertising personalization. Firebase Analytics iOS è configurato senza supporto Ad ID / WithoutAdIdSupport. Qualsiasi futura introduzione di identificatori pubblicitari, SDK marketing, pixel o trattamenti equivalenti richiederà aggiornamento delle informative, configurazione del consenso ove necessario e coerenza con le dichiarazioni rese agli store.
   </p>
   <h3>Cookie e sito protcity.com</h3>
   <p>
-    Il sito protcity.com non contiene form di contatto. Può usare cookie tecnici e log necessari per funzionamento, sicurezza, prevenzione abusi, gestione preferenze e protezione dell'infrastruttura. Eventuali cookie analytics non tecnici, pixel, SDK pubblicitari, marketing comportamentale o strumenti equivalenti verranno attivati solo previo consenso dell'utente, ove richiesto, e dopo aggiornamento della Cookie Policy o del pannello consensi. Alla data della presente informativa proTcity non dichiara l'uso di Meta Pixel, TikTok Pixel, Google Ads remarketing o altri strumenti di advertising tracking.
+    Il sito protcity.com non contiene form di contatto. Usa cookie tecnici e log necessari per funzionamento, sicurezza, prevenzione abusi, gestione preferenze e protezione dell'infrastruttura. Google Analytics 4 e' caricato soltanto dopo consenso facoltativo e revocabile. Alla data della presente informativa proTcity non dichiara l'uso di Meta Pixel, TikTok Pixel, Google Ads remarketing o altri strumenti di advertising tracking.
   </p>
 
   <h2>10. Destinatari, fornitori e partner/enti</h2>
