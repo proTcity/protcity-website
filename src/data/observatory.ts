@@ -1,5 +1,24 @@
 export type ObservatoryCitySlug = "roma" | "milano";
 
+export type ObservatoryLiveItem = {
+  id: string;
+  kind: "report" | "alert" | "event" | "studio" | "official";
+  sourceType: "community" | "studio" | "official";
+  sourceLabel: string;
+  verified: boolean;
+  title: string;
+  summary: string | null;
+  category: string;
+  status: "active" | "scheduled";
+  publishedAt: string | null;
+  startsAt: string | null;
+  endsAt: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  locationPrecision: "approximate" | "exact" | "citywide";
+  ctaUrl: string | null;
+};
+
 export type ObservatoryCitySnapshot = {
   slug: ObservatoryCitySlug;
   istatCode: string;
@@ -61,6 +80,11 @@ export type ObservatoryCitySnapshot = {
     beds: number | null;
     tourismIndexPer100Residents: number | null;
     source: string;
+  };
+  officialLive?: {
+    refreshedAt: string;
+    sourceStatus: "live" | "last_known_good";
+    items: ObservatoryLiveItem[];
   };
 };
 

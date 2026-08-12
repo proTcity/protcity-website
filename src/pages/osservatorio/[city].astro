@@ -11,6 +11,7 @@ import {
 } from "../../data/observatory";
 import { site } from "../../data/site";
 import { absoluteUrl } from "../../utils/seo";
+import "leaflet/dist/leaflet.css";
 import "../../styles/observatory.css";
 
 const snapshot = snapshotJson as ObservatorySnapshot;
@@ -41,6 +42,21 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", {
   timeZone: "Europe/Rome"
 });
 const refreshedLabel = dateFormatter.format(new Date(cityData.upstreamGeneratedAt ?? snapshot.refreshedAt));
+const officialLiveItems = cityData.officialLive?.items ?? [];
+const officialMappableCount = officialLiveItems.filter((item) =>
+  Number.isFinite(item.latitude) && Number.isFinite(item.longitude)
+).length;
+const officialRefreshedAt = cityData.officialLive?.refreshedAt ?? cityData.upstreamGeneratedAt ?? snapshot.refreshedAt;
+const officialRefreshedLabel = dateFormatter.format(new Date(officialRefreshedAt));
+const initialFeedJson = JSON.stringify({
+  generatedAt: officialRefreshedAt,
+  items: officialLiveItems
+}).replaceAll("<", "\\u003c");
+const liveDateLabel = (item: (typeof officialLiveItems)[number]) => {
+  const value = item.status === "scheduled" ? item.startsAt : item.publishedAt ?? item.startsAt;
+  if (!value) return item.status === "scheduled" ? "Programmato" : "Orario non disponibile";
+  return `${item.status === "scheduled" ? "Dal " : ""}${dateFormatter.format(new Date(value))}`;
+};
 const weatherValidLabel = cityData.weather.validAt
   ? dateFormatter.format(new Date(cityData.weather.validAt))
   : "orario non disponibile";
@@ -182,10 +198,12 @@ const categoryLabels = {
     <div class="container observatory-hero__grid">
       <div class="observatory-hero__copy">
         <p class="observatory-kicker">Osservatorio urbano · {profile.region}</p>
-        <h1>{profile.name}, dati utili per orientarsi.</h1>
-        <p class="observatory-hero__lead">{profile.intro}</p>
+        <h1>{profile.name}, cosa succede oggi.</h1>
+        <p class="observatory-hero__lead">
+          Aggiornamenti recenti, segnalazioni approvate, comunicazioni verificate e dati ufficiali riuniti in una sola pagina. {profile.intro}
+        </p>
         <div class="observatory-city-switch" aria-label="Cambia città">
-          <a class="observatory-button observatory-button--primary" href="#prima-di-uscire">Controlla adesso</a>
+          <a class="observatory-button observatory-button--primary" href="#situazione-live">Vedi gli aggiornamenti</a>
           {otherCities.map((city) => (
             <a class="observatory-button" href={getObservatoryCityPath(city.slug)}>Vai a {city.name}</a>
           ))}
@@ -211,43 +229,108 @@ const categoryLabels = {
     </div>
   </section>
 
-  <section class="observatory-section observatory-section--map" aria-labelledby="map-title">
+  <section
+    class="observatory-section observatory-section--map"
+    id="situazione-live"
+    aria-labelledby="map-title"
+    data-observatory-live
+    data-city={profile.slug}
+    data-center-lat={profile.map.latitude}
+    data-center-lng={profile.map.longitude}
+  >
     <div class="container observatory-section__head">
-      <p class="observatory-label">Mappa della città</p>
-      <h2 id="map-title">Esplora {profile.name} sulla mappa.</h2>
+      <p class="observatory-label">Situazione in città</p>
+      <h2 id="map-title">Cosa sta succedendo a {profile.name}, adesso.</h2>
       <p>
-        Usa zoom e trascinamento per orientarti. Il marcatore indica il centro cittadino: non rappresenta un allarme, un incidente o una valutazione di sicurezza.
+        Segnalazioni approvate della community, comunicazioni pubblicate da enti e attività tramite proTcity e aggiornamenti reperiti da fonti ufficiali. I contenuti cambiano automaticamente con la situazione reale.
       </p>
     </div>
-    <div class="container observatory-map-grid">
-      <div class="observatory-map-frame">
-        <iframe
-          src={profile.map.embedUrl}
-          title={`Mappa interattiva OpenStreetMap di ${profile.name}`}
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+
+    <div class="container observatory-live-summary" aria-label="Riepilogo aggiornamenti">
+      <div>
+        <span>Visibili in mappa</span>
+        <strong data-live-map-count>{officialMappableCount}</strong>
       </div>
-      <aside class="observatory-map-info">
-        <span class="observatory-status">Mappa interattiva</span>
-        <h3>{profile.name}</h3>
-        <p>
-          Centro mappa: {profile.map.latitude.toFixed(4)}, {profile.map.longitude.toFixed(4)}. La cartografia serve per l’orientamento generale e può essere esplorata liberamente.
-        </p>
-        <div class="observatory-map-actions">
-          <a class="observatory-button observatory-button--primary" href={profile.map.openStreetMapUrl} target="_blank" rel="noopener noreferrer">
-            Apri OpenStreetMap
-          </a>
-          <a class="observatory-button" href={profile.map.googleMapsUrl} target="_blank" rel="noopener noreferrer">
-            Apri Google Maps
-          </a>
+      <div>
+        <span>Da proTcity</span>
+        <strong data-live-protcity-count>…</strong>
+      </div>
+      <div>
+        <span>Da fonti ufficiali</span>
+        <strong>{officialLiveItems.length}</strong>
+      </div>
+      <div>
+        <span>Ultimo controllo</span>
+        <strong class="observatory-live-summary__date" data-live-updated>{officialRefreshedLabel}</strong>
+      </div>
+    </div>
+
+    <div class="container observatory-live-toolbar">
+      <div class="observatory-live-filters" aria-label="Filtra gli aggiornamenti">
+        <button type="button" aria-pressed="true" data-live-filter="all">Tutti</button>
+        <button type="button" aria-pressed="false" data-live-filter="report">Segnalazioni</button>
+        <button type="button" aria-pressed="false" data-live-filter="alert">Avvisi</button>
+        <button type="button" aria-pressed="false" data-live-filter="studio">Enti e attività</button>
+        <button type="button" aria-pressed="false" data-live-filter="event">Eventi</button>
+        <button type="button" aria-pressed="false" data-live-filter="official">Fonti ufficiali</button>
+      </div>
+      <p class="observatory-live-message" data-live-message aria-live="polite">
+        Collegamento ai contenuti proTcity in corso…
+      </p>
+    </div>
+
+    <div class="container observatory-live-grid">
+      <div class="observatory-live-map-card">
+        <div
+          data-live-map
+          role="region"
+          aria-label={`Mappa degli aggiornamenti attivi a ${profile.name}`}
+        ></div>
+        <noscript>
+          <p class="observatory-map-noscript">
+            Per usare la mappa interattiva abilita JavaScript. Gli aggiornamenti restano consultabili nell’elenco.
+          </p>
+        </noscript>
+      </div>
+
+      <aside class="observatory-live-stream" aria-label={`Aggiornamenti recenti per ${profile.name}`}>
+        <div class="observatory-live-stream__head">
+          <div>
+            <span>Flusso aggiornamenti</span>
+            <h3>Recenti e attivi</h3>
+          </div>
+          <small data-live-shown-count>{Math.min(officialLiveItems.length, 18)} di {officialLiveItems.length} aggiornamenti</small>
         </div>
-        <p class="observatory-map-attribution">
-          Cartografia © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>.
-        </p>
+        <div class="observatory-live-list" data-live-list>
+          {officialLiveItems.slice(0, 18).map((item) => (
+            <article class="observatory-stream-card observatory-stream-card--official">
+              <div class="observatory-stream-card__top">
+                <span class="observatory-stream-card__kind">Fonte ufficiale</span>
+                <time datetime={item.publishedAt ?? item.startsAt ?? undefined}>{liveDateLabel(item)}</time>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+              <div class="observatory-stream-card__foot">
+                <span>✓ {item.sourceLabel}</span>
+                {item.ctaUrl && (
+                  <a href={item.ctaUrl} target="_blank" rel="noopener noreferrer">Apri la fonte</a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
       </aside>
     </div>
+
+    <div class="container observatory-live-footer">
+      <p>
+        Le posizioni delle segnalazioni della community sono mostrate in modo approssimativo. Nomi, email, media e altri dati personali non vengono pubblicati nell’Osservatorio.
+      </p>
+      <p>
+        Cartografia © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>.
+      </p>
+    </div>
+    <script is:inline type="application/json" data-live-initial set:html={initialFeedJson}></script>
   </section>
 
   <section class="observatory-section" id="prima-di-uscire" aria-labelledby="today-title">
@@ -442,6 +525,8 @@ const categoryLabels = {
   </section>
 
   <script>
+    import "../../scripts/observatory-live";
+
     document.querySelectorAll<HTMLElement>("[data-observatory-profiles]").forEach((root) => {
       const buttons = root.querySelectorAll<HTMLButtonElement>("[data-profile-button]");
       const panels = root.querySelectorAll<HTMLElement>("[data-profile-panel]");
