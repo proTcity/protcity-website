@@ -14,16 +14,30 @@ export function getStaticPaths() {
 const { page } = Astro.props as { page: SeoHubPage };
 const canonicalPath = getSeoResourcePath(page.slug);
 const relatedPages = seoHubPages.filter((item) => item.slug !== page.slug).slice(0, 3);
+const canonicalUrl = absoluteUrl(canonicalPath);
+const updatedAt = "2026-08-12";
+const encodedUrl = encodeURIComponent(canonicalUrl);
+const encodedTitle = encodeURIComponent(page.title);
+const shareLinks = [
+  { label: "LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+  { label: "Telegram", href: `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}` },
+  { label: "WhatsApp", href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}` }
+];
 
 const schema = [
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "Article",
     name: `${page.title} | ${site.name}`,
+    headline: page.title,
     description: page.description,
-    url: absoluteUrl(canonicalPath),
+    url: canonicalUrl,
+    mainEntityOfPage: canonicalUrl,
     image: absoluteUrl(page.image),
     inLanguage: "it-IT",
+    datePublished: "2026-08-11",
+    dateModified: updatedAt,
     isPartOf: {
       "@type": "WebSite",
       name: site.name,
@@ -32,8 +46,15 @@ const schema = [
     publisher: {
       "@type": "Organization",
       name: site.company.legalName,
-      url: absoluteUrl("/")
+      url: absoluteUrl("/"),
+      logo: { "@type": "ImageObject", url: absoluteUrl("/images/logo-tm.png") }
     },
+    author: {
+      "@type": "Organization",
+      name: "Redazione proTcity",
+      url: absoluteUrl("/osservatorio/metodo")
+    },
+    citation: [absoluteUrl("/osservatorio"), absoluteUrl("/osservatorio/metodo")],
     about: [
       {
         "@type": "Thing",
@@ -90,6 +111,7 @@ const schema = [
   canonicalPath={canonicalPath}
   image={page.image}
   bodyClass="cinematic-site"
+  type="article"
   schema={schema}
 >
   <section class:list={["cinematic-hero", "feature-hero", page.heroClass]}>
@@ -102,6 +124,30 @@ const schema = [
       <div class="cinematic-hero__actions">
         <a class="glass-button glass-button--primary" href="/app">Scopri proTcity</a>
         <a class="glass-button" href={seoHubPath}>Hub sicurezza urbana</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cinematic-section" aria-labelledby="short-answer-title">
+    <div class="container feature-split glass-panel">
+      <div class="feature-split__copy">
+        <p class="eyebrow">Risposta breve</p>
+        <h2 id="short-answer-title">In sintesi.</h2>
+        <p>{page.lead}</p>
+        <p>
+          Per capire cosa sta succedendo in questo momento, consulta l’<a href="/osservatorio">Osservatorio urbano proTcity</a>, dove ogni aggiornamento mantiene fonte, data e stato.
+        </p>
+      </div>
+      <div class="feature-split__copy">
+        <p class="eyebrow">Verifica e condividi</p>
+        <h2>Una risposta progettata per essere rintracciabile.</h2>
+        <p>Ultimo aggiornamento: <time datetime={updatedAt}>12 agosto 2026</time>. Metodo, fonti e correzioni sono descritti pubblicamente.</p>
+        <div class="cinematic-hero__actions" aria-label="Condividi questa risposta">
+          {shareLinks.map((link) => (
+            <a class="glass-button" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+          ))}
+          <a class="glass-button" href="/osservatorio/metodo">Metodo editoriale</a>
+        </div>
       </div>
     </div>
   </section>

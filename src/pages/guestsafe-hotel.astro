@@ -172,10 +172,23 @@ import MainLayout from "../layouts/MainLayout.astro";
       if (element && value) element.textContent = value;
     };
 
-    const showLink = (selector, href) => {
+    const safeLinkHref = (href, allowedProtocols) => {
+      if (!href) return "";
+      try {
+        const parsed = new URL(href);
+        if (!allowedProtocols.includes(parsed.protocol)) return "";
+        if (parsed.protocol === "https:" && (parsed.username || parsed.password)) return "";
+        return parsed.toString();
+      } catch {
+        return "";
+      }
+    };
+
+    const showLink = (selector, href, allowedProtocols) => {
       const element = document.querySelector(selector);
-      if (!element || !href) return;
-      element.href = href;
+      const safeHref = safeLinkHref(href, allowedProtocols);
+      if (!element || !safeHref) return;
+      element.href = safeHref;
       element.hidden = false;
     };
 
@@ -202,19 +215,30 @@ import MainLayout from "../layouts/MainLayout.astro";
         .replace(/"/g, "&quot;");
 
     async function loadGuestSafeHotel() {
-      const slug = normalizeSlug(window.location.pathname.split("/").filter(Boolean)[1]);
-      const appLink = slug
-        ? `protcity://guestsafe?hotel=${encodeURIComponent(slug)}`
-        : "protcity://guestsafe";
+      const pathParts = window.location.pathname.split("/").filter(Boolean);
+      const publicPropertyId =
+        pathParts[1] === "p" && /^gsp_[A-Za-z0-9_-]{22}$/.test(pathParts[2] || "")
+          ? pathParts[2]
+          : "";
+      const slug = publicPropertyId
+        ? ""
+        : normalizeSlug(pathParts[1] === "h" ? pathParts[2] : pathParts[1]);
+      const appLink = publicPropertyId
+        ? `protcity:///guestsafe?mode=public&property=${encodeURIComponent(publicPropertyId)}`
+        : slug
+          ? `protcity:///guestsafe?hotel=${encodeURIComponent(slug)}`
+          : "protcity:///guestsafe";
       const openApp = document.querySelector("[data-open-app]");
       if (openApp) openApp.href = appLink;
 
-      if (!slug) {
+      if (!publicPropertyId && !slug) {
         text("[data-status-message]", "Scheda hotel non trovata. Apri proTcity o chiedi un nuovo QR alla reception.");
         return;
       }
 
-      const endpoint = `/api/guestsafe-hotel/${encodeURIComponent(slug)}`;
+      const endpoint = publicPropertyId
+        ? `/api/guestsafe-property/${encodeURIComponent(publicPropertyId)}`
+        : `/api/guestsafe-hotel/${encodeURIComponent(slug)}`;
 
       try {
         const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
@@ -236,9 +260,9 @@ import MainLayout from "../layouts/MainLayout.astro";
         text("[data-hotel-address]", cityLine || "Indirizzo disponibile in app");
         text("[data-hotel-hours]", hotelInfo.openingHours || "Orari disponibili presso la reception");
 
-        showLink("[data-call-hotel]", hotelInfo.phone ? `tel:${hotelInfo.phone}` : "");
-        showLink("[data-email-hotel]", hotelInfo.email ? `mailto:${hotelInfo.email}` : "");
-        showLink("[data-web-hotel]", hotelInfo.websiteUrl || "");
+        showLink("[data-call-hotel]", hotelInfo.phone ? `tel:${hotelInfo.phone}` : "", ["tel:"]);
+        showLink("[data-email-hotel]", hotelInfo.email ? `mailto:${hotelInfo.email}` : "", ["mailto:"]);
+        showLink("[data-web-hotel]", hotelInfo.websiteUrl || "", ["https:"]);
 
         const services = Array.isArray(hotelInfo.services) ? hotelInfo.services.filter(Boolean) : [];
         renderList("[data-hotel-services]", services, (item) => `<span>${escapeHtml(item)}</span>`);

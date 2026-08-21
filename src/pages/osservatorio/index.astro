@@ -24,6 +24,18 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", {
 const numberFormatter = new Intl.NumberFormat("it-IT");
 const decimalFormatter = new Intl.NumberFormat("it-IT", { maximumFractionDigits: 1 });
 const updatedLabel = dateFormatter.format(new Date(snapshot.refreshedAt));
+const feeds = [
+  {
+    href: absoluteUrl(`${observatoryBasePath}/feed.xml`),
+    type: "application/rss+xml" as const,
+    title: "Aggiornamenti Osservatorio proTcity"
+  },
+  {
+    href: absoluteUrl(`${observatoryBasePath}/feed.json`),
+    type: "application/feed+json" as const,
+    title: "Aggiornamenti Osservatorio proTcity in JSON Feed"
+  }
+];
 
 const cityCards = observatoryCityProfiles.map((profile) => ({
   profile,
@@ -58,6 +70,19 @@ const schema = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "DataCatalog",
+    name: "Catalogo dati dell’Osservatorio proTcity",
+    description: "Raccolta di schede urbane, aggiornamenti pubblici e indicatori con fonti verificabili.",
+    url: absoluteUrl(observatoryBasePath),
+    dateModified: snapshot.refreshedAt,
+    dataset: observatoryCityProfiles.map((profile) => ({
+      "@type": "Dataset",
+      name: `Dati urbani ufficiali di ${profile.name}`,
+      url: absoluteUrl(getObservatoryCityPath(profile.slug))
+    }))
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "proTcity", item: absoluteUrl("/") },
@@ -73,6 +98,7 @@ const schema = [
   canonicalPath={observatoryBasePath}
   image="/images/observatory/og-observatory.png"
   bodyClass="cinematic-site observatory-site"
+  feeds={feeds}
   schema={schema}
 >
   <section class="observatory-hero">
@@ -86,6 +112,7 @@ const schema = [
         <div class="observatory-actions">
           <a class="observatory-button observatory-button--primary" href="#citta">Scegli la città</a>
           <a class="observatory-button" href="/app">Scopri proTcity</a>
+          <a class="observatory-button" href="/risorse">Risposte e guide</a>
         </div>
       </div>
 
@@ -186,9 +213,19 @@ const schema = [
           Dati aggregati e storici non permettono di stabilire che un luogo sia sicuro o pericoloso in ogni momento. proTcity offre contesto e accesso alle fonti, senza profilare persone o attribuire etichette semplicistiche ai territori.
         </p>
       </details>
+      <details>
+        <summary>Come posso riutilizzare o seguire gli aggiornamenti?</summary>
+        <p>
+          L’Osservatorio espone feed pubblici in <a href={`${observatoryBasePath}/feed.xml`}>formato RSS</a> e <a href={`${observatoryBasePath}/feed.json`}>JSON Feed</a>. Servono a lettori, motori di ricerca, assistenti digitali e sistemi di distribuzione che vogliono mantenere fonte e collegamento canonico.
+        </p>
+      </details>
       <p class="observatory-source-note">
         Ultimo aggiornamento automatico: <time datetime={snapshot.refreshedAt}>{updatedLabel}</time>. Le frequenze dei singoli dataset dipendono dagli enti titolari.
       </p>
+      <div class="observatory-actions">
+        <a class="observatory-button observatory-button--primary" href={`${observatoryBasePath}/metodo`}>Metodo editoriale completo</a>
+        <a class="observatory-button" href={`mailto:${site.emails.press}?subject=Correzione%20Osservatorio%20proTcity`}>Segnala una correzione</a>
+      </div>
     </div>
   </section>
 </MainLayout>

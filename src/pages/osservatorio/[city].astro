@@ -32,6 +32,7 @@ const { profile, cityData } = Astro.props as {
 };
 
 const canonicalPath = getObservatoryCityPath(profile.slug);
+const canonicalUrl = absoluteUrl(canonicalPath);
 const title = `Sicurezza urbana a ${profile.name}: dati ufficiali e informazioni utili`;
 const description = `Informazioni utili e dati ufficiali per ${profile.name}: meteo, avvisi, mobilità, eventi, servizi e indicatori con fonti e date verificabili.`;
 const numberFormatter = new Intl.NumberFormat("it-IT");
@@ -42,6 +43,26 @@ const dateFormatter = new Intl.DateTimeFormat("it-IT", {
   timeZone: "Europe/Rome"
 });
 const refreshedLabel = dateFormatter.format(new Date(cityData.upstreamGeneratedAt ?? snapshot.refreshedAt));
+const feeds = [
+  {
+    href: absoluteUrl(`${canonicalPath}/feed.xml`),
+    type: "application/rss+xml" as const,
+    title: `Aggiornamenti proTcity per ${profile.name}`
+  },
+  {
+    href: absoluteUrl(`${canonicalPath}/feed.json`),
+    type: "application/feed+json" as const,
+    title: `Aggiornamenti proTcity per ${profile.name} in JSON Feed`
+  }
+];
+const encodedCanonical = encodeURIComponent(canonicalUrl);
+const encodedShareText = encodeURIComponent(`Cosa succede oggi a ${profile.name} · Osservatorio proTcity`);
+const shareLinks = [
+  { label: "LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedCanonical}` },
+  { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedCanonical}` },
+  { label: "Telegram", href: `https://t.me/share/url?url=${encodedCanonical}&text=${encodedShareText}` },
+  { label: "WhatsApp", href: `https://wa.me/?text=${encodedShareText}%20${encodedCanonical}` }
+];
 const officialLiveItems = cityData.officialLive?.items ?? [];
 const officialMappableCount = officialLiveItems.filter((item) =>
   Number.isFinite(item.latitude) && Number.isFinite(item.longitude)
@@ -128,7 +149,7 @@ const schema = [
     "@type": "WebPage",
     name: `${title} | ${site.name}`,
     description,
-    url: absoluteUrl(canonicalPath),
+    url: canonicalUrl,
     dateModified: cityData.upstreamGeneratedAt ?? snapshot.refreshedAt,
     inLanguage: "it-IT",
     about: {
@@ -157,6 +178,26 @@ const schema = [
       isBasedOn: snapshot.attribution.providerUrl,
       variableMeasured: ["Popolazione", "Meteo", "Incidenti stradali", "Servizi sanitari", "Qualità dell’aria", "Turismo"]
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Aggiornamenti recenti e attivi a ${profile.name}`,
+    dateModified: officialRefreshedAt,
+    itemListElement: officialLiveItems.slice(0, 18).map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "NewsArticle",
+        name: item.title,
+        headline: item.title,
+        description: item.summary ?? undefined,
+        datePublished: item.publishedAt ?? item.startsAt ?? undefined,
+        dateModified: item.publishedAt ?? item.startsAt ?? officialRefreshedAt,
+        url: item.ctaUrl ?? `${canonicalUrl}#aggiornamento-${item.id}`,
+        publisher: { "@type": "Organization", name: item.sourceLabel }
+      }
+    }))
   },
   {
     "@context": "https://schema.org",
@@ -192,6 +233,8 @@ const categoryLabels = {
   canonicalPath={canonicalPath}
   image="/images/observatory/og-observatory.png"
   bodyClass="cinematic-site observatory-site"
+  ogTitle={`Cosa succede oggi a ${profile.name} | Osservatorio proTcity`}
+  feeds={feeds}
   schema={schema}
 >
   <section class="observatory-hero">
@@ -208,6 +251,7 @@ const categoryLabels = {
             <a class="observatory-button" href={getObservatoryCityPath(city.slug)}>Vai a {city.name}</a>
           ))}
           <a class="observatory-button" href={observatoryBasePath}>Tutte le città</a>
+          <a class="observatory-button" href={`${observatoryBasePath}/metodo`}>Metodo e fonti</a>
         </div>
       </div>
 
@@ -226,6 +270,25 @@ const categoryLabels = {
           <time datetime={cityData.weather.validAt ?? undefined}>Valido {weatherValidLabel}</time>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--answer" aria-labelledby="answer-title">
+    <div class="container observatory-answer-card">
+      <div>
+        <p class="observatory-label">Risposta immediata</p>
+        <h2 id="answer-title">Cosa serve sapere oggi a {profile.name}?</h2>
+        <p>
+          Controlla prima gli aggiornamenti attivi e programmati, poi verifica meteo, mobilità e canali istituzionali. Questa pagina distingue segnalazioni della community, comunicazioni di organizzazioni verificate e fonti ufficiali, mostrando data e provenienza.
+        </p>
+        <small>Ultimo controllo del flusso: <time datetime={officialRefreshedAt}>{officialRefreshedLabel}</time>.</small>
+      </div>
+      <nav class="observatory-share" aria-label={`Condividi gli aggiornamenti di ${profile.name}`}>
+        <strong>Condividi la fonte</strong>
+        {shareLinks.map((link) => (
+          <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+        ))}
+      </nav>
     </div>
   </section>
 
@@ -303,7 +366,7 @@ const categoryLabels = {
         </div>
         <div class="observatory-live-list" data-live-list>
           {officialLiveItems.slice(0, 18).map((item) => (
-            <article class="observatory-stream-card observatory-stream-card--official">
+            <article class="observatory-stream-card observatory-stream-card--official" id={`aggiornamento-${item.id}`}>
               <div class="observatory-stream-card__top">
                 <span class="observatory-stream-card__kind">Fonte ufficiale</span>
                 <time datetime={item.publishedAt ?? item.startsAt ?? undefined}>{liveDateLabel(item)}</time>
@@ -328,6 +391,9 @@ const categoryLabels = {
       </p>
       <p>
         Cartografia © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>.
+      </p>
+      <p>
+        Segui il flusso tramite <a href={`${canonicalPath}/feed.xml`}>RSS</a> o <a href={`${canonicalPath}/feed.json`}>JSON Feed</a>.
       </p>
     </div>
     <script is:inline type="application/json" data-live-initial set:html={initialFeedJson}></script>

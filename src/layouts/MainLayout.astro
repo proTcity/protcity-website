@@ -19,6 +19,12 @@ interface Props {
   ogDescription?: string;
   twitterTitle?: string;
   twitterDescription?: string;
+  type?: "website" | "article";
+  feeds?: Array<{
+    href: string;
+    type: "application/rss+xml" | "application/feed+json";
+    title: string;
+  }>;
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -34,6 +40,8 @@ const {
   ogDescription,
   twitterTitle,
   twitterDescription,
+  type = "website",
+  feeds = [],
   schema
 } = Astro.props;
 
@@ -57,8 +65,12 @@ const skipLinkLabel = lang.toLowerCase().startsWith("en")
       ogDescription={ogDescription}
       twitterTitle={twitterTitle}
       twitterDescription={twitterDescription}
+      type={type}
       schema={schema}
     />
+    {feeds.map((feed) => (
+      <link rel="alternate" type={feed.type} title={feed.title} href={feed.href} />
+    ))}
     <GoogleAnalytics />
   </head>
   <body class={bodyClass}>

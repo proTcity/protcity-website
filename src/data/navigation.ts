@@ -5,7 +5,7 @@ export const primaryNavigation = [
   { label: "Citta", href: "/cities" },
   { label: "Osservatorio", href: "/osservatorio" },
   { label: "GuestSafe", href: "/guestsafe" },
-  { label: "Partner", href: "/partner" },
+  { label: "Studio", href: "/partner" },
   { label: "Tecnologia", href: "/technology" },
   { label: "Sicurezza", href: "/sicurezza-urbana-intelligente" },
   { label: "Supporto", href: "/support" }
@@ -29,7 +29,7 @@ export const footerGroups = [
       { label: "Download", href: "/download" },
       { label: "WalkGuard", href: "/walkguard" },
       { label: "GuestSafe", href: "/guestsafe" },
-      { label: "Diventa Partner", href: "/partner" },
+      { label: "proTcity Studio", href: "/partner" },
       { label: "Tecnologia", href: "/technology" }
     ]
   },
@@ -38,6 +38,7 @@ export const footerGroups = [
     links: [
       { label: "Citta e territori", href: "/cities" },
       { label: "Osservatorio urbano", href: "/osservatorio" },
+      { label: "Risposte e guide", href: "/risorse" },
       { label: "Sicurezza urbana intelligente", href: "/sicurezza-urbana-intelligente" },
       { label: "Sicurezza", href: "/safety" },
       { label: "Contatti", href: "/contact" }

@@ -1,0 +1,159 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import snapshotJson from "../../data/generated/observatory.json";
+import { observatoryBasePath, type ObservatorySnapshot } from "../../data/observatory";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
+import "../../styles/observatory.css";
+
+const snapshot = snapshotJson as ObservatorySnapshot;
+const canonicalPath = `${observatoryBasePath}/metodo`;
+const title = "Metodo editoriale e fonti dell’Osservatorio proTcity";
+const description =
+  "Come proTcity seleziona, aggiorna, distingue e corregge dati ufficiali, comunicazioni verificate e segnalazioni pubblicate nell’Osservatorio urbano.";
+const updatedAt = snapshot.refreshedAt;
+const updatedLabel = new Intl.DateTimeFormat("it-IT", {
+  dateStyle: "long",
+  timeStyle: "short",
+  timeZone: "Europe/Rome"
+}).format(new Date(updatedAt));
+
+const principles = [
+  {
+    title: "Fonti riconoscibili",
+    body: "Ogni aggiornamento indica la propria origine: community proTcity, organizzazione verificata oppure fonte istituzionale. Le categorie non vengono presentate come equivalenti."
+  },
+  {
+    title: "Tempo e validità",
+    body: "Data di pubblicazione, inizio, scadenza e ultimo controllo vengono conservati quando disponibili. I contenuti non più attivi vengono rimossi dal flusso operativo."
+  },
+  {
+    title: "Privacy e minimizzazione",
+    body: "L’Osservatorio non pubblica nomi, email, numeri di telefono o media privati degli utenti. Le posizioni della community possono essere approssimate prima della visualizzazione pubblica."
+  },
+  {
+    title: "Nessuna etichetta assoluta",
+    body: "Dati aggregati e segnalazioni recenti non certificano che una città o un quartiere siano sempre sicuri o pericolosi. Il servizio offre contesto, non una garanzia."
+  },
+  {
+    title: "Automazione controllata",
+    body: "Le fonti vengono aggiornate automaticamente con convalide su identità della città, formato e disponibilità. Se un’acquisizione fallisce, non viene pubblicato un aggiornamento incompleto come se fosse nuovo."
+  },
+  {
+    title: "Correzioni tracciabili",
+    body: "Chi individua un errore può inviare fonte e motivazione. Le correzioni vengono verificate prima dell’aggiornamento del contenuto o della fonte collegata."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `${title} | ${site.name}`,
+    description,
+    url: absoluteUrl(canonicalPath),
+    dateModified: updatedAt,
+    inLanguage: "it-IT",
+    about: { "@type": "Thing", name: "Metodo editoriale per dati urbani" },
+    isPartOf: {
+      "@type": "CollectionPage",
+      name: "Osservatorio urbano proTcity",
+      url: absoluteUrl(observatoryBasePath)
+    },
+    publisher: {
+      "@type": "Organization",
+      name: site.company.legalName,
+      url: absoluteUrl("/")
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "proTcity", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Osservatorio", item: absoluteUrl(observatoryBasePath) },
+      { "@type": "ListItem", position: 3, name: "Metodo editoriale", item: absoluteUrl(canonicalPath) }
+    ]
+  }
+];
+---
+
+<MainLayout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  image="/images/observatory/og-observatory.png"
+  bodyClass="cinematic-site observatory-site"
+  schema={schema}
+>
+  <section class="observatory-hero">
+    <div class="container observatory-hero__grid">
+      <div class="observatory-hero__copy">
+        <p class="observatory-kicker">Trasparenza</p>
+        <h1>Come nasce una risposta dell’Osservatorio.</h1>
+        <p class="observatory-hero__lead">
+          proTcity separa fatti, comunicazioni e contributi della community. Questa pagina spiega quali informazioni entrano nel flusso pubblico, come vengono aggiornate e come chiedere una correzione.
+        </p>
+        <div class="observatory-actions">
+          <a class="observatory-button observatory-button--primary" href={observatoryBasePath}>Torna all’Osservatorio</a>
+          <a class="observatory-button" href={`mailto:${site.emails.press}?subject=Correzione%20Osservatorio%20proTcity`}>Segnala una correzione</a>
+        </div>
+      </div>
+      <aside class="observatory-live-panel" aria-label="Stato del metodo editoriale">
+        <div class="observatory-live-panel__top">
+          <strong>Metodo pubblico</strong>
+          <span class="observatory-status">Verificabile</span>
+        </div>
+        <div class="observatory-live-panel__metric">
+          <span>Principi applicati</span>
+          <strong>{principles.length}</strong>
+          <small>Fonte, tempo, privacy, limiti, automazione e correzioni</small>
+        </div>
+        <div class="observatory-live-panel__footer">
+          <span>Ultimo controllo dati</span>
+          <time datetime={updatedAt}>{updatedLabel}</time>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="observatory-section" aria-labelledby="principles-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Regole operative</p>
+      <h2 id="principles-title">Cosa protegge l’affidabilità del servizio.</h2>
+    </div>
+    <div class="container observatory-purpose-grid">
+      {principles.map((principle, index) => (
+        <article class="observatory-purpose-card">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <h3>{principle.title}</h3>
+          <p>{principle.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="observatory-section observatory-section--alternate" aria-labelledby="source-title">
+    <div class="container observatory-section__head">
+      <p class="observatory-label">Gerarchia delle fonti</p>
+      <h2 id="source-title">Ogni informazione mantiene la propria identità.</h2>
+    </div>
+    <div class="container observatory-method">
+      <details open>
+        <summary>Fonti istituzionali</summary>
+        <p>Dati e avvisi provenienti da enti pubblici o portali open data. Il collegamento porta alla fonte originaria quando disponibile.</p>
+      </details>
+      <details>
+        <summary>Organizzazioni verificate</summary>
+        <p>Contenuti pubblicati da enti, attività o organizzazioni tramite un account la cui identità è stata verificata. Il badge riguarda l’identità, non costituisce approvazione del contenuto.</p>
+      </details>
+      <details>
+        <summary>Community proTcity</summary>
+        <p>Segnalazioni e aggiornamenti approvati secondo le regole della community. Sono contributi informativi e non sostituiscono denunce, comunicazioni ufficiali o servizi di emergenza.</p>
+      </details>
+      <p class="observatory-source-note">
+        Per richieste editoriali o correzioni: <a href={`mailto:${site.emails.press}`}>{site.emails.press}</a>. Per temi privacy: <a href={`mailto:${site.emails.privacy}`}>{site.emails.privacy}</a>.
+      </p>
+    </div>
+  </section>
+</MainLayout>

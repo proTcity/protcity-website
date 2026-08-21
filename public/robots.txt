@@ -1,7 +1,37 @@
 # proTcity public website
 # Canonical domain: https://www.protcity.com
 
+# Crawler di ricerca e consultazione IA: possono leggere le pagine pubbliche.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# I crawler dedicati all'addestramento non sono necessari per l'indicizzazione.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
 User-agent: *
 Allow: /
+Disallow: /api/
 
 Sitemap: https://www.protcity.com/sitemap.xml

@@ -1,432 +1,967 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Button from "../components/common/Button.astro";
-import { site } from "../data/site";
 
-const businessPlans = [
+const studioBase = "https://studio.protcity.com";
+const studioLogin = `${studioBase}/login`;
+
+const audiences = [
   {
-    name: "Business Basic",
-    subtitle: "Per piccole attività locali",
-    price: "In arrivo",
-    period: "accesso anticipato",
-    cta: "Richiedi informazioni",
-    subject: "Richiesta informazioni Business Basic",
-    features: [
-      "Profilo attività su proTcity",
-      "Safe Point base sulla mappa",
-      "Statistiche essenziali di zona",
-      "1 sede principale",
-      "Accesso Partner Console"
-    ]
+    marker: "01",
+    eyebrow: "Comuni ed enti",
+    title: "Informazioni istituzionali che arrivano nel contesto giusto.",
+    description:
+      "Un workspace verificato permette di coordinare avvisi, eventi, iniziative, contenuti territoriali e campagne informative con ruoli distinti, calendario e risultati aggregati.",
+    points: ["Workspace e ruoli verificati", "Avvisi, eventi e contenuti", "Distribuzione territoriale controllata"],
+    image: "/images/studio/categories/studio-enti-territorio.jpg",
+    imageAlt: "Ente locale che coordina da Studio informazioni utili poi consultate dalla comunità nell’app proTcity"
   },
   {
-    name: "Business Professional",
-    subtitle: "Per attività che vogliono visibilità e dati",
-    price: "In arrivo",
-    period: "accesso anticipato",
-    cta: "Richiedi informazioni",
-    subject: "Richiesta informazioni Business Professional",
-    highlighted: true,
-    features: [
-      "Tutto il piano Basic",
-      "Profilo avanzato e priorità Safe Point",
-      "Insight territoriali più completi",
-      "Più utenti autorizzati in console",
-      "Pubblicazioni e contenuti estesi"
-    ]
+    marker: "02",
+    eyebrow: "Attività commerciali",
+    title: "La presenza digitale incontra davvero il quartiere.",
+    description:
+      "Negozi, ristorazione, servizi e professionisti gestiscono sedi, contenuti, calendario e campagne locali, mantenendo separate le comunicazioni organiche da quelle promozionali.",
+    points: ["Profilo e contenuti dell’attività", "Campagne con push comprese", "Insight e calendario condiviso"],
+    image: "/images/studio/categories/studio-attivita-territorio.jpg",
+    imageAlt: "Attività commerciale che usa Studio per comunicare tramite l’app con persone interessate nel territorio"
   },
   {
-    name: "Business Enterprise",
-    subtitle: "Piano full per aziende strutturate",
-    price: "Su richiesta",
-    period: "pre-lancio",
-    cta: "Richiedi informazioni",
-    subject: "Richiesta informazioni Business Enterprise",
-    features: [
-      "Tutto il piano Professional",
-      "Multi-sede e gestione avanzata",
-      "Limiti operativi estesi",
-      "Statistiche complete",
-      "Supporto prioritario"
-    ]
+    marker: "03",
+    eyebrow: "Strutture ricettive · GuestSafe",
+    title: "L’accoglienza continua anche sul telefono dell’ospite.",
+    description:
+      "Hotel, B&B, residence e altre strutture accompagnano il soggiorno con accessi QR, comunicazioni, attività, assistenza, FAQ e una City Guide curata dalla reception.",
+    points: ["Accessi e camere verificabili", "Attività, comunicazioni e inbox", "City Guide, FAQ e traduzioni"],
+    image: "/images/studio/categories/studio-ospitalita-territorio.jpg",
+    imageAlt: "Reception che usa GuestSafe in Studio mentre gli ospiti consultano servizi e City Guide nell’app proTcity"
   }
 ];
 
-const publicSectorPlans = [
+const ecosystemSteps = [
   {
-    name: "Comune Start",
-    description: "Dashboard segnalazioni, stati operativi, mappa territoriale e filtri base."
+    number: "01",
+    title: "Accedi dal browser",
+    copy: "Apri studio.protcity.com da computer, tablet o telefono. Registrazione, accesso, recupero password e gestione del workspace avvengono sul sito ufficiale Studio."
   },
   {
-    name: "Comune Pro",
-    description: "Timeline interventi, operatori multipli, analytics territoriali e priorità segnalazioni."
+    number: "02",
+    title: "Configura l’organizzazione",
+    copy: "Indica la categoria, completa la verifica, assegna ruoli al team e scegli le funzioni coerenti con ente, attività commerciale o struttura ricettiva."
   },
   {
-    name: "Ente Enterprise",
-    description: "Multi-area, ruoli avanzati, integrazioni, reportistica e supporto dedicato."
+    number: "03",
+    title: "Crea e distribuisci",
+    copy: "Contenuti, eventi, campagne e servizi vengono preparati sul web; pubblico, area, gruppi, persone o camere sono selezionati prima della pubblicazione."
+  },
+  {
+    number: "04",
+    title: "L’app rende tutto utile sul territorio",
+    copy: "Le persone consultano nell’app proTcity ciò che è stato pubblicato per loro e, quando previsto, ricevono notifiche pertinenti con accesso diretto al contenuto."
   }
 ];
 
-function mailtoPlan(subject: string) {
-  const body = [
-    "Buongiorno proTcity,",
-    "",
-    `vorrei ricevere informazioni sul piano: ${subject
-      .replace("Richiesta informazioni ", "")
-      .replace("Richiesta preventivo ", "")}.`,
-    "",
-    "Dati da completare:",
-    "- Ragione sociale:",
-    "- Partita IVA:",
-    "- Città:",
-    "- Referente:",
-    "- Telefono:",
-    "",
-    "Grazie."
-  ].join("\n");
+const categoryJourneys = [
+  {
+    id: "enti",
+    eyebrow: "Percorso 01 · Enti",
+    title: "Dalla regia web all’informazione territoriale.",
+    copy: "Studio offre agli enti una base ordinata per preparare e programmare informazioni destinate a cittadini, visitatori e comunità locali, con responsabilità e permessi leggibili.",
+    image: "/images/studio/categories/studio-enti-territorio.jpg",
+    video: "/videos/studio/categories/studio-enti.mp4",
+    features: [
+      "Avvisi, eventi, iniziative e contenuti territoriali",
+      "Calendario editoriale e collaborazione per ruoli",
+      "Destinatari, gruppi e livelli di visibilità espliciti",
+      "Campagne informative e notifiche territoriali",
+      "Insight aggregati e cronologia delle attività",
+      "Percorsi dedicati per verifica, fatturazione e assistenza"
+    ],
+    impact: "Più continuità tra amministrazione e comunità: informazioni reperibili, tempestive e collocate nel punto o nell’area in cui diventano realmente utili."
+  },
+  {
+    id: "attivita",
+    eyebrow: "Percorso 02 · Attività commerciali",
+    title: "Una presenza locale capace di generare relazione.",
+    copy: "L’attività gestisce dal web la propria presenza, i contenuti e le campagne; l’app collega la comunicazione alle persone interessate e al contesto urbano, nel rispetto del consenso promozionale.",
+    image: "/images/studio/categories/studio-attivita-territorio.jpg",
+    video: "/videos/studio/categories/studio-attivita.mp4",
+    features: [
+      "Profilo organizzazione e una o più sedi",
+      "Contenuti organici ed eventi programmabili",
+      "Campagne locali con area e pubblico configurabili",
+      "Push comprese nelle campagne disponibili",
+      "Calendario, gruppi, destinatari e insight aggregati",
+      "Piani, rinnovi e fatturazione gestiti in Studio"
+    ],
+    impact: "Più visibilità qualificata per il commercio locale e meno comunicazione dispersiva: il digitale sostiene visite, iniziative e vitalità economica del territorio."
+  },
+  {
+    id: "ospitalita",
+    eyebrow: "Percorso 03 · Strutture ricettive",
+    title: "GuestSafe accompagna l’ospite prima, durante e fino al termine del soggiorno.",
+    copy: "La reception prepara servizi e informazioni in Studio; l’ospite entra dall’app tramite QR e consenso, mantenendo i dati della struttura protetti fino all’attivazione del soggiorno.",
+    image: "/images/studio/categories/studio-ospitalita-territorio.jpg",
+    video: "/videos/studio/categories/studio-ospitalita.mp4",
+    features: [
+      "QR condivisi per la reception e accessi monouso",
+      "Associazione volontaria e verificata della camera",
+      "Attività e comunicazioni per tutti, più camere o una camera",
+      "Inbox e notifiche per gli ospiti con soggiorno attivo",
+      "FAQ ricercabili e City Guide con luoghi, utility e attività",
+      "Immagini, video e traduzioni automatiche come servizio aggiuntivo"
+    ],
+    impact: "Un soggiorno più semplice e informato valorizza la struttura, distribuisce opportunità verso musei, trasporti, servizi e attività locali e migliora l’esperienza complessiva della destinazione."
+  }
+];
 
-  return `mailto:${site.emails.business}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
+const impactAreas = [
+  {
+    title: "Informazione più utile",
+    copy: "Il contenuto viene organizzato per luogo, tempo e pubblico, così le persone trovano più facilmente ciò che serve senza dipendere da messaggi generici."
+  },
+  {
+    title: "Comunità più connessa",
+    copy: "Enti, organizzazioni, attività e ospitalità condividono lo stesso ecosistema, mantenendo però ruoli, finalità e consensi distinti."
+  },
+  {
+    title: "Economia locale più visibile",
+    copy: "Campagne e City Guide possono trasformare l’attenzione digitale in visite, partecipazione a eventi e scoperta consapevole dei servizi del territorio."
+  },
+  {
+    title: "Accoglienza più completa",
+    copy: "Le strutture ricettive estendono il servizio oltre la reception e aiutano l’ospite a orientarsi, comunicare e vivere meglio la città."
+  }
+];
+
+const faqs = [
+  {
+    question: "Che cos’è proTcity Studio?",
+    answer: "proTcity Studio è il workspace web ufficiale con cui enti, attività commerciali e strutture ricettive verificate organizzano team, contenuti, campagne e servizi destinati all’ecosistema proTcity."
+  },
+  {
+    question: "Studio sostituisce la precedente Console Partner?",
+    answer: "Sì. La gestione operativa è stata concentrata in proTcity Studio. La vecchia console separata non è più una superficie operativa: il punto di accesso ufficiale è https://studio.protcity.com."
+  },
+  {
+    question: "Posso usare le stesse credenziali sul sito e nell’app?",
+    answer: "Sì. Lo stesso account proTcity può autenticarsi sia su Studio sia nell’app. Le funzioni disponibili dipendono dal ruolo assegnato, dalla verifica dell’organizzazione e dai servizi attivi. L’accesso all’app non attribuisce automaticamente permessi amministrativi in Studio."
+  },
+  {
+    question: "Come comunicano Studio e l’app proTcity?",
+    answer: "Gli operatori preparano e gestiscono i contenuti nel workspace web; l’app mostra alle persone soltanto ciò che è pubblico o autorizzato per il loro account, la loro area, il gruppo o il soggiorno attivo."
+  },
+  {
+    question: "Le notifiche sono obbligatorie?",
+    answer: "No. Le notifiche richiedono il consenso del dispositivo e, per i messaggi promozionali, il consenso dedicato. I contenuti autorizzati restano consultabili nelle relative sezioni dell’app anche quando le push sono disattivate."
+  },
+  {
+    question: "Studio gestisce emergenze o procedimenti amministrativi?",
+    answer: "No. Studio non sostituisce il 112, centrali operative, protocolli, denunce, servizi di emergenza o software istituzionali di gestione dei procedimenti."
+  }
+];
+
+const capabilities = [
+  {
+    title: "Crea e programma",
+    copy: "Prepara contenuti, eventi e campagne; pubblicali subito oppure scegli data e ora dal Calendario Studio."
+  },
+  {
+    title: "Scegli i destinatari",
+    copy: "Pubblica per tutti, per gli iscritti, per gruppi personalizzati o per singole persone che hanno accettato l’invito."
+  },
+  {
+    title: "Controlla la visibilità",
+    copy: "Distingui contenuti pubblici, pin con dettaglio riservato e comunicazioni completamente riservate ai destinatari."
+  },
+  {
+    title: "Invia notifiche pertinenti",
+    copy: "Abbina la push al pubblico selezionato, rispettando adesioni, consensi e limiti previsti dal piano."
+  },
+  {
+    title: "Lavora con ruoli separati",
+    copy: "Owner, amministratori, editor, analisti, responsabili della fatturazione e viewer operano con permessi coerenti."
+  },
+  {
+    title: "Leggi risultati aggregati",
+    copy: "Consulta indicatori sui contenuti e sulle campagne senza esporre l’identità delle singole persone raggiunte."
+  }
+];
+
+const distributionModes = [
+  {
+    title: "Pubblico sulla mappa",
+    badge: "Visibilità ampia",
+    copy: "Pin e contenuto sono visibili e apribili da tutte le persone nell’area prevista."
+  },
+  {
+    title: "Pin pubblico, dettaglio riservato",
+    badge: "Accesso controllato",
+    copy: "Il pin comunica che esiste un aggiornamento; il dettaglio resta disponibile soltanto ai destinatari autorizzati."
+  },
+  {
+    title: "Completamente riservato",
+    badge: "Solo destinatari",
+    copy: "Pin, contenuto e notifica sono visibili esclusivamente alle persone o ai gruppi selezionati."
+  }
+];
+
+const planFamilies = [
+  {
+    title: "Studio Presenza",
+    copy: "Per iniziare con una presenza essenziale e una gestione editoriale semplice."
+  },
+  {
+    title: "Studio Local, Plus e Network",
+    copy: "Per attività e organizzazioni che richiedono più sedi, collaboratori, campagne e profondità analitica."
+  },
+  {
+    title: "Studio Enti ed Enterprise",
+    copy: "Per Comuni, enti e realtà strutturate con esigenze amministrative, territoriali e operative dedicate."
+  }
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "proTcity Studio per enti, attività commerciali e strutture ricettive",
+    url: "https://www.protcity.com/partner",
+    description:
+      "Scopri proTcity Studio, il workspace web collegato all’app per enti, attività commerciali e strutture ricettive con GuestSafe.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "proTcity",
+      url: "https://www.protcity.com"
+    },
+    about: {
+      "@type": "SoftwareApplication",
+      name: "proTcity Studio",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      url: studioBase
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer }
+    }))
+  }
+];
 ---
 
 <MainLayout
-  title="Soluzioni proTcity per aziende, hotel ed enti"
-  description="Scopri le soluzioni proTcity per attività commerciali, strutture ricettive, Comuni ed enti che vogliono comunicare con il territorio."
+  title="proTcity Studio per enti, attività commerciali e strutture ricettive"
+  description="Scopri come proTcity Studio collega il lavoro sul web all’app: funzioni per enti, attività commerciali e strutture ricettive con GuestSafe."
   canonicalPath="/partner"
-  bodyClass="cinematic-site"
+  image="/images/studio/studio-dashboard.webp"
+  bodyClass="cinematic-site studio-partner-site"
+  schema={structuredData}
 >
-  <section class="cinematic-hero feature-hero feature-hero--partner">
-    <div class="cinematic-hero__media"></div>
-    <div class="cinematic-hero__shade"></div>
-    <div class="container cinematic-hero__content">
-      <p class="eyebrow">Diventa Partner</p>
-      <h1>Una console per aziende, hotel ed enti che vogliono lavorare con il territorio.</h1>
-      <p class="cinematic-hero__lead">
-        Aziende, hotel, attività locali ed enti pubblici possono usare proTcity per diventare punti
-        riconoscibili, leggere meglio il territorio e gestire servizi dedicati da una console sicura.
-      </p>
-      <div class="cinematic-hero__actions">
-        <a class="glass-button glass-button--primary" href="#aziende">Piani aziende</a>
-        <a class="glass-button" href="#enti">Soluzioni Enti</a>
+  <section class="studio-hero">
+    <div class="studio-hero__aurora" aria-hidden="true"></div>
+    <div class="studio-hero__grid" aria-hidden="true"></div>
+    <div class="container studio-hero__layout">
+      <div class="studio-hero__copy">
+        <p class="studio-kicker"><span></span> proTcity Studio</p>
+        <h1>Dal web all’app. Dall’organizzazione al territorio.</h1>
+        <p class="studio-hero__lead">
+          Studio è il punto operativo ufficiale per enti, attività commerciali e strutture ricettive.
+          Dal browser organizzi il lavoro; nell’app proTcity informazioni, campagne e servizi
+          raggiungono cittadini, clienti e ospiti nel contesto in cui diventano utili.
+        </p>
+        <div class="studio-hero__actions">
+          <a class="studio-button studio-button--primary" href={`${studioBase}/registrazione`}>
+            Registrati su Studio <span aria-hidden="true">↗</span>
+          </a>
+          <a class="studio-button studio-button--ghost" href={studioLogin}>Accedi a Studio</a>
+          <a class="studio-button studio-button--ghost" href="#come-funziona">Come funziona</a>
+        </div>
+        <ul class="studio-hero__trust" aria-label="Caratteristiche principali">
+          <li>Un solo account proTcity</li>
+          <li>Ruoli e organizzazioni verificati</li>
+          <li>Web e app collegati</li>
+        </ul>
+      </div>
+
+      <div class="studio-hero__visual" aria-label="Anteprima reale della dashboard proTcity Studio">
+        <div class="studio-window studio-window--hero">
+          <div class="studio-window__bar" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <small>studio.protcity.com</small>
+          </div>
+          <img
+            src="/images/studio/studio-dashboard.webp"
+            alt="Dashboard reale di proTcity Studio con contenuti, campagne e indicatori aggregati"
+            width="628"
+            height="484"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="studio-float-card studio-float-card--calendar" aria-hidden="true">
+          <span>STUDIO WEB</span>
+          <strong>Crea, organizza e misura</strong>
+        </div>
+        <div class="studio-float-card studio-float-card--audience" aria-hidden="true">
+          <span>APP PROTCITY</span>
+          <strong>Informa, coinvolgi e accompagna</strong>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cinematic-section partner-visual-section">
+  <section class="studio-signal" aria-label="Valori di Studio">
+    <div class="container studio-signal__grid">
+      <div><strong>Un sito operativo</strong><span>accessibile da ogni browser moderno</span></div>
+      <div><strong>Una sola identità</strong><span>stesso account sul web e nell’app</span></div>
+      <div><strong>Tre percorsi dedicati</strong><span>Enti, attività e ospitalità</span></div>
+      <div><strong>Un impatto concreto</strong><span>informazione, economia e comunità</span></div>
+    </div>
+  </section>
+
+  <section id="come-funziona" class="studio-section studio-ecosystem">
     <div class="container">
-      <div class="partner-section-heading">
-        <p class="eyebrow">Come si attiva il valore</p>
-        <h2>Cinque settori, una sola logica: comunicare e intervenire nel momento giusto.</h2>
+      <header class="studio-heading">
+        <p class="studio-kicker"><span></span> Un sistema, due esperienze collegate</p>
+        <h2>Studio è la regia web. L’app porta il valore alle persone.</h2>
         <p>
-          proTcity separa le esperienze operative per attività locali, strutture ricettive,
-          Comuni, uffici tecnici e soggetti di sicurezza territoriale. Ogni console mantiene
-          ruoli, contenuti e finalità distinti, ma lavora sulla stessa idea: informazioni
-          geolocalizzate, più pertinenti e più facili da trasformare in azioni.
+          Gli operatori lavorano in sicurezza su <a href={studioBase}>studio.protcity.com</a>;
+          cittadini, clienti e ospiti usano l’app proTcity. Le due superfici condividono lo stesso
+          ecosistema, ma mostrano funzioni e dati coerenti con il ruolo di chi accede.
         </p>
+      </header>
+      <div class="studio-ecosystem__steps">
+        {ecosystemSteps.map((step) => (
+          <article>
+            <span>{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
       </div>
-
-      <div class="partner-visual-grid">
-        <article class="partner-visual-card">
-          <figure class="partner-visual-card__media partner-visual-card__media--console">
-            <img
-              src="/images/app-real/optimized/partners-hotel1.png"
-              alt="Console Partner reale proTcity con panoramica operativa per hotel e attività locali"
-              loading="lazy"
-            />
-          </figure>
-          <div class="partner-visual-card__copy">
-            <span>Attività commerciali</span>
-            <h3>Promozioni locali più mirate, senza disperdere budget.</h3>
-            <p>
-              La console Partner aiuta negozi, ristoranti, strutture ricettive e attività locali
-              a comunicare con persone realmente vicine, scegliere un raggio operativo, programmare
-              offerte o contenuti utili e leggere dati essenziali sull'interesse generato.
-            </p>
-            <p>
-              L'obiettivo è trasformare la visibilità in azioni misurabili: meno comunicazione
-              generica, più contesto territoriale, messaggi pertinenti e una presenza riconoscibile
-              dentro l'ecosistema proTcity.
-            </p>
-          </div>
-        </article>
-
-        <article class="partner-visual-card">
-          <figure class="partner-visual-card__media partner-visual-card__media--console">
-            <img
-              src="/images/app-real/optimized/partners-hotel2.png"
-              alt="Console GuestSafe reale per hotel, ospiti e servizi territoriali"
-              loading="lazy"
-            />
-          </figure>
-          <div class="partner-visual-card__copy">
-            <span>Hotel e ospitalità</span>
-            <h3>Più supporto alla struttura, più serenità per l'ospite.</h3>
-            <p>
-              GuestSafe permette a hotel, B&B e agriturismi di offrire agli ospiti informazioni
-              locali selezionate, luoghi utili nelle vicinanze, indicazioni di rientro e strumenti
-              digitali che rendono il soggiorno più leggibile fin dal primo accesso.
-            </p>
-            <p>
-              La struttura può valorizzare servizi, consigli territoriali e assistenza, mentre
-              l'ospite trova percorsi prudenti, punti di interesse e riferimenti utili in un unico
-              ambiente coerente con l'esperienza proTcity.
-            </p>
-          </div>
-        </article>
-
-        <article class="partner-visual-card">
-          <figure class="partner-visual-card__media partner-visual-card__media--console">
-            <img
-              src="/images/app-real/optimized/partners-enti.png"
-              alt="Console Enti reale proTcity con dashboard territoriale e gestione istituzionale"
-              loading="lazy"
-            />
-          </figure>
-          <div class="partner-visual-card__copy">
-            <span>Comuni ed enti</span>
-            <h3>Comunicazioni territoriali più chiare per cittadini e visitatori.</h3>
-            <p>
-              I Comuni possono usare proTcity per valorizzare eventi, avvisi, iniziative locali
-              e informazioni di prossimità, raggiungendo solo le persone nell'area interessata e
-              riducendo dispersione, ripetizioni e messaggi fuori contesto.
-            </p>
-            <p>
-              La dashboard Enti permette di organizzare comunicazioni, leggere risultati aggregati
-              e sostenere una città più partecipata, con flussi separati dai partner commerciali e
-              ruoli pensati per un uso istituzionale ordinato.
-            </p>
-          </div>
-        </article>
-
-        <article class="partner-visual-card">
-          <figure class="partner-visual-card__media">
-            <img
-              src="/images/app-real/optimized/segnalazione.png"
-              alt="Schermata reale di una segnalazione gestibile da console partner o enti"
-              loading="lazy"
-            />
-          </figure>
-          <div class="partner-visual-card__copy">
-            <span>Comuni - Segnalazioni</span>
-            <h3>Segnalazioni più ordinate, aggiornamenti più trasparenti.</h3>
-            <p>
-              La console Segnalazioni aiuta il Comune a ricevere criticità geolocalizzate,
-              classificarle per categoria, seguirne lo stato e trasformare conferme e aggiornamenti
-              in un flusso più leggibile per uffici, operatori e cittadini.
-            </p>
-            <p>
-              Ogni segnalazione può diventare un elemento operativo: foto, posizione, priorità,
-              storico degli stati e indicatori aggregati permettono di ridurre dispersione e
-              migliorare la continuità tra ascolto civico e gestione degli interventi.
-            </p>
-          </div>
-        </article>
-
-        <article class="partner-visual-card">
-          <figure class="partner-visual-card__media">
-            <img
-              src="/images/app-real/optimized/alert.png"
-              alt="Schermata reale di un alert con livello di pericolo e dettagli operativi"
-              loading="lazy"
-            />
-          </figure>
-          <div class="partner-visual-card__copy">
-            <span>Forze dell'ordine - Alert</span>
-            <h3>Alert più leggibili per priorità, conferme e contesto urbano.</h3>
-            <p>
-              Il flusso Alert è pensato per rendere più chiari eventi urgenti o sensibili:
-              categoria, posizione, immagini, conferme della community e stato di verifica aiutano
-              a distinguere segnalazioni isolate da situazioni che richiedono maggiore attenzione.
-            </p>
-            <p>
-              proTcity non sostituisce centrali operative, numeri di emergenza o procedure ufficiali,
-              ma può offrire una vista territoriale ordinata e aggiornata, utile a supportare
-              collaborazione urbana, tempestività informativa e tracciabilità degli aggiornamenti.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="partner-console-strip">
-        <figure class="partner-console-strip__media">
-          <img
-            src="/images/app-real/optimized/partners-hotel3.png"
-            alt="Console hotel proTcity con strumenti GuestSafe e gestione dei servizi dedicati agli ospiti"
-            loading="lazy"
-          />
-        </figure>
-        <div class="partner-console-strip__copy">
-          <span>Console dedicate</span>
-          <h3>Ogni partner vede solo strumenti, ospiti, servizi e dati coerenti con il proprio ruolo.</h3>
+      <div class="studio-account-note">
+        <div class="studio-account-note__badge" aria-hidden="true">ID</div>
+        <div>
+          <strong>Le credenziali sono le stesse.</strong>
           <p>
-            Le console non sono una vetrina generica: hotel, attività locali ed enti hanno aree distinte,
-            permessi separati e funzioni pensate per il loro lavoro quotidiano. In questo modo proTcity
-            resta più chiara per chi gestisce servizi, comunicazioni e segnalazioni.
+            L’email e la password dell’account proTcity possono essere usate sia su Studio sia nell’app.
+            I permessi amministrativi non sono automatici: dipendono dal ruolo assegnato nel workspace,
+            dalla verifica dell’organizzazione e dai servizi effettivamente attivi.
           </p>
         </div>
+        <a class="studio-text-link" href={studioLogin}>Vai all’accesso ufficiale <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
-  <section id="aziende" class="cinematic-section partner-pricing-section">
+  <section class="studio-section studio-audiences">
     <div class="container">
-      <div class="partner-section-heading">
-        <p class="eyebrow">Aziende</p>
-        <h2>Piani semplici, acquisto diretto e verifica controllata.</h2>
+      <header class="studio-heading">
+        <p class="studio-kicker"><span></span> Tre categorie, strumenti dedicati</p>
+        <h2>Ogni organizzazione trova il proprio percorso operativo.</h2>
         <p>
-          Le tariffe Partner saranno disponibili al lancio ufficiale. Intanto aziende, hotel e
-          attività locali possono richiedere accesso anticipato e una proposta dedicata, senza
-          fissare pubblicamente prezzi non ancora definitivi.
+          La base tecnologica è comune; funzioni, piani, destinatari e flussi restano distinti per evitare
+          sovrapposizioni tra comunicazione istituzionale, attività economiche e accoglienza.
         </p>
-      </div>
-
-      <div class="pricing-grid">
-        {businessPlans.map((plan) => (
-          <article class:list={["pricing-card", plan.highlighted && "pricing-card--featured"]}>
-            {plan.highlighted ? <p class="pricing-card__ribbon">Consigliato</p> : null}
-            <div class="pricing-card__body">
-              <h2>{plan.name}</h2>
-              <p>{plan.subtitle}</p>
-              <div class="pricing-card__price">
-                <strong>{plan.price}</strong>
-                <span>{plan.period}</span>
-              </div>
-              <a class="pricing-card__button" href={mailtoPlan(plan.subject)}>
-                {plan.cta}
-              </a>
-              <ul>
-                {plan.features.map((feature) => <li>{feature}</li>)}
-              </ul>
-            </div>
+      </header>
+      <div class="studio-audience-grid">
+        {audiences.map((audience) => (
+          <article class="studio-audience-card">
+            <img src={audience.image} alt={audience.imageAlt} width="1600" height="900" loading="lazy" />
+            <div class="studio-audience-card__number">{audience.marker}</div>
+            <p class="studio-audience-card__eyebrow">{audience.eyebrow}</p>
+            <h3>{audience.title}</h3>
+            <p>{audience.description}</p>
+            <ul>
+              {audience.points.map((point) => <li>{point}</li>)}
+            </ul>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section id="enti" class="cinematic-band">
+  <section class="studio-section studio-product-tour">
     <div class="container">
-      <div class="partner-section-heading">
-        <p class="eyebrow">Enti Pubblici</p>
-        <h2>Un percorso separato per Comuni, territori e istituzioni.</h2>
+      <header class="studio-heading studio-heading--center">
+        <p class="studio-kicker"><span></span> Studio in movimento</p>
+        <h2>Dall’idea alla pubblicazione, senza passaggi dispersi.</h2>
         <p>
-          Per gli Enti il flusso resta su richiesta: raccolta esigenze, proposta, contratto,
-          eventuale documentazione amministrativa e attivazione manuale della console Enti.
+          Una panoramica reale del workspace: pianificazione, pubblico, distribuzione e lettura dei risultati.
         </p>
-      </div>
+      </header>
 
-      <div class="partner-video-grid">
-        <article class="partner-video-card">
-          <div class="partner-video-card__media">
-            <video
-              controls
-              playsinline
-              preload="none"
-              poster="/images/video-posters/partner/comune-segnalazioni.jpg"
-              aria-label="Dimostrazione della gestione delle segnalazioni urbane nella Console Partner proTcity"
-            >
-              <source src="/videos/partner/comune-segnalazioni.mp4" type="video/mp4" />
-              Il browser non supporta la riproduzione video.
-              <a href="/videos/partner/comune-segnalazioni.mp4">Scarica il video sulle segnalazioni</a>.
-            </video>
-          </div>
-          <div class="partner-video-card__copy">
-            <span>Console Comuni · Segnalazioni</span>
-            <h3>Dalla segnalazione al monitoraggio territoriale.</h3>
-            <p>
-              Un flusso unico aiuta uffici e operatori autorizzati a consultare le segnalazioni
-              geolocalizzate, verificarne il contesto e aggiornarne lo stato senza disperdere
-              informazioni tra strumenti separati.
-            </p>
-            <ul>
-              <li>Mappa, fotografie, video e dettagli raccolti in una pratica ordinata.</li>
-              <li>Stati, cronologia e documenti utili al lavoro degli uffici competenti.</li>
-              <li>Dati aggregati come supporto informativo, senza decisioni automatiche.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="partner-video-card">
-          <div class="partner-video-card__media">
-            <video
-              controls
-              playsinline
-              preload="none"
-              poster="/images/video-posters/partner/comune-eventi.jpg"
-              aria-label="Dimostrazione della pubblicazione di eventi e comunicazioni territoriali nella Console Partner proTcity"
-            >
-              <source src="/videos/partner/comune-eventi.mp4" type="video/mp4" />
-              Il browser non supporta la riproduzione video.
-              <a href="/videos/partner/comune-eventi.mp4">Scarica il video su eventi e comunicazioni</a>.
-            </video>
-          </div>
-          <div class="partner-video-card__copy">
-            <span>Console Comuni · Eventi e avvisi</span>
-            <h3>Comunicazioni territoriali più coordinate e accessibili.</h3>
-            <p>
-              La Console Partner consente all'Ente aderente di preparare eventi, campagne
-              informative, avvisi e aggiornamenti di pubblica utilità, definendo contenuti,
-              periodo e area di diffusione prevista dal servizio.
-            </p>
-            <ul>
-              <li>Testi, fotografie, video, riferimenti e collegamenti in un solo contenuto.</li>
-              <li>Pubblicazione in app e notifiche agli utenti interessati, secondo le impostazioni scelte.</li>
-              <li>Una fonte coerente da rilanciare anche sui canali istituzionali dell'Ente.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-
-      <p class="partner-video-disclaimer">
-        proTcity è un servizio privato fornito da Kurbi Labs srls. Non è un canale ufficiale di
-        emergenza o denuncia e non sostituisce il 112, gli altri numeri competenti o le procedure
-        istituzionali dell'Ente. Analisi e indicatori hanno finalità esclusivamente informative.
-      </p>
-
-      <div class="public-sector-grid">
-        {publicSectorPlans.map((plan) => (
-          <article class="info-panel">
-            <h3>{plan.name}</h3>
-            <p>{plan.description}</p>
-            <span>Prezzo su richiesta</span>
-          </article>
-        ))}
-      </div>
-
-      <div class="partner-cta-strip">
-        <div>
-          <h2>Vuoi attivare proTcity per un Comune o un Ente?</h2>
-          <p>Prepariamo un percorso dedicato con ruoli, limiti territoriali e gestione segnalazioni.</p>
+      <div class="studio-video-shell">
+        <div class="studio-video-shell__glow" aria-hidden="true"></div>
+        <div class="studio-window__bar" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <small>proTcity Studio · panoramica</small>
         </div>
-        <Button
-          href={mailtoPlan("Richiesta preventivo Enti Pubblici")}
-          variant="secondary"
+        <video
+          data-studio-demo
+          autoplay
+          controls
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="/images/video-posters/studio/studio-overview.webp"
+          aria-label="Video dimostrativo delle principali funzioni di proTcity Studio"
         >
-          Richiedi preventivo
-        </Button>
+          <source src="/videos/studio/studio-overview.mp4" type="video/mp4" />
+          Il browser non supporta il video. Puoi consultare le schermate illustrate nella pagina.
+        </video>
+        <div class="studio-video-shell__caption">
+          <span>01 Calendario</span>
+          <span>02 Destinatari</span>
+          <span>03 Distribuzione</span>
+          <span>04 Insight</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cinematic-section">
+  <section class="studio-section studio-category-tours">
     <div class="container">
-      <div class="partner-flow-grid glass-panel">
-        <article>
-          <span>01</span>
-          <h3>Scelta piano</h3>
-          <p>L'azienda seleziona Basic, Professional o Enterprise in modo chiaro.</p>
+      <header class="studio-heading studio-heading--center">
+        <p class="studio-kicker"><span></span> Dimostrazioni per categoria</p>
+        <h2>Tre modi diversi di trasformare il digitale in servizio.</h2>
+        <p>
+          Ogni percorso mostra il collegamento tra ciò che l’organizzazione prepara in Studio,
+          ciò che compare nell’app e il risultato prodotto sul territorio.
+        </p>
+      </header>
+
+      {categoryJourneys.map((journey, index) => (
+        <article id={journey.id} class:list={["studio-category-tour", index % 2 === 1 && "studio-category-tour--reverse"]}>
+          <div class="studio-category-tour__media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster={journey.image}
+              aria-label={`Video dimostrativo di proTcity Studio per ${journey.eyebrow}`}
+            >
+              <source src={journey.video} type="video/mp4" />
+              Il browser non supporta il video. Le stesse informazioni sono disponibili nel testo accanto.
+            </video>
+          </div>
+          <div class="studio-category-tour__copy">
+            <p class="studio-category-tour__eyebrow">{journey.eyebrow}</p>
+            <h3>{journey.title}</h3>
+            <p>{journey.copy}</p>
+            <ul>
+              {journey.features.map((feature) => <li>{feature}</li>)}
+            </ul>
+            <div class="studio-category-tour__impact">
+              <span>Impatto sul territorio e sulla comunità</span>
+              <p>{journey.impact}</p>
+            </div>
+          </div>
         </article>
-        <article>
-          <span>02</span>
-          <h3>Dati fiscali</h3>
-          <p>Ragione sociale e P.IVA vengono associate a una sola organizzazione.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Console Partner</h3>
-          <p>Gli utenti autorizzati entrano solo nella propria area e con ruoli controllati.</p>
-        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="studio-section studio-capabilities">
+    <div class="container studio-capabilities__layout">
+      <div class="studio-capabilities__intro">
+        <p class="studio-kicker"><span></span> Funzioni operative</p>
+        <h2>Tutto ciò che serve per comunicare meglio. Niente rumore in più.</h2>
+        <p>
+          Ogni funzione nasce per ridurre passaggi manuali e rendere chiara la relazione tra contenuto,
+          destinatari, visibilità e risultato.
+        </p>
+        <a class="studio-text-link" href={`${studioBase}/funzionalita`}>
+          Esplora tutte le funzionalità <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="studio-capability-grid">
+        {capabilities.map((capability, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{capability.title}</h3>
+            <p>{capability.copy}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
+
+  <section class="studio-section studio-workflow">
+    <div class="container">
+      <header class="studio-heading">
+        <p class="studio-kicker"><span></span> Un flusso leggibile</p>
+        <h2>Organizza. Pubblica. Misura.</h2>
+      </header>
+
+      <article class="studio-showcase">
+        <div class="studio-showcase__copy">
+          <span class="studio-showcase__step">01 · Organizza</span>
+          <h3>Il Calendario Studio rende visibile ogni attività editoriale.</h3>
+          <p>
+            Contenuti e campagne programmate o già attive sono raccolti in una vista mensile ordinata.
+            Gli elementi dello stesso giorno restano consultabili senza sovrapposizioni.
+          </p>
+          <ul><li>Programmazione per data e ora</li><li>Vista unificata di contenuti e campagne</li><li>Accesso rapido ai dettagli</li></ul>
+        </div>
+        <figure class="studio-window">
+          <div class="studio-window__bar" aria-hidden="true"><span></span><span></span><span></span><small>Calendario Studio</small></div>
+          <img src="/images/studio/studio-calendar.webp" alt="Calendario reale di proTcity Studio" width="1042" height="654" loading="lazy" />
+        </figure>
+      </article>
+
+      <article class="studio-showcase studio-showcase--reverse">
+        <div class="studio-showcase__copy">
+          <span class="studio-showcase__step">02 · Seleziona</span>
+          <h3>Destinatari e gruppi restano sotto il controllo dell’organizzazione.</h3>
+          <p>
+            Gli inviti raggiungono account proTcity identificati in modo puntuale. La persona decide se aderire
+            e può revocare la propria scelta; il consenso promozionale rimane separato.
+          </p>
+          <ul><li>Inviti con accettazione nell’app</li><li>Gruppi personalizzati e gestibili</li><li>Adesioni e consensi distinti</li></ul>
+        </div>
+        <figure class="studio-window">
+          <div class="studio-window__bar" aria-hidden="true"><span></span><span></span><span></span><small>Destinatari e gruppi</small></div>
+          <img src="/images/studio/studio-audience.webp" alt="Gestione reale di destinatari e gruppi in proTcity Studio" width="1042" height="654" loading="lazy" />
+        </figure>
+      </article>
+
+      <article class="studio-showcase">
+        <div class="studio-showcase__copy">
+          <span class="studio-showcase__step">03 · Distribuisci</span>
+          <h3>Pubblico, gruppi o persone: la scelta resta esplicita.</h3>
+          <p>
+            Visibilità nell’app, destinatari della push, programmazione e presenza sulla mappa sono configurati
+            nello stesso punto, così il pubblico della comunicazione non viene lasciato al caso.
+          </p>
+          <ul><li>Pubblicazione pubblica o selettiva</li><li>Push coerente con i destinatari</li><li>Visibilità sulla mappa controllata</li></ul>
+        </div>
+        <figure class="studio-window">
+          <div class="studio-window__bar" aria-hidden="true"><span></span><span></span><span></span><small>Distribuzione</small></div>
+          <img src="/images/studio/studio-distribution.webp" alt="Configurazione reale della distribuzione in proTcity Studio" width="698" height="654" loading="lazy" />
+        </figure>
+      </article>
+
+      <article class="studio-showcase studio-showcase--reverse">
+        <div class="studio-showcase__copy">
+          <span class="studio-showcase__step">04 · Comprendi</span>
+          <h3>Gli insight mostrano l’andamento, non l’identità delle persone.</h3>
+          <p>
+            Indicatori aggregati aiutano a capire copertura, interazioni e distribuzione, mantenendo il confine
+            tra misurazione utile e profilazione individuale.
+          </p>
+          <ul><li>Metriche aggregate</li><li>Lettura per periodo</li><li>Nessuna directory pubblica degli utenti</li></ul>
+        </div>
+        <figure class="studio-window">
+          <div class="studio-window__bar" aria-hidden="true"><span></span><span></span><span></span><small>Insight</small></div>
+          <img src="/images/studio/studio-insights.webp" alt="Insight aggregati reali di proTcity Studio" width="1042" height="654" loading="lazy" />
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="studio-section studio-distribution">
+    <div class="container studio-distribution__layout">
+      <header class="studio-heading">
+        <p class="studio-kicker"><span></span> Visibilità senza ambiguità</p>
+        <h2>Ogni comunicazione appare soltanto dove deve apparire.</h2>
+        <p>
+          La visibilità sulla mappa e l’accesso al contenuto sono scelte esplicite. Pubblico e privato non vengono mescolati.
+        </p>
+      </header>
+      <div class="studio-mode-grid">
+        {distributionModes.map((mode, index) => (
+          <article>
+            <div><span>{String(index + 1).padStart(2, "0")}</span><small>{mode.badge}</small></div>
+            <h3>{mode.title}</h3>
+            <p>{mode.copy}</p>
+          </article>
+        ))}
+      </div>
+      <div class="studio-privacy-note">
+        <strong>Una regola semplice:</strong>
+        <p>
+          le comunicazioni informative e quelle promozionali seguono consensi distinti. L’utente mantiene il controllo
+          sulle adesioni e l’organizzazione vede soltanto i dati necessari al proprio lavoro.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-impact">
+    <div class="container studio-impact__layout">
+      <div class="studio-impact__intro">
+        <p class="studio-kicker"><span></span> Potenzialità del sistema</p>
+        <h2>La tecnologia diventa infrastruttura di relazione.</h2>
+        <p>
+          Il valore non è soltanto pubblicare un contenuto. È creare un ciclo leggibile:
+          l’organizzazione prepara informazioni affidabili sul web, l’app le rende accessibili nel
+          momento giusto e gli insight aggregati aiutano a migliorare il lavoro successivo.
+        </p>
+        <div class="studio-impact__flow" aria-label="Flusso di valore di proTcity">
+          <span>STUDIO</span><i aria-hidden="true">→</i><span>APP</span><i aria-hidden="true">→</i><span>TERRITORIO</span><i aria-hidden="true">→</i><span>COMUNITÀ</span>
+        </div>
+      </div>
+      <div class="studio-impact__grid">
+        {impactAreas.map((area, index) => (
+          <article>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{area.title}</h3>
+            <p>{area.copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-security">
+    <div class="container studio-security__layout">
+      <div>
+        <p class="studio-kicker"><span></span> Sicurezza e responsabilità</p>
+        <h2>Accessi, ruoli e consensi restano parte del prodotto.</h2>
+      </div>
+      <div class="studio-security__grid">
+        <article><strong>Organizzazioni verificate</strong><p>Le capacità operative dipendono dalla categoria e dallo stato verificato assegnato all’organizzazione.</p></article>
+        <article><strong>Permessi per ruolo</strong><p>Owner, amministratori, editor, analisti, billing e viewer lavorano soltanto sulle aree autorizzate.</p></article>
+        <article><strong>Consensi distinti</strong><p>Adesioni, notifiche e comunicazioni promozionali non vengono confuse e possono essere revocate.</p></article>
+        <article><strong>Dati proporzionati</strong><p>Insight aggregati, destinatari controllati e contenuti riservati riducono l’esposizione di informazioni non necessarie.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-plans">
+    <div class="container">
+      <header class="studio-heading studio-heading--center">
+        <p class="studio-kicker"><span></span> Piani Studio</p>
+        <h2>Una configurazione coerente con la dimensione dell’organizzazione.</h2>
+        <p>
+          Sedi, collaboratori, pubblicazioni, campagne e profondità degli insight crescono con il piano scelto.
+          Prezzi e limiti aggiornati sono sempre disponibili direttamente su Studio.
+        </p>
+      </header>
+      <div class="studio-plan-grid">
+        {planFamilies.map((plan, index) => (
+          <article class:list={[index === 1 && "is-featured"]}>
+            {index === 1 ? <span class="studio-plan-grid__tag">Più flessibile</span> : null}
+            <small>{String(index + 1).padStart(2, "0")}</small>
+            <h3>{plan.title}</h3>
+            <p>{plan.copy}</p>
+            <a href={`${studioBase}/prezzi`}>Confronta i piani <span aria-hidden="true">→</span></a>
+          </article>
+        ))}
+      </div>
+      <div class="studio-enterprise-cta">
+        <div>
+          <span>Per Comuni, enti e organizzazioni strutturate</span>
+          <h3>Serve una configurazione dedicata?</h3>
+          <p>Studio prevede percorsi coerenti con dimensione, popolazione servita, ruoli e necessità amministrative.</p>
+        </div>
+        <a class="studio-button studio-button--ghost" href="/contact">Parliamone</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-faq">
+    <div class="container studio-faq__layout">
+      <header class="studio-heading">
+        <p class="studio-kicker"><span></span> Domande frequenti</p>
+        <h2>Web, app e accesso: tutto più chiaro.</h2>
+        <p>Le risposte essenziali per capire dove operare e come si collegano le diverse parti del sistema.</p>
+      </header>
+      <div class="studio-faq__list">
+        {faqs.map((faq) => (
+          <details>
+            <summary>{faq.question}<span aria-hidden="true">+</span></summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-boundary">
+    <div class="container studio-boundary__layout">
+      <div>
+        <p class="studio-kicker"><span></span> Un confine importante</p>
+        <h2>Studio comunica. Non sostituisce i sistemi operativi dell’ente.</h2>
+      </div>
+      <p>
+        proTcity Studio è un workspace editoriale e promozionale. Non gestisce emergenze, denunce, protocolli,
+        centrali operative o procedimenti amministrativi e non sostituisce il 112 né gli altri canali ufficiali.
+        L’app può rendere le informazioni più accessibili, ma non modifica responsabilità e procedure previste dalla legge.
+      </p>
+    </div>
+  </section>
+
+  <section class="studio-final">
+    <div class="studio-final__aurora" aria-hidden="true"></div>
+    <div class="container studio-final__content">
+      <p class="studio-kicker"><span></span> Il tuo spazio è pronto</p>
+      <h2>Apri Studio. Porta il tuo valore dentro la città.</h2>
+      <p>
+        Registrati sul sito ufficiale, scegli la categoria della tua organizzazione e usa lo stesso account
+        anche nell’app proTcity. Il primo passo operativo parte sempre da studio.protcity.com.
+      </p>
+      <div class="studio-hero__actions">
+        <a class="studio-button studio-button--primary" href={`${studioBase}/registrazione`}>Registrati su Studio <span aria-hidden="true">↗</span></a>
+        <a class="studio-button studio-button--ghost" href={studioLogin}>Accedi</a>
+        <a class="studio-button studio-button--ghost" href={`${studioBase}/prezzi`}>Vedi i piani</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const studioDemo = document.querySelector("[data-studio-demo]");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (studioDemo instanceof HTMLVideoElement && reducedMotion.matches) {
+      studioDemo.pause();
+      studioDemo.removeAttribute("autoplay");
+    }
+  </script>
 </MainLayout>
+
+<style>
+  :global(body.studio-partner-site) { background: #020712; color: #f4f8ff; }
+  :global(body.studio-partner-site main) { overflow: hidden; }
+  :global(body.studio-partner-site .site-header) { background: rgba(2, 7, 18, .78); border-bottom-color: rgba(116, 205, 255, .14); }
+  .studio-hero { position: relative; min-height: 780px; display: grid; align-items: center; padding: 112px 0 92px; isolation: isolate; background: radial-gradient(circle at 74% 28%, rgba(50, 198, 255, .13), transparent 32%), linear-gradient(145deg, #020712 0%, #071426 55%, #03101d 100%); }
+  .studio-hero__aurora, .studio-final__aurora { position: absolute; inset: -30% -10%; z-index: -2; opacity: .8; background: radial-gradient(ellipse at 70% 45%, rgba(90, 230, 207, .22), transparent 28%), radial-gradient(ellipse at 78% 38%, rgba(55, 171, 255, .28), transparent 36%); filter: blur(28px); animation: studio-drift 12s ease-in-out infinite alternate; }
+  .studio-hero__grid { position: absolute; inset: 0; z-index: -1; opacity: .24; background-image: linear-gradient(rgba(114, 205, 255, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(114, 205, 255, .08) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent); perspective: 1000px; transform: rotateX(58deg) scale(1.4) translateY(34%); transform-origin: center bottom; }
+  .studio-hero__layout { display: grid; grid-template-columns: minmax(0, .82fr) minmax(520px, 1.18fr); align-items: center; gap: clamp(44px, 7vw, 96px); }
+  .studio-hero__copy { position: relative; z-index: 2; min-width: 0; }
+  .studio-kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; color: #70ddff; font-size: .76rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+  .studio-kicker span { width: 30px; height: 1px; background: linear-gradient(90deg, #5ce5c7, #54c7ff); box-shadow: 0 0 14px rgba(84, 199, 255, .7); }
+  .studio-hero h1 { max-width: 720px; margin: 0 0 24px; color: #fff; font-size: clamp(3.4rem, 6vw, 6.4rem); line-height: .92; letter-spacing: -.055em; text-wrap: balance; }
+  .studio-hero__lead { max-width: 680px; margin-bottom: 30px; color: rgba(231, 242, 255, .74); font-size: clamp(1.05rem, 1.6vw, 1.28rem); line-height: 1.7; }
+  .studio-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .studio-button { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 22px; border: 1px solid rgba(144, 213, 255, .24); border-radius: 9px; color: #f5fbff; background: rgba(255, 255, 255, .045); font-weight: 850; text-decoration: none; transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease; backdrop-filter: blur(14px); }
+  .studio-button:hover { transform: translateY(-2px); border-color: rgba(127, 222, 255, .6); background: rgba(255, 255, 255, .08); }
+  .studio-button--primary { color: #03101a; border-color: transparent; background: linear-gradient(120deg, #66e1c2, #65caff); box-shadow: 0 18px 44px rgba(52, 194, 236, .24); }
+  .studio-button--primary:hover { background: linear-gradient(120deg, #7de8cd, #7ad3ff); box-shadow: 0 22px 54px rgba(52, 194, 236, .34); }
+  .studio-hero__trust { display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 26px 0 0; padding: 0; list-style: none; color: rgba(226, 239, 252, .62); font-size: .86rem; }
+  .studio-hero__trust li { display: flex; align-items: center; gap: 8px; }
+  .studio-hero__trust li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #66e1c2; box-shadow: 0 0 14px rgba(102, 225, 194, .85); }
+  .studio-hero__visual { position: relative; min-width: 0; perspective: 1600px; }
+  .studio-window { overflow: hidden; margin: 0; border: 1px solid rgba(131, 211, 255, .2); border-radius: 14px; background: #06111f; box-shadow: 0 38px 100px rgba(0, 0, 0, .46), inset 0 1px 0 rgba(255, 255, 255, .08); }
+  .studio-window--hero { transform: rotateY(-7deg) rotateX(2deg); animation: studio-float 7s ease-in-out infinite; }
+  .studio-window__bar { min-height: 38px; display: flex; align-items: center; gap: 6px; padding: 0 13px; border-bottom: 1px solid rgba(136, 207, 255, .14); background: rgba(5, 14, 26, .96); }
+  .studio-window__bar > span { width: 7px; height: 7px; border-radius: 50%; background: rgba(127, 196, 231, .45); }
+  .studio-window__bar > span:nth-child(1) { background: #ff7c89; }
+  .studio-window__bar > span:nth-child(2) { background: #ffd76c; }
+  .studio-window__bar > span:nth-child(3) { background: #69dfb4; }
+  .studio-window__bar small { margin-left: auto; color: rgba(209, 231, 247, .5); font-size: .68rem; }
+  .studio-window img { width: 100%; height: auto; display: block; background: #071426; }
+  .studio-float-card { position: absolute; z-index: 2; max-width: 220px; padding: 14px 16px; border: 1px solid rgba(126, 218, 255, .24); border-radius: 10px; background: rgba(5, 20, 35, .84); box-shadow: 0 20px 50px rgba(0, 0, 0, .34); backdrop-filter: blur(16px); }
+  .studio-float-card span { display: block; margin-bottom: 4px; color: #65d8f9; font-size: .64rem; font-weight: 900; letter-spacing: .12em; }
+  .studio-float-card strong { color: rgba(245, 250, 255, .92); font-size: .84rem; }
+  .studio-float-card--calendar { left: -28px; bottom: -28px; animation: studio-float 6s ease-in-out .6s infinite; }
+  .studio-float-card--audience { right: -18px; top: -24px; animation: studio-float 6.5s ease-in-out 1.1s infinite; }
+  .studio-signal { position: relative; z-index: 2; border-block: 1px solid rgba(117, 202, 255, .12); background: rgba(5, 16, 29, .92); }
+  .studio-signal__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .studio-signal__grid div { min-height: 126px; display: flex; flex-direction: column; justify-content: center; padding: 22px; border-right: 1px solid rgba(117, 202, 255, .1); }
+  .studio-signal__grid div:last-child { border-right: 0; }
+  .studio-signal strong { margin-bottom: 4px; color: #f4f9ff; font-size: 1rem; }
+  .studio-signal span { color: rgba(214, 232, 247, .53); font-size: .85rem; }
+  .studio-section { padding: clamp(76px, 9vw, 128px) 0; background: #030914; }
+  .studio-heading { max-width: 820px; margin-bottom: 46px; }
+  .studio-heading--center { margin-inline: auto; text-align: center; }
+  .studio-heading--center .studio-kicker { justify-content: center; }
+  .studio-heading h2, .studio-capabilities__intro h2, .studio-boundary h2, .studio-final h2 { margin-bottom: 18px; color: #f7fbff; font-size: clamp(2.25rem, 4.4vw, 4.5rem); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
+  .studio-heading > p:last-child, .studio-capabilities__intro > p, .studio-boundary p, .studio-final p { color: rgba(219, 235, 249, .64); font-size: 1.05rem; line-height: 1.75; }
+  .studio-heading a { color: #73ddff; font-weight: 800; text-underline-offset: 3px; }
+  .studio-ecosystem { background: linear-gradient(150deg, #061425, #081d31); }
+  .studio-ecosystem__steps { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(117, 202, 255, .16); border-left: 1px solid rgba(117, 202, 255, .16); }
+  .studio-ecosystem__steps article { min-height: 290px; padding: 28px; border-right: 1px solid rgba(117, 202, 255, .16); border-bottom: 1px solid rgba(117, 202, 255, .16); background: rgba(255, 255, 255, .025); }
+  .studio-ecosystem__steps article > span { display: inline-flex; margin-bottom: 54px; color: #67d9f9; font-size: .76rem; font-weight: 900; letter-spacing: .08em; }
+  .studio-ecosystem__steps h3 { margin: 0 0 12px; color: #f5faff; font-size: 1.2rem; }
+  .studio-ecosystem__steps p { margin: 0; color: rgba(219, 235, 249, .62); line-height: 1.66; }
+  .studio-account-note { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 22px; margin-top: 18px; padding: 24px 26px; border: 1px solid rgba(97, 224, 195, .22); border-radius: 12px; background: rgba(83, 204, 177, .065); }
+  .studio-account-note__badge { width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid rgba(105, 224, 198, .38); border-radius: 50%; color: #86efd8; background: rgba(86, 209, 181, .09); font-weight: 950; }
+  .studio-account-note strong { display: block; margin-bottom: 5px; color: #effcf9; }
+  .studio-account-note p { margin: 0; color: rgba(221, 241, 237, .66); line-height: 1.62; }
+  .studio-account-note .studio-text-link { margin: 0; white-space: nowrap; color: #7ee8d0; }
+  .studio-audiences { background: radial-gradient(circle at 18% 20%, rgba(64, 185, 226, .1), transparent 28%), #030914; }
+  .studio-audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .studio-audience-card { position: relative; min-height: 590px; overflow: hidden; padding: 0 28px 30px; border: 1px solid rgba(117, 202, 255, .14); border-radius: 12px; background: linear-gradient(155deg, rgba(14, 35, 56, .86), rgba(5, 15, 27, .84)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04); }
+  .studio-audience-card::after { content: ""; position: absolute; inset: auto -20% -40% 20%; height: 220px; background: radial-gradient(circle, rgba(69, 209, 212, .13), transparent 64%); }
+  .studio-audience-card > img { width: calc(100% + 56px); height: 210px; display: block; margin: 0 -28px 24px; object-fit: cover; border-bottom: 1px solid rgba(117, 202, 255, .14); filter: saturate(.86) contrast(1.04); }
+  .studio-audience-card__number { margin-bottom: 18px; color: rgba(109, 212, 255, .38); font-size: 1.35rem; font-weight: 700; }
+  .studio-audience-card__eyebrow { margin-bottom: 12px; color: #6edfff; font-size: .74rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+  .studio-audience-card h3 { margin-bottom: 14px; color: #f5f9ff; font-size: 1.55rem; line-height: 1.1; }
+  .studio-audience-card > p:not(.studio-audience-card__eyebrow) { color: rgba(219, 235, 249, .62); line-height: 1.68; }
+  .studio-audience-card ul, .studio-showcase ul { display: grid; gap: 9px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .studio-audience-card li, .studio-showcase li { display: flex; align-items: center; gap: 9px; color: rgba(236, 246, 255, .76); font-size: .9rem; }
+  .studio-audience-card li::before, .studio-showcase li::before { content: ""; width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #5de1bf; box-shadow: 0 0 12px rgba(93, 225, 191, .55); }
+  .studio-product-tour { background: linear-gradient(180deg, #030914, #071220 48%, #030914); }
+  .studio-video-shell { position: relative; max-width: 1100px; margin: 0 auto; overflow: visible; border: 1px solid rgba(118, 207, 255, .24); border-radius: 16px; background: #020812; box-shadow: 0 48px 120px rgba(0, 0, 0, .5); }
+  .studio-video-shell__glow { position: absolute; inset: 12% 10% -12%; z-index: -1; background: rgba(62, 197, 255, .22); filter: blur(80px); }
+  .studio-video-shell video { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; background: #020812; }
+  .studio-video-shell__caption { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(125, 208, 255, .13); }
+  .studio-video-shell__caption span { padding: 14px; color: rgba(218, 237, 250, .54); font-size: .72rem; font-weight: 800; text-align: center; letter-spacing: .05em; text-transform: uppercase; }
+  .studio-category-tours { background: radial-gradient(circle at 82% 18%, rgba(53, 188, 226, .1), transparent 24%), #020812; }
+  .studio-category-tour { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(330px, .9fr); gap: clamp(34px, 6vw, 78px); align-items: center; margin-top: 92px; padding-top: 92px; border-top: 1px solid rgba(117, 202, 255, .14); }
+  .studio-category-tour:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+  .studio-category-tour--reverse .studio-category-tour__media { order: 2; }
+  .studio-category-tour--reverse .studio-category-tour__copy { order: 1; }
+  .studio-category-tour__media { overflow: hidden; border: 1px solid rgba(122, 211, 255, .2); border-radius: 14px; background: #06111e; box-shadow: 0 34px 90px rgba(0, 0, 0, .44); }
+  .studio-category-tour__media video { width: 100%; aspect-ratio: 16 / 9; display: block; object-fit: cover; background: #06111e; }
+  .studio-category-tour__eyebrow { margin: 0 0 14px; color: #6edfff; font-size: .74rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+  .studio-category-tour h3 { margin: 0 0 16px; color: #f7fbff; font-size: clamp(2rem, 3.6vw, 3.6rem); line-height: 1.02; letter-spacing: -.04em; text-wrap: balance; }
+  .studio-category-tour__copy > p:not(.studio-category-tour__eyebrow) { color: rgba(219, 235, 249, .64); line-height: 1.72; }
+  .studio-category-tour ul { display: grid; gap: 9px; margin: 24px 0; padding: 0; list-style: none; }
+  .studio-category-tour li { display: flex; gap: 10px; color: rgba(236, 246, 255, .78); font-size: .9rem; line-height: 1.5; }
+  .studio-category-tour li::before { content: ""; width: 6px; height: 6px; flex: 0 0 auto; margin-top: 7px; border-radius: 50%; background: #5de1bf; box-shadow: 0 0 12px rgba(93, 225, 191, .55); }
+  .studio-category-tour__impact { padding: 18px 20px; border-left: 2px solid #5de1bf; background: rgba(80, 203, 176, .07); }
+  .studio-category-tour__impact span { display: block; margin-bottom: 5px; color: #8cebd5; font-size: .7rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+  .studio-category-tour__impact p { margin: 0; color: rgba(223, 242, 238, .7); line-height: 1.62; }
+  .studio-capabilities { background: #f4f7fb; color: #0b1728; }
+  .studio-capabilities__layout { display: grid; grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr); gap: clamp(48px, 8vw, 100px); align-items: start; }
+  .studio-capabilities__intro { position: sticky; top: 110px; }
+  .studio-capabilities__intro h2 { color: #081525; font-size: clamp(2.25rem, 4vw, 4rem); }
+  .studio-capabilities__intro > p { color: #55657a; }
+  .studio-capabilities .studio-kicker { color: #0878b8; }
+  .studio-text-link { display: inline-flex; gap: 8px; margin-top: 16px; color: #0878b8; font-weight: 850; text-decoration: none; }
+  .studio-capability-grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid #dce5ef; border-left: 1px solid #dce5ef; }
+  .studio-capability-grid article { min-height: 240px; padding: 28px; border-right: 1px solid #dce5ef; border-bottom: 1px solid #dce5ef; background: rgba(255, 255, 255, .7); }
+  .studio-capability-grid article > span { display: inline-flex; margin-bottom: 38px; color: #2c9dcb; font-size: .78rem; font-weight: 900; }
+  .studio-capability-grid h3 { margin-bottom: 10px; color: #0c1929; font-size: 1.22rem; }
+  .studio-capability-grid p { color: #607086; line-height: 1.65; }
+  .studio-workflow { background: radial-gradient(circle at 85% 25%, rgba(52, 188, 226, .09), transparent 28%), #030914; }
+  .studio-showcase { display: grid; grid-template-columns: minmax(300px, .76fr) minmax(0, 1.24fr); gap: clamp(34px, 6vw, 78px); align-items: center; margin-top: 86px; }
+  .studio-showcase:first-of-type { margin-top: 0; }
+  .studio-showcase--reverse .studio-showcase__copy { order: 2; }
+  .studio-showcase--reverse .studio-window { order: 1; }
+  .studio-showcase__step { display: inline-flex; margin-bottom: 18px; color: #63d9fb; font-size: .76rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  .studio-showcase h3 { margin-bottom: 16px; color: #f6faff; font-size: clamp(1.85rem, 3.1vw, 3rem); line-height: 1.05; letter-spacing: -.035em; }
+  .studio-showcase__copy > p { color: rgba(219, 235, 249, .62); line-height: 1.75; }
+  .studio-showcase .studio-window { box-shadow: 0 34px 90px rgba(0, 0, 0, .42); }
+  .studio-distribution { background: linear-gradient(145deg, #071426, #06111d); }
+  .studio-distribution__layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: 28px 68px; }
+  .studio-distribution .studio-heading { grid-row: span 2; margin: 0; }
+  .studio-mode-grid { display: grid; gap: 12px; }
+  .studio-mode-grid article { padding: 24px; border: 1px solid rgba(126, 211, 255, .15); border-radius: 10px; background: rgba(255, 255, 255, .035); }
+  .studio-mode-grid article > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 20px; }
+  .studio-mode-grid article > div > span { color: rgba(109, 211, 255, .45); font-weight: 700; }
+  .studio-mode-grid small { padding: 6px 9px; border: 1px solid rgba(100, 221, 199, .22); border-radius: 999px; color: #68dec2; background: rgba(68, 190, 163, .08); font-weight: 750; }
+  .studio-mode-grid h3 { margin-bottom: 8px; color: #f4f9ff; font-size: 1.15rem; }
+  .studio-mode-grid p { margin: 0; color: rgba(218, 235, 249, .6); line-height: 1.65; }
+  .studio-privacy-note { padding: 22px 24px; border-left: 2px solid #5edfc0; background: rgba(71, 201, 174, .07); }
+  .studio-privacy-note strong { display: block; margin-bottom: 5px; color: #e8fbf6; }
+  .studio-privacy-note p { margin: 0; color: rgba(218, 238, 234, .62); line-height: 1.65; }
+  .studio-impact { color: #0b1728; background: #f4f7fb; }
+  .studio-impact__layout { display: grid; grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr); gap: clamp(46px, 8vw, 104px); align-items: start; }
+  .studio-impact .studio-kicker { color: #0878b8; }
+  .studio-impact__intro h2 { margin: 0 0 18px; color: #081525; font-size: clamp(2.4rem, 4.5vw, 4.6rem); line-height: .98; letter-spacing: -.045em; text-wrap: balance; }
+  .studio-impact__intro > p { color: #5a6b80; font-size: 1.04rem; line-height: 1.75; }
+  .studio-impact__flow { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 28px; }
+  .studio-impact__flow span { padding: 8px 10px; border: 1px solid #bad5e5; border-radius: 7px; color: #0b5d84; background: #fff; font-size: .7rem; font-weight: 900; letter-spacing: .06em; }
+  .studio-impact__flow i { color: #54a8ca; font-style: normal; }
+  .studio-impact__grid { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid #d8e3ed; border-left: 1px solid #d8e3ed; }
+  .studio-impact__grid article { min-height: 245px; padding: 26px; border-right: 1px solid #d8e3ed; border-bottom: 1px solid #d8e3ed; background: rgba(255, 255, 255, .7); }
+  .studio-impact__grid article > span { display: block; margin-bottom: 42px; color: #2c9dcb; font-size: .76rem; font-weight: 900; }
+  .studio-impact__grid h3 { margin: 0 0 10px; color: #0b192a; font-size: 1.2rem; }
+  .studio-impact__grid p { margin: 0; color: #617187; line-height: 1.64; }
+  .studio-security { background: linear-gradient(145deg, #071426, #04101d); }
+  .studio-security__layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(40px, 7vw, 92px); align-items: start; }
+  .studio-security h2 { margin: 0; color: #f7fbff; font-size: clamp(2.3rem, 4.2vw, 4.3rem); line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
+  .studio-security__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .studio-security__grid article { min-height: 190px; padding: 24px; border: 1px solid rgba(122, 211, 255, .15); border-radius: 10px; background: rgba(255, 255, 255, .035); }
+  .studio-security__grid strong { display: block; margin-bottom: 10px; color: #eef8ff; }
+  .studio-security__grid p { margin: 0; color: rgba(219, 235, 249, .6); line-height: 1.65; }
+  .studio-plans { background: #f4f7fb; color: #0b1728; }
+  .studio-plans .studio-heading h2 { color: #081525; }
+  .studio-plans .studio-heading > p:last-child { color: #5d6e82; }
+  .studio-plans .studio-kicker { color: #0878b8; }
+  .studio-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .studio-plan-grid article { position: relative; min-height: 310px; display: flex; flex-direction: column; padding: 28px; border: 1px solid #d8e3ed; border-radius: 12px; background: #fff; box-shadow: 0 20px 60px rgba(21, 45, 72, .07); }
+  .studio-plan-grid article.is-featured { color: #f7fbff; border-color: rgba(77, 192, 235, .45); background: linear-gradient(145deg, #0b263d, #071827); box-shadow: 0 28px 70px rgba(14, 83, 122, .2); }
+  .studio-plan-grid article > small { margin-bottom: 46px; color: #4d9dc0; font-weight: 900; }
+  .studio-plan-grid h3 { margin-bottom: 12px; color: #0a192a; font-size: 1.4rem; }
+  .studio-plan-grid p { color: #647489; line-height: 1.65; }
+  .studio-plan-grid .is-featured h3 { color: #f4f9ff; }
+  .studio-plan-grid .is-featured p { color: rgba(224, 239, 251, .66); }
+  .studio-plan-grid a { display: inline-flex; gap: 8px; margin-top: auto; color: #0878b8; font-weight: 850; text-decoration: none; }
+  .studio-plan-grid .is-featured a { color: #69dbfa; }
+  .studio-plan-grid__tag { position: absolute; top: 22px; right: 22px; padding: 6px 9px; border-radius: 999px; color: #7ae3cb; background: rgba(95, 224, 194, .1); font-size: .68rem; font-weight: 850; }
+  .studio-enterprise-cta { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 18px; padding: 28px; border: 1px solid #d8e3ed; border-radius: 12px; background: #eaf1f7; }
+  .studio-enterprise-cta span { color: #0878b8; font-size: .72rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  .studio-enterprise-cta h3 { margin: 8px 0 4px; color: #0a192a; font-size: 1.5rem; }
+  .studio-enterprise-cta p { margin: 0; color: #607086; }
+  .studio-enterprise-cta .studio-button { color: #0a192a; border-color: #b8cddd; background: rgba(255, 255, 255, .68); }
+  .studio-faq { background: #030914; }
+  .studio-faq__layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(44px, 8vw, 100px); align-items: start; }
+  .studio-faq .studio-heading { position: sticky; top: 110px; margin: 0; }
+  .studio-faq__list { border-top: 1px solid rgba(122, 211, 255, .16); }
+  .studio-faq details { border-bottom: 1px solid rgba(122, 211, 255, .16); }
+  .studio-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 24px 4px; color: #f2f8ff; font-weight: 820; cursor: pointer; list-style: none; }
+  .studio-faq summary::-webkit-details-marker { display: none; }
+  .studio-faq summary span { width: 30px; height: 30px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid rgba(117, 207, 255, .22); border-radius: 50%; color: #72ddfc; transition: transform .2s ease; }
+  .studio-faq details[open] summary span { transform: rotate(45deg); }
+  .studio-faq details > p { margin: -6px 44px 24px 4px; color: rgba(219, 235, 249, .62); line-height: 1.7; }
+  .studio-boundary { padding: 72px 0; border-block: 1px solid rgba(119, 204, 255, .13); background: #07111e; }
+  .studio-boundary__layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 7vw, 92px); align-items: center; }
+  .studio-boundary h2 { margin-bottom: 0; font-size: clamp(2rem, 3.5vw, 3.4rem); }
+  .studio-boundary__layout > p { margin: 0; }
+  .studio-final { position: relative; isolation: isolate; padding: clamp(100px, 12vw, 170px) 0; text-align: center; background: radial-gradient(circle at 50% 50%, rgba(57, 192, 230, .12), transparent 35%), #020712; }
+  .studio-final__content { max-width: 880px; }
+  .studio-final .studio-kicker, .studio-final .studio-hero__actions { justify-content: center; }
+  .studio-final h2 { font-size: clamp(3rem, 6vw, 6rem); }
+  .studio-final p { max-width: 640px; margin: 0 auto 28px; }
+  @keyframes studio-drift { to { transform: translate3d(-3%, 3%, 0) scale(1.05); } }
+  @keyframes studio-float { 0%, 100% { transform: translateY(0) rotateY(-4deg); } 50% { transform: translateY(-10px) rotateY(-2deg); } }
+  @media (max-width: 1000px) {
+    .studio-hero__layout, .studio-capabilities__layout, .studio-distribution__layout, .studio-impact__layout, .studio-security__layout, .studio-faq__layout { grid-template-columns: 1fr; }
+    .studio-hero { padding-top: 88px; }
+    .studio-hero__visual { margin-top: 24px; }
+    .studio-capabilities__intro { position: static; }
+    .studio-distribution .studio-heading { grid-row: auto; }
+    .studio-audience-grid, .studio-plan-grid { grid-template-columns: 1fr; }
+    .studio-audience-card { min-height: auto; }
+    .studio-ecosystem__steps { grid-template-columns: repeat(2, 1fr); }
+    .studio-faq .studio-heading { position: static; }
+    .studio-signal__grid { grid-template-columns: repeat(2, 1fr); }
+    .studio-signal__grid div:nth-child(2) { border-right: 0; }
+    .studio-signal__grid div:nth-child(-n+2) { border-bottom: 1px solid rgba(117, 202, 255, .1); }
+  }
+  @media (max-width: 760px) {
+    .studio-hero { min-height: auto; padding: 72px 0 74px; }
+    .studio-hero h1 { max-width: 100%; font-size: min(11vw, 2.75rem); line-height: 1.01; overflow-wrap: anywhere; }
+    .studio-hero__layout { gap: 34px; }
+    .studio-window--hero { transform: none; animation: none; }
+    .studio-float-card { display: none; }
+    .studio-showcase, .studio-showcase--reverse { grid-template-columns: 1fr; margin-top: 68px; }
+    .studio-showcase--reverse .studio-showcase__copy, .studio-showcase--reverse .studio-window { order: initial; }
+    .studio-category-tour, .studio-category-tour--reverse { grid-template-columns: 1fr; margin-top: 68px; padding-top: 68px; }
+    .studio-category-tour--reverse .studio-category-tour__media, .studio-category-tour--reverse .studio-category-tour__copy { order: initial; }
+    .studio-account-note { grid-template-columns: auto 1fr; }
+    .studio-account-note .studio-text-link { grid-column: 1 / -1; }
+    .studio-capability-grid { grid-template-columns: 1fr; }
+    .studio-video-shell__caption { grid-template-columns: repeat(2, 1fr); }
+    .studio-video-shell__caption span:nth-child(-n+2) { border-bottom: 1px solid rgba(125, 208, 255, .13); }
+    .studio-enterprise-cta { align-items: flex-start; flex-direction: column; }
+    .studio-boundary__layout { grid-template-columns: 1fr; }
+    .studio-security__grid, .studio-impact__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .studio-hero__actions, .studio-button { width: 100%; }
+    .studio-signal__grid { grid-template-columns: 1fr; }
+    .studio-signal__grid div { border-right: 0; border-bottom: 1px solid rgba(117, 202, 255, .1); }
+    .studio-signal__grid div:last-child { border-bottom: 0; }
+    .studio-ecosystem__steps { grid-template-columns: 1fr; }
+    .studio-account-note { grid-template-columns: 1fr; }
+    .studio-audience-card { padding: 0 22px 24px; }
+    .studio-audience-card > img { width: calc(100% + 44px); margin-inline: -22px; }
+    .studio-capability-grid article, .studio-plan-grid article { padding: 22px; }
+    .studio-window__bar small { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .studio-hero__aurora, .studio-final__aurora, .studio-window--hero, .studio-float-card { animation: none !important; }
+    .studio-button { transition: none; }
+  }
+</style>

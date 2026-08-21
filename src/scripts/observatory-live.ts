@@ -140,6 +140,7 @@ document.querySelectorAll<HTMLElement>("[data-observatory-live]").forEach((root)
     const card = document.createElement("article");
     card.className = `observatory-stream-card observatory-stream-card--${item.kind}`;
     card.dataset.itemId = item.id;
+    card.id = `aggiornamento-${item.id}`;
 
     const top = document.createElement("div");
     top.className = "observatory-stream-card__top";
@@ -182,6 +183,40 @@ document.querySelectorAll<HTMLElement>("[data-observatory-live]").forEach((root)
       link.textContent = item.sourceType === "official" ? "Apri la fonte" : "Apri il dettaglio";
       foot.append(link);
     }
+
+    const share = document.createElement("button");
+    share.type = "button";
+    share.textContent = "Condividi";
+    share.addEventListener("click", async () => {
+      const shareUrl = new URL(window.location.href);
+      shareUrl.hash = card.id;
+      const data = {
+        title: item.title,
+        text: `${kindMeta[item.kind].label} · ${item.sourceLabel}`,
+        url: shareUrl.toString(),
+      };
+      try {
+        const usedNativeShare = typeof navigator.share === "function";
+        if (usedNativeShare) {
+          await navigator.share(data);
+        } else {
+          await navigator.clipboard.writeText(data.url);
+          share.textContent = "Link copiato";
+          window.setTimeout(() => { share.textContent = "Condividi"; }, 1_800);
+        }
+        const analyticsWindow = window as Window & {
+          gtag?: (...args: unknown[]) => void;
+        };
+        analyticsWindow.gtag?.("event", "share", {
+          method: usedNativeShare ? "native" : "copy_link",
+          content_type: item.kind,
+          item_id: item.id,
+        });
+      } catch {
+        // L'utente puo annullare il pannello di condivisione senza produrre errori UI.
+      }
+    });
+    foot.append(share);
     card.append(top, title, summary, foot);
     return card;
   }
