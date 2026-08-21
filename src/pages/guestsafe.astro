@@ -1,77 +1,1020 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import { guestsafeBenefits } from "../data/features";
+import { absoluteUrl } from "../utils/seo";
+
+const studioBase = "https://studio.protcity.com";
+
+const valuePillars = [
+  { value: "1 QR", label: "per accogliere tutti gli ospiti" },
+  { value: "6 lingue", label: "per contenuti pubblicati e revisionati" },
+  { value: "24/7", label: "informazioni disponibili durante il soggiorno" },
+  { value: "1 regia", label: "Studio per struttura, camere e territorio" }
+];
+
+const guestJourney = [
+  {
+    step: "01",
+    title: "Scansione semplice",
+    text: "L’ospite apre GuestSafe dall’app proTcity e inquadra il QR condiviso oppure un accesso personale."
+  },
+  {
+    step: "02",
+    title: "Anteprima e consenso",
+    text: "Prima dell’attivazione vede la struttura e conferma in modo trasparente il collegamento al soggiorno."
+  },
+  {
+    step: "03",
+    title: "Esperienza su misura",
+    text: "Profilo, attività, FAQ, City Guide e comunicazioni diventano disponibili solo nel perimetro autorizzato."
+  },
+  {
+    step: "04",
+    title: "Aggiornamenti nel momento giusto",
+    text: "Inbox e notifiche push, se consentite sul dispositivo, mantengono l’ospite informato senza disperdere i messaggi."
+  }
+];
+
+const studioCapabilities = [
+  {
+    title: "Accessi QR scalabili",
+    text: "Un QR condiviso per tutti gli ospiti oppure codici monouso per soggiorni e camere che richiedono un accesso personale."
+  },
+  {
+    title: "Camere verificate",
+    text: "L’ospite può associare la camera con un codice di verifica. Il solo numero di camera non abilita contenuti riservati."
+  },
+  {
+    title: "Attività e comunicazioni",
+    text: "Pubblica servizi, appuntamenti e avvisi per tutti, per più camere selezionate oppure per una camera specifica."
+  },
+  {
+    title: "FAQ ricercabili",
+    text: "La struttura costruisce risposte complete e l’ospite trova rapidamente ciò che serve tramite ricerca per testo o parola chiave."
+  },
+  {
+    title: "City Guide proprietaria",
+    text: "Valorizza attrazioni, musei, trasporti, salute, utility e attività locali partendo dal catalogo territoriale disponibile."
+  },
+  {
+    title: "Immagini e video",
+    text: "Arricchisci attività, comunicazioni e luoghi con contenuti visivi coerenti, utili e immediati."
+  },
+  {
+    title: "Traduzioni controllate",
+    text: "Compilazione manuale sempre disponibile; traduzione automatica come servizio aggiuntivo, con revisione finale dell’operatore."
+  },
+  {
+    title: "Calendario, inbox e insight",
+    text: "Un flusso operativo unico per pianificare, distribuire e comprendere i contenuti GuestSafe pubblicati."
+  }
+];
+
+const audienceModes = [
+  {
+    label: "Tutti gli ospiti",
+    text: "Per informazioni generali, attività della struttura e aggiornamenti utili durante il soggiorno."
+  },
+  {
+    label: "Più camere",
+    text: "Per gruppi, piani, reparti o insiemi selezionati dalla struttura."
+  },
+  {
+    label: "Una camera",
+    text: "Per una comunicazione mirata, disponibile soltanto agli ospiti associati e verificati."
+  }
+];
+
+const cityGuidePoints = [
+  "Catalogo locale già disponibile quando presente",
+  "Nuovi luoghi creati e pubblicati in autonomia",
+  "Pin su mappa con indirizzo e coordinate",
+  "Stima di distanza e tempo dalla struttura",
+  "Vista cartografica e, se disponibile, satellitare",
+  "Immagini e video per raccontare ogni luogo"
+];
+
+const faqs = [
+  {
+    question: "GuestSafe richiede un’app separata?",
+    answer:
+      "No. GuestSafe è integrato nell’app ufficiale proTcity per iOS e Android e viene gestito dalla struttura attraverso proTcity Studio."
+  },
+  {
+    question: "La struttura deve stampare un QR diverso per ogni ospite?",
+    answer:
+      "No. Può utilizzare un QR condiviso e riutilizzabile per l’accoglienza ordinaria. I QR monouso restano disponibili quando serve un accesso personale o già associato a una camera."
+  },
+  {
+    question: "Le comunicazioni possono essere inviate a una sola camera?",
+    answer:
+      "Sì. La struttura può scegliere tutti gli ospiti, più camere oppure una camera specifica. Le comunicazioni mirate richiedono un’associazione camera verificata."
+  },
+  {
+    question: "Le notifiche push sono comprese?",
+    answer:
+      "I piani GuestSafe includono campagne e push secondo la quota prevista. Sul telefono la ricezione dipende sempre dal consenso dell’utente e dalle impostazioni del dispositivo."
+  },
+  {
+    question: "Le traduzioni automatiche sono obbligatorie?",
+    answer:
+      "No. Gli editor multilingua possono essere compilati manualmente. La traduzione automatica è un servizio aggiuntivo acquistabile anche in seguito e richiede la revisione dell’operatore."
+  },
+  {
+    question: "Cosa accade quando il soggiorno termina o viene revocato?",
+    answer:
+      "L’accesso ai dati riservati della struttura viene chiuso. GuestSafe resta comunque visibile nell’app per consentire un futuro nuovo accesso tramite QR."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "GuestSafe",
+    applicationCategory: "HospitalityApplication",
+    operatingSystem: "Web, iOS, Android",
+    description:
+      "Piattaforma di accoglienza digitale integrata con proTcity Studio e app proTcity per strutture ricettive, ospiti, camere, comunicazioni, FAQ e City Guide.",
+    url: absoluteUrl("/guestsafe"),
+    image: absoluteUrl("/images/studio/categories/studio-ospitalita-territorio.jpg"),
+    publisher: {
+      "@type": "Organization",
+      name: "Kurbi Labs SRLS",
+      url: absoluteUrl("/")
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
+  }
+];
 ---
 
 <MainLayout
-  title="GuestSafe per hotel e strutture ricettive"
-  description="GuestSafe aiuta hotel e strutture ricettive a offrire agli ospiti informazioni locali, comunicazioni e strumenti utili durante il soggiorno."
+  title="GuestSafe: accoglienza digitale per strutture ricettive"
+  description="GuestSafe collega proTcity Studio e l’app per offrire a hotel, B&B, residence e strutture ricettive QR ospiti, camere, comunicazioni, attività, FAQ, City Guide, media e traduzioni."
   canonicalPath="/guestsafe"
+  image="/images/studio/categories/studio-ospitalita-territorio.jpg"
   bodyClass="cinematic-site"
+  schema={schema}
 >
-  <section class="cinematic-hero feature-hero feature-hero--guestsafe">
-    <div class="cinematic-hero__media"></div>
-    <div class="cinematic-hero__shade"></div>
-    <div class="container cinematic-hero__content">
-      <p class="eyebrow">GuestSafe</p>
-      <h1>Accoglienza più sicura per hotel, ospiti e viaggiatori.</h1>
-      <p class="cinematic-hero__lead">
-        GuestSafe aiuta chi visita una città nuova a trovare percorsi più prudenti, punti utili e supporto locale senza dover conoscere già il territorio.
-      </p>
-      <div class="cinematic-hero__actions">
-        <a class="glass-button glass-button--primary" href="/partner">Soluzioni hotel</a>
-        <a class="glass-button" href="/contact">Richiedi informazioni</a>
+  <section class="gs-hero">
+    <div class="gs-hero__backdrop" aria-hidden="true"></div>
+    <div class="container gs-hero__grid">
+      <div class="gs-hero__copy">
+        <p class="gs-kicker">GuestSafe · proTcity Studio</p>
+        <h1>L’ospitalità digitale che continua oltre la reception.</h1>
+        <p class="gs-hero__lead">
+          GuestSafe trasforma informazioni, servizi e conoscenza del territorio in un’esperienza ordinata e personale:
+          la struttura gestisce tutto da Studio, l’ospite trova ciò che serve direttamente nell’app proTcity.
+        </p>
+        <div class="gs-actions">
+          <a class="gs-button gs-button--primary" href={`${studioBase}/registrazione`}>Porta la struttura in Studio</a>
+          <a class="gs-button" href={`${studioBase}/prezzi`}>Scopri i piani GuestSafe</a>
+          <a class="gs-text-link" href="#come-funziona">Guarda come funziona <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="gs-hero__note">
+          Per hotel, B&amp;B, residence, resort, campeggi, villaggi, affittacamere e strutture multisede.
+        </p>
       </div>
+      <figure class="gs-hero__visual">
+        <img
+          src="/images/studio/categories/studio-ospitalita-territorio.jpg"
+          alt="Una struttura ricettiva usa proTcity Studio per accompagnare gli ospiti con GuestSafe"
+          width="1600"
+          height="900"
+          fetchpriority="high"
+        />
+        <figcaption>
+          <span>Studio governa</span>
+          <strong>L’app accompagna l’ospite</strong>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="signal-strip signal-strip--floating">
+  <section class="gs-value-strip" aria-label="Valore di GuestSafe">
+    <div class="container gs-value-strip__grid">
+      {valuePillars.map((item) => (
+        <article>
+          <strong>{item.value}</strong>
+          <span>{item.label}</span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--intro">
+    <div class="container gs-intro">
+      <p class="gs-kicker">Un servizio che valorizza ogni soggiorno</p>
+      <h2>Una struttura all’avanguardia non consegna soltanto una chiave: accompagna l’ospite.</h2>
+      <p>
+        GuestSafe rende accessibili nel momento giusto le informazioni che normalmente si disperdono tra fogli,
+        messaggi, telefonate e indicazioni verbali. L’ospite si orienta meglio, la reception dispone di un canale
+        professionale e la struttura racconta servizi e territorio con la propria identità.
+      </p>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--media" id="come-funziona">
+    <div class="container gs-media-grid">
+      <div class="gs-media-copy">
+        <p class="gs-kicker">Dalla regia Studio al telefono dell’ospite</p>
+        <h2>Un unico flusso, prima e durante il soggiorno.</h2>
+        <p>
+          Guarda come la struttura entra nel workspace GuestSafe, organizza i contenuti e li rende disponibili
+          nell’esperienza mobile dell’ospite.
+        </p>
+        <ul class="gs-check-list">
+          <li>Accesso web protetto su Studio</li>
+          <li>Pubblicazione centralizzata e controllata</li>
+          <li>Esperienza mobile coerente con la lingua dell’app</li>
+        </ul>
+      </div>
+      <figure class="gs-video-frame">
+        <video controls muted loop playsinline preload="metadata" poster="/images/studio/categories/studio-ospitalita-territorio.jpg">
+          <source src="/videos/studio/categories/studio-ospitalita.mp4" type="video/mp4" />
+          Il browser non supporta la riproduzione del video.
+        </video>
+        <figcaption>Panoramica del workspace Studio dedicato all’ospitalità.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--journey">
     <div class="container">
-      <div class="signal-strip__grid">
-        {guestsafeBenefits.slice(0, 3).map((item, index) => (
-          <article>
-            <span>0{index + 1}</span>
-            <h3>{item}</h3>
-            <p>Informazioni semplici per ospiti, reception e partner hospitality, sempre con tono prudente.</p>
+      <div class="gs-heading">
+        <p class="gs-kicker">L’esperienza dell’ospite</p>
+        <h2>Dal QR a un soggiorno connesso, in quattro passaggi chiari.</h2>
+      </div>
+      <div class="gs-journey-grid">
+        {guestJourney.map((item) => (
+          <article class="gs-step-card">
+            <span>{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="cinematic-section">
-    <div class="container feature-split feature-split--reverse glass-panel">
-      <div class="feature-split__copy">
-        <p class="eyebrow">Tourist Safe Mode</p>
-        <h2>Per chi arriva in una città nuova e vuole orientarsi senza stress.</h2>
+  <section class="gs-section gs-section--workspace">
+    <div class="container gs-workspace">
+      <div class="gs-workspace__visual">
+        <img
+          src="/images/studio/studio-dashboard.webp"
+          alt="Dashboard ufficiale di proTcity Studio con il workspace della struttura"
+          width="1600"
+          height="1000"
+          loading="lazy"
+        />
+      </div>
+      <div class="gs-workspace__copy">
+        <p class="gs-kicker">La console è Studio</p>
+        <h2>La struttura lavora sul web. L’ospite riceve tutto nell’app.</h2>
         <p>
-          L'app può mettere in evidenza hotel, percorsi consigliati, safe point, assistenza locale e indicazioni utili per rientrare in modo più sereno.
+          Su <a href={studioBase}>studio.protcity.com</a> operatori e responsabili gestiscono GuestSafe con ruoli,
+          verifiche e servizi attivi. Le stesse credenziali proTcity possono essere usate sul web e nell’app:
+          ciò che ciascuno vede dipende dal proprio ruolo e dalle autorizzazioni.
         </p>
-        <div class="metric-row">
-          <span>Hotel partner</span>
-          <span>Punti utili</span>
-          <span>Rientro sicuro</span>
+        <a class="gs-button gs-button--primary" href={studioBase}>Apri proTcity Studio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--capabilities">
+    <div class="container">
+      <div class="gs-heading gs-heading--split">
+        <div>
+          <p class="gs-kicker">Tutto ciò che serve alla struttura</p>
+          <h2>Un workspace operativo, non una semplice vetrina.</h2>
+        </div>
+        <p>
+          Ogni funzione è progettata per rendere più chiara la comunicazione con l’ospite e più semplice il lavoro
+          quotidiano del team.
+        </p>
+      </div>
+      <div class="gs-capability-grid">
+        {studioCapabilities.map((item, index) => (
+          <article class="gs-feature-card">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--qr">
+    <div class="container gs-qr-grid">
+      <div class="gs-qr-copy">
+        <p class="gs-kicker">Accoglienza senza code operative</p>
+        <h2>Un QR condiviso può accogliere migliaia di ospiti.</h2>
+        <p>
+          Il QR generico può essere esposto alla reception, in camera o nei materiali di benvenuto e riutilizzato da
+          tutti. Non richiede l’approvazione manuale di ogni singolo accesso e non rivela dati privati di camera.
+        </p>
+      </div>
+      <div class="gs-qr-options">
+        <article>
+          <span>Condiviso</span>
+          <h3>Uno per tutti</h3>
+          <p>L’ospite entra nel flusso GuestSafe e, se necessario, associa successivamente una camera con verifica.</p>
+        </article>
+        <article>
+          <span>Monouso</span>
+          <h3>Personale quando serve</h3>
+          <p>La reception può generare un accesso individuale, anche con camera preassegnata, per comunicazioni mirate.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--audience">
+    <div class="container">
+      <div class="gs-heading">
+        <p class="gs-kicker">Comunicazioni realmente pertinenti</p>
+        <h2>La struttura sceglie chi deve ricevere ogni messaggio.</h2>
+      </div>
+      <div class="gs-audience-grid">
+        {audienceModes.map((item) => (
+          <article>
+            <span aria-hidden="true"></span>
+            <h3>{item.label}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+      <div class="gs-language-note">
+        <strong>La lingua giusta, senza duplicare il lavoro.</strong>
+        <p>
+          Quando una traduzione è pubblicata, l’app presenta il contenuto nella lingua configurata dall’utente e usa
+          l’italiano come fallback. Le traduzioni automatiche restano sempre sottoposte al controllo dell’operatore.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--guide">
+    <div class="container gs-guide-grid">
+      <div>
+        <p class="gs-kicker">City Guide della struttura</p>
+        <h2>Il territorio diventa parte dell’esperienza di ospitalità.</h2>
+        <p>
+          Musei, piazze, trasporti, farmacie, servizi, utility e attività locali: la struttura parte dal catalogo
+          disponibile e può aggiungere, arricchire e pubblicare nuovi contenuti in piena autonomia.
+        </p>
+        <div class="gs-guide-list">
+          {cityGuidePoints.map((item) => (
+            <span>{item}</span>
+          ))}
         </div>
       </div>
-      <figure class="image-frame image-frame--wide">
-        <img src="/images/app-real/optimized/hotel.png" alt="Schermata reale proTcity per hotel e ospiti" loading="lazy" />
+      <figure>
+        <img
+          src="/images/studio/categories/studio-ospitalita-territorio.jpg"
+          alt="Ospiti e territorio connessi dalla City Guide GuestSafe"
+          width="1600"
+          height="900"
+          loading="lazy"
+        />
+        <figcaption>La guida locale curata dalla struttura arriva nell’app dell’ospite.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section class="cinematic-band">
-    <div class="container world-panel glass-panel">
-      <div class="world-panel__copy">
-        <p class="eyebrow">Hospitality network</p>
-        <h2>La reception diventa un punto digitale di fiducia.</h2>
+  <section class="gs-section gs-section--impact">
+    <div class="container">
+      <div class="gs-impact-panel">
+        <p class="gs-kicker">Perché scegliere GuestSafe</p>
+        <h2>Più valore percepito, più continuità, più territorio.</h2>
+        <div class="gs-impact-grid">
+          <article>
+            <h3>Per l’ospite</h3>
+            <p>Un punto unico e riconoscibile per orientarsi, trovare risposte e ricevere aggiornamenti pertinenti.</p>
+          </article>
+          <article>
+            <h3>Per la reception</h3>
+            <p>Informazioni organizzate e riutilizzabili che aiutano a gestire meglio le richieste ricorrenti.</p>
+          </article>
+          <article>
+            <h3>Per la struttura</h3>
+            <p>Un servizio distintivo che prolunga la qualità dell’accoglienza durante l’intero soggiorno.</p>
+          </article>
+          <article>
+            <h3>Per il territorio</h3>
+            <p>Un canale qualificato per far conoscere servizi, cultura, mobilità e attività locali agli ospiti.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--security">
+    <div class="container gs-security-grid">
+      <div>
+        <p class="gs-kicker">Sicurezza e controllo degli accessi</p>
+        <h2>Informazioni pubbliche quando servono. Dati riservati soltanto quando consentiti.</h2>
+      </div>
+      <ul>
+        <li>Anteprima, consenso e soggiorno attivo prima dei contenuti riservati</li>
+        <li>Associazione camera con codice di verifica, non con il solo numero</li>
+        <li>Chiusura automatica dell’accesso alla revoca o al termine del soggiorno</li>
+        <li>Contenuti pubblicati attraverso la proiezione ufficiale di Studio</li>
+      </ul>
+    </div>
+    <div class="container gs-boundary">
+      GuestSafe supporta l’accoglienza e la comunicazione della struttura. Non sostituisce la reception, i numeri di
+      emergenza, le procedure di sicurezza o le autorità competenti.
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--plans">
+    <div class="container gs-plans-grid">
+      <div>
+        <p class="gs-kicker">Un piano proporzionato alla struttura</p>
+        <h2>Dalla piccola ospitalità ai gruppi multisede.</h2>
         <p>
-          GuestSafe è pensata per strutture che vogliono offrire un servizio moderno: meno incertezza, più orientamento e un canale chiaro tra ospite, hotel e territorio.
+          Il piano GuestSafe viene individuato in base alle <strong>unità totali della struttura</strong>. Campagne e
+          push GuestSafe sono incluse secondo la quota del piano; il pacchetto traduzioni automatiche è separato e
+          può essere aggiunto anche in seguito.
         </p>
       </div>
-      <div class="world-panel__media world-panel__media--guestsafe">
-        <img src="/images/app-real/optimized/partners-hotel2.png" alt="Console partner hotel proTcity" loading="lazy" />
-        <img src="/images/app-real/optimized/walkguard6.png" alt="WalkGuard proTcity per rientro sicuro" loading="lazy" />
+      <div class="gs-plan-actions">
+        <a class="gs-button gs-button--primary" href={`${studioBase}/prezzi`}>Consulta prezzi e servizi</a>
+        <a class="gs-button" href={`${studioBase}/registrazione`}>Crea l’account Studio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--faq">
+    <div class="container">
+      <div class="gs-heading">
+        <p class="gs-kicker">Domande frequenti</p>
+        <h2>Le risposte essenziali prima di iniziare.</h2>
+      </div>
+      <div class="gs-faq-list">
+        {faqs.map((faq) => (
+          <details>
+            <summary>{faq.question}<span aria-hidden="true">+</span></summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="gs-final">
+    <div class="container gs-final__panel">
+      <div>
+        <p class="gs-kicker">La prossima accoglienza può iniziare da qui</p>
+        <h2>Rendi GuestSafe parte del servizio che i tuoi ospiti ricorderanno.</h2>
+        <p>
+          Porta struttura, team, camere, contenuti e territorio in un unico workspace professionale collegato
+          all’app proTcity.
+        </p>
+      </div>
+      <div class="gs-final__actions">
+        <a class="gs-button gs-button--primary" href={`${studioBase}/registrazione`}>Inizia con proTcity Studio</a>
+        <a class="gs-text-link" href="/contact">Parla con il team proTcity <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 </MainLayout>
+
+<style>
+  :global(body.cinematic-site) {
+    --gs-bg: #04111f;
+    --gs-panel: rgba(12, 31, 49, 0.82);
+    --gs-panel-strong: #0b1d30;
+    --gs-line: rgba(141, 195, 224, 0.21);
+    --gs-text: #f5f9ff;
+    --gs-muted: #a9bed1;
+    --gs-cyan: #62e7f4;
+    --gs-blue: #79b9ff;
+    background: var(--gs-bg);
+    color: var(--gs-text);
+  }
+
+  .gs-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(88px, 9vw, 142px) 0 74px;
+    background:
+      radial-gradient(circle at 83% 14%, rgba(69, 207, 232, 0.2), transparent 31%),
+      linear-gradient(145deg, #061426 0%, #071a2c 58%, #082b38 100%);
+  }
+
+  .gs-hero__backdrop {
+    position: absolute;
+    inset: 0;
+    opacity: 0.34;
+    background-image:
+      linear-gradient(rgba(117, 184, 215, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(117, 184, 215, 0.07) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+  }
+
+  .gs-hero__grid,
+  .gs-media-grid,
+  .gs-workspace,
+  .gs-qr-grid,
+  .gs-guide-grid,
+  .gs-security-grid,
+  .gs-plans-grid,
+  .gs-final__panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(38px, 6vw, 88px);
+  }
+
+  .gs-kicker {
+    margin: 0 0 18px;
+    color: var(--gs-cyan);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.21em;
+    text-transform: uppercase;
+  }
+
+  .gs-hero h1 {
+    max-width: 720px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(3rem, 5.4vw, 5.6rem);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  .gs-hero__lead {
+    max-width: 720px;
+    margin: 27px 0 0;
+    color: #c3d5e3;
+    font-size: clamp(1.08rem, 1.55vw, 1.33rem);
+    line-height: 1.65;
+  }
+
+  .gs-actions,
+  .gs-final__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 13px;
+    margin-top: 30px;
+  }
+
+  .gs-button {
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 23px;
+    border: 1px solid rgba(151, 197, 222, 0.3);
+    border-radius: 16px;
+    background: rgba(10, 28, 45, 0.78);
+    color: #edf7ff;
+    font-weight: 850;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .gs-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(98, 231, 244, 0.72);
+    background: #102b43;
+  }
+
+  .gs-button--primary {
+    border-color: transparent;
+    background: linear-gradient(125deg, #64e5d0, #6fc5ff);
+    color: #031423;
+    box-shadow: 0 15px 38px rgba(43, 183, 220, 0.2);
+  }
+
+  .gs-button--primary:hover {
+    background: linear-gradient(125deg, #7cebd8, #85ceff);
+  }
+
+  .gs-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 5px;
+    color: #cceaff;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .gs-text-link:hover { color: var(--gs-cyan); }
+
+  .gs-hero__note {
+    margin: 22px 0 0;
+    color: #8fa9bd;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .gs-hero__visual {
+    position: relative;
+    margin: 0;
+  }
+
+  .gs-hero__visual::before {
+    position: absolute;
+    inset: -18px;
+    z-index: -1;
+    border: 1px solid rgba(105, 224, 238, 0.22);
+    border-radius: 36px;
+    content: "";
+  }
+
+  .gs-hero__visual img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid rgba(184, 223, 242, 0.24);
+    border-radius: 28px;
+    object-fit: cover;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+  }
+
+  .gs-hero__visual figcaption {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    display: grid;
+    gap: 3px;
+    padding: 13px 17px;
+    border: 1px solid rgba(157, 222, 241, 0.25);
+    border-radius: 14px;
+    background: rgba(4, 17, 31, 0.86);
+    backdrop-filter: blur(14px);
+  }
+
+  .gs-hero__visual figcaption span { color: var(--gs-cyan); font-size: 0.72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; }
+  .gs-hero__visual figcaption strong { color: #fff; font-size: 0.94rem; }
+
+  .gs-value-strip {
+    border-block: 1px solid var(--gs-line);
+    background: rgba(7, 24, 39, 0.96);
+  }
+
+  .gs-value-strip__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .gs-value-strip article {
+    display: grid;
+    gap: 4px;
+    min-height: 118px;
+    align-content: center;
+    padding: 22px clamp(18px, 2.5vw, 36px);
+    border-left: 1px solid var(--gs-line);
+  }
+
+  .gs-value-strip article:last-child { border-right: 1px solid var(--gs-line); }
+  .gs-value-strip strong { color: #fff; font-size: clamp(1.35rem, 2vw, 1.9rem); letter-spacing: -.03em; }
+  .gs-value-strip span { color: var(--gs-muted); font-size: .88rem; line-height: 1.45; }
+
+  .gs-section { padding: clamp(76px, 9vw, 132px) 0; }
+  .gs-section h2, .gs-final h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.25rem, 4.2vw, 4.35rem);
+    line-height: 1.02;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+  }
+
+  .gs-section p, .gs-final p { color: var(--gs-muted); line-height: 1.75; }
+
+  .gs-intro {
+    max-width: 1060px;
+    text-align: center;
+  }
+
+  .gs-intro p:last-child {
+    max-width: 880px;
+    margin: 28px auto 0;
+    font-size: 1.12rem;
+  }
+
+  .gs-section--media,
+  .gs-section--workspace,
+  .gs-section--guide,
+  .gs-section--security {
+    border-block: 1px solid var(--gs-line);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(54, 189, 212, .09), transparent 34%),
+      #071626;
+  }
+
+  .gs-media-copy > p:not(.gs-kicker),
+  .gs-workspace__copy > p:not(.gs-kicker),
+  .gs-guide-grid > div > p:not(.gs-kicker),
+  .gs-plans-grid > div > p:not(.gs-kicker) {
+    margin: 24px 0;
+    font-size: 1.05rem;
+  }
+
+  .gs-check-list,
+  .gs-security-grid ul {
+    display: grid;
+    gap: 12px;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .gs-check-list li,
+  .gs-security-grid li {
+    position: relative;
+    padding-left: 28px;
+    color: #dbe9f3;
+    line-height: 1.55;
+  }
+
+  .gs-check-list li::before,
+  .gs-security-grid li::before {
+    position: absolute;
+    left: 0;
+    color: var(--gs-cyan);
+    font-weight: 900;
+    content: "✓";
+  }
+
+  .gs-video-frame,
+  .gs-guide-grid figure {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--gs-line);
+    border-radius: 26px;
+    background: #06111e;
+    box-shadow: 0 24px 70px rgba(0,0,0,.28);
+  }
+
+  .gs-video-frame video,
+  .gs-guide-grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .gs-video-frame figcaption,
+  .gs-guide-grid figcaption {
+    padding: 14px 18px;
+    color: #8ea8bc;
+    font-size: .82rem;
+  }
+
+  .gs-heading { max-width: 940px; margin-bottom: 42px; }
+  .gs-heading--split { display: grid; max-width: none; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: end; }
+  .gs-heading--split > p { margin: 0 0 5px; }
+
+  .gs-journey-grid,
+  .gs-capability-grid,
+  .gs-audience-grid,
+  .gs-impact-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .gs-journey-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gs-step-card, .gs-feature-card, .gs-audience-grid article, .gs-impact-grid article {
+    border: 1px solid var(--gs-line);
+    border-radius: 22px;
+    background: var(--gs-panel);
+  }
+
+  .gs-step-card { min-height: 270px; padding: 26px; }
+  .gs-step-card > span, .gs-feature-card > span {
+    display: inline-flex;
+    min-width: 46px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(83, 219, 230, .1);
+    color: var(--gs-cyan);
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .08em;
+  }
+  .gs-step-card h3, .gs-feature-card h3, .gs-audience-grid h3, .gs-impact-grid h3, .gs-qr-options h3 {
+    margin: 22px 0 10px;
+    color: #f8fbff;
+    font-size: 1.22rem;
+  }
+  .gs-step-card p, .gs-feature-card p, .gs-audience-grid p, .gs-impact-grid p, .gs-qr-options p { margin: 0; font-size: .95rem; }
+
+  .gs-workspace { grid-template-columns: 1.16fr .84fr; }
+  .gs-workspace__visual {
+    overflow: hidden;
+    border: 1px solid var(--gs-line);
+    border-radius: 25px;
+    background: #07111e;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .35);
+  }
+  .gs-workspace__visual img { display: block; width: 100%; height: auto; }
+  .gs-workspace__copy a:not(.gs-button) { color: var(--gs-cyan); }
+  .gs-workspace__copy .gs-button { margin-top: 6px; }
+
+  .gs-capability-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gs-feature-card { min-height: 255px; padding: 25px; }
+
+  .gs-section--qr {
+    background:
+      radial-gradient(circle at 77% 38%, rgba(81, 212, 226, .12), transparent 30%),
+      linear-gradient(150deg, #071321, #09243a);
+  }
+  .gs-qr-grid { align-items: stretch; }
+  .gs-qr-copy { align-self: center; }
+  .gs-qr-copy > p:not(.gs-kicker) { margin-top: 25px; font-size: 1.05rem; }
+  .gs-qr-options { display: grid; gap: 14px; }
+  .gs-qr-options article {
+    padding: 26px;
+    border: 1px solid var(--gs-line);
+    border-radius: 22px;
+    background: rgba(8, 25, 41, .8);
+  }
+  .gs-qr-options article > span {
+    color: var(--gs-cyan);
+    font-size: .75rem;
+    font-weight: 900;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+  .gs-qr-options h3 { margin-top: 10px; }
+
+  .gs-audience-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .gs-audience-grid article { position: relative; min-height: 215px; padding: 28px; overflow: hidden; }
+  .gs-audience-grid article > span {
+    display: block;
+    width: 44px;
+    height: 7px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--gs-cyan), var(--gs-blue));
+  }
+  .gs-language-note {
+    display: grid;
+    grid-template-columns: .72fr 1.28fr;
+    gap: 35px;
+    align-items: center;
+    margin-top: 18px;
+    padding: 25px 28px;
+    border: 1px solid rgba(107, 229, 217, .25);
+    border-radius: 20px;
+    background: rgba(29, 99, 101, .13);
+  }
+  .gs-language-note strong { color: #c7fff4; font-size: 1.08rem; }
+  .gs-language-note p { margin: 0; font-size: .93rem; }
+
+  .gs-guide-grid { align-items: center; }
+  .gs-guide-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 28px;
+  }
+  .gs-guide-list span {
+    padding: 9px 13px;
+    border: 1px solid var(--gs-line);
+    border-radius: 999px;
+    background: rgba(7, 25, 42, .72);
+    color: #d9e8f2;
+    font-size: .82rem;
+  }
+
+  .gs-section--impact { padding-top: 0; }
+  .gs-impact-panel {
+    padding: clamp(34px, 5vw, 70px);
+    border: 1px solid var(--gs-line);
+    border-radius: 30px;
+    background:
+      linear-gradient(130deg, rgba(21, 68, 86, .68), rgba(9, 27, 44, .92)),
+      var(--gs-panel);
+  }
+  .gs-impact-panel > h2 { max-width: 880px; }
+  .gs-impact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 38px; }
+  .gs-impact-grid article { min-height: 205px; padding: 25px; background: rgba(5, 19, 33, .62); }
+  .gs-impact-grid h3 { margin-top: 0; }
+
+  .gs-security-grid { align-items: start; }
+  .gs-security-grid h2 { font-size: clamp(2.2rem, 3.8vw, 3.8rem); }
+  .gs-security-grid ul { margin: 6px 0 0; }
+  .gs-boundary {
+    margin-top: 45px;
+    padding: 20px 23px;
+    border: 1px solid rgba(245, 203, 111, .24);
+    border-radius: 17px;
+    background: rgba(96, 71, 24, .13);
+    color: #d3c5a4;
+    font-size: .9rem;
+    line-height: 1.65;
+  }
+
+  .gs-plans-grid {
+    padding: clamp(35px, 5vw, 64px);
+    border: 1px solid var(--gs-line);
+    border-radius: 29px;
+    background: linear-gradient(140deg, rgba(12, 38, 58, .95), rgba(9, 26, 42, .9));
+  }
+  .gs-plan-actions { display: grid; gap: 12px; justify-items: stretch; }
+  .gs-plan-actions .gs-button { width: 100%; }
+
+  .gs-section--faq { padding-top: 20px; }
+  .gs-faq-list { display: grid; gap: 11px; }
+  .gs-faq-list details {
+    border: 1px solid var(--gs-line);
+    border-radius: 18px;
+    background: var(--gs-panel);
+  }
+  .gs-faq-list summary {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 22px;
+    color: #eef7ff;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+  }
+  .gs-faq-list summary::-webkit-details-marker { display: none; }
+  .gs-faq-list summary span { color: var(--gs-cyan); font-size: 1.5rem; font-weight: 400; }
+  .gs-faq-list details[open] summary span { transform: rotate(45deg); }
+  .gs-faq-list details p { max-width: 920px; margin: 0; padding: 0 22px 23px; }
+
+  .gs-final { padding: 0 0 clamp(82px, 10vw, 144px); }
+  .gs-final__panel {
+    padding: clamp(38px, 6vw, 78px);
+    border: 1px solid rgba(110, 230, 240, .28);
+    border-radius: 34px;
+    background:
+      radial-gradient(circle at 85% 45%, rgba(74, 222, 231, .19), transparent 28%),
+      linear-gradient(135deg, #092036, #0a3341);
+  }
+  .gs-final__panel h2 { font-size: clamp(2.35rem, 4.5vw, 4.5rem); }
+  .gs-final__panel p:not(.gs-kicker) { max-width: 760px; margin: 22px 0 0; }
+  .gs-final__actions { justify-content: flex-end; }
+
+  @media (max-width: 1080px) {
+    .gs-hero__grid,
+    .gs-media-grid,
+    .gs-workspace,
+    .gs-qr-grid,
+    .gs-guide-grid,
+    .gs-security-grid,
+    .gs-plans-grid,
+    .gs-final__panel { grid-template-columns: 1fr; }
+    .gs-hero__copy { max-width: 860px; }
+    .gs-hero__visual { max-width: 850px; }
+    .gs-journey-grid, .gs-capability-grid, .gs-impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gs-heading--split { grid-template-columns: 1fr; gap: 18px; }
+    .gs-workspace__copy { max-width: 780px; }
+    .gs-plan-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gs-final__actions { justify-content: flex-start; }
+  }
+
+  @media (max-width: 760px) {
+    .gs-hero { padding: 75px 0 56px; }
+    .gs-hero h1 { font-size: clamp(2.65rem, 13vw, 4rem); line-height: .99; }
+    .gs-hero__visual::before { inset: -8px; border-radius: 25px; }
+    .gs-hero__visual img { border-radius: 20px; }
+    .gs-hero__visual figcaption { position: static; margin-top: 10px; }
+    .gs-value-strip__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gs-value-strip article { border-bottom: 1px solid var(--gs-line); }
+    .gs-value-strip article:nth-child(2n) { border-right: 1px solid var(--gs-line); }
+    .gs-section { padding: 72px 0; }
+    .gs-section h2, .gs-final h2 { font-size: clamp(2.05rem, 10vw, 3rem); }
+    .gs-journey-grid, .gs-capability-grid, .gs-audience-grid, .gs-impact-grid { grid-template-columns: 1fr; }
+    .gs-step-card, .gs-feature-card, .gs-audience-grid article, .gs-impact-grid article { min-height: 0; }
+    .gs-language-note { grid-template-columns: 1fr; gap: 9px; }
+    .gs-plan-actions { grid-template-columns: 1fr; }
+    .gs-actions, .gs-final__actions { align-items: stretch; flex-direction: column; }
+    .gs-actions .gs-button, .gs-final__actions .gs-button { width: 100%; }
+    .gs-text-link { justify-content: center; }
+    .gs-plans-grid, .gs-impact-panel, .gs-final__panel { border-radius: 23px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gs-button { transition: none; }
+  }
+</style>
