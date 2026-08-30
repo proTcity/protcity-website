@@ -1,0 +1,3 @@
+# macOS Finder metadata must never be served as website content.
+.DS_Store
+**/.DS_Store
