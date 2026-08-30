@@ -66,6 +66,7 @@ const skipLinkLabel = lang.toLowerCase().startsWith("en")
       twitterTitle={twitterTitle}
       twitterDescription={twitterDescription}
       type={type}
+      lang={lang}
       schema={schema}
     />
     {feeds.map((feed) => (
@@ -75,11 +76,14 @@ const skipLinkLabel = lang.toLowerCase().startsWith("en")
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main-content">{skipLinkLabel}</a>
-    <Header />
+    <Header lang={lang} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
-    <CookieConsent />
+    <Footer lang={lang} />
+    <CookieConsent lang={lang} />
+    <script>
+      import "../scripts/marketing.mjs";
+    </script>
   </body>
 </html>

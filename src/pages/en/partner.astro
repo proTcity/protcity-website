@@ -1,0 +1,32 @@
+---
+import EnglishLayout from "../../layouts/EnglishLayout.astro";
+const features = [
+  ["Create and schedule", "Prepare local notices, events and editorial content. Use the calendar, internal review and previews before publishing."],
+  ["Work as a team", "Give colleagues roles suited to their responsibilities, including owner, admin, editor, analyst, billing and viewer."],
+  ["Reach the right area", "Distribute content by territory and manage geographically targeted promotional campaigns with transparent promotional labelling."],
+  ["Understand your content", "Review aggregate insights for your own published content. Insights do not reveal individual user identities."]
+];
+---
+<EnglishLayout title="proTcity Studio | Local communication for organisations" description="Create, schedule and publish local content with proTcity Studio. For public bodies, businesses and hospitality. Start with the free Presenza plan.">
+  <section class="en-hero"><div class="container en-hero-grid"><div>
+    <p class="en-kicker">For public bodies, local businesses & hospitality</p><h1>Your local voice. One editorial workspace.</h1>
+    <p class="en-lead">proTcity Studio helps organisations create, schedule and publish useful local content in the proTcity ecosystem—from territorial notices to events and guest communications.</p>
+    <div class="en-actions"><a class="glass-button glass-button--primary" href="https://studio.protcity.com/registrazione">Create a Studio workspace</a><a class="glass-button" href="https://studio.protcity.com/prezzi">View plans</a><a class="glass-button" href="/en/contact">Talk to us</a></div>
+    <p class="en-note">Studio registration, plan details and the current public product pages are in Italian.</p>
+    </div><figure class="en-wide-image"><img src="/images/studio/studio-dashboard.webp" alt="Excerpt from the proTcity Studio editorial dashboard" width="628" height="484" loading="eager" decoding="async" /><figcaption>Studio dashboard excerpt · Italian interface shown</figcaption></figure>
+  </div></section>
+  <section class="en-section"><div class="container"><div class="en-intro"><p class="en-kicker">From draft to publication</p><h2>Plan the message. Preview the result. Publish with context.</h2></div><div class="en-grid en-grid--two">{features.map(([title, text]) => <article class="en-card"><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+  <section class="en-section en-section--tint"><div class="container">
+    <div class="en-intro"><p class="en-kicker">Plans</p><h2>Start with Presenza. Choose more when you need it.</h2><p>Features, quotas and services depend on the selected plan. Check current plan details before signing up.</p></div>
+    <div class="en-grid">
+      <article class="en-card"><h3>Presenza</h3><p>A permanent free plan for one location and one operator, with essential editorial features within the plan's limits.</p><a href="https://studio.protcity.com/registrazione">Start with Studio →</a></article>
+      <article class="en-card"><h3>Local, Plus & Network</h3><p>Paid plans with monthly or annual options for different publishing and organisational needs.</p><a href="https://studio.protcity.com/prezzi">Compare current plans (Italian) →</a></article>
+      <article class="en-card"><h3>Enti & Enterprise</h3><p>Enti is an annual plan for public bodies. Enterprise is available by quotation for more complex requirements.</p><a href="/en/contact">Discuss your organisation →</a></article>
+    </div>
+    <div class="en-statement"><p>Studio is an editorial and communication workspace. It does not manage civic complaint cases, emergency response, official protocols or administrative proceedings.</p></div>
+  </div></section>
+  <section class="en-section"><div class="container en-grid en-grid--two">
+    <article class="en-card"><p class="en-kicker">Hospitality</p><h2>Meet GuestSafe.</h2><p>Use Studio to prepare guest information and communications. Guests access the experience inside the existing proTcity app, subject to the property's plan and setup.</p><a href="/en/guestsafe">Explore GuestSafe →</a></article>
+    <article class="en-card"><p class="en-kicker">Get started</p><h2>Build your local presence.</h2><p>Create a workspace or contact Kurbi Labs to discuss your organisation. Current features and plan information are available on the Studio website.</p><div class="en-actions"><a class="glass-button glass-button--primary" href="https://studio.protcity.com/registrazione">Create a workspace</a><a class="glass-button" href="https://studio.protcity.com/funzionalita">All features (Italian)</a></div></article>
+  </div></section>
+</EnglishLayout>

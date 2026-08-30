@@ -1,41 +1,67 @@
 ---
 import { primaryNavigation } from "../../data/navigation";
 import { site } from "../../data/site";
+import { englishNavigation, languagePair } from "../../data/languages";
+
+interface Props { lang?: string; }
+const english = Astro.props.lang?.startsWith("en") ?? false;
+const navigation = english ? englishNavigation : primaryNavigation;
+const pair = languagePair(Astro.url.pathname);
+const languageHref = english ? (pair?.it ?? "/") : (pair?.en ?? "/en");
+const homeHref = english ? "/en" : "/";
+const contactHref = english ? "/en/contact" : "/contact";
+const contactLabel = english ? "Contact" : "Contatti";
 
 const pathname = Astro.url.pathname;
 
 function isActive(href: string) {
-  if (href === "/") return pathname === "/";
+  if (href === "/" || href === "/en") return pathname.replace(/\/$/, "") === href.replace(/\/$/, "");
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="/" aria-label={`${site.name} homepage`}>
+    <a class="brand" href={homeHref} aria-label={`${site.name} homepage`}>
       <img src="/images/logo-tm.png" alt={site.name} />
     </a>
 
-    <nav class="desktop-nav" aria-label="Navigazione principale">
-      {primaryNavigation.map((item) => (
+    <nav class="desktop-nav" aria-label={english ? "Main navigation" : "Navigazione principale"}>
+      {navigation.map((item) => (
         <a class:list={["nav-link", isActive(item.href) && "is-active"]} href={item.href}>
           {item.label}
         </a>
       ))}
     </nav>
 
-    <a class="header-contact" href="/contact">Contatti</a>
+    <a class="header-contact" href={contactHref}>{contactLabel}</a>
+    <a class="language-switch" href={languageHref} lang={english ? "it" : "en"} hreflang={english ? "it" : "en"} aria-label={english ? "Leggi in italiano" : "Read in English"}>
+      {english ? "Italiano" : "English"}
+    </a>
 
     <details class="mobile-nav">
-      <summary aria-label="Apri menu">Menu</summary>
+      <summary aria-label={english ? "Open menu" : "Apri menu"}>Menu</summary>
       <div class="mobile-nav__panel">
-        {primaryNavigation.map((item) => (
+        {navigation.map((item) => (
           <a class:list={["nav-link", isActive(item.href) && "is-active"]} href={item.href}>
             {item.label}
           </a>
         ))}
-        <a class="nav-link" href="/contact">Contatti</a>
+        <a class="nav-link" href={contactHref}>{contactLabel}</a>
       </div>
     </details>
   </div>
 </header>
+
+<style>
+  .language-switch { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; font-size: .875rem; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
+  @media (max-width: 1200px) {
+    .desktop-nav, .header-contact { display: none; }
+    .mobile-nav { display: block; }
+    .language-switch { margin-left: auto; }
+  }
+  @media (max-width: 380px) {
+    .site-header__inner { gap: 6px; }
+    .brand { width: 112px; }
+  }
+</style>

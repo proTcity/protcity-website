@@ -1,5 +1,7 @@
 ---
 const consentVersion = "2026-08-12";
+interface Props { lang?: string; }
+const en = Astro.props.lang?.startsWith("en") ?? false;
 ---
 
 <div
@@ -20,79 +22,79 @@ const consentVersion = "2026-08-12";
       class="cookie-consent__close"
       type="button"
       data-cookie-reject
-      aria-label="Chiudi senza accettare cookie non necessari"
+      aria-label={en ? "Close without accepting optional cookies" : "Chiudi senza accettare cookie non necessari"}
     >
       ×
     </button>
 
     <div class="cookie-consent__header">
-      <p class="eyebrow">Cookie e privacy</p>
-      <h2 id="cookie-consent-title">Gestisci cookie e tecnologie simili</h2>
+      <p class="eyebrow">{en ? "Cookies and privacy" : "Cookie e privacy"}</p>
+      <h2 id="cookie-consent-title">{en ? "Manage cookies and similar technologies" : "Gestisci cookie e tecnologie simili"}</h2>
       <p id="cookie-consent-description">
-        proTcity usa cookie tecnici necessari per funzionamento, sicurezza,
+        {en ? "proTcity uses necessary technologies for functionality, security, privacy preferences and partner payments. With your consent, we may use analytics and measurement tools. Marketing, remarketing and advertising profiling cookies or SDKs are not currently active." : <>proTcity usa cookie tecnici necessari per funzionamento, sicurezza,
         preferenze privacy e pagamenti partner. Con il tuo consenso possiamo
         usare strumenti analytics e di misurazione. Alla data indicata non
         utilizziamo cookie o SDK di marketing, remarketing o profilazione
-        pubblicitaria.
+        pubblicitaria.</>}
       </p>
     </div>
 
     <div class="cookie-consent__summary" data-cookie-summary>
       <p>
-        Puoi accettare, rifiutare i non necessari o personalizzare le preferenze.
+        {en ? "Accept, reject optional cookies or customise your preferences. Closing with the X keeps only necessary technologies active. You can change your choices at any time in the footer." : <>Puoi accettare, rifiutare i non necessari o personalizzare le preferenze.
         Chiudendo con la X restano attivi solo cookie e strumenti tecnici
-        necessari. Puoi modificare le scelte in qualsiasi momento dal footer.
+        necessari. Puoi modificare le scelte in qualsiasi momento dal footer.</>}
       </p>
-      <a href="/cookie-policy">Leggi la Cookie Policy completa</a>
+      <a href="/cookie-policy">{en ? "Read the full Cookie Policy (Italian)" : "Leggi la Cookie Policy completa"}</a>
     </div>
 
     <div class="cookie-consent__settings" data-cookie-settings hidden>
       <div class="cookie-consent__choice">
         <div>
-          <h3>Tecnici necessari</h3>
+          <h3>{en ? "Strictly necessary" : "Tecnici necessari"}</h3>
           <p>
-            Funzionamento del sito, sicurezza, preferenze privacy, gestione
-            consenso e pagamenti essenziali. Sempre attivi.
+            {en ? "Site functionality, security, privacy preferences, consent management and essential payments. Always active." : <>Funzionamento del sito, sicurezza, preferenze privacy, gestione
+            consenso e pagamenti essenziali. Sempre attivi.</>}
           </p>
         </div>
-        <span class="cookie-consent__badge">Sempre attivi</span>
+        <span class="cookie-consent__badge">{en ? "Always active" : "Sempre attivi"}</span>
       </div>
 
       <div class="cookie-consent__choice cookie-consent__choice--toggle">
         <div>
-          <h3>Analytics e misurazione</h3>
+          <h3>{en ? "Analytics and measurement" : "Analytics e misurazione"}</h3>
           <p>
-            Statistiche aggregate, prestazioni, uso pagine o eventi app,
+            {en ? "Aggregate statistics, performance, page or app event usage, product improvement and quality checks. Not used for marketing or personalised advertising." : <>Statistiche aggregate, prestazioni, uso pagine o eventi app,
             miglioramento prodotto e controllo qualità. Non usati per marketing
-            o advertising personalization.
+            o advertising personalization.</>}
           </p>
         </div>
         <label class="cookie-consent__switch">
-          <span class="cookie-consent__sr">Consenti analytics e misurazione</span>
+          <span class="cookie-consent__sr">{en ? "Allow analytics and measurement" : "Consenti analytics e misurazione"}</span>
           <input type="checkbox" data-cookie-category="analytics" />
         </label>
       </div>
 
       <div class="cookie-consent__choice">
         <div>
-          <h3>Marketing e profilazione</h3>
+          <h3>{en ? "Marketing and profiling" : "Marketing e profilazione"}</h3>
           <p>
-            Meta Pixel, TikTok Pixel, Google Ads, remarketing, Google Signals o
+            {en ? "Meta Pixel, TikTok Pixel, Google Ads, remarketing, Google Signals and equivalent tools are not active. They would require updated policies, records and consent information before being added." : <>Meta Pixel, TikTok Pixel, Google Ads, remarketing, Google Signals o
             strumenti equivalenti non risultano attivi. Saranno aggiunti solo
-            dopo aggiornamento di policy, registro e banner.
+            dopo aggiornamento di policy, registro e banner.</>}
           </p>
         </div>
-        <span class="cookie-consent__badge cookie-consent__badge--off">Non attivi</span>
+        <span class="cookie-consent__badge cookie-consent__badge--off">{en ? "Not active" : "Non attivi"}</span>
       </div>
 
       <div class="cookie-consent__choice">
         <div>
-          <h3>Pagamenti partner</h3>
+          <h3>{en ? "Partner payments" : "Pagamenti partner"}</h3>
           <p>
-            Stripe e PayPal possono usare cookie o tecnologie proprie nelle
+            {en ? "Stripe and PayPal may use their own technologies on checkout pages for secure payments, fraud prevention and disputes. Essential payment cookies operate only when needed for the requested service." : <>Stripe e PayPal possono usare cookie o tecnologie proprie nelle
             pagine checkout per sicurezza, pagamento, antifrode e contestazioni.
             I cookie essenziali di pagamento operano solo quando necessari al
-            servizio richiesto.
+            servizio richiesto.</>}
           </p>
         </div>
         <span class="cookie-consent__badge">Checkout</span>
@@ -101,16 +103,16 @@ const consentVersion = "2026-08-12";
 
     <div class="cookie-consent__actions">
       <button class="cookie-consent__button" type="button" data-cookie-reject>
-        Rifiuta non necessari
+        {en ? "Reject optional" : "Rifiuta non necessari"}
       </button>
       <button class="cookie-consent__button" type="button" data-cookie-customize>
-        Personalizza
+        {en ? "Customise" : "Personalizza"}
       </button>
       <button class="cookie-consent__button cookie-consent__button--primary" type="button" data-cookie-accept>
-        Accetta tutti
+        {en ? "Accept all" : "Accetta tutti"}
       </button>
       <button class="cookie-consent__button cookie-consent__button--primary" type="button" data-cookie-save hidden>
-        Salva preferenze
+        {en ? "Save preferences" : "Salva preferenze"}
       </button>
     </div>
   </section>

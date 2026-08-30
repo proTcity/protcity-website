@@ -1,0 +1,44 @@
+---
+import EnglishLayout from "../../layouts/EnglishLayout.astro";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
+const features = [
+  ["Urban map", "Explore community reports, alerts, local events and useful information around you. Availability and freshness depend on the area and the sources."],
+  ["WalkGuard", "See your walking route, directions and estimated time, with access to personal safety tools and sharing with authorised trusted contacts."],
+  ["Trusted contacts", "Choose who can access personal sharing features. Location permissions and sharing remain under your control and can be revoked."],
+  ["Local community", "Contribute informative urban signals, discover events and organise meetups. Community content needs context and may not be independently verified."],
+  ["AI assistance", "Get help interpreting available information. AI is a support tool: it does not predict crimes, make official decisions or guarantee safety."],
+  ["Privacy controls", "Manage permissions, notifications and personal sharing. Friends and trusted contacts have different roles; adding a friend does not grant every personal permission."]
+];
+const schema = [{ "@context": "https://schema.org", "@type": "WebPage", name: "proTcity — urban context and local communication", url: absoluteUrl("/en"), inLanguage: "en" },
+{ "@context": "https://schema.org", "@type": "Organization", name: site.company.legalName, url: "https://www.kurbilabs.com", address: { "@type": "PostalAddress", streetAddress: site.company.street, addressLocality: "Trivigliano", addressRegion: "FR", postalCode: site.company.postalCode, addressCountry: "IT" } }];
+---
+<EnglishLayout title="proTcity | Understand the city around you" description="Explore urban context with the proTcity app. Discover WalkGuard, local community information, Studio for organisations and GuestSafe for hospitality." schema={schema}>
+  <section class="en-hero"><div class="container en-hero-grid">
+    <div>
+      <p class="en-kicker">Made in Italy · Available on iOS & Android</p>
+      <h1>Understand the city around you.</h1>
+      <p class="en-lead">Maps, community signals, local events and WalkGuard help residents and visitors explore their surroundings with more context.</p>
+      <div class="en-actions"><a class="glass-button glass-button--primary" href="/en/download">Get the free app</a><a class="glass-button" href="/en/partner">Explore proTcity Studio</a></div>
+      <p class="en-note">Information to support your decisions, not a safety guarantee or a substitute for emergency services.</p>
+    </div>
+    <figure class="en-phone"><img src="/images/app-real/optimized/home-mappa.png" alt="Real proTcity urban map showing local signals and controls" width="647" height="1400" fetchpriority="high" /><figcaption>Real app screenshot · Italian interface shown</figcaption></figure>
+  </div></section>
+  <section class="en-section"><div class="container">
+    <div class="en-intro"><p class="en-kicker">The proTcity app</p><h2>More context. More control over how you explore.</h2><p>Open the map, review the information available in your area and choose the tools you need.</p></div>
+    <div class="en-grid">{features.map(([title, text]) => <article class="en-card"><h3>{title}</h3><p>{text}</p></article>)}</div>
+  </div></section>
+  <section class="en-section en-section--tint"><div class="container">
+    <div class="en-intro"><p class="en-kicker">One ecosystem, distinct roles</p><h2>For people. For local organisations. For hospitality.</h2></div>
+    <div class="en-grid">
+      <article class="en-card"><h3>proTcity App</h3><p>The mobile experience for urban context, community information, walking routes and trusted contacts.</p><a href="/en/download">Download the app →</a></article>
+      <article class="en-card"><h3>proTcity Studio</h3><p>An editorial workspace for public bodies, local businesses and organisations to create, schedule and publish local content.</p><a href="/en/partner">Discover Studio →</a></article>
+      <article class="en-card"><h3>GuestSafe</h3><p>Guest information and hospitality communication through Studio, available to guests inside the existing proTcity app.</p><a href="/en/guestsafe">Discover GuestSafe →</a></article>
+    </div>
+  </div></section>
+  <section class="en-section"><div class="container">
+    <div class="en-intro"><p class="en-kicker">Information, not certainty</p><h2>Know what the information can—and cannot—tell you.</h2><p>proTcity brings together community content, urban context and public sources where available. Sources can be incomplete, historical or unverified. A report is not proof, and a map is not a prediction of what will happen.</p></div>
+    <div class="en-statement"><p>proTcity does not predict crimes or guarantee that a place or route is safe. It does not replace police, public authorities or emergency services. In an emergency, contact the appropriate official service.</p></div>
+    <div class="en-actions"><a class="glass-button glass-button--primary" href="/en/download">Explore the app</a><a class="glass-button" href="/en/contact">Talk to Kurbi Labs</a></div>
+  </div></section>
+</EnglishLayout>

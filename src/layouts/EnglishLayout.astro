@@ -1,0 +1,13 @@
+---
+import MainLayout from "./MainLayout.astro";
+import "../styles/english.css";
+interface Props {
+  title: string;
+  description: string;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+const { title, description, schema } = Astro.props;
+---
+<MainLayout lang="en" title={title} description={description} canonicalPath={Astro.url.pathname} bodyClass="cinematic-site english-site" schema={schema}>
+  <div class="english-content"><slot /></div>
+</MainLayout>

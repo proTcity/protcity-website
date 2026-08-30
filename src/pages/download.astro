@@ -3,8 +3,10 @@ import MainLayout from "../layouts/MainLayout.astro";
 import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
-const appStoreCampaignUrl = `${site.stores.appStore}?utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_download_landing_v1`;
-const playStoreCampaignUrl = `${site.stores.playStore}&referrer=${encodeURIComponent("utm_source=meta&utm_medium=paid_social&utm_campaign=meta_it_download_landing_v1")}`;
+// Neutral without an explicit source. The shared marketing script preserves
+// validated campaign labels from the visitor's URL, never a default ad campaign.
+const appStoreCampaignUrl = site.stores.appStore;
+const playStoreCampaignUrl = site.stores.playStore;
 
 const trustSignals = [
   "Disponibile su App Store e Google Play",

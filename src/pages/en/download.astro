@@ -1,0 +1,33 @@
+---
+import EnglishLayout from "../../layouts/EnglishLayout.astro";
+import StoreLinks from "../../components/common/StoreLinks.astro";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
+const faqs = [
+  ["Is the app free?", "proTcity is available to download free on the App Store and Google Play. Studio is a separate workspace with free and paid plans for organisations."],
+  ["What can I do with WalkGuard?", "View your walking route, directions, estimated time and quick controls. Personal sharing features require your permissions. WalkGuard is not a guarantee of safety."],
+  ["Are community reports official or verified?", "Community contributions are informative signals and may be incomplete or unverified. They are not official emergency reports, and publishing one does not request or guarantee intervention."],
+  ["Does every area have the same coverage?", "No. Content depends on community activity, participating partners and available sources. A lack of reports does not prove that an area is safe."],
+  ["Do hotel guests need a separate GuestSafe app?", "No. Guests access GuestSafe inside proTcity when a participating property provides access. Features depend on the property's setup, permissions and plan."],
+  ["Does this page track downloads?", "With analytics consent, the website can measure clicks towards the stores. A store click is not an installation. Campaign labels present in the URL can be carried through the site and into Google Play links; no advertising pixel is added."]
+];
+const schema = [{ "@context": "https://schema.org", "@type": "MobileApplication", name: "proTcity", operatingSystem: "iOS, Android", applicationCategory: "LifestyleApplication", url: absoluteUrl("/en/download"), downloadUrl: [site.stores.appStore, site.stores.playStore], offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" }, publisher: { "@type": "Organization", name: site.company.legalName } },
+{ "@context": "https://schema.org", "@type": "FAQPage", inLanguage: "en", mainEntity: faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })) }];
+---
+<EnglishLayout title="Download proTcity | iPhone & Android" description="Get proTcity free on the App Store and Google Play. Explore urban maps, local signals, WalkGuard, events and trusted contacts." schema={schema}>
+  <section class="en-hero"><div class="container en-hero-grid">
+    <div><p class="en-kicker">Free download · iPhone & Android</p><h1>Put local context in your pocket.</h1><p class="en-lead">Explore your surroundings, read local signals and stay connected to the trusted contacts you choose.</p><StoreLinks /><p class="en-note">These links open the official stores. Device, region and language availability are shown in the store listing.</p></div>
+    <figure class="en-phone"><img src="/images/app-real/optimized/walkguard2.png" alt="WalkGuard route and navigation controls in the real proTcity app" width="647" height="1400" fetchpriority="high" /><figcaption>Real app screenshot · Italian interface shown</figcaption></figure>
+  </div></section>
+  <section class="en-section"><div class="container">
+    <div class="en-intro"><p class="en-kicker">Getting started</p><h2>Start with your area. Choose what to share.</h2></div>
+    <div class="en-grid">
+      <article class="en-card"><h3>1. Get proTcity</h3><p>Choose your device's official store, review the listing and install the app.</p></article>
+      <article class="en-card"><h3>2. Explore the map</h3><p>Discover available urban signals, alerts, events and useful local information. Check the context and freshness of what you read.</p></article>
+      <article class="en-card"><h3>3. Set your preferences</h3><p>Choose your permissions, notifications and trusted contacts. Use WalkGuard and personal sharing tools when you need them.</p></article>
+    </div>
+    <div class="en-statement"><p>proTcity supports awareness; it does not predict crimes, guarantee safety or replace emergency services and official reporting channels.</p></div>
+  </div></section>
+  <section class="en-section en-section--tint"><div class="container"><div class="en-intro"><h2>Before you download</h2></div><div class="en-faq">{faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
+  <section class="en-section"><div class="container"><h2>Ready to explore?</h2><StoreLinks /><p>Need help? <a href="/en/contact">Contact support</a>. Looking for an organisational workspace? <a href="/en/partner">Explore Studio</a>.</p></div></section>
+</EnglishLayout>

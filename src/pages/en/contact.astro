@@ -1,0 +1,19 @@
+---
+import EnglishLayout from "../../layouts/EnglishLayout.astro";
+import { site } from "../../data/site";
+const contacts = [
+  { title: "General enquiries", text: "Questions about proTcity or Kurbi Labs.", email: site.emails.contact },
+  { title: "App support", text: "Help with the app, account access or product features.", email: site.emails.support },
+  { title: "Studio & partnerships", text: "Public bodies, businesses, hospitality and GuestSafe enquiries.", email: site.emails.business },
+  { title: "Privacy", text: "Questions about personal data, permissions or privacy rights.", email: site.emails.privacy }
+];
+---
+<EnglishLayout title="Contact proTcity | Kurbi Labs" description="Contact Kurbi Labs for proTcity support, Studio, GuestSafe, partnerships and privacy enquiries. Based in Trivigliano, Frosinone, Italy.">
+  <section class="en-hero"><div class="container"><p class="en-kicker">Kurbi Labs · Italy</p><h1>Let's talk about your local context.</h1><p class="en-lead">Whether you use the app or represent a public body, business or hospitality property, choose the contact that fits your enquiry.</p></div></section>
+  <section class="en-section"><div class="container en-grid en-grid--two">{contacts.map((contact) => <article class="en-card"><h2>{contact.title}</h2><p>{contact.text}</p><a href={`mailto:${contact.email}`}>{contact.email}</a></article>)}</div></section>
+  <section class="en-section en-section--tint"><div class="container en-grid en-grid--two">
+    <article class="en-card"><h2>Company details</h2><address class="en-address"><strong>{site.company.legalName}</strong><br />{site.company.street}<br />{site.company.postalCode} {site.company.city}<br />Frosinone province, Italy<br /><a href={`tel:${site.company.phoneHref}`}>{site.company.phone}</a></address><p>VAT: {site.company.vat}<br />REA: {site.company.rea}</p><a href="https://www.kurbilabs.com">Kurbi Labs corporate website →</a></article>
+    <article class="en-card"><h2>Useful links</h2><ul><li><a href="/en/download">Download the proTcity app</a></li><li><a href="/en/partner">Explore Studio and its plans</a></li><li><a href="/en/guestsafe">Discover GuestSafe</a></li><li><a href="/account-deletion">Account and data deletion instructions (Italian)</a></li><li><a href="/privacy">Privacy policy (Italian)</a></li><li><a href="/terms">Terms of use (Italian)</a></li></ul><p class="en-note">Legal documents and the current Studio registration flow are available in Italian.</p></article>
+  </div></section>
+  <section class="en-section"><div class="container"><div class="en-statement"><p>These contacts are not monitored emergency channels. In an emergency, contact the appropriate official service rather than relying on an email or an in-app community report.</p></div></div></section>
+</EnglishLayout>
