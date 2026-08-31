@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-08-30T14:04:47+00:00",
+  "refreshedAt": "2026-08-31T14:04:48+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-08-30T14:04:47+00:00",
+      "upstreamGeneratedAt": "2026-08-31T14:04:48+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-08-30T14:00:00Z",
-        "run": "2026083012",
+        "validAt": "2026-08-31T14:00:00Z",
+        "run": "2026083112",
         "description": "Cielo sereno",
-        "temperatureC": 33.9,
-        "min24hC": 22.6,
-        "max24hC": 33.9,
+        "temperatureC": 33.4,
+        "min24hC": 20.8,
+        "max24hC": 34.4,
         "precipitation24hMm": 0,
-        "humidityPct": 54,
-        "windKmh": 15.4,
-        "maxGust24hKmh": 34.1,
+        "humidityPct": 45,
+        "windKmh": 11.7,
+        "maxGust24hKmh": 29.7,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -83,8 +83,8 @@
         "source": "ISPRA SNPA"
       },
       "healthServices": {
-        "pharmacies": 833,
-        "paraPharmacies": 292,
+        "pharmacies": 832,
+        "paraPharmacies": 291,
         "hospitals": 68,
         "hospitalBeds": 13731,
         "source": "Ministero della Salute"
@@ -97,7 +97,7 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-08-30T14:53:26.183Z",
+        "refreshedAt": "2026-08-31T17:39:20.391Z",
         "sourceStatus": "live",
         "items": [
           {
@@ -261,24 +261,6 @@
             "longitude": null,
             "locationPrecision": "citywide",
             "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1629338"
-          },
-          {
-            "id": "5810e23a78b74548dbee",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Roma Capitale",
-            "verified": true,
-            "title": "Allerta ondate di calore: bollino rosso anche per questo inizio di settimana",
-            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
-            "category": "Caldo e salute",
-            "status": "active",
-            "publishedAt": "2026-08-10T10:00:00.000Z",
-            "startsAt": "2026-08-10T10:00:00.000Z",
-            "endsAt": null,
-            "latitude": null,
-            "longitude": null,
-            "locationPrecision": "citywide",
-            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1628832"
           }
         ]
       }
@@ -289,23 +271,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-08-30T14:01:39+00:00",
+      "upstreamGeneratedAt": "2026-08-31T14:01:40+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-08-30T14:00:00Z",
-        "run": "2026083012",
-        "description": "Prevalentemente sereno",
-        "temperatureC": 29.9,
-        "min24hC": 21.2,
-        "max24hC": 30.8,
+        "validAt": "2026-08-31T14:00:00Z",
+        "run": "2026083112",
+        "description": "Cielo sereno",
+        "temperatureC": 31.1,
+        "min24hC": 19.6,
+        "max24hC": 31.1,
         "precipitation24hMm": 0,
         "humidityPct": 49,
-        "windKmh": 6,
-        "maxGust24hKmh": 16.5,
+        "windKmh": 8.6,
+        "maxGust24hKmh": 22.3,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -358,8 +340,8 @@
         "source": "ISPRA SNPA"
       },
       "healthServices": {
-        "pharmacies": 429,
-        "paraPharmacies": 82,
+        "pharmacies": 427,
+        "paraPharmacies": 81,
         "hospitals": 32,
         "hospitalBeds": 9076,
         "source": "Ministero della Salute"
