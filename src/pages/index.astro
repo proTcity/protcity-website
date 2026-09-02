@@ -1,6 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import LivingCity from "../components/home/LivingCity.astro";
+import LivingCityExperience from "../components/home/LivingCityExperience";
 import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
@@ -199,9 +200,9 @@ const playStoreUrl = site.stores.playStore;
     <div class="container real-hero__grid">
       <div class="real-hero__copy">
         <p class="cinematic-kicker">Disponibile su App Store e Google Play</p>
-        <h1 id="hero-title">Muoviti in città con più consapevolezza.</h1>
+        <h1 id="hero-title">La città cambia. proTcity la rende visibile.</h1>
         <p class="real-hero__claim">
-          Non puoi conoscere una città in anticipo. Ma puoi entrarci più preparato.
+          Muoviti in città con più consapevolezza.
         </p>
         <p class="real-hero__lead">
           Alert, segnalazioni, percorsi più consapevoli e supporto AI per capire meglio le aree che visiti.
@@ -250,48 +251,7 @@ const playStoreUrl = site.stores.playStore;
     </div>
   </section>
 
-  <section class="city-link" aria-labelledby="city-link-title">
-    <div class="container city-link__intro">
-      <p class="cinematic-kicker">Un ecosistema, due esperienze</p>
-      <h2 id="city-link-title">Dalla città a Studio. Da Studio alla città.</h2>
-      <p>
-        L’app raccoglie e rende leggibile il contesto urbano. Studio permette a enti,
-        attività e strutture ricettive autorizzate di organizzare contenuti e
-        comunicazioni che tornano sul territorio.
-      </p>
-    </div>
-
-    <div class="container city-link__flow" aria-label="Interazione fra app, territorio e Studio">
-      <article class="city-link__node city-link__node--app">
-        <span>01 · APP</span>
-        <strong>Persone e comunità</strong>
-        <p>Mappa, segnalazioni, WalkGuard, eventi e informazioni vicine.</p>
-      </article>
-
-      <div class="city-link__connector" aria-hidden="true">
-        <i></i>
-        <b>DATI E CONTESTO</b>
-      </div>
-
-      <article class="city-link__node city-link__node--territory">
-        <span>02 · TERRITORIO</span>
-        <strong>Una città più leggibile</strong>
-        <p>Segnali diversi diventano un quadro locale chiaro e prudente.</p>
-      </article>
-
-      <div class="city-link__connector city-link__connector--reverse" aria-hidden="true">
-        <i></i>
-        <b>CONTENUTI AUTORIZZATI</b>
-      </div>
-
-      <article class="city-link__node city-link__node--studio">
-        <span>03 · STUDIO WEB</span>
-        <strong>Operatori e organizzazioni</strong>
-        <p>Contenuti, calendario, destinatari, campagne e risultati aggregati.</p>
-        <a href="https://studio.protcity.com/" target="_blank" rel="noopener noreferrer">Apri Studio <b aria-hidden="true">↗</b></a>
-      </article>
-    </div>
-  </section>
+  <LivingCityExperience variant="journey" client:visible />
 
   <section class="real-section" aria-labelledby="screens-title">
     <div class="container section-intro section-intro--center">

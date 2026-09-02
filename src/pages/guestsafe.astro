@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import LivingCityExperience from "../components/home/LivingCityExperience";
 import { absoluteUrl } from "../utils/seo";
 
 const studioBase = "https://studio.protcity.com";
@@ -209,6 +210,20 @@ const schema = [
           <span>{item.label}</span>
         </article>
       ))}
+    </div>
+  </section>
+
+  <section class="gs-section gs-section--living" aria-labelledby="guestsafe-living-title">
+    <div class="container">
+      <div class="gs-heading">
+        <p class="gs-kicker">Dal QR alla città che accoglie</p>
+        <h2 id="guestsafe-living-title">L’hotel diventa il punto di partenza di un’esperienza territoriale viva.</h2>
+        <p>
+          Il QR apre GuestSafe nell’app; camera, messaggi, City Guide, attrazioni, musei,
+          trasporti e utility si connettono intorno alla struttura.
+        </p>
+      </div>
+      <LivingCityExperience variant="guestsafe" studioUrl={studioBase} client:visible />
     </div>
   </section>
 

@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import LivingCityExperience from "../components/home/LivingCityExperience";
 
 const studioBase = "https://studio.protcity.com";
 const studioLogin = `${studioBase}/login`;
@@ -319,6 +320,20 @@ const structuredData = [
       <div><strong>Una sola identità</strong><span>stesso account sul web e nell’app</span></div>
       <div><strong>Tre percorsi dedicati</strong><span>Enti, attività e ospitalità</span></div>
       <div><strong>Un impatto concreto</strong><span>informazione, economia e comunità</span></div>
+    </div>
+  </section>
+
+  <section class="studio-section studio-living-system" aria-labelledby="studio-living-title">
+    <div class="container">
+      <header class="studio-heading studio-heading--center">
+        <p class="studio-kicker"><span></span> Il territorio prende vita</p>
+        <h2 id="studio-living-title">Studio, Comuni e attività dentro la stessa rete territoriale.</h2>
+        <p>
+          Esplora tre scenari collegati: la regia web di Studio, l’impatto dei Comuni sui quartieri
+          e la presenza delle attività commerciali nel contesto locale.
+        </p>
+      </header>
+      <LivingCityExperience variant="partner" studioUrl={studioBase} client:visible />
     </div>
   </section>
 

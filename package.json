@@ -20,14 +20,20 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/react": "^6.0.5",
+    "@react-three/fiber": "^9.7.0",
     "astro": "^7.2.1",
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "three": "^0.185.1"
   },
   "overrides": {
     "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.22",
+    "@types/three": "^0.185.4",
     "typescript": "^5.9.3",
     "wrangler": "^4.87.0"
   }
