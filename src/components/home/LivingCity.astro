@@ -1,0 +1,797 @@
+---
+interface Props {
+  appStoreUrl: string;
+  playStoreUrl: string;
+}
+
+const { appStoreUrl, playStoreUrl } = Astro.props;
+---
+
+<div class="living-city" data-living-city>
+  <canvas class="living-city__canvas" aria-hidden="true"></canvas>
+  <div class="living-city__wash" aria-hidden="true"></div>
+
+  <div class="living-city__topline" aria-hidden="true">
+    <span class="living-city__live"><i></i>Città attiva</span>
+    <span class="living-city__sync">Studio <b>→</b> app</span>
+  </div>
+
+  <div class="living-city__signal living-city__signal--notice" aria-hidden="true">
+    <span>Avviso locale</span>
+    <strong>Area aggiornata</strong>
+  </div>
+
+  <div class="living-city__signal living-city__signal--route" aria-hidden="true">
+    <span>WalkGuard</span>
+    <strong>Percorso attivo</strong>
+  </div>
+
+  <figure class="living-city__device">
+    <div class="living-city__device-bar" aria-hidden="true">
+      <i></i><span>proTcity live</span>
+    </div>
+    <img
+      src="/images/app-real/optimized/home-mappa.png"
+      alt="Schermata reale della mappa proTcity con alert e segnalazioni territoriali"
+      decoding="async"
+    />
+  </figure>
+
+  <div class="living-city__caption" aria-hidden="true">
+    <span>Territorio connesso</span>
+    <strong>Informazioni che diventano azioni.</strong>
+  </div>
+
+  <div class="living-city__stores" aria-label="Scarica proTcity">
+    <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">iOS</a>
+    <a href={playStoreUrl} target="_blank" rel="noopener noreferrer">Android</a>
+  </div>
+
+  <button class="living-city__motion" type="button" data-city-motion aria-pressed="false">
+    <span class="living-city__motion-icon" aria-hidden="true">Ⅱ</span>
+    <span data-city-motion-label>Metti in pausa</span>
+  </button>
+
+  <p class="living-city__description">
+    Visualizzazione animata dell’ecosistema proTcity: territorio, segnalazioni,
+    percorsi e contenuti pubblicati da Studio raggiungono l’app.
+  </p>
+</div>
+
+<script>
+  type Point3D = { x: number; y: number; z: number };
+  type ProjectedPoint = Point3D & { sx: number; sy: number; depth: number };
+  type Building = {
+    x: number;
+    z: number;
+    width: number;
+    depth: number;
+    height: number;
+    hue: number;
+    lit: boolean;
+  };
+
+  const clamp = (value: number, min: number, max: number) =>
+    Math.max(min, Math.min(max, value));
+
+  const createRandom = (seed = 9271) => () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+
+  class LivingCity {
+    root: HTMLElement;
+    canvas: HTMLCanvasElement;
+    context: CanvasRenderingContext2D;
+    motionButton: HTMLButtonElement | null;
+    motionLabel: HTMLElement | null;
+    buildings: Building[] = [];
+    width = 0;
+    height = 0;
+    pixelRatio = 1;
+    yaw = -0.7;
+    targetYaw = -0.7;
+    targetLift = 0;
+    lift = 0;
+    frame = 0;
+    lastFrame = 0;
+    paused = false;
+    visible = true;
+    reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    resizeObserver: ResizeObserver;
+    visibilityObserver: IntersectionObserver;
+
+    constructor(root: HTMLElement) {
+      const canvas = root.querySelector<HTMLCanvasElement>("canvas");
+      const context = canvas?.getContext("2d", { alpha: true });
+      if (!canvas || !context) throw new Error("Living City canvas unavailable");
+
+      this.root = root;
+      this.canvas = canvas;
+      this.context = context;
+      this.motionButton = root.querySelector<HTMLButtonElement>("[data-city-motion]");
+      this.motionLabel = root.querySelector<HTMLElement>("[data-city-motion-label]");
+      this.paused = this.reducedMotion.matches;
+
+      this.resizeObserver = new ResizeObserver(() => this.resize());
+      this.resizeObserver.observe(root);
+
+      this.visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          this.visible = Boolean(entry?.isIntersecting);
+          if (this.visible && !this.paused) this.start();
+        },
+        { rootMargin: "120px" }
+      );
+      this.visibilityObserver.observe(root);
+
+      root.addEventListener("pointermove", (event) => this.onPointerMove(event));
+      root.addEventListener("pointerleave", () => {
+        this.targetYaw = -0.7;
+        this.targetLift = 0;
+      });
+      this.motionButton?.addEventListener("click", () => this.toggleMotion());
+      this.reducedMotion.addEventListener("change", () => {
+        this.paused = this.reducedMotion.matches;
+        this.updateMotionControl();
+        if (!this.paused) this.start();
+        else this.draw(performance.now());
+      });
+
+      this.createBuildings();
+      this.updateMotionControl();
+      this.resize();
+    }
+
+    createBuildings() {
+      const random = createRandom();
+      const items: Building[] = [];
+      const compact = window.matchMedia("(max-width: 760px)").matches;
+      const extent = compact ? 5 : 6;
+      const step = compact ? 1.55 : 1.35;
+
+      for (let x = -extent; x <= extent; x += step) {
+        for (let z = -extent; z <= extent; z += step) {
+          if (Math.abs(x) < 0.74 || Math.abs(z) < 0.74) continue;
+          if ((x > 2.2 && x < 3.5) || (z < -2.1 && z > -3.5)) continue;
+          const width = step * (0.58 + random() * 0.18);
+          const depth = step * (0.58 + random() * 0.18);
+          items.push({
+            x: x + (random() - 0.5) * 0.16,
+            z: z + (random() - 0.5) * 0.16,
+            width,
+            depth,
+            height: 0.7 + random() * 2.7,
+            hue: random(),
+            lit: random() > 0.76
+          });
+        }
+      }
+      this.buildings = items;
+    }
+
+    resize() {
+      const bounds = this.root.getBoundingClientRect();
+      this.width = Math.max(320, bounds.width);
+      this.height = Math.max(440, bounds.height);
+      this.pixelRatio = Math.min(window.devicePixelRatio || 1, 1.65);
+      this.canvas.width = Math.round(this.width * this.pixelRatio);
+      this.canvas.height = Math.round(this.height * this.pixelRatio);
+      this.canvas.style.width = `${this.width}px`;
+      this.canvas.style.height = `${this.height}px`;
+      this.context.setTransform(this.pixelRatio, 0, 0, this.pixelRatio, 0, 0);
+      this.draw(performance.now());
+      if (!this.paused) this.start();
+    }
+
+    onPointerMove(event: PointerEvent) {
+      if (this.paused || event.pointerType === "touch") return;
+      const bounds = this.root.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      this.targetYaw = -0.7 + x * 0.18;
+      this.targetLift = y * 0.34;
+    }
+
+    toggleMotion() {
+      this.paused = !this.paused;
+      this.updateMotionControl();
+      if (this.paused) this.draw(performance.now());
+      else this.start();
+    }
+
+    updateMotionControl() {
+      this.root.dataset.paused = String(this.paused);
+      this.motionButton?.setAttribute("aria-pressed", String(this.paused));
+      if (this.motionLabel) {
+        this.motionLabel.textContent = this.paused ? "Riprendi animazione" : "Metti in pausa";
+      }
+      const icon = this.motionButton?.querySelector<HTMLElement>(".living-city__motion-icon");
+      if (icon) icon.textContent = this.paused ? "▶" : "Ⅱ";
+    }
+
+    start() {
+      if (this.frame || this.paused || !this.visible) return;
+      this.frame = requestAnimationFrame((time) => this.animate(time));
+    }
+
+    animate(time: number) {
+      this.frame = 0;
+      if (this.paused || !this.visible) return;
+      if (time - this.lastFrame > 16) {
+        this.lastFrame = time;
+        const bounds = this.root.getBoundingClientRect();
+        const scrollProgress = clamp(-bounds.top / Math.max(bounds.height, 1), 0, 1);
+        this.yaw += (this.targetYaw + scrollProgress * 0.08 - this.yaw) * 0.045;
+        this.lift += (this.targetLift + scrollProgress * 0.52 - this.lift) * 0.045;
+        this.draw(time);
+      }
+      this.start();
+    }
+
+    project(point: Point3D): ProjectedPoint {
+      const cosYaw = Math.cos(this.yaw);
+      const sinYaw = Math.sin(this.yaw);
+      const rotatedX = point.x * cosYaw - point.z * sinYaw;
+      const rotatedZ = point.x * sinYaw + point.z * cosYaw;
+      const pitch = 0.69;
+      const cosPitch = Math.cos(pitch);
+      const sinPitch = Math.sin(pitch);
+      const raisedY = point.y + this.lift;
+      const rotatedY = raisedY * cosPitch - rotatedZ * sinPitch;
+      const depth = raisedY * sinPitch + rotatedZ * cosPitch;
+      const baseScale = Math.min(this.width, this.height) * 0.071;
+      const perspective = clamp(1 + depth * 0.025, 0.72, 1.3);
+      return {
+        ...point,
+        sx: this.width * 0.47 + rotatedX * baseScale * perspective,
+        sy: this.height * 0.48 - rotatedY * baseScale * perspective,
+        depth
+      };
+    }
+
+    polygon(points: ProjectedPoint[], fill: string, stroke?: string) {
+      const context = this.context;
+      context.beginPath();
+      context.moveTo(points[0].sx, points[0].sy);
+      for (let index = 1; index < points.length; index += 1) {
+        context.lineTo(points[index].sx, points[index].sy);
+      }
+      context.closePath();
+      context.fillStyle = fill;
+      context.fill();
+      if (stroke) {
+        context.strokeStyle = stroke;
+        context.lineWidth = 0.8;
+        context.stroke();
+      }
+    }
+
+    drawBuilding(building: Building, time: number) {
+      const x1 = building.x - building.width / 2;
+      const x2 = building.x + building.width / 2;
+      const z1 = building.z - building.depth / 2;
+      const z2 = building.z + building.depth / 2;
+      const y = building.height;
+      const p = (x: number, py: number, z: number) => this.project({ x, y: py, z });
+      const bottom = [p(x1, 0, z1), p(x2, 0, z1), p(x2, 0, z2), p(x1, 0, z2)];
+      const top = [p(x1, y, z1), p(x2, y, z1), p(x2, y, z2), p(x1, y, z2)];
+      const glow = building.lit ? 0.2 + Math.sin(time * 0.0015 + building.x) * 0.08 : 0;
+      const accent = building.lit && building.hue > 0.42;
+      const edge = accent ? `rgba(93, 224, 255, ${0.28 + glow})` : "rgba(111, 174, 224, 0.14)";
+
+      this.polygon([bottom[0], bottom[1], top[1], top[0]], "rgba(7, 27, 48, 0.96)", edge);
+      this.polygon([bottom[1], bottom[2], top[2], top[1]], "rgba(9, 39, 66, 0.96)", edge);
+      this.polygon([bottom[2], bottom[3], top[3], top[2]], "rgba(4, 19, 37, 0.94)", edge);
+      this.polygon(
+        top,
+        accent ? `rgba(60, 190, 234, ${0.2 + glow})` : "rgba(29, 74, 108, 0.72)",
+        edge
+      );
+
+      if (building.height > 1.3) {
+        const middle = this.project({ x: building.x, y: building.height * 0.5, z: z1 - 0.01 });
+        this.context.fillStyle = building.lit ? "rgba(124, 225, 255, 0.58)" : "rgba(68, 139, 185, 0.2)";
+        this.context.fillRect(middle.sx - 0.8, middle.sy - 0.8, 1.6, 1.6);
+      }
+    }
+
+    drawRoad(points: Point3D[], time: number, width = 1.4) {
+      const context = this.context;
+      const projected = points.map((point) => this.project(point));
+      context.save();
+      context.beginPath();
+      context.moveTo(projected[0].sx, projected[0].sy);
+      projected.slice(1).forEach((point) => context.lineTo(point.sx, point.sy));
+      context.lineCap = "round";
+      context.lineJoin = "round";
+      context.strokeStyle = "rgba(86, 213, 255, 0.19)";
+      context.lineWidth = width * 4;
+      context.shadowColor = "rgba(56, 182, 255, 0.42)";
+      context.shadowBlur = 14;
+      context.stroke();
+      context.setLineDash([7, 10]);
+      context.lineDashOffset = -(time * 0.018);
+      context.strokeStyle = "rgba(118, 232, 255, 0.86)";
+      context.lineWidth = width;
+      context.shadowBlur = 9;
+      context.stroke();
+      context.restore();
+    }
+
+    drawBeacon(point: Point3D, time: number, color: string, phase: number) {
+      const projected = this.project(point);
+      const pulse = (Math.sin(time * 0.0024 + phase) + 1) / 2;
+      const context = this.context;
+      context.save();
+      context.strokeStyle = color;
+      context.fillStyle = color;
+      context.shadowColor = color;
+      context.shadowBlur = 18;
+      context.lineWidth = 1.4;
+      context.beginPath();
+      context.moveTo(projected.sx, projected.sy + 19);
+      context.lineTo(projected.sx, projected.sy + 3);
+      context.stroke();
+      context.beginPath();
+      context.arc(projected.sx, projected.sy, 3.8, 0, Math.PI * 2);
+      context.fill();
+      context.globalAlpha = 0.52 - pulse * 0.28;
+      context.beginPath();
+      context.arc(projected.sx, projected.sy, 9 + pulse * 10, 0, Math.PI * 2);
+      context.stroke();
+      context.restore();
+    }
+
+    draw(time: number) {
+      const context = this.context;
+      context.clearRect(0, 0, this.width, this.height);
+
+      const ground = [
+        this.project({ x: -7.2, y: 0, z: -7.2 }),
+        this.project({ x: 7.2, y: 0, z: -7.2 }),
+        this.project({ x: 7.2, y: 0, z: 7.2 }),
+        this.project({ x: -7.2, y: 0, z: 7.2 })
+      ];
+      this.polygon(ground, "rgba(5, 24, 43, 0.62)", "rgba(75, 191, 230, 0.12)");
+
+      [-5.4, -2.7, 0, 2.7, 5.4].forEach((offset) => {
+        this.drawRoad(
+          [
+            { x: -7, y: 0.025, z: offset },
+            { x: 7, y: 0.025, z: offset }
+          ],
+          time,
+          offset === 0 ? 1.8 : 0.72
+        );
+        this.drawRoad(
+          [
+            { x: offset, y: 0.026, z: -7 },
+            { x: offset, y: 0.026, z: 7 }
+          ],
+          time,
+          offset === 0 ? 1.8 : 0.72
+        );
+      });
+
+      const sorted = [...this.buildings].sort((a, b) => {
+        const aDepth = this.project({ x: a.x, y: 0, z: a.z }).depth;
+        const bDepth = this.project({ x: b.x, y: 0, z: b.z }).depth;
+        return aDepth - bDepth;
+      });
+      sorted.forEach((building) => this.drawBuilding(building, time));
+
+      this.drawRoad(
+        [
+          { x: -5.7, y: 0.18, z: 0 },
+          { x: -2.2, y: 0.18, z: 0 },
+          { x: 0, y: 0.18, z: 2.3 },
+          { x: 2.7, y: 0.18, z: 2.7 },
+          { x: 5.6, y: 0.18, z: 0.2 }
+        ],
+        time,
+        2.2
+      );
+
+      this.drawBeacon({ x: -3.9, y: 2.1, z: 0 }, time, "#56ddff", 0);
+      this.drawBeacon({ x: 0.3, y: 3.4, z: 2.5 }, time, "#77f0c8", 1.8);
+      this.drawBeacon({ x: 4.4, y: 2.6, z: 0.5 }, time, "#ff5e72", 3.4);
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-living-city]").forEach((root) => {
+    if (root.dataset.ready === "true") return;
+    root.dataset.ready = "true";
+    try {
+      new LivingCity(root);
+    } catch {
+      root.classList.add("living-city--fallback");
+    }
+  });
+</script>
+
+<style>
+  .living-city {
+    position: relative;
+    min-height: 620px;
+    overflow: hidden;
+    border: 1px solid rgba(85, 215, 255, 0.28);
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at 42% 36%, rgba(57, 189, 240, 0.19), transparent 34%),
+      linear-gradient(155deg, rgba(8, 31, 54, 0.97), rgba(2, 8, 18, 0.98));
+    box-shadow:
+      0 48px 120px rgba(0, 0, 0, 0.54),
+      inset 0 1px 0 rgba(255, 255, 255, 0.13),
+      0 0 80px rgba(56, 182, 255, 0.09);
+    isolation: isolate;
+  }
+
+  .living-city::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, black, transparent 76%);
+  }
+
+  .living-city__canvas,
+  .living-city__wash {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .living-city__canvas {
+    z-index: 0;
+    filter: saturate(1.14);
+  }
+
+  .living-city__wash {
+    z-index: 2;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(2, 7, 14, 0.16), transparent 42%, rgba(2, 7, 14, 0.7)),
+      radial-gradient(circle at 88% 12%, rgba(255, 65, 89, 0.12), transparent 22%);
+  }
+
+  .living-city__topline,
+  .living-city__caption,
+  .living-city__stores,
+  .living-city__motion,
+  .living-city__signal,
+  .living-city__device {
+    position: absolute;
+    z-index: 3;
+  }
+
+  .living-city__topline {
+    top: 22px;
+    left: 22px;
+    right: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: rgba(239, 250, 255, 0.78);
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .living-city__live,
+  .living-city__sync,
+  .living-city__stores,
+  .living-city__motion,
+  .living-city__signal,
+  .living-city__caption {
+    border: 1px solid rgba(132, 223, 255, 0.19);
+    background: rgba(3, 14, 28, 0.68);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(16px);
+  }
+
+  .living-city__live,
+  .living-city__sync {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 32px;
+    padding: 0 11px;
+    border-radius: 999px;
+  }
+
+  .living-city__live i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #70edc7;
+    box-shadow: 0 0 14px rgba(112, 237, 199, 0.9);
+    animation: city-live 1.8s ease-in-out infinite;
+  }
+
+  .living-city__sync b {
+    color: #58dfff;
+    font-size: 1rem;
+  }
+
+  .living-city__device {
+    right: 7%;
+    bottom: 76px;
+    width: min(235px, 38%);
+    margin: 0;
+    padding: 7px;
+    overflow: hidden;
+    border: 1px solid rgba(198, 237, 255, 0.28);
+    border-radius: 28px;
+    background: rgba(3, 8, 18, 0.94);
+    box-shadow:
+      -24px 30px 80px rgba(0, 0, 0, 0.5),
+      0 0 50px rgba(56, 182, 255, 0.2);
+    transform: perspective(950px) rotateY(-12deg) rotateX(4deg) rotateZ(1deg);
+    transform-origin: center bottom;
+    transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .living-city:hover .living-city__device {
+    transform: perspective(950px) rotateY(-7deg) rotateX(2deg) rotateZ(0deg) translateY(-6px);
+  }
+
+  .living-city__device img {
+    display: block;
+    width: 100%;
+    max-height: 445px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 20px;
+  }
+
+  .living-city__device-bar {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 30px;
+    padding: 0 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.88);
+    background: rgba(2, 8, 18, 0.74);
+    font-size: 0.68rem;
+    font-weight: 900;
+    backdrop-filter: blur(14px);
+  }
+
+  .living-city__device-bar i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #38b6ff;
+    box-shadow: 0 0 12px rgba(56, 182, 255, 0.9);
+  }
+
+  .living-city__signal {
+    display: grid;
+    gap: 2px;
+    width: max-content;
+    max-width: 175px;
+    padding: 11px 13px;
+    border-radius: 14px;
+    animation: city-float 5.4s ease-in-out infinite;
+  }
+
+  .living-city__signal span,
+  .living-city__caption span {
+    color: #67ddff;
+    font-size: 0.66rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .living-city__signal strong,
+  .living-city__caption strong {
+    color: #ffffff;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .living-city__signal--notice {
+    top: 25%;
+    left: 6%;
+  }
+
+  .living-city__signal--route {
+    top: 47%;
+    left: 13%;
+    animation-delay: -2.2s;
+  }
+
+  .living-city__caption {
+    left: 22px;
+    bottom: 72px;
+    display: grid;
+    gap: 4px;
+    max-width: 220px;
+    padding: 13px 15px;
+    border-radius: 16px;
+  }
+
+  .living-city__caption strong {
+    font-size: 0.92rem;
+  }
+
+  .living-city__stores {
+    right: 22px;
+    bottom: 22px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+
+  .living-city__stores a {
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    color: rgba(239, 250, 255, 0.82);
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .living-city__stores a + a {
+    border-left: 1px solid rgba(132, 223, 255, 0.19);
+  }
+
+  .living-city__stores a:hover {
+    color: #02050b;
+    background: #70ddff;
+  }
+
+  .living-city__motion {
+    left: 22px;
+    bottom: 22px;
+    min-height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-radius: 999px;
+    color: rgba(239, 250, 255, 0.76);
+    font-size: 0.7rem;
+    font-weight: 850;
+    cursor: pointer;
+  }
+
+  .living-city__motion:hover,
+  .living-city__motion:focus-visible {
+    color: #ffffff;
+    border-color: rgba(98, 222, 255, 0.58);
+  }
+
+  .living-city__description {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .living-city[data-paused="true"] .living-city__live i,
+  .living-city[data-paused="true"] .living-city__signal {
+    animation-play-state: paused;
+  }
+
+  .living-city--fallback {
+    background:
+      linear-gradient(135deg, rgba(2, 8, 18, 0.34), rgba(2, 8, 18, 0.88)),
+      url("/images/features/optimized/city-pulse.webp") center / cover no-repeat;
+  }
+
+  @keyframes city-live {
+    50% {
+      opacity: 0.42;
+      transform: scale(0.72);
+    }
+  }
+
+  @keyframes city-float {
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .living-city {
+      min-height: 580px;
+    }
+
+    .living-city__device {
+      width: min(225px, 36%);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .living-city {
+      min-height: 540px;
+      border-radius: 24px;
+    }
+
+    .living-city__topline {
+      top: 16px;
+      left: 16px;
+      right: 16px;
+    }
+
+    .living-city__sync {
+      display: none;
+    }
+
+    .living-city__signal--notice {
+      top: 24%;
+      left: 16px;
+    }
+
+    .living-city__signal--route {
+      top: 43%;
+      left: 28px;
+    }
+
+    .living-city__device {
+      right: 4%;
+      bottom: 70px;
+      width: min(190px, 49%);
+    }
+
+    .living-city__device img {
+      max-height: 360px;
+    }
+
+    .living-city__caption {
+      left: 16px;
+      bottom: 67px;
+      max-width: 145px;
+    }
+
+    .living-city__caption strong {
+      font-size: 0.8rem;
+    }
+
+    .living-city__motion {
+      left: 16px;
+      bottom: 16px;
+    }
+
+    .living-city__stores {
+      right: 16px;
+      bottom: 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .living-city__live i,
+    .living-city__signal,
+    .living-city__device {
+      animation: none;
+      transition: none;
+    }
+
+    .living-city__motion {
+      display: none;
+    }
+  }
+</style>
