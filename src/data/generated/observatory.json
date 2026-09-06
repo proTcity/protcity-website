@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-09-05T12:52:54+00:00",
+  "refreshedAt": "2026-09-06T09:04:47+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-09-05T12:52:54+00:00",
+      "upstreamGeneratedAt": "2026-09-06T09:04:47+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-09-05T09:00:00Z",
-        "run": "2026090500",
+        "validAt": "2026-09-06T09:00:00Z",
+        "run": "2026090600",
         "description": "Cielo sereno",
-        "temperatureC": 28.6,
-        "min24hC": 20.6,
-        "max24hC": 33.8,
+        "temperatureC": 27.9,
+        "min24hC": 22,
+        "max24hC": 32,
         "precipitation24hMm": 0,
-        "humidityPct": 44,
-        "windKmh": 1.9,
-        "maxGust24hKmh": 31.5,
+        "humidityPct": 72,
+        "windKmh": 1.5,
+        "maxGust24hKmh": 27.2,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -97,7 +97,7 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-09-05T13:28:24.525Z",
+        "refreshedAt": "2026-09-06T13:42:38.504Z",
         "sourceStatus": "live",
         "items": [
           {
@@ -207,24 +207,6 @@
             "longitude": null,
             "locationPrecision": "citywide",
             "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1630406"
-          },
-          {
-            "id": "281c9156091d2057bf36",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Roma Capitale",
-            "verified": true,
-            "title": "Allerta meteo dal pomeriggio di domenica 16 agosto 2026 per le successive 6 ore e dal pomeriggio di lunedì 17 agosto 2026 per le successive 6 ore",
-            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
-            "category": "Allerta meteo",
-            "status": "active",
-            "publishedAt": "2026-08-16T10:00:00.000Z",
-            "startsAt": "2026-08-16T10:00:00.000Z",
-            "endsAt": null,
-            "latitude": null,
-            "longitude": null,
-            "locationPrecision": "citywide",
-            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1630213"
           }
         ]
       }
@@ -235,23 +217,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-09-05T12:49:46+00:00",
+      "upstreamGeneratedAt": "2026-09-06T09:01:39+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-09-05T09:00:00Z",
-        "run": "2026090500",
-        "description": "Cielo sereno",
-        "temperatureC": 26.7,
-        "min24hC": 22.5,
-        "max24hC": 33.5,
+        "validAt": "2026-09-06T09:00:00Z",
+        "run": "2026090600",
+        "description": "Parzialmente nuvoloso",
+        "temperatureC": 27.6,
+        "min24hC": 21.8,
+        "max24hC": 32.1,
         "precipitation24hMm": 0,
-        "humidityPct": 64,
-        "windKmh": 8.3,
-        "maxGust24hKmh": 24.5,
+        "humidityPct": 58,
+        "windKmh": 11.5,
+        "maxGust24hKmh": 33.2,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
