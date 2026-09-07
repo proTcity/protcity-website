@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-09-06T09:04:47+00:00",
+  "refreshedAt": "2026-09-07T14:04:51+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-09-06T09:04:47+00:00",
+      "upstreamGeneratedAt": "2026-09-07T14:04:51+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-09-06T09:00:00Z",
-        "run": "2026090600",
+        "validAt": "2026-09-07T14:00:00Z",
+        "run": "2026090712",
         "description": "Cielo sereno",
-        "temperatureC": 27.9,
-        "min24hC": 22,
-        "max24hC": 32,
+        "temperatureC": 33.1,
+        "min24hC": 21.7,
+        "max24hC": 33.1,
         "precipitation24hMm": 0,
-        "humidityPct": 72,
-        "windKmh": 1.5,
-        "maxGust24hKmh": 27.2,
+        "humidityPct": 52,
+        "windKmh": 13.8,
+        "maxGust24hKmh": 33,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -97,11 +97,11 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-09-06T13:42:38.504Z",
+        "refreshedAt": "2026-09-07T15:54:13.988Z",
         "sourceStatus": "live",
         "items": [
           {
-            "id": "c1424a91021d5d1e9378",
+            "id": "8acfed83765a169c46d8",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Roma Capitale",
@@ -110,8 +110,8 @@
             "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
             "category": "Avviso cittadino",
             "status": "active",
-            "publishedAt": "2026-09-02T10:00:00.000Z",
-            "startsAt": "2026-09-02T10:00:00.000Z",
+            "publishedAt": "2026-09-07T10:00:00.000Z",
+            "startsAt": "2026-09-07T10:00:00.000Z",
             "endsAt": null,
             "latitude": null,
             "longitude": null,
@@ -189,24 +189,6 @@
             "longitude": null,
             "locationPrecision": "citywide",
             "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1631309"
-          },
-          {
-            "id": "46cb52da18cea316b71e",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Roma Capitale",
-            "verified": true,
-            "title": "Allerta meteo dal pomeriggio lunedì 17 agosto 2026 e per le successive 6 ore",
-            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
-            "category": "Allerta meteo",
-            "status": "active",
-            "publishedAt": "2026-08-17T10:00:00.000Z",
-            "startsAt": "2026-08-17T10:00:00.000Z",
-            "endsAt": null,
-            "latitude": null,
-            "longitude": null,
-            "locationPrecision": "citywide",
-            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1630406"
           }
         ]
       }
@@ -217,23 +199,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-09-06T09:01:39+00:00",
+      "upstreamGeneratedAt": "2026-09-07T14:01:40+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-09-06T09:00:00Z",
-        "run": "2026090600",
-        "description": "Parzialmente nuvoloso",
-        "temperatureC": 27.6,
-        "min24hC": 21.8,
-        "max24hC": 32.1,
+        "validAt": "2026-09-07T14:00:00Z",
+        "run": "2026090712",
+        "description": "Prevalentemente sereno",
+        "temperatureC": 31.9,
+        "min24hC": 23.3,
+        "max24hC": 32.3,
         "precipitation24hMm": 0,
-        "humidityPct": 58,
-        "windKmh": 11.5,
-        "maxGust24hKmh": 33.2,
+        "humidityPct": 45,
+        "windKmh": 3.2,
+        "maxGust24hKmh": 16.3,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
