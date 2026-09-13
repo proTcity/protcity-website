@@ -1,8 +1,8 @@
-// Wrangler emits global runtime declarations that collide with Astro's browser DOM.
-// Keep generated types in a module, exporting only the binding contract we consume.
+// Keep generated Worker declarations separate from Astro's browser DOM.
 import { readFileSync, writeFileSync } from 'node:fs';
 const file = 'src/partner-worker.d.ts';
-const source = readFileSync(file, 'utf8');
+let source = readFileSync(file, 'utf8').replace(/[ \t]+$/gm, '');
 if (!source.includes('export type { PartnerWorkerBindings };')) {
-  writeFileSync(file, source + '\nexport type { PartnerWorkerBindings };\n');
+  source += '\nexport type { PartnerWorkerBindings };\n';
 }
+writeFileSync(file, source);

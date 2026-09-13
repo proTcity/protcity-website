@@ -27,8 +27,8 @@ clone `/Users/gianfilipposcirerisichella/Developer/ProtCityApp/output/protcity-p
 - `tests/partner-{intake,pages,worker-routing}.test.mjs`: targeted regression coverage.
 
 Website currently has an explicit IT/EN route pair system; reuse that boundary rather
-than introducing six new language shells. Default production wrangler.jsonc and all
-package dependency/lock declarations remain unchanged.
+than introducing six new language shells. Production wrangler.jsonc now binds the dedicated intake resources. All package
+dependency/lock declarations remain unchanged.
 
 ## Application flow and handling
 POST `/api/partner-applications`, JSON, Origin matching canonical site; non-POST →405.
@@ -52,7 +52,8 @@ language, server-selected source path, seven fields, notice version. `assigned_t
 `next_action_at` support manual follow-up. No marketing signup, analytics identifier,
 raw referrer/query, raw IP, user agent, device token or third-party contact list is stored.
 
-Operational owner must be appointed before enabling the form. First release uses the
+Initial operational owner: Gianfilippo, through the existing Kurbi Labs Cloudflare
+account. No additional memberships or access grants were created. First release uses the
 restricted Cloudflare D1 console/account to review records and update status. Grant only
 necessary account permissions. Do not export personal data into source or task prompts.
 No email is sent by this implementation: no existing website sending service was found.
@@ -61,17 +62,22 @@ Future internal mail notifications should use durable delivery state/outbox and 
 be the sole copy of an application.
 
 ## Privacy / business approval items
-The application notice is a reviewable draft: 180-day expiry with automatic deletion
-normally within the next 24 hours; no marketing. Review lawful basis for corporate
-representatives versus individual applicants, processor/transfer arrangements, wording,
-retention and operator access before publication. Acknowledgement is not marketing or
+The application and main privacy notices were aligned before publication: 180-day
+operative retention plus normally24 hours for cleanup; recovery copies up to30 days.
+Individual applicants use requested pre-contractual measures; company representatives
+use legitimate professional relationship interests. EU D1 storage does not imply all
+Cloudflare traffic processing occurs in the EU. Owner authorised publication.
+Technical/copy review is not legal certification; internal vendor/processing governance
+remains with Kurbi Labs. Acknowledgement is not marketing or
 blanket GDPR consent. Link to existing privacy policy is clearly marked Italian in EN.
 Confirm free application, support scope, partner compensation terms and market launch
 criteria. The page intentionally does not promise training packages or support SLAs.
 
 Scheduled cleanup processes up to ten batches of 1,000 records per table and raises
-`partner_retention_backlog` if expired records remain. Configure daily cron `17 3 * * *`
-and alert an operator on failed scheduled runs; drain backlog and investigate its cause.
+`partner_retention_backlog` if expired records remain. Daily cron `17 3 * * *` is configured. The owner reviews Worker Observability logs
+for `partner_retention_completed`, `partner_retention_failed` and
+`partner_intake_unavailable`, and checks scheduled invocation outcomes. No external
+email notification is configured; drain backlog and investigate its cause.
 Do not claim exact real-time deletion. Approved applicants still expire: move the necessary
 commercial relationship to its separately governed system before application expiry.
 Deletion requests require removing receipts linked to the application payload and the
@@ -95,7 +101,7 @@ this synthetic LOCAL ONLY config for deployment; the handler rejects non-local h
 No .env/secrets from the real site were copied into the clone.
 
 To regenerate runtime types using existing Wrangler:
-`node_modules/.bin/wrangler types src/partner-worker.d.ts --config wrangler.partner-network.local.jsonc --env-interface PartnerWorkerBindings --strict-vars false`
+`node_modules/.bin/wrangler types src/partner-worker.d.ts --config wrangler.jsonc --env-interface PartnerWorkerBindings --strict-vars false`
 then `node scripts/scope-worker-types.mjs`. Do not hand-edit generated declarations.
 
 ## Evidence
@@ -121,24 +127,43 @@ Independent review: two expiry findings resolved (bounded drain/backlog signal a
 resubmission after expiry). Browser verification also fixed first-invalid field focus and
 preserved accessible button markup after a failed submission.
 
-## Production activation — NOT executed
-Keep intake disabled until all gates are satisfied. The current production config has no
-intake bindings; deploying the source alone would show the page but return503 for intake.
-Prepare one reviewed change to the official Worker config that:
-- binds a NEW dedicated D1 database with the real provisioned ID (never guess it);
-- binds PARTNER_RATE_LIMITER using an account-unique namespace_id and agreed limits;
-- supplies PARTNER_INTAKE_ENABLED=true, PARTNER_INTAKE_LOCAL_ONLY=false;
-- sets PARTNER_FORM_SECRET through secret management, never source/public variables;
-- adds the retention cron and verifies existing secrets/bindings/routes are preserved.
-Apply only the dedicated migration, inspect account/project/domain, verify runtime,
-assign operator and review copy/privacy, then request final human deployment approval.
-No new email integration is required or assumed. No frontend analytics events include
-form values: page_view, cta_click, form_start/submit/success/error use the existing consent
-and loaded-state guards. Nothing is queued before consent or after revocation.
+## Production activation — authorised 2026-09-13
+Account: Kurbi Labs srls - proTcity (`47e82e07c982373e5d7f6a428b46abea`).
+Worker: `protcity-website`; existing custom domains `protcity.com`, `www.protcity.com`.
+Database: `protcity-partner-applications` (`8fd33135-0ffa-4d2e-b8de-b91f12670734`),
+EU jurisdiction verified, read replication disabled. Six-statement initial migration
+applied to this newly created empty database only.
+Rate namespace202609131043,5 requests per60 seconds. Enabled=true, local_only=false.
+Secret PARTNER_FORM_SECRET generated in memory, piped directly into Wrangler, never
+stored in source or printed. Three existing Worker secrets retained. Required secret
+names are declared for type generation and deployment checks.
+Cron03:17UTC daily. Observability enabled, invocation logs and traces disabled.
+Stable console event names only; no applicant fields in application logs.
 
-Rollback: disable PARTNER_INTAKE_ENABLED first (explicit503), restore prior Worker/site
-revision, retain the dedicated archive under access control. Do not drop live records as
-part of rollback. Alert/resolve persistent503, save failures, retention failures or spam.
+Commands: `wrangler d1 create protcity-partner-applications --jurisdiction eu`,
+`wrangler d1 migrations apply PARTNER_APPLICATIONS_DB --remote`,
+`wrangler secret put PARTNER_FORM_SECRET` (secure stdin), `wrangler deploy --dry-run`,
+then `wrangler deploy --keep-vars` after full checks and independent review.
+No account/billing/plan changes, no mobile/Firebase/data access, no email sending.
+Existing website daily source updates preserved by integrating origin/main snapshots
+before release. Authoritative source must include this feature to prevent future
+automated deployments from reverting it.
+
+Rollback target captured before changes: `c84651e6-eb64-4850-a693-ccdcb6674109`.
+`wrangler rollback c84651e6-eb64-4850-a693-ccdcb6674109 --message "Rollback partner launch"`
+restores the prior site. Retain D1, do not delete real applications or restore the
+database as a website rollback. Ensure the source used by future deployments matches
+the intended rollback state. Alternatively disable PARTNER_INTAKE_ENABLED for explicit503.
+
+## Operator handoff
+Cloudflare dashboard > account Kurbi Labs srls - proTcity > Storage & databases > D1 >
+protcity-partner-applications > Console. `partner_applications` contains submissions;
+status begins at `new`. Review on business days, assess fit, contact manually when
+appropriate. No automatic acceptance, product accounts or emails. Use narrowly scoped
+queries and updates by id; keep applicant data out of Git, logs and support prompts.
+For deletion, remove receipts by the record's payload_hash and the application in one
+transaction. For recovery from Time Travel, reapply deletions/expiry before reopening
+access. Do not bulk-export or restore without a specific operational instruction.
 
 Final browser checks additionally passed: basic computed text-contrast checks (no failures
 in sampled rendered text), keyboard language switch, CTA analytics blocked before consent
