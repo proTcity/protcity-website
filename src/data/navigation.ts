@@ -6,6 +6,7 @@ export const primaryNavigation = [
   { label: "Osservatorio", href: "/osservatorio" },
   { label: "GuestSafe", href: "/guestsafe" },
   { label: "Studio", href: "/partner" },
+  { label: "Diventa partner", href: "/partner-network" },
   { label: "Tecnologia", href: "/technology" },
   { label: "Sicurezza", href: "/sicurezza-urbana-intelligente" },
   { label: "Supporto", href: "/support" }

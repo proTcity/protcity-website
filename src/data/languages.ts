@@ -16,11 +16,12 @@ export const englishNavigation = [
   { label: "App", href: "/en" },
   { label: "Download", href: "/en/download" },
   { label: "Studio", href: "/en/partner" },
+  { label: "Become a partner", href: "/en/partner-network" },
   { label: "GuestSafe", href: "/en/guestsafe" }
 ];
 
 export const englishFooterGroups = [
-  { title: "Product", links: [...englishNavigation, { label: "Become a partner", href: "/en/partner-network" }, { label: "Contact & support", href: "/en/contact" }] },
+  { title: "Product", links: [...englishNavigation, { label: "Contact & support", href: "/en/contact" }] },
   { title: "Explore in Italian", links: [
     { label: "WalkGuard (Italian)", href: "/walkguard" },
     { label: "Cities (Italian)", href: "/cities" },

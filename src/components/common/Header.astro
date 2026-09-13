@@ -55,11 +55,12 @@ function isActive(href: string) {
 
 <style>
   .language-switch { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; font-size: .875rem; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
-  @media (max-width: 1200px) {
+  @media (max-width: 1360px) {
     .desktop-nav, .header-contact { display: none; }
     .mobile-nav { display: block; }
     .language-switch { margin-left: auto; }
   }
+  .mobile-nav__panel { max-height: calc(100dvh - var(--header-height) - 24px); overflow-y: auto; }
   @media (max-width: 380px) {
     .site-header__inner { gap: 6px; }
     .brand { width: 112px; }

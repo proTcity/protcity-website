@@ -102,3 +102,21 @@ https://developers.cloudflare.com/email-service/reference/headers/
 Synthetic cleanup used an exact ID + synthetic email + company predicate; receipt
 and application deleted transactionally, audit/outbox cascade. No real submissions
 were selected or changed. Generated temporary credential file was removed after tests.
+
+
+## Navigation visibility correction — 2026-09-13
+User could not discover the page: live /partner-network worked, but only the footer
+linked it. Added Diventa partner / Become a partner to the shared primary navigation
+in src/data/navigation.ts and src/data/languages.ts; avoided a duplicate English footer
+entry. src/components/common/Header.astro uses the compact menu through1360px to keep
+all links within the viewport, and a scrollable height-limited phone menu. Local browser
+verified320x568 menu/link click and1280/1366/1440 header bounds plus English link click.
+Build43pages and75tests pass; existing3Dchunk warning unchanged. No backend, data,
+permissions, mobile or form changes. No new form submissions/emails used in this check.
+Physical devices/screen-reader not retested for this navigation-only correction.
+Rollback this navigation change by restoring these three source files from commit98b1d07
+and rebuilding/deploying while preserving subsequent unrelated changes.
+
+The GitHub email supplied by the owner referenced old run34752875474 /9d8ba58
+(10:50UTC): Node22.12 required --experimental-sqlite. Fixed in1821280; the four
+subsequent checked runs through98b1d07 passed. It was not a new incident or a page outage.
