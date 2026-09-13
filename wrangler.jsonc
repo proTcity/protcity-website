@@ -23,7 +23,8 @@
   "account_id": "47e82e07c982373e5d7f6a428b46abea",
   "vars": {
     "PARTNER_INTAKE_ENABLED": "true",
-    "PARTNER_INTAKE_LOCAL_ONLY": "false"
+    "PARTNER_INTAKE_LOCAL_ONLY": "false",
+    "PARTNER_EMAIL_ENABLED": "true"
   },
   "d1_databases": [
     {
@@ -45,7 +46,8 @@
   ],
   "triggers": {
     "crons": [
-      "17 3 * * *"
+      "17 3 * * *",
+      "*/5 * * * *"
     ]
   },
   "observability": {
@@ -64,7 +66,17 @@
       "ANDROID_APP_LINK_SHA256_CERT_FINGERPRINTS",
       "GOOGLE_FIRESTORE_API_KEY",
       "OBSERVATORY_FEED_TOKEN",
-      "PARTNER_FORM_SECRET"
+      "PARTNER_FORM_SECRET",
+      "PARTNER_ADMIN_SECRET",
+      "PARTNER_NOTIFICATION_TO"
     ]
-  }
+  },
+  "send_email": [
+    {
+      "name": "PARTNER_EMAIL",
+      "allowed_sender_addresses": [
+        "notifications@protcity.com"
+      ]
+    }
+  ]
 }

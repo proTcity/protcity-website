@@ -27,7 +27,7 @@ test('scheduled retention completes and emits only a stable event', async()=>{
   const messages=[]; const old=console.info;
   console.info=message=>messages.push(message);
   try {
-    await worker.scheduled({}, {PARTNER_APPLICATIONS_DB:{
+    await worker.scheduled({cron:"17 3 * * *"}, {PARTNER_APPLICATIONS_DB:{
       prepare:()=>({bind:()=>({})}),
       batch:async()=>[0,1,2,3].map(()=>({success:true,results:[]}))
     }});
@@ -37,10 +37,16 @@ test('scheduled retention completes and emits only a stable event', async()=>{
 test('scheduled retention failure hides provider details and fails the event',async()=>{
   const messages=[];const old=console.error;console.error=message=>messages.push(message);
   try {
-    await assert.rejects(worker.scheduled({}, {PARTNER_APPLICATIONS_DB:{
+    await assert.rejects(worker.scheduled({cron:"17 3 * * *"}, {PARTNER_APPLICATIONS_DB:{
       prepare:()=>({bind:()=>({})}),
       batch:async()=>{throw new Error('sensitive-provider-detail');}
     }}),/^Error: partner_retention_failed$/);
     assert.deepEqual(messages,[JSON.stringify({event:'partner_retention_failed'})]);
   } finally {console.error=old;}
+});
+
+test('unknown cron does nothing and email cron cannot purge retention',async()=>{
+ const db={prepare:()=>{throw new Error('unexpected database access');}};
+ await worker.scheduled({cron:'unknown'},{PARTNER_APPLICATIONS_DB:db});
+ await worker.scheduled({cron:'*/5 * * * *'},{PARTNER_APPLICATIONS_DB:db,PARTNER_EMAIL_ENABLED:'false'});
 });

@@ -6,7 +6,7 @@ import ts from 'typescript';
 const source = readFileSync('src/server/partner-applications.ts', 'utf8');
 const js = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext } }).outputText;
 const { handlePartnerApplication: handle, purgeExpiredPartnerApplications: purge } = await import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`);
-const schema = readFileSync('migrations/0001_partner_applications.sql', 'utf8');
+const schema = 'PRAGMA foreign_keys=ON;' + readFileSync('migrations/0001_partner_applications.sql', 'utf8') + readFileSync('migrations/0002_partner_admin_notifications.sql', 'utf8');
 const valid = () => ({ name: 'Demo Applicant', email: 'applicant@example.test', company: 'Example Studio', market: 'Example market', profileUrl: 'https://example.test', collaboration: 'commercial', approach: 'A synthetic proposal for a local hospitality pilot.', language: 'en', privacyAcknowledged: true, website: '' });
 function harness() {
   const sql = new DatabaseSync(':memory:'); sql.exec(schema);

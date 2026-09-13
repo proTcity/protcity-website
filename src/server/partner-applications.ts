@@ -108,6 +108,7 @@ export async function handlePartnerApplication(request: Request, env: PartnerInt
     const keyHash = await digest(secret, `key:${key.toLowerCase()}`);
     const payloadHash = await digest(secret, `application:${JSON.stringify(app)}`);
     const now = Math.floor(Date.now() / 1000), expires = now + RETENTION_SECONDS;
+    const applicationId = crypto.randomUUID();
     // Atomic receipt + application. A committed write followed by a lost response can
     // safely be retried; both same-key and same-payload races keep a single application.
     const results = await db.batch([
@@ -118,10 +119,14 @@ export async function handlePartnerApplication(request: Request, env: PartnerInt
         (id, payload_hash, created_at, expires_at, language, source_path, name, email, company, market, profile_url, collaboration, approach, privacy_notice_version, status)
         SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new'
         WHERE EXISTS (SELECT 1 FROM partner_application_receipts WHERE key_hash = ? AND payload_hash = ?)
-        ON CONFLICT(payload_hash) DO NOTHING`).bind(crypto.randomUUID(), payloadHash, now, expires,
+        ON CONFLICT(payload_hash) DO NOTHING`).bind(applicationId, payloadHash, now, expires,
           app.language, app.language === 'en' ? '/en/partner-network' : '/partner-network',
           app.name, app.email, app.company, app.market, app.profileUrl, app.collaboration, app.approach, PRIVACY_VERSION, keyHash, payloadHash),
-      db.prepare('SELECT payload_hash FROM partner_application_receipts WHERE key_hash = ?').bind(keyHash)
+      db.prepare('SELECT payload_hash FROM partner_application_receipts WHERE key_hash = ?').bind(keyHash),
+      // The generated ID exists only on a new insert, never a retry or historic row.
+      db.prepare(`INSERT INTO partner_notification_outbox(application_id,next_attempt_at)
+        SELECT id, ? FROM partner_applications WHERE id = ?
+        ON CONFLICT(application_id) DO NOTHING`).bind(now, applicationId)
     ]);
     if (results.some(result => !result.success)) throw new IntakeError(503, 'temporarily_unavailable');
     const receipt = results[4]?.results[0];

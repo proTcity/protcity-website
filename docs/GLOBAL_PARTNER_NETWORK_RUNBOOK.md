@@ -1,5 +1,23 @@
 # Global Partner Network — delivery and launch runbook
 
+## Current operation — Admin and email extension, 2026-09-13
+Applications can now be reviewed at https://admin.protcity.com/partner-applications
+by existing admin/superadmin roles. New applications enqueue a minimal owner email
+atomically. A five-minute scheduled Worker processes up to ten messages, with six
+maximum attempts, backoff and 120-second claim leases; each provider call times out
+after20seconds. Cloudflare acceptance is not proof of inbox delivery. Historical
+applications are not emailed automatically. The candidate is never emailed by this feature.
+
+Dedicated server-only PARTNER_ADMIN_SECRET joins Firebase-authenticated Admin routes
+to the signed Worker endpoint. PARTNER_NOTIFICATION_TO configures the fixed, verified
+owner recipient. PARTNER_EMAIL permits only notifications@protcity.com as sender.
+No Cloudflare account token enters Admin or client code. App status changes neither
+create accounts nor grant commercial or territorial rights. Details, validation,
+release evidence and rollback: see `PARTNER_ADMIN_EMAIL_RELEASE.md`.
+
+The sections below retain the initial launch evidence; statements describing absence
+of Admin/email apply to the initial launch and are superseded by this extension.
+
 ## Outcome
 Implemented IT `/partner-network` and EN `/en/partner-network` in the existing Astro
 site. `/partner` and `/en/partner` still describe Studio. Entry from each footer;
