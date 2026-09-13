@@ -86,7 +86,11 @@ Node runtime signed endpoint: unsigned401, update200/version1, exact retry200/ve
 stale new operation409. Only that synthetic record was touched. Python's generic
 HTTP client was denied403 by the edge; normal Node request succeeded unchanged.
 No edge/auth protections were relaxed. Provider REST test to owner accepted without
-errors. Actual cron acceptance and synthetic cleanup are recorded after observation.
+errors. Actual cron at12:00UTC processed the synthetic outbox: sent, attempts1,
+provider acceptance at12:00:08UTC. This verifies the configured scheduled Worker
+and Email binding, not mailbox placement. GitHub CI succeeded:
+https://github.com/proTcity/protcity-website/actions/runs/34755828363
+Code commit7a684fa is aligned to origin/main.
 Full live Firebase login-to-inbox UI was not exercised against real applicant data;
 Firebase boundary was unit-stubbed and shared verifier reviewed, live unauth401 verified.
 
@@ -94,3 +98,7 @@ References checked:
 https://developers.cloudflare.com/email-service/api/send-emails/workers-api/
 https://developers.cloudflare.com/email-service/configuration/send-bindings/
 https://developers.cloudflare.com/email-service/reference/headers/
+
+Synthetic cleanup used an exact ID + synthetic email + company predicate; receipt
+and application deleted transactionally, audit/outbox cascade. No real submissions
+were selected or changed. Generated temporary credential file was removed after tests.
