@@ -75,3 +75,13 @@ Validation: dry-run, full build/test, independent review, live IT/EN page and AP
 idempotent synthetic submission then exact synthetic-only cleanup, scheduled-event proof.
 Rollback: restore the recorded Worker version; retain D1 and fix/redeploy source before
 allowing future automated deployment. Never restore or delete live applicant data.
+
+## Launch completion
+Published2026-09-13, Worker ad0c6d49-75e5-4a20-acb2-abdf0c6204e4. All bindings and
+existing secrets verified by deployed-version metadata. Production IT/EN submissions
+and exact retries succeeded; aggregate synthetic-only check confirmed deduplication.
+Two synthetic records and receipts removed after proof. Existing routes/associations
+respond200, limiter429 observed, public reads405. All54 local tests and final Node22
+CI pass after enabling the required SQLite test flag. Authoritative main synchronised.
+Owner reviews candidates and retention logs; automatic mail alerts and real device/
+screen-reader tests are outside this release. Full proof and rollback in the runbook.

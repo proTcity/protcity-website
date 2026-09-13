@@ -86,7 +86,8 @@ application itself; this must be performed only by an authorised operator.
 ## Local verification / reproduction
 No dependencies installed. Used the already-installed node_modules via symlink in the
 isolated clone. Node24.14.1; declared runtime floor Node22.12. Tests use experimental
-node:sqlite in this Node version; ensure SQLite is enabled when running on an older Node22.
+node:sqlite. The npm test script explicitly enables it for the declared Node22.12
+runtime; final GitHub CI verifies build and all54 tests on that runtime.
 
 1. `npm run build` (Astro check + static build).
 2. `npm test` (includes compiled-page checks, so build first).
@@ -96,7 +97,8 @@ node:sqlite in this Node version; ensure SQLite is enabled when running on an ol
 
 Compatibility override is ONLY for this installed workerd: it supports through Aug11,
 while the existing project's setting is Aug12. Production setting was not changed.
-Exact production runtime/browser-device verification remains a launch gate. Never use
+Live production browser checks subsequently passed on the unchanged2026-08-12
+runtime. A real mobile-device/screen-reader audit was not performed. Never use
 this synthetic LOCAL ONLY config for deployment; the handler rejects non-local hosts.
 No .env/secrets from the real site were copied into the clone.
 
@@ -106,7 +108,7 @@ then `node scripts/scope-worker-types.mjs`. Do not hand-edit generated declarati
 
 ## Evidence
 Baseline: build/check pass, 15 existing tests pass.
-Final suite: 51 tests pass, build/check zero errors/warnings/hints. A pre-existing Vite
+Final launch suite: 54 tests pass, build/check zero errors/warnings/hints. A pre-existing Vite
 large-chunk warning concerns the existing 3D experience, not the new page (no 3D import).
 No separate lint script is declared; Astro check is the available static/type gate.
 SQLite tests cover real prepared queries, rollback, concurrent retry, unique constraints,
@@ -171,3 +173,54 @@ and after revocation using a local stub (no Google requests). This is not a WCAG
 certification or a real iOS/Android-device test. No real screen reader audit was performed.
 Independent reviewer reran all three targeted retention tests: 3 passed, no remaining
 material finding in the reviewed scope.
+
+## Published release evidence — 2026-09-13
+Published URLs: https://www.protcity.com/partner-network and
+https://www.protcity.com/en/partner-network .
+Worker version `ad0c6d49-75e5-4a20-acb2-abdf0c6204e4` published at10:49UTC.
+Remote version metadata confirmed fetch+scheduled handlers,2026-08-12 runtime,
+dedicated D1, limiter, enabled/non-local flags and all four secret names. Deployment
+confirmed03:17UTC schedule and both existing custom domains.
+Code and configuration synchronised to origin/main. Feature commit8d8b3d2,
+upstream merge preserved current Observatory; final code commit1821280.
+
+Final local `npm run build`:43 pages, Astro0errors/0warnings/0hints. Existing Vite
+3D chunk-size warning remains. `npm test`:54pass/0fail; `git diff --check`:pass.
+Independent review found and verified correction of the main privacy-policy conflict;
+34 backend/routing tests plus5routing/3page checks independently passed across reviews.
+First CI detected Node22's SQLite flag requirement; package.json test command fixed.
+Final CI https://github.com/proTcity/protcity-website/actions/runs/34752960519 succeeded.
+
+Public Chromium smoke: IT390px and EN1440px rendered without horizontal overflow.
+Both real forms returned202 and displayed success. Repeating their exact requests
+returned202; aggregate SQL restricted to the unique synthetic test marker found
+exactly one record per language. No real applicant fields were read. The two synthetic
+records and two matching receipts were then deleted with exact predicates; remaining
+synthetic count0. No emails were sent.
+Invalid JSON-schema requests returned400; public GET405; a bounded invalid burst
+produced400,400,400,400,400,400,429 with Retry-After60. The limiter is intentionally
+eventually consistent/per-location and is not a precise global fifth-request quota.
+No code changes were made to loosen that control.
+Browser HEAD checks200: home IT/EN, Studio IT/EN, GuestSafe IT/EN, download, Apple
+association and Android assetlinks. New pages, privacy and sitemap200 with expected
+content; apex redirects to www. No Firebase personal data/API records were accessed.
+Screenshots in the isolated workspace output/playwright/partner-live-{mobile,desktop}-final.png.
+
+The initial browser harness had an incorrect Italian cookie-button label; corrected
+the harness, not the page. A raw Python public-page probe was denied403 by the edge;
+verification was performed in the normal browser without changing security rules.
+Cloudflare emits existing report-only CSP diagnostics for scripts/rum; observed
+request errors400/405/429 were deliberate negative tests. No application runtime
+exception was observed. Do not confuse edge-injected diagnostics with a blocked form.
+Cron execution was tested locally via /__scheduled and in unit success/failure tests;
+the actual first daily production run has not yet occurred. Owner must review its
+completion/failure in Cloudflare Logs. No automatic email alert or ongoing agent
+monitor is configured. No physical iOS/Android or screen-reader test was performed.
+
+References checked for implementation/notice:
+- https://developers.cloudflare.com/d1/configuration/data-location/
+- https://developers.cloudflare.com/d1/reference/time-travel/
+- https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/
+- https://www.cloudflare.com/cloudflare-customer-dpa/
+- https://eur-lex.europa.eu/eli/reg/2016/679/oj
+These support configuration and disclosure choices, not a legal compliance certificate.
