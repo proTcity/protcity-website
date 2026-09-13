@@ -11,3 +11,9 @@ yarn-error.log*
 pnpm-debug.log*
 public/images/features/*.png
 .vercel
+.wrangler/
+.playwright-cli/
+output/playwright/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example

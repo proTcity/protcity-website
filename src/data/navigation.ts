@@ -30,6 +30,7 @@ export const footerGroups = [
       { label: "WalkGuard", href: "/walkguard" },
       { label: "GuestSafe", href: "/guestsafe" },
       { label: "proTcity Studio", href: "/partner" },
+      { label: "Diventa partner", href: "/partner-network" },
       { label: "Tecnologia", href: "/technology" }
     ]
   },

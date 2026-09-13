@@ -1,0 +1,89 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { partnerNetwork, type PartnerLanguage } from '../../data/partnerNetwork';
+import '../../styles/partner-network.css';
+interface Props { lang: PartnerLanguage; }
+const { lang } = Astro.props;
+const c = partnerNetwork[lang];
+const path = lang === 'en' ? '/en/partner-network' : '/partner-network';
+---
+<MainLayout lang={lang} title={c.title} description={c.description} canonicalPath={path} bodyClass="partner-network-site">
+  <div class="pn-page">
+    <section class="pn-hero" aria-labelledby="partner-title">
+      <div class="container pn-hero-grid">
+        <div class="pn-hero-copy">
+          <p class="pn-eyebrow"><span></span> proTcity / {c.eyebrow}</p>
+          <h1 id="partner-title">{c.headline}<br /><em>{c.headlineAccent}</em></h1>
+          <p class="pn-intro">{c.intro}</p>
+          <div class="pn-actions"><a class="pn-button" href="#apply" data-partner-cta="hero">{c.primary}<span aria-hidden="true">↗</span></a><a class="pn-text-link" href="#programme">{c.secondary} <span aria-hidden="true">↓</span></a></div>
+          <p class="pn-availability">{c.availability}</p>
+        </div>
+        <figure class="pn-network">
+          <div class="pn-orbits" aria-hidden="true">
+            <svg viewBox="0 0 520 460" fill="none"><ellipse cx="260" cy="230" rx="216" ry="170" stroke="currentColor" /><ellipse cx="260" cy="230" rx="140" ry="220" transform="rotate(35 260 230)" stroke="currentColor"/><ellipse cx="260" cy="230" rx="140" ry="220" transform="rotate(-35 260 230)" stroke="currentColor"/><path d="M260 60V400M65 145L455 315M65 315L455 145" stroke="currentColor" stroke-dasharray="3 8"/></svg>
+            <div class="pn-network-core"><img src="/images/logo-tm.png" alt="" width="160" height="50" /></div>
+          </div>
+          <ul class="pn-actors" aria-label={c.networkCaption}>{c.actors.map((actor, i) => <li class={`pn-actor pn-actor-${i}`}><span aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{actor}</li>)}</ul>
+          <figcaption>{c.networkCaption}</figcaption>
+        </figure>
+      </div>
+      <div class="container pn-foundations">{c.strip.map((label, i) => <p><span>{String(i + 1).padStart(2, '0')}</span>{label}</p>)}</div>
+    </section>
+
+    <section id="programme" class="pn-section pn-light" aria-labelledby="product-title">
+      <div class="container pn-split">
+        <div><p class="pn-eyebrow">{c.productLabel}</p><h2 id="product-title">{c.productTitle}</h2><p class="pn-body">{c.productText}</p><a class="pn-text-link" href={lang === 'en' ? '/en/partner' : '/partner'}>{c.productLink} <span aria-hidden="true">↗</span></a><p class="pn-note">{c.productNote}</p></div>
+        <figure class="pn-product-figure"><div class="pn-window-bar"><span aria-hidden="true">● ● ●</span><span>proTcity Studio</span></div><img src="/images/studio/studio-dashboard.webp" alt={c.screenshotAlt} width="628" height="484" loading="lazy" /><figcaption>{c.screenshotCaption}</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="pn-section" aria-labelledby="opportunities-title">
+      <div class="container"><p class="pn-eyebrow">{c.opportunityLabel}</p><h2 id="opportunities-title">{c.opportunityTitle}</h2>
+        <div class="pn-opportunities">{c.opportunities.map((item, i) => <article><span class="pn-index" aria-hidden="true">0{i + 1}</span><p class="pn-tag">{item.tag}</p><h3>{item.title}</h3><p>{item.text}</p><a class="pn-text-link" href={item.href}>{item.link} <span aria-hidden="true">↗</span></a></article>)}</div>
+      </div>
+    </section>
+
+    <section class="pn-section pn-light" aria-labelledby="working-title">
+      <div class="container"><p class="pn-eyebrow">{c.workingLabel}</p><div class="pn-heading-row"><h2 id="working-title">{c.workingTitle}</h2><p>{c.profiles}</p></div>
+        <div class="pn-contributions"><article><span class="pn-small-label">proTcity</span><h3>{c.ourTitle}</h3><ul>{c.ourItems.map(item => <li>{item}</li>)}</ul></article><article><span class="pn-small-label">Partner</span><h3>{c.yourTitle}</h3><ul>{c.yourItems.map(item => <li>{item}</li>)}</ul></article></div><p class="pn-note">{c.workingNote}</p>
+      </div>
+    </section>
+
+    <section class="pn-section" aria-labelledby="process-title">
+      <div class="container"><p class="pn-eyebrow">{c.processLabel}</p><h2 id="process-title">{c.processTitle}</h2><ol class="pn-steps">{c.steps.map(([title, text], i) => <li><span class="pn-step-number" aria-hidden="true">0{i + 1}</span><h3>{title}</h3><p>{text}</p></li>)}</ol></div>
+    </section>
+
+    <section class="pn-section pn-commercial" aria-labelledby="commercial-title">
+      <div class="container pn-split"><div><p class="pn-eyebrow">{c.commercialLabel}</p><h2 id="commercial-title">{c.commercialTitle}</h2></div><div><p class="pn-body">{c.commercialText}</p><p class="pn-note">{c.commercialNote}</p><a class="pn-text-link" href="#apply" data-partner-cta="commercial">{c.primary} <span aria-hidden="true">↗</span></a></div></div>
+    </section>
+
+    <section class="pn-section pn-light" aria-labelledby="faq-title">
+      <div class="container pn-faq-grid"><div><p class="pn-eyebrow">{c.faqLabel}</p><h2 id="faq-title">{c.faqTitle}</h2></div><div class="pn-faq">{c.faqs.map(([question, answer]) => <details><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div>
+    </section>
+
+    <section id="apply" class="pn-section pn-application" aria-labelledby="application-title">
+      <div class="container pn-application-grid"><div class="pn-application-copy"><p class="pn-eyebrow">{c.formLabel}</p><h2 id="application-title">{c.formTitle}</h2><p class="pn-body">{c.formIntro}</p><p class="pn-note">{c.optional}</p><a class="pn-text-link" href="mailto:partners@protcity.com">{c.emailLink} <span aria-hidden="true">↗</span></a></div>
+        <div>
+          <form id="partner-form" class="pn-form" method="post" action="/api/partner-applications" data-language={lang} data-error={c.error} data-invalid={c.invalid} data-rate={c.rate} data-conflict={c.conflict} data-sending={c.sending}>
+            <p class="pn-form-required">{c.required}</p>
+            <fieldset class="pn-fields">
+              <legend class="pn-sr-only">{c.formTitle}</legend>
+              {(['name', 'email', 'company', 'market'] as const).map(name => <div class="pn-field"><label for={`partner-${name}`}>{c.labels[name]} <span aria-hidden="true">*</span></label><input id={`partner-${name}`} name={name} type={name === 'email' ? 'email' : 'text'} autocomplete={name === 'name' ? 'name' : name === 'email' ? 'email' : name === 'company' ? 'organization' : 'country-name'} required minlength={name === 'email' ? 3 : 2} maxlength={name === 'email' ? 254 : name === 'name' ? 100 : name === 'company' ? 150 : 120} /></div>)}
+              <div class="pn-field pn-wide"><label for="partner-profileUrl">{c.labels.profileUrl}</label><input id="partner-profileUrl" name="profileUrl" type="url" maxlength="400" autocomplete="url" aria-describedby="partner-url-hint" /><small id="partner-url-hint">{c.urlHint}</small></div>
+              <div class="pn-field pn-wide"><label for="partner-collaboration">{c.labels.collaboration} <span aria-hidden="true">*</span></label><select id="partner-collaboration" name="collaboration" required><option value="">{c.choose}</option>{c.roles.map(([value, label]) => <option value={value}>{label}</option>)}</select></div>
+              <div class="pn-field pn-wide"><label for="partner-approach">{c.labels.approach} <span aria-hidden="true">*</span></label><textarea id="partner-approach" name="approach" required minlength="30" maxlength="2000" rows="5" aria-describedby="partner-approach-hint"></textarea><small id="partner-approach-hint">{c.approachHint}</small></div>
+              <div class="pn-trap" aria-hidden="true"><label for="partner-website">Website</label><input id="partner-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+              <label class="pn-checkbox pn-wide"><input id="partner-privacyAcknowledged" type="checkbox" name="privacyAcknowledged" required aria-describedby="partner-privacy" /><span>{c.acknowledge} *</span></label>
+            </fieldset>
+            <p id="partner-error" class="pn-form-error" role="alert" tabindex="-1" hidden></p>
+            <button class="pn-button" type="submit">{c.submit}<span aria-hidden="true">↗</span></button>
+            <noscript><p>{c.noScript}</p></noscript>
+          </form>
+          <div id="partner-success" class="pn-success" role="status" tabindex="-1" hidden><span aria-hidden="true">✓</span><h3>{c.success}</h3><p>{c.successDetail}</p></div>
+          <details id="partner-privacy" class="pn-privacy"><summary>{c.privacyTitle}</summary><p>{c.privacyText}</p><p>{c.privacyMore}</p><a href="/privacy">{c.privacyLink}</a></details>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>import '../../scripts/partner-network';</script>
+</MainLayout>

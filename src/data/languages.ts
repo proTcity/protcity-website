@@ -1,4 +1,5 @@
 export const languageRoutes = [
+  { it: "/partner-network", en: "/en/partner-network" },
   { it: "/", en: "/en" },
   { it: "/download", en: "/en/download" },
   { it: "/partner", en: "/en/partner" },
@@ -19,7 +20,7 @@ export const englishNavigation = [
 ];
 
 export const englishFooterGroups = [
-  { title: "Product", links: [...englishNavigation, { label: "Contact & support", href: "/en/contact" }] },
+  { title: "Product", links: [...englishNavigation, { label: "Become a partner", href: "/en/partner-network" }, { label: "Contact & support", href: "/en/contact" }] },
   { title: "Explore in Italian", links: [
     { label: "WalkGuard (Italian)", href: "/walkguard" },
     { label: "Cities (Italian)", href: "/cities" },

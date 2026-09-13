@@ -1,6 +1,7 @@
+import { handlePartnerApplication, purgeExpiredPartnerApplications, type PartnerIntakeEnv } from "./server/partner-applications";
 import observatorySnapshot from "./data/generated/observatory.json";
 
-export interface Env {
+export interface Env extends PartnerIntakeEnv {
   ASSETS: {
     fetch(request: Request): Promise<Response>;
   };
@@ -584,8 +585,22 @@ async function handleObservatoryFeedApi(
 }
 
 export default {
+  async scheduled(_event: unknown, env: Env) {
+    try {
+      await purgeExpiredPartnerApplications(env);
+      console.info(JSON.stringify({ event: "partner_retention_completed" }));
+    } catch {
+      // Keep database exception details and submitted data out of persisted logs.
+      console.error(JSON.stringify({ event: "partner_retention_failed" }));
+      throw new Error("partner_retention_failed");
+    }
+  },
   async fetch(request: Request, env: Env, context: WorkerExecutionContext) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/partner-applications") {
+      return handlePartnerApplication(request, env);
+    }
 
     if (
       url.pathname === "/.well-known/apple-app-site-association" ||

@@ -19,5 +19,52 @@
     "run_worker_first": true,
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
+  },
+  "account_id": "47e82e07c982373e5d7f6a428b46abea",
+  "vars": {
+    "PARTNER_INTAKE_ENABLED": "true",
+    "PARTNER_INTAKE_LOCAL_ONLY": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "PARTNER_APPLICATIONS_DB",
+      "database_name": "protcity-partner-applications",
+      "database_id": "8fd33135-0ffa-4d2e-b8de-b91f12670734",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "PARTNER_RATE_LIMITER",
+      "namespace_id": "202609131043",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 3 * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": false
+    },
+    "traces": {
+      "enabled": false
+    }
+  },
+  "secrets": {
+    "required": [
+      "ANDROID_APP_LINK_SHA256_CERT_FINGERPRINTS",
+      "GOOGLE_FIRESTORE_API_KEY",
+      "OBSERVATORY_FEED_TOKEN",
+      "PARTNER_FORM_SECRET"
+    ]
   }
 }

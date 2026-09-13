@@ -262,9 +262,9 @@ const providers = [
   ],
   [
     "Cloudflare",
-    "DNS, sicurezza, protezione traffico, eventuale CDN, log tecnici e Cloudflare Email Routing.",
-    "IP, log tecnici, dati di traffico sito, indirizzi email, metadati e contenuto necessario all'inoltro delle comunicazioni email.",
-    "Fornitore infrastrutturale e di instradamento email secondo i servizi attivi."
+    "DNS, sicurezza, CDN, Cloudflare Email Routing, hosting del sito e modulo candidature tramite Workers e archivio dedicato D1 con giurisdizione UE.",
+    "Dati tecnici di traffico, email e contenuto necessario al loro inoltro; dati professionali e di contatto inviati nel modulo candidature, proposta, date e stato di gestione.",
+    "Fornitore infrastrutturale; responsabile del trattamento per i dati trattati per conto di Kurbi Labs secondo il DPA e i servizi applicabili."
   ],
   [
     "Zoho Mail",
@@ -317,6 +317,7 @@ const providers = [
 ];
 
 const retentionRows = [
+  ["Candidature Global Partner Network", "180 giorni nell’archivio operativo, cancellazione automatica normalmente entro le successive 24 ore. Copie tecniche di ripristino D1 per un massimo di ulteriori 30 giorni. L’eventuale rapporto successivo è gestito separatamente."],
   [
     "Account utente",
     "Per la durata dell'account. Dopo richiesta di cancellazione, cancellazione o anonimizzazione entro 30 giorni, salvo obblighi legali, sicurezza, abusi, pagamenti, contestazioni o difesa di diritti."
@@ -400,7 +401,7 @@ const retentionRows = [
   title="Privacy Policy e Informativa GDPR"
   description="Informativa sul trattamento dei dati personali nell'app proTcity, nel sito protcity.com e nei servizi collegati."
   canonicalPath="/privacy"
-  lastUpdated="12 agosto 2026"
+  lastUpdated="13 settembre 2026"
 >
   <p class="legal-note">
     Documento finale per pubblicazione web e app. La presente informativa è strutturata in due livelli: un primo livello sintetico da mostrare in app e un secondo livello completo per consultazione integrale.
@@ -475,7 +476,21 @@ const retentionRows = [
     <li>fornitori tecnici e servizi collegati necessari al funzionamento, alla sicurezza, alla diagnostica e al miglioramento del servizio.</li>
   </ul>
   <p>
-    Il sito protcity.com non mette a disposizione moduli di contatto web. Gli utenti comunicano con Kurbi Labs tramite email dedicata. Qualora in futuro venissero introdotti form, chatbot, newsletter, marketing, nuove integrazioni o ulteriori strumenti di tracciamento, l'informativa e gli strumenti di consenso saranno aggiornati prima dell'attivazione o al momento dell'attivazione, secondo la normativa applicabile.
+    Il sito mette a disposizione il modulo di candidatura al Global Partner Network, descritto di seguito. Sono inoltre disponibili indirizzi email dedicati. Eventuali nuovi trattamenti, newsletter o strumenti di tracciamento richiederanno un aggiornamento delle informazioni e, ove necessario, degli strumenti di consenso prima dell’attivazione.
+  </p>
+
+  <h3 id="partner-applications">Candidature al Global Partner Network</h3>
+  <p>
+    Kurbi Labs srls, titolare indicato nella sezione 1, raccoglie nome, email professionale, azienda o attività, Paese e mercato, tipo di collaborazione e descrizione della proposta; sito o profilo professionale sono facoltativi. I campi obbligatori servono a valutare la proposta e rispondere: senza di essi il modulo non può essere inviato. Non inserire dati riservati o dati personali di terzi. Registriamo inoltre data di invio, lingua, versione dell’informativa presa in visione e stato della valutazione.
+  </p>
+  <p>
+    La finalità è valutare e gestire la collaborazione richiesta. La base giuridica è l’esecuzione di misure precontrattuali richieste dall’interessato (art. 6, par. 1, lett. b GDPR) quando agisce in proprio; per i referenti di organizzazioni è il legittimo interesse di Kurbi Labs a gestire le relazioni professionali e le richieste ricevute (lett. f). La prevenzione degli abusi si basa sul legittimo interesse alla sicurezza del servizio. La casella di presa visione non è consenso marketing. La valutazione è svolta da persone autorizzate; non sono adottate decisioni esclusivamente automatizzate con effetti giuridici sulla candidatura.
+  </p>
+  <p>
+    Il modulo usa Cloudflare Workers e un database D1 dedicato con giurisdizione UE per l’archiviazione. Il traffico e i servizi tecnici Cloudflare possono essere elaborati dalla rete globale: la giurisdizione del database non significa che ogni trattamento avvenga nell’UE. Si applicano le informazioni su fornitori e trasferimenti delle sezioni 10 e 11. L’IP è usato transitoriamente per generare una chiave di limitazione degli invii che cambia ogni giorno; non viene salvato nell’archivio candidature. L’accesso alle candidature è limitato al titolare e al personale espressamente autorizzato. Nessun dato del modulo viene inviato agli analytics o pubblicato.
+  </p>
+  <p>
+    Le candidature sono conservate nell’archivio operativo per 180 giorni, con cancellazione automatica normalmente entro le successive 24 ore. Le copie tecniche di ripristino D1 possono permanere per un massimo di ulteriori 30 giorni, con accesso limitato al ripristino. Un eventuale rapporto commerciale successivo è gestito separatamente. Puoi chiedere accesso, rettifica, cancellazione, limitazione o portabilità ove applicabile, opporti ai trattamenti basati sul legittimo interesse e proporre reclamo all’autorità competente, come descritto nella sezione sui diritti. Scrivi a <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>, indicando “Candidatura partner”.
   </p>
 
   <h2>3. Categorie di dati personali trattati</h2>
