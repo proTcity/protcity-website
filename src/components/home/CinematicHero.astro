@@ -1,0 +1,64 @@
+---
+import { cinematicHome, type HomeLocale } from "../../data/cinematicHome";
+import { site } from "../../data/site";
+import "./cinematic-home.css";
+
+interface Props { lang?: HomeLocale }
+const { lang = "it" } = Astro.props;
+const copy = cinematicHome[lang];
+---
+
+<section class="urban-hero" data-city-hero data-motion="paused" aria-labelledby="hero-title">
+  <div class="urban-hero__world" aria-hidden="true">
+    <div class="urban-hero__camera">
+      <picture>
+        <source type="image/avif" srcset="/images/home/city-evening-960.avif 960w, /images/home/city-evening-1672.avif 1672w" sizes="100vw" />
+        <img src="/images/home/city-evening-1672.webp" srcset="/images/home/city-evening-960.webp 960w, /images/home/city-evening-1672.webp 1672w" sizes="100vw" alt="" width="1672" height="941" loading="eager" fetchpriority="high" decoding="async" />
+      </picture>
+      <svg class="urban-hero__routes" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" fill="none">
+        <defs>
+          <linearGradient id={`route-light-${lang}`} x1="808" y1="906" x2="1220" y2="280" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#7ce5ec" stop-opacity="0.1" /><stop offset="0.5" stop-color="#a3f4fa" /><stop offset="1" stop-color="#6ed9f5" stop-opacity="0.2" />
+          </linearGradient>
+        </defs>
+        <path class="city-route-aura" d="M795 941 C842 850 898 745 958 636 S1070 465 1110 417 S1180 320 1214 270" />
+        <path class="city-route-line" stroke={`url(#route-light-${lang})`} d="M795 941 C842 850 898 745 958 636 S1070 465 1110 417 S1180 320 1214 270" />
+        <path class="city-route-traveler" d="M795 941 C842 850 898 745 958 636 S1070 465 1110 417 S1180 320 1214 270" pathLength="100" />
+      </svg>
+    </div>
+  </div>
+  <div class="urban-hero__shade" aria-hidden="true"></div>
+  <div class="urban-hero__atmosphere" aria-hidden="true"></div>
+  <div class="urban-hero__content">
+    <p class="urban-hero__eyebrow"><span aria-hidden="true"></span>{copy.eyebrow}</p>
+    <h1 id="hero-title">{copy.title}<br /><span>{copy.titleAccent}</span></h1>
+    <p class="urban-hero__lead">{copy.lead}</p>
+    <div class="urban-hero__actions">
+      <a class="city-primary-link" href={lang === "en" ? "/en/download" : "/download"}>{copy.download}<span aria-hidden="true">↗</span></a>
+      <a class="city-explore-link" href="#city-experience"><span class="city-play-icon" aria-hidden="true">▷</span>{copy.explore}</a>
+    </div>
+    <div class="urban-hero__stores">
+      <a href={site.stores.appStore} target="_blank" rel="noopener noreferrer" aria-label={lang === "en" ? "Download proTcity on the App Store" : "Scarica proTcity su App Store"}>App Store <span aria-hidden="true">↗</span></a>
+      <span aria-hidden="true">/</span>
+      <a href={site.stores.playStore} target="_blank" rel="noopener noreferrer" aria-label={lang === "en" ? "Download proTcity on Google Play" : "Scarica proTcity su Google Play"}>Google Play <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="urban-hero__annotations" aria-hidden="true">
+    {copy.heroLabels.map((label, index) => <div class={`city-marker city-marker--${index}`}>
+      <span class="city-marker__anchor"><i></i></span>
+      <div><span>{copy.heroKinds[index]}</span><strong>{label}</strong></div>
+    </div>)}
+  </div>
+  <div class="urban-hero__footer">
+    <div class="city-sequence" aria-label={copy.stepsLabel}>{copy.sequence.map((label, index) => <span><small>0{index + 1}</small>{label}{index < 2 && <i aria-hidden="true">↗</i>}</span>)}</div>
+    <div class="urban-hero__utility">
+      <small>{copy.illustration}</small>
+      <button type="button" class="city-motion-control" data-city-pause data-pause-label={copy.pause} data-resume-label={copy.resume} aria-pressed="false" aria-label={copy.pause} hidden><span data-motion-icon aria-hidden="true">Ⅱ</span><span data-motion-label>{copy.pause}</span></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initCityHero } from "../../scripts/city-hero";
+  document.querySelectorAll<HTMLElement>("[data-city-hero]").forEach(initCityHero);
+</script>

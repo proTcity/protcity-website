@@ -1,7 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import LivingCity from "../components/home/LivingCity.astro";
-import LivingCityExperience from "../components/home/LivingCityExperience";
+import CinematicHero from "../components/home/CinematicHero.astro";
+import CinematicCityStory from "../components/home/CinematicCityStory";
 import { site } from "../data/site";
 import { absoluteUrl } from "../utils/seo";
 
@@ -196,40 +196,9 @@ const playStoreUrl = site.stores.playStore;
   bodyClass="home-cinematic real-home"
   schema={schema}
 >
-  <section class="real-hero" aria-labelledby="hero-title">
-    <div class="container real-hero__grid">
-      <div class="real-hero__copy">
-        <p class="cinematic-kicker">Disponibile su App Store e Google Play</p>
-        <h1 id="hero-title">La città cambia. proTcity la rende visibile.</h1>
-        <p class="real-hero__claim">
-          Muoviti in città con più consapevolezza.
-        </p>
-        <p class="real-hero__lead">
-          Alert, segnalazioni, percorsi più consapevoli e supporto AI per capire meglio le aree che visiti.
-        </p>
-        <div class="cinematic-actions" aria-label="Azioni principali">
-          <a class="glass-button glass-button--primary" href={appStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su App Store</a>
-          <a class="glass-button glass-button--primary" href={playStoreUrl} target="_blank" rel="noopener noreferrer">Scarica su Google Play</a>
-          <a class="glass-button" href="#come-funziona">Scopri come funziona</a>
-        </div>
-        <div class="store-badges" aria-label="Disponibilita sugli store">
-          <a class="store-badge store-badge--apple" href={appStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su App Store">
-            <img src="/images/store/app-store-badge.svg" alt="Download on the App Store" loading="eager" decoding="async" />
-          </a>
-          <a class="store-badge store-badge--google" href={playStoreUrl} target="_blank" rel="noopener noreferrer" aria-label="Scarica proTcity su Google Play">
-            <img src="/images/store/google-play-badge.png" alt="Disponibile su Google Play" loading="eager" decoding="async" />
-          </a>
-        </div>
-        <p class="real-hero__microcopy">
-          Disponibile su App Store e Google Play · schermate reali dell'app
-        </p>
-      </div>
+  <CinematicHero />
 
-      <div class="real-hero__experience">
-        <LivingCity appStoreUrl={appStoreUrl} playStoreUrl={playStoreUrl} />
-      </div>
-    </div>
-  </section>
+  <CinematicCityStory client:visible />
 
   <section class="signal-strip" aria-label="Perche usare proTcity">
     <div class="container signal-strip__grid">
@@ -250,8 +219,6 @@ const playStoreUrl = site.stores.playStore;
       </article>
     </div>
   </section>
-
-  <LivingCityExperience variant="journey" client:visible />
 
   <section class="real-section" aria-labelledby="screens-title">
     <div class="container section-intro section-intro--center">

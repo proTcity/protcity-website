@@ -1,0 +1,192 @@
+.urban-hero {
+  --city-x: 0px;
+  --city-y: 0px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: min(920px, max(780px, calc(100svh - 76px)));
+  overflow: clip;
+  background: #09121d;
+  color: #f7fafc;
+  padding: 0;
+}
+.urban-hero__world, .urban-hero__shade, .urban-hero__atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.urban-hero__world { z-index: -3; transform: translate3d(var(--city-x), var(--city-y), 0) scale(1.04); }
+.urban-hero__camera { width: 100%; height: 100%; animation: city-camera 28s ease-in-out infinite alternate; }
+.urban-hero__camera picture, .urban-hero__camera img { display: block; width: 100%; height: 100%; }
+.urban-hero__camera img { object-fit: cover; object-position: center; }
+.urban-hero__routes { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.65; }
+.city-route-aura { stroke: #60dfff; stroke-width: 14; opacity: 0.14; filter: blur(8px); }
+.city-route-line { stroke-width: 2; }
+.city-route-traveler { stroke: #d5fcff; stroke-width: 2.5; stroke-dasharray: 2 98; stroke-linecap: round; animation: city-route 16s linear infinite; }
+.urban-hero__shade {
+  z-index: -2;
+  background: linear-gradient(90deg, rgba(3,10,19,.95) 0%, rgba(3,10,19,.85) 23%, rgba(3,10,19,.52) 44%, rgba(3,10,19,.04) 73%), linear-gradient(0deg, #060d16 0%, rgba(6,13,22,.1) 26%, rgba(6,13,22,0) 78%, rgba(6,13,22,.32));
+}
+.urban-hero__atmosphere { z-index: -1; opacity: .36; background: radial-gradient(ellipse at 80% 8%, rgba(172,206,230,.22), transparent 58%); }
+.urban-hero__content { width: min(1440px, calc(100% - 112px)); margin: 0 auto; padding: 100px 0 170px; }
+.english-content .urban-hero .city-primary-link { color: #081321; }
+.english-content .urban-hero .city-primary-link:hover { color: #081321; }
+.english-content .urban-hero .city-explore-link { color: #f1f5f8; }
+.english-content .urban-hero__stores a { color: #b7c5d1; }
+.urban-hero__eyebrow { display: flex; gap: 12px; align-items: center; color: #b4dbe5; font-size: .66rem; font-weight: 600; letter-spacing: .2em; margin: 0 0 27px; }
+.urban-hero__eyebrow > span { display: block; height: 1px; width: 30px; background: #91c7d6; }
+.urban-hero.urban-hero h1 { max-width: 720px; margin: 0; color: #fff; font-size: clamp(3.2rem, 5.55vw, 5.6rem); font-weight: 560; line-height: 1.04; letter-spacing: -.05em; text-wrap: balance; }
+.urban-hero h1 span { color: #b9e5f0; }
+.urban-hero .urban-hero__lead { max-width: 470px; margin: 27px 0 0; color: #d0d7df; font-size: clamp(1rem,1.2vw,1.15rem); line-height: 1.72; font-weight: 400; }
+.urban-hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 26px; margin-top: 32px; }
+.city-primary-link { display: inline-flex; align-items: center; justify-content: center; gap: 22px; padding: 16px 21px; border: 1px solid #d9f2f4; border-radius: 5px; color: #081321; background: #e1f4f4; text-decoration: none; font-size: .9rem; font-weight: 700; box-shadow: 0 3px 32px #57b0c01a; transition: background .25s, box-shadow .25s; }
+.city-primary-link:hover { color: #081321; background: #fff; box-shadow: 0 4px 40px #7bc9e138; }
+.city-primary-link > span { font-size: 1.2rem; }
+.city-explore-link { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; color: #f1f5f8; text-decoration: none; font-size: .88rem; }
+.city-explore-link:hover { color: #acebfc; }
+.city-play-icon { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #c6dfed69; border-radius: 50%; }
+.urban-hero__stores { display: flex; align-items: center; gap: 14px; margin-top: 20px; color: #798b9c; font-size: .72rem; }
+.urban-hero__stores a { display: inline-flex; align-items: center; min-height: 32px; gap: 8px; color: #b7c5d1; text-decoration: none; }
+.urban-hero__stores a:hover { color: #fff; }
+.urban-hero__annotations { position: absolute; inset: 0; z-index: -1; pointer-events: none; transform: translate3d(calc(var(--city-x) * 1.5), calc(var(--city-y) * 1.5), 0); }
+.city-marker { position: absolute; display: flex; align-items: center; gap: 12px; --marker: #90dfef; }
+.city-marker--0 { left: 61%; top: 45%; --marker: #f6ad9b; }
+.city-marker--1 { left: 68%; top: 69%; }
+.city-marker--2 { left: 77%; top: 31%; --marker: #bcddc1; }
+.city-marker__anchor { width: 26px; height: 26px; border: 1px solid var(--marker); border-radius: 50%; display: grid; place-items: center; box-shadow: 0 0 24px color-mix(in srgb, var(--marker) 35%, transparent); }
+.city-marker__anchor i { width: 6px; height: 6px; border-radius: 50%; background: var(--marker); }
+.city-marker > div { padding: 11px 15px; border-left: 1px solid var(--marker); background: linear-gradient(100deg, #081321e8, #081321b0); backdrop-filter: blur(12px); border-radius: 0 4px 4px 0; box-shadow: 0 12px 30px #0002; }
+.city-marker > div > span { display: block; color: var(--marker); font-size: .52rem; letter-spacing: .16em; font-weight: 650; margin-bottom: 5px; }
+.city-marker strong { display: block; color: #f2f5f7; font-size: .71rem; line-height: 1.35; font-weight: 500; }
+.urban-hero__footer { position: absolute; left: max(56px, calc((100% - 1440px) / 2)); right: max(56px, calc((100% - 1440px) / 2)); bottom: 30px; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; padding-top: 25px; border-top: 1px solid #c6e6f01f; }
+.city-sequence { display: flex; gap: 28px; }
+.city-sequence > span { display: inline-flex; align-items: center; gap: 9px; color: #d6e2e9; font-size: .75rem; }
+.city-sequence small { font-size: .6rem; color: #94adbd; font-variant-numeric: tabular-nums; }
+.city-sequence i { margin-left: 12px; color: #708793; font-style: normal; }
+.urban-hero__utility { display: flex; align-items: center; gap: 22px; }
+.urban-hero__utility > small { font-size: .6rem; color: #a3b6c5; }
+.city-motion-control { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 7px 12px; border: 1px solid #aac5d336; border-radius: 4px; background: #08132173; color: #e2ebf2; font: inherit; font-size: .65rem; cursor: pointer; }
+.city-motion-control[hidden] { display: none; }
+.city-motion-control:hover { background: #223649; }
+.urban-hero a:focus-visible, .urban-hero button:focus-visible, .city-story a:focus-visible, .city-story button:focus-visible { outline: 2px solid #a5e9f8; outline-offset: 5px; }
+[data-city-hero][data-motion="paused"] .urban-hero__camera, [data-city-hero][data-motion="paused"] .city-route-traveler { animation-play-state: paused; }
+@keyframes city-camera { from { transform: scale(1) translate3d(0,0,0); } to { transform: scale(1.065) translate3d(-.6%,-.5%,0); } }
+@keyframes city-route { to { stroke-dashoffset: -100; } }
+
+.city-story { padding: 108px 0 96px; background: #060d16; color: #f0f5f8; scroll-margin-top: 76px; }
+.city-story__intro { width: min(1328px, calc(100% - 112px)); margin: 0 auto 48px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: end; }
+.city-story__eyebrow { color: #8fb2c4; font-size: .62rem; letter-spacing: .17em; font-weight: 600; margin: 0 0 18px; }
+.city-story.city-story h2 { margin: 0; color: #f5f8fa; font-size: clamp(2rem,3.3vw,3.2rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.13; }
+.city-story h2 span { color: #91a7b7; }
+.city-story__intro > p { max-width: 470px; color: #aabaca; font-size: .97rem; line-height: 1.75; margin: 0 0 2px; }
+.city-story__stage { position: relative; width: min(1440px, calc(100% - 64px)); margin: 0 auto; min-height: 610px; height: min(740px, 64vw); border: 1px solid #779dae32; border-radius: 12px; overflow: clip; isolation: isolate; background: #081321; }
+.city-story__visual { position: absolute; inset: 0; z-index: -2; }
+.city-story__visual > div, .city-story__poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.city-story__poster { display: block; object-fit: cover; object-position: 65% center; filter: brightness(.7); }
+.city-story__stage::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, #06111ced, #06111c95 32%, transparent 63%), linear-gradient(0deg,#06111ce6, transparent 20%,transparent 75%,#06111c80); }
+.city-story__topline { position: absolute; top: 24px; left: 28px; right: 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.city-story__topline > span { color: #a7b6c8; font-size: .6rem; letter-spacing: .07em; }
+.city-story__panel { position: absolute; top: 50%; left: 5%; width: min(320px, 32%); transform: translateY(-48%); }
+.city-story__number { display: block; margin-bottom: 22px; color: #81bdd1; font-size: .7rem; font-variant-numeric: tabular-nums; letter-spacing: .16em; }
+.city-story__panel h3 { color: #f2f6fa; margin: 0; font-size: clamp(1.8rem,2.4vw,2.65rem); font-weight: 500; line-height: 1.15; letter-spacing: -.035em; }
+.city-story__panel p { color: #b2c0cd; font-size: .9rem; line-height: 1.75; margin: 20px 0; }
+.city-story__panel a { color: #c5ebf5; text-decoration: none; font-size: .82rem; border-bottom: 1px solid #96cbd557; display: inline-flex; gap: 24px; align-items: center; min-height: 44px; }
+.city-story__detail { position: absolute; right: 6%; bottom: 115px; display: flex; align-items: center; gap: 10px; padding: 13px 17px; border: 1px solid #c1d9ea30; background: #081321d9; backdrop-filter: blur(12px); border-radius: 5px; font-size: .69rem; color: #dae7ed; }
+.city-story__detail i { display: block; width: 7px; height: 7px; background: #94e6fb; border-radius: 50%; }
+.city-story__detail[data-color="coral"] i { background: #fab29e; }
+.city-story__detail[data-color="mint"] i { background: #b1ebc9; }
+.city-story__tabs { position: absolute; left: 5%; right: 5%; bottom: 29px; display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.city-story__tabs button { display: flex; align-items: center; gap: 13px; min-height: 54px; padding: 17px 0 0; border: 0; border-top: 1px solid #8298a04d; background: none; color: #abb8c4; text-align: left; font: inherit; font-size: .8rem; font-weight: 500; cursor: pointer; transition: color .2s,border-color .2s; }
+.city-story__tabs button[aria-pressed="true"] { color: #f5f8fa; border-color: #c0e7f2; }
+.city-story__tabs button span { color: #94b4c7; font-size: .6rem; }
+.city-story__caption { display: flex; justify-content: space-between; gap: 30px; width: min(1328px,calc(100% - 112px)); margin: 18px auto 0; }
+.city-story__caption p { color: #a4b5c4; font-size: .67rem; line-height: 1.6; max-width: 730px; margin: 0; }
+.city-story__caption > span { color: #a4b5c4; font-size: .62rem; white-space: nowrap; }
+.city-story__activate { position: absolute; top: 45%; left: 60%; transform: translate(-50%,-50%); padding: 14px 20px; min-height: 48px; border: 1px solid #c5e7f86b; border-radius: 5px; color: #eef7fb; background: #0b1c2ee6; font: inherit; font-size: .83rem; cursor: pointer; }
+.city-story__status { position: absolute; right: 5%; top: 85px; font-size: .7rem; color: #cfdae5; }
+
+@media (min-width: 1800px) { .urban-hero__content { padding-top: 130px; } }
+@media (max-width: 1100px) {
+  .urban-hero__content { width: calc(100% - 72px); }
+  .urban-hero.urban-hero h1 { font-size: clamp(3.2rem,6.7vw,4.5rem); }
+  .urban-hero .urban-hero__lead { max-width: 430px; }
+  .city-marker--0 { left: 64%; top: 46%; }
+  .city-marker--1 { left: 68%; top: 68%; }
+  .city-marker--2 { left: 66%; top: 26%; }
+  .city-marker strong { max-width: 145px; }
+  .urban-hero__footer { left: 36px; right: 36px; }
+  .urban-hero__utility { flex-direction: column-reverse; align-items: flex-end; gap: 8px; }
+  .city-story__intro, .city-story__caption { width: calc(100% - 72px); gap: 30px; }
+  .city-story__stage { width: calc(100% - 40px); }
+  .city-story__panel { width: 35%; }
+  .city-story__caption > span { display: none; }
+}
+@media (max-width: 760px) {
+  .urban-hero { min-height: 850px; justify-content: flex-start; }
+  .urban-hero__world { inset: 0 -160px 0 -370px; }
+  .urban-hero__shade { background: linear-gradient(180deg, #060d16 1%, #060d16f5 16%, #060d16a6 40%, #060d160a 65%, #060d16a6 86%, #060d16 99%); }
+  .urban-hero__content { width: calc(100% - 40px); padding: 58px 0 0; }
+  .urban-hero__eyebrow { font-size: .54rem; letter-spacing: .16em; margin-bottom: 21px; gap: 9px; }
+  .urban-hero__eyebrow > span { width: 22px; }
+  .urban-hero.urban-hero h1 { max-width: 600px; font-size: clamp(2.65rem,9.6vw,4.1rem); line-height: 1.07; letter-spacing: -.043em; }
+  .urban-hero .urban-hero__lead { max-width: 490px; font-size: .97rem; line-height: 1.65; margin-top: 21px; }
+  .urban-hero__actions { gap: 14px; margin-top: 25px; }
+  .city-primary-link { font-size: .8rem; gap: 12px; padding: 13px 15px; }
+  .city-explore-link { font-size: .76rem; gap: 8px; }
+  .city-play-icon { width: 26px; height: 26px; }
+  .urban-hero__stores { font-size: .67rem; margin-top: 12px; }
+  .city-marker--0 { left: 8%; top: 58%; }
+  .city-marker--1 { left: 37%; top: 73%; }
+  .city-marker--2 { display: none; }
+  .city-marker > div { padding: 9px 11px; }
+  .city-marker strong { font-size: .63rem; max-width: 160px; }
+  .city-marker > div > span { font-size: .48rem; }
+  .city-marker__anchor { width: 19px; height: 19px; }
+  .urban-hero__footer { left: 20px; right: 20px; bottom: 20px; display: block; padding-top: 16px; }
+  .city-sequence { gap: 18px; justify-content: space-between; }
+  .city-sequence > span { gap: 6px; font-size: .65rem; }
+  .city-sequence i { margin-left: 7px; }
+  .urban-hero__utility { flex-direction: row; justify-content: space-between; align-items: center; gap: 12px; margin-top: 13px; }
+  .urban-hero__utility > small { font-size: .5rem; line-height: 1.5; max-width: 190px; }
+  .city-motion-control { font-size: .55rem; gap: 5px; padding: 7px 8px; }
+  .city-story { padding: 64px 0 58px; }
+  .city-story__intro { width: calc(100% - 40px); display: block; margin-bottom: 26px; }
+  .city-story__intro > p { margin-top: 20px; font-size: .9rem; }
+  .city-story__eyebrow { font-size: .53rem; }
+  .city-story.city-story h2 { font-size: 2.15rem; }
+  .city-story__stage { width: calc(100% - 24px); height: auto; min-height: 800px; border-radius: 8px; }
+  .city-story__visual { top: 42px; bottom: auto; height: 440px; }
+  .city-story__stage::after { background: linear-gradient(180deg, transparent 36%, #081321 57%); }
+  .city-story__topline { top: 11px; left: 17px; right: 17px; }
+  .city-story__topline > span { max-width: 190px; line-height: 1.5; font-size: .5rem; }
+  .city-story__panel { top: 436px; left: 23px; right: 23px; width: auto; transform: none; }
+  .city-story__number { margin-bottom: 12px; font-size: .6rem; }
+  .city-story__panel h3 { font-size: 1.8rem; max-width: 380px; }
+  .city-story__panel p { font-size: .85rem; line-height: 1.65; margin: 14px 0 8px; }
+  .city-story__panel a { font-size: .77rem; }
+  .city-story__detail { bottom: auto; top: 376px; right: 22px; left: 22px; font-size: .6rem; padding: 11px 13px; }
+  .city-story__tabs { left: 23px; right: 23px; bottom: 25px; gap: 15px; }
+  .city-story__tabs button { display: block; line-height: 1.5; font-size: .7rem; min-height: 69px; }
+  .city-story__tabs button span { display: block; margin-bottom: 4px; }
+  .city-story__caption { width: calc(100% - 40px); margin-top: 15px; }
+  .city-story__caption p { font-size: .62rem; }
+  .city-story__activate { top: 220px; left: 50%; width: max-content; max-width: calc(100% - 44px); }
+  .city-story__status { top: 65px; left: 22px; right: 22px; font-size: .63rem; }
+}
+@media (max-width: 360px) {
+  .urban-hero { min-height: 900px; }
+  .urban-hero__actions { gap: 7px 20px; }
+  .city-marker--0 { top: 61%; }
+  .city-marker--1 { left: 28%; top: 75%; }
+  .city-story__stage { min-height: 870px; }
+  .city-story__panel h3 { font-size: 1.65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(.urban-hero) { scroll-behavior: auto; }
+  .urban-hero__camera, .city-route-traveler { animation: none; }
+  .urban-hero__world, .urban-hero__annotations { transform: none; }
+  .city-motion-control[data-city-pause] { display: none; }
+  .city-story *, .urban-hero * { scroll-behavior: auto; transition: none; }
+}

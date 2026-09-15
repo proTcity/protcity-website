@@ -1,5 +1,7 @@
 ---
 import EnglishLayout from "../../layouts/EnglishLayout.astro";
+import CinematicHero from "../../components/home/CinematicHero.astro";
+import CinematicCityStory from "../../components/home/CinematicCityStory";
 import { site } from "../../data/site";
 import { absoluteUrl } from "../../utils/seo";
 const features = [
@@ -14,16 +16,8 @@ const schema = [{ "@context": "https://schema.org", "@type": "WebPage", name: "p
 { "@context": "https://schema.org", "@type": "Organization", name: site.company.legalName, url: "https://www.kurbilabs.com", address: { "@type": "PostalAddress", streetAddress: site.company.street, addressLocality: "Trivigliano", addressRegion: "FR", postalCode: site.company.postalCode, addressCountry: "IT" } }];
 ---
 <EnglishLayout title="proTcity | Understand the city around you" description="Explore urban context with the proTcity app. Discover WalkGuard, local community information, Studio for organisations and GuestSafe for hospitality." schema={schema}>
-  <section class="en-hero"><div class="container en-hero-grid">
-    <div>
-      <p class="en-kicker">Made in Italy · Available on iOS & Android</p>
-      <h1>Understand the city around you.</h1>
-      <p class="en-lead">Maps, community signals, local events and WalkGuard help residents and visitors explore their surroundings with more context.</p>
-      <div class="en-actions"><a class="glass-button glass-button--primary" href="/en/download">Get the free app</a><a class="glass-button" href="/en/partner">Explore proTcity Studio</a></div>
-      <p class="en-note">Information to support your decisions, not a safety guarantee or a substitute for emergency services.</p>
-    </div>
-    <figure class="en-phone"><img src="/images/app-real/optimized/home-mappa.png" alt="Real proTcity urban map showing local signals and controls" width="647" height="1400" fetchpriority="high" /><figcaption>Real app screenshot · Italian interface shown</figcaption></figure>
-  </div></section>
+  <CinematicHero lang="en" />
+  <CinematicCityStory lang="en" client:visible />
   <section class="en-section"><div class="container">
     <div class="en-intro"><p class="en-kicker">The proTcity app</p><h2>More context. More control over how you explore.</h2><p>Open the map, review the information available in your area and choose the tools you need.</p></div>
     <div class="en-grid">{features.map(([title, text]) => <article class="en-card"><h3>{title}</h3><p>{text}</p></article>)}</div>
