@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-10-07T16:23:12+00:00",
+  "refreshedAt": "2026-10-08T14:04:49+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-10-07T16:23:12+00:00",
+      "upstreamGeneratedAt": "2026-10-08T14:04:49+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-10-07T14:00:00Z",
-        "run": "2026100712",
-        "description": "Nuvoloso",
-        "temperatureC": 25.3,
-        "min24hC": 20.1,
-        "max24hC": 27.4,
-        "precipitation24hMm": 0.1,
-        "humidityPct": 67,
-        "windKmh": 15.5,
-        "maxGust24hKmh": 36.6,
+        "validAt": "2026-10-08T14:00:00Z",
+        "run": "2026100812",
+        "description": "Pioggia leggera",
+        "temperatureC": 24.2,
+        "min24hC": 19,
+        "max24hC": 24.2,
+        "precipitation24hMm": 10.1,
+        "humidityPct": 71,
+        "windKmh": 15.1,
+        "maxGust24hKmh": 46.8,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -84,7 +84,7 @@
       },
       "healthServices": {
         "pharmacies": 830,
-        "paraPharmacies": 291,
+        "paraPharmacies": 292,
         "hospitals": 68,
         "hospitalBeds": 13731,
         "source": "Ministero della Salute"
@@ -97,9 +97,27 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-10-07T17:27:06.483Z",
+        "refreshedAt": "2026-10-08T17:25:34.581Z",
         "sourceStatus": "live",
         "items": [
+          {
+            "id": "ae333dc8f663ea5a2d81",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Roma Capitale",
+            "verified": true,
+            "title": "Allerta pioggia (ARANCIONE) dal tardo pomeriggio di giovedì 8 ottobre 2026 e per le successive 18-24 ore",
+            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
+            "category": "Allerta meteo",
+            "status": "active",
+            "publishedAt": "2026-10-08T10:00:00.000Z",
+            "startsAt": "2026-10-08T10:00:00.000Z",
+            "endsAt": null,
+            "latitude": null,
+            "longitude": null,
+            "locationPrecision": "citywide",
+            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1652967"
+          },
           {
             "id": "34da2015f3064eefcb99",
             "kind": "official",
@@ -189,24 +207,6 @@
             "longitude": null,
             "locationPrecision": "citywide",
             "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1648176"
-          },
-          {
-            "id": "8b3c0c70630e4b2efb6f",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Roma Capitale",
-            "verified": true,
-            "title": "Allerta pioggia (GIALLA) dalle prime ore di venerdì 18 settembre 2026 e per le successive 18-24 ore",
-            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
-            "category": "Allerta meteo",
-            "status": "active",
-            "publishedAt": "2026-09-17T10:00:00.000Z",
-            "startsAt": "2026-09-17T10:00:00.000Z",
-            "endsAt": null,
-            "latitude": null,
-            "longitude": null,
-            "locationPrecision": "citywide",
-            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1642024"
           }
         ]
       }
@@ -217,23 +217,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-10-07T16:20:04+00:00",
+      "upstreamGeneratedAt": "2026-10-08T14:01:42+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-10-07T14:00:00Z",
-        "run": "2026100712",
+        "validAt": "2026-10-08T14:00:00Z",
+        "run": "2026100812",
         "description": "Nuvoloso",
-        "temperatureC": 18.7,
-        "min24hC": 15.5,
-        "max24hC": 18.9,
-        "precipitation24hMm": 3.7,
-        "humidityPct": 71,
-        "windKmh": 5.8,
-        "maxGust24hKmh": 17.1,
+        "temperatureC": 20.1,
+        "min24hC": 15.3,
+        "max24hC": 21.8,
+        "precipitation24hMm": 24.1,
+        "humidityPct": 76,
+        "windKmh": 7.8,
+        "maxGust24hKmh": 28.2,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -301,7 +301,7 @@
       },
       "officialLive": {
         "refreshedAt": "2026-10-07T04:33:59.788268",
-        "sourceStatus": "live",
+        "sourceStatus": "last_known_good",
         "items": [
           {
             "id": "f26e0c3d6beb947642d3",
