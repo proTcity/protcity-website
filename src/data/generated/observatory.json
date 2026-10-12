@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-10-11T14:05:31+00:00",
+  "refreshedAt": "2026-10-12T14:05:24+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-10-11T14:05:31+00:00",
+      "upstreamGeneratedAt": "2026-10-12T14:05:24+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-10-11T14:00:00Z",
-        "run": "2026101112",
-        "description": "Parzialmente nuvoloso",
-        "temperatureC": 24.1,
-        "min24hC": 16.5,
-        "max24hC": 24.2,
+        "validAt": "2026-10-12T14:00:00Z",
+        "run": "2026101212",
+        "description": "Cielo sereno",
+        "temperatureC": 24.4,
+        "min24hC": 12.6,
+        "max24hC": 24.4,
         "precipitation24hMm": 0,
-        "humidityPct": 57,
-        "windKmh": 6.5,
-        "maxGust24hKmh": 22.8,
+        "humidityPct": 51,
+        "windKmh": 10.4,
+        "maxGust24hKmh": 32.9,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -97,7 +97,7 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-10-11T16:20:46.543Z",
+        "refreshedAt": "2026-10-12T19:50:54.351Z",
         "sourceStatus": "live",
         "items": [
           {
@@ -199,23 +199,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-10-11T14:01:53+00:00",
+      "upstreamGeneratedAt": "2026-10-12T14:01:53+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-10-11T14:00:00Z",
-        "run": "2026101112",
-        "description": "Nuvoloso",
-        "temperatureC": 21,
-        "min24hC": 13.6,
-        "max24hC": 21,
+        "validAt": "2026-10-12T14:00:00Z",
+        "run": "2026101212",
+        "description": "Prevalentemente sereno",
+        "temperatureC": 19.4,
+        "min24hC": 12.2,
+        "max24hC": 19.7,
         "precipitation24hMm": 0,
-        "humidityPct": 65,
-        "windKmh": 4.2,
-        "maxGust24hKmh": 29.5,
+        "humidityPct": 58,
+        "windKmh": 11.9,
+        "maxGust24hKmh": 29.9,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
