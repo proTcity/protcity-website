@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshedAt": "2026-11-12T15:04:55+00:00",
+  "refreshedAt": "2026-11-13T15:04:52+00:00",
   "attribution": {
     "provider": "AgID - Cruscotto Italia",
     "providerUrl": "https://cruscotto-italia.dati.gov.it/",
@@ -14,23 +14,23 @@
       "name": "Roma",
       "province": "RM",
       "region": "Lazio",
-      "upstreamGeneratedAt": "2026-11-12T15:04:55+00:00",
+      "upstreamGeneratedAt": "2026-11-13T15:04:52+00:00",
       "population": {
         "value": 2745062,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-11-12T15:00:00Z",
-        "run": "2026111212",
-        "description": "Pioggia leggera",
-        "temperatureC": 19.7,
-        "min24hC": 18.3,
-        "max24hC": 21.5,
-        "precipitation24hMm": 1.2,
-        "humidityPct": 84,
-        "windKmh": 21.7,
-        "maxGust24hKmh": 52.3,
+        "validAt": "2026-11-13T15:00:00Z",
+        "run": "2026111312",
+        "description": "Nuvoloso",
+        "temperatureC": 19.9,
+        "min24hC": 13,
+        "max24hC": 19.9,
+        "precipitation24hMm": 0,
+        "humidityPct": 73,
+        "windKmh": 15.6,
+        "maxGust24hKmh": 35.8,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -97,7 +97,7 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-11-12T18:22:33.984Z",
+        "refreshedAt": "2026-11-13T17:48:41.577Z",
         "sourceStatus": "live",
         "items": [
           {
@@ -243,24 +243,6 @@
             "longitude": null,
             "locationPrecision": "citywide",
             "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1664569"
-          },
-          {
-            "id": "b6018cbd1d1996c76926",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Roma Capitale",
-            "verified": true,
-            "title": "Allerta pioggia (GIALLA) dalla tarda serata di venerdì 23 ottobre 2026 e per le successive 18 - 24 ore",
-            "summary": "Avviso ufficiale per il territorio comunale. Apri la fonte per durata, aree interessate e indicazioni complete.",
-            "category": "Allerta meteo",
-            "status": "active",
-            "publishedAt": "2026-10-23T10:00:00.000Z",
-            "startsAt": "2026-10-23T10:00:00.000Z",
-            "endsAt": null,
-            "latitude": null,
-            "longitude": null,
-            "locationPrecision": "citywide",
-            "ctaUrl": "https://www.comune.roma.it/web/it/informazione-di-servizio.page?contentId=IDS1661166"
           }
         ]
       }
@@ -271,23 +253,23 @@
       "name": "Milano",
       "province": "MI",
       "region": "Lombardia",
-      "upstreamGeneratedAt": "2026-11-12T15:01:42+00:00",
+      "upstreamGeneratedAt": "2026-11-13T15:01:41+00:00",
       "population": {
         "value": 1362863,
         "reference": "1 gennaio 2026 (stima)",
         "source": "ISTAT POSAS"
       },
       "weather": {
-        "validAt": "2026-11-12T15:00:00Z",
-        "run": "2026111212",
-        "description": "Pioggia leggera",
-        "temperatureC": 11.1,
-        "min24hC": 9.3,
-        "max24hC": 16.6,
-        "precipitation24hMm": 5.2,
-        "humidityPct": 95,
-        "windKmh": 2.4,
-        "maxGust24hKmh": 25.2,
+        "validAt": "2026-11-13T15:00:00Z",
+        "run": "2026111312",
+        "description": "Parzialmente nuvoloso",
+        "temperatureC": 14.8,
+        "min24hC": 7.9,
+        "max24hC": 14.8,
+        "precipitation24hMm": 0,
+        "humidityPct": 77,
+        "windKmh": 10.8,
+        "maxGust24hKmh": 29.8,
         "source": "ItaliaMeteo ICON-2I",
         "license": "CC BY 4.0"
       },
@@ -354,101 +336,11 @@
         "source": "ISTAT"
       },
       "officialLive": {
-        "refreshedAt": "2026-11-12T05:34:32.410590",
+        "refreshedAt": "2026-11-13T05:34:43.278140",
         "sourceStatus": "live",
         "items": [
           {
-            "id": "a397da6c5a8c569cb860",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Acqua Potabile · Via SEBENICO F.TE CIV. 28",
-            "summary": "Marciapiede e Carreggiata · Zona ISOLA",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-10-17T11:12:59.214Z",
-            "startsAt": "2026-10-16T22:00:00.000Z",
-            "endsAt": "2026-11-14T23:00:00.000Z",
-            "latitude": 45.48739158,
-            "longitude": 9.18991409,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "cb8d528596a99b40bb16",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Elettricità · Via CODOGNO 2",
-            "summary": "Zona LODI - CORVETTO",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-10-28T06:37:46.516Z",
-            "startsAt": "2026-11-05T23:00:00.000Z",
-            "endsAt": "2026-11-14T23:00:00.000Z",
-            "latitude": 45.44276433,
-            "longitude": 9.22752374,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "7f4d2d6d891ba98c2ea1",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Fognatura · Via ZUCCOLI LUCIANO 26",
-            "summary": "Carreggiata · Zona GRECO - SEGNANO",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-10-20T05:38:57.350Z",
-            "startsAt": "2026-10-18T22:00:00.000Z",
-            "endsAt": "2026-11-14T23:00:00.000Z",
-            "latitude": 45.49572553,
-            "longitude": 9.20812722,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "d3c6de3c57b383b974c3",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Gas · Via COMPAGNONI GIUSEPPE 25",
-            "summary": "Zona XXII MARZO",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-10-28T13:23:58.858Z",
-            "startsAt": "2026-11-05T23:00:00.000Z",
-            "endsAt": "2026-11-14T23:00:00.000Z",
-            "latitude": 45.46478391,
-            "longitude": 9.2213206,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "8f63902765c8697dcd91",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Acqua Potabile · Via TERNI 12",
-            "summary": "Carreggiata · Zona BAGGIO - Q.RE DEGLI OLMI - Q.RE VALSESIA",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-11-11T13:19:25.806Z",
-            "startsAt": "2026-11-10T23:00:00.000Z",
-            "endsAt": "2026-11-14T23:00:00.000Z",
-            "latitude": 45.46550048,
-            "longitude": 9.09044013,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "049e966f8eb0dde24420",
+            "id": "2f00800b753ced044691",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -466,7 +358,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "e936f071ea12be08d01f",
+            "id": "2bab19065aebaab32e1f",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -484,7 +376,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "c977e34d16bd12074429",
+            "id": "e1b0ebbff0151e9185df",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -502,7 +394,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f2201118c1dab4510701",
+            "id": "412996b955bd850e2c73",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -520,7 +412,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "52268a9a505e2d068fab",
+            "id": "5a06af4cb673e64671c1",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -538,7 +430,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "7d8667f052c4f4669cd5",
+            "id": "3722ec9a2baa7c69a13d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -556,7 +448,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d52e72aa561ba2d41d74",
+            "id": "f91c7d851a8c2dfee9a4",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -574,7 +466,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "2266688b24c89a8452ef",
+            "id": "e18fac50255454c23c56",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -592,7 +484,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "7f9e5edc4f3b82980082",
+            "id": "55db98e8fbf136e2f202",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -610,7 +502,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d2f0a274a6e20bab9cca",
+            "id": "020e93841a6c361f632e",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -628,7 +520,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "86c18e232a01c0d5fe57",
+            "id": "2bc701622002277e3c88",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -646,7 +538,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "3201bc39ecbb44c08388",
+            "id": "dfdf406d269366bcaa58",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -664,7 +556,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f62423a781545e1b6387",
+            "id": "33efcd641fc448b2a207",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -682,7 +574,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "326c15eaf5df561a50b3",
+            "id": "cd15aa634eebc573b063",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -700,7 +592,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "3673c3231f80e689e015",
+            "id": "94d12dc79bd33c5c8afe",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -718,7 +610,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d40ff047fda364db47c7",
+            "id": "13863cd77e60c0f6e4d7",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -736,7 +628,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "dae9f0b1cf7248d766b5",
+            "id": "30e43983f662492e6dc7",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -754,7 +646,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "ecde9f61006b59437caa",
+            "id": "45f8be22209ab311e4cd",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -772,7 +664,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "989a04ace507a25c5a02",
+            "id": "f56efccbf4b41e178b7a",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -790,7 +682,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "614dc4aef0ccb9d96897",
+            "id": "ca85ca0c44b02dcb4147",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -808,7 +700,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "dabce17ca060cef39811",
+            "id": "2ca53633f0fdcafeaba5",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -826,7 +718,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "e4a2d8b699fceb49730f",
+            "id": "494495c4524a0e2d7397",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -844,7 +736,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a55993800f0b34493bcb",
+            "id": "548732107bc6ae37b3a2",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -862,7 +754,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "8e27034967dcef7a5233",
+            "id": "0963a17e2c3d1e789b6c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -880,7 +772,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "215e4305303486e5917b",
+            "id": "18f58282c02d12c4f055",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -898,7 +790,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "1e35c3359738cc879ea0",
+            "id": "a7320ed54c02abc9f08d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -916,25 +808,43 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "58b32fbe4985933019ee",
+            "id": "b5ecebb11034ab157b04",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
             "verified": true,
-            "title": "Acque meteoriche · Via LODOVICO IL MORO 131",
-            "summary": "Zona RONCHETTO SUL NAVIGLIO - Q.RE LODOVICO IL MORO",
+            "title": "Gas · Via SAFFI AURELIO 31",
+            "summary": "Zona MAGENTA - S. VITTORE",
             "category": "Lavori e servizi",
             "status": "active",
-            "publishedAt": "2026-11-04T13:03:17.359Z",
-            "startsAt": "2026-11-08T23:00:00.000Z",
+            "publishedAt": "2026-11-06T06:58:51.666Z",
+            "startsAt": "2026-11-12T23:00:00.000Z",
             "endsAt": "2026-11-17T23:00:00.000Z",
-            "latitude": 45.44256281,
-            "longitude": 9.13412843,
+            "latitude": 45.46624056,
+            "longitude": 9.16743686,
             "locationPrecision": "exact",
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "8cf27385847be25641e8",
+            "id": "014290cfce9733e3005c",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Gas · Via SAFFI AURELIO 21",
+            "summary": "Zona MAGENTA - S. VITTORE",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-06T08:56:55.735Z",
+            "startsAt": "2026-11-12T23:00:00.000Z",
+            "endsAt": "2026-11-17T23:00:00.000Z",
+            "latitude": 45.46712127,
+            "longitude": 9.16877303,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "49620431188e9afd8597",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -952,7 +862,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "99ed8cbdf4ed78b57071",
+            "id": "9a0aa83f774fbe20198a",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -970,7 +880,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f7674639d6670bb48879",
+            "id": "9f6db0b351c47af0468c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -988,7 +898,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5f9b5dedfeae9ba76231",
+            "id": "853bd6cb226e986986c8",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1006,7 +916,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "0e710536219bd394518b",
+            "id": "20f385931a6d223c405c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1024,7 +934,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "de8d49704f53030ef5aa",
+            "id": "bf3b9db8d1126fb3a87c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1042,7 +952,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "b3b72049253bc0446cef",
+            "id": "e5c04d259314be440a11",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1060,7 +970,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "12137c5ac4c0ae15635c",
+            "id": "8ef92aaa95048fae3ebc",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1078,7 +988,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "feda02411abac37b33be",
+            "id": "f8e1ad185eaf8328844d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1096,25 +1006,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "0b765763532d2dd5104a",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Acqua potabile · Viale CONI ZUGNA 33",
-            "summary": "Zona MAGENTA - S. VITTORE",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-11-03T14:02:35.270Z",
-            "startsAt": "2026-11-09T23:00:00.000Z",
-            "endsAt": "2026-11-18T23:00:00.000Z",
-            "latitude": 45.45818198,
-            "longitude": 9.16796167,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "cddd70a50e82f96bb149",
+            "id": "65f7d7093c4c6135685e",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1132,7 +1024,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a1a09f3b911a57a8fe75",
+            "id": "3908e744faab20730783",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1150,7 +1042,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "8899750aa49a1a5b38f2",
+            "id": "3c5841a0ab85518f009f",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1168,7 +1060,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "23d5fd54b199cc7c64af",
+            "id": "561078dbec82c61dd7b6",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1186,7 +1078,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "cdc4c599bed10e688194",
+            "id": "7e820c07d5ebd5c2ce37",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1204,7 +1096,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a78e94c07c5971483823",
+            "id": "013403da65f3dc0a47cf",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1222,7 +1114,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "347c7fdc4d125bfc1d5e",
+            "id": "ea6fcdccc405174c84f3",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1240,7 +1132,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "bd68eb41387a7218c91f",
+            "id": "e6c8efd64a9cc4ed7662",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1258,7 +1150,25 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "7d01797741d1e86a388b",
+            "id": "7c433f6192e5d6ce5d5e",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Acqua potabile · Via VIVIANI VINCENZO 12",
+            "summary": "Zona PORTA GARIBALDI - PORTA NUOVA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-04T05:54:14.369Z",
+            "startsAt": "2026-11-12T23:00:00.000Z",
+            "endsAt": "2026-11-19T23:00:00.000Z",
+            "latitude": 45.48212753,
+            "longitude": 9.19581251,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "118202bb131e4bf74c0d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1276,7 +1186,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "1bad4f441f4eb455ebb8",
+            "id": "8ce7fcd7b613202d5004",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1294,25 +1204,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "96695c90f844fea91e3c",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Acqua potabile · Alzaia NAVIGLIO PAVESE 58P01",
-            "summary": "Zona PORTA TICINESE - CONCHETTA",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-11-04T10:27:53.575Z",
-            "startsAt": "2026-11-10T23:00:00.000Z",
-            "endsAt": "2026-11-19T23:00:00.000Z",
-            "latitude": 45.44513465,
-            "longitude": 9.17611559,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "aca8ea91f9773e28f596",
+            "id": "54be3cf116b7e0385064",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1330,7 +1222,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "1bfccf12701b34f19981",
+            "id": "9b001eadaecfe31dbe91",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1348,7 +1240,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "0d41bb590369753ce5cd",
+            "id": "103891212927b193af50",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1366,7 +1258,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "29b27d947ab98b3ff1a6",
+            "id": "7724396119a8c8132e3d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1384,7 +1276,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "c845e8e69eb19b77adcf",
+            "id": "34912ea5db3d6db45a14",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1402,7 +1294,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f568189f1e430e4d7e06",
+            "id": "87e9041cb3d262591a56",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1420,7 +1312,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "b0eb1a7d4e70a2cf70ef",
+            "id": "331cd64c3e5725edf1ad",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1438,7 +1330,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "26e19002da6422d79376",
+            "id": "b7ec4a23e80d524b8e55",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1456,7 +1348,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "40bb1ebcbecdf7334558",
+            "id": "578e7d0cfb56e9bf3126",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1474,7 +1366,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "821adde534526d001e93",
+            "id": "03ab576dd78e2307cb8e",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1492,7 +1384,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d9ffd001e589a80ae774",
+            "id": "1bb450e820f24ea8abaf",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1510,7 +1402,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "ea35c41d47236e10e7d5",
+            "id": "dcd18b91845f12983e37",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1528,7 +1420,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "df7b813e65f2afdb8695",
+            "id": "08532831be41839fc728",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1546,7 +1438,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "9fad5bf43b4497a532a3",
+            "id": "6c00c89b0ec1bd7de920",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1564,7 +1456,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "3060e3d7ced6c33e3f96",
+            "id": "4bf4f6ebec7b0ae790b8",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1582,7 +1474,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "0205fad241bdf49ed3b0",
+            "id": "604b61f84954f504c81a",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1600,7 +1492,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "851ab6c8845276541af3",
+            "id": "7e031eaa7cde6ed9e556",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1618,7 +1510,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "77b9ad4ee1b2f86b66cc",
+            "id": "8e57d6aca517d1d3c90a",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1636,7 +1528,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "b762eb11fb9af4a50b11",
+            "id": "670f49695aab2edb682c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1654,7 +1546,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "68cf374215e71793d432",
+            "id": "a0c48b9c1018d1c42d0b",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1672,7 +1564,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "15d10b590e6aebc0b364",
+            "id": "4345e9ad0bdbe4f20441",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1690,7 +1582,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a79d2e083d49563d5033",
+            "id": "3fd99a15a34e658a719d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1708,7 +1600,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5c5531bb98578c24e9a2",
+            "id": "deb92f240b3216373403",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1726,7 +1618,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "0b9ea37ce5698e30ac46",
+            "id": "26baf44e6936fd42d212",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1744,7 +1636,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "1efbe67c772e9a4a01c1",
+            "id": "bd082c158caa17e34562",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1762,7 +1654,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "70e7a4db7fa24802ba9c",
+            "id": "4c409db424a536c15c7d",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1780,7 +1672,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "c0d82dd6a5161c5ae197",
+            "id": "2f77649eaad03a441819",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1798,7 +1690,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "36144ef2e5a61ea06002",
+            "id": "3ff83c52a2aee28f5ee9",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1816,7 +1708,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "98b51e137ccdf8ede018",
+            "id": "0abf0558defd029db1dc",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1834,7 +1726,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d72a4189ebb6f028c115",
+            "id": "0a344fb6e5c3a256dc68",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1852,7 +1744,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5c7220fef7815dae7994",
+            "id": "25281efe38fbbb6197da",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1870,7 +1762,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "b661f7c39a6181dd1090",
+            "id": "eaf96df5b0b8f9cedd75",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1888,7 +1780,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "ac78adc429f019cefb9e",
+            "id": "d92d10fc7d2b957fd5b6",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1906,7 +1798,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5fb92fcc296cdbb5533b",
+            "id": "bef0ebadf350ddfba264",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1924,7 +1816,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "2247f632499da130c88c",
+            "id": "7a381aaacdf341ff6811",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1942,7 +1834,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "bc469e04d92842059a1d",
+            "id": "42d0e3fab31c9f780ee9",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1960,7 +1852,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "10214656845d7ae2aa45",
+            "id": "0ffe08d6a1b3d1a8cdac",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1978,7 +1870,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "cfc8bdba8e47f243970f",
+            "id": "f70e824380f68f3168b2",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -1996,7 +1888,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5ee180db10c612eb7753",
+            "id": "d8eb5a0182f216c6834c",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2014,7 +1906,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "442984efd04eefe1c409",
+            "id": "cce6069ac35972a3b089",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2032,7 +1924,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5aff4b39cd308beaa04f",
+            "id": "dbefbad68bda35730c08",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2050,7 +1942,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "4b2854b6a3db9006eb5d",
+            "id": "04731c65bdccb876c6d3",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2068,7 +1960,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "9ac0baf8a5f2d31e5008",
+            "id": "c3b16de19d4f98d00965",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2086,7 +1978,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "2786b54e44992ba96f7d",
+            "id": "81e4003a95eb76c81efb",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2104,7 +1996,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "1f4042a45a60e5f63e16",
+            "id": "5225776d42651e96b0e7",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2122,7 +2014,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a6b72734cd8b28cc7f7b",
+            "id": "83e8edaf10304939a8c4",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2140,7 +2032,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "4d65fd12ae884d866a3a",
+            "id": "b55fbd0aec8fc6488091",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2158,7 +2050,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d0f4dc20b212d4b1a50c",
+            "id": "6d40952a5b15857e5c41",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2176,7 +2068,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "5bccbf5a29ccbb221a37",
+            "id": "c628782d422e8b90345b",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2194,7 +2086,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f9ffe379947988b156d7",
+            "id": "d61a8018c4ab512b5879",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2212,7 +2104,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "6b99f7575046ccdd071e",
+            "id": "2b602b066045e61ff8b6",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2230,7 +2122,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "3a523a1521481e58ec4f",
+            "id": "6b8bd3150b8a46c7780a",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2248,7 +2140,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "904d61840748e7e47f51",
+            "id": "2aab4eb4f23856304a4f",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2266,7 +2158,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "e4256deade46d274738b",
+            "id": "a6f1df026a107f5a26cf",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2284,7 +2176,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "d56a0f4caa24ec5481dd",
+            "id": "bec97d09bda17817eb1e",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2302,7 +2194,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "dfbb2fad37a7608a8b35",
+            "id": "077aebd57c3b126ba056",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2320,7 +2212,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "afc4059390816c953eae",
+            "id": "7071aa153628dc9494cf",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2338,7 +2230,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "a73364d8459f65722b48",
+            "id": "90e3475b344b936d8223",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2356,25 +2248,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "e201fe7ce40125ea2646",
-            "kind": "official",
-            "sourceType": "official",
-            "sourceLabel": "Comune di Milano · Open Data",
-            "verified": true,
-            "title": "Gas · Via BATTISTI CESARE 11N04",
-            "summary": "Marciapiede · Zona GUASTALLA",
-            "category": "Lavori e servizi",
-            "status": "active",
-            "publishedAt": "2026-10-30T17:10:32.488Z",
-            "startsAt": "2026-10-29T23:00:00.000Z",
-            "endsAt": "2026-11-27T23:00:00.000Z",
-            "latitude": 45.46312135,
-            "longitude": 9.1997186,
-            "locationPrecision": "exact",
-            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
-          },
-          {
-            "id": "95aba6db7eac9d6ca0bd",
+            "id": "e509133d62052cffb6a5",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2392,7 +2266,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "9851815a3f9aeee5ce1d",
+            "id": "aeb5cfcfeba95d0178d3",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2410,7 +2284,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "4a456bee0afccd486abf",
+            "id": "488f5462d3edcb50b770",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2428,7 +2302,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "e4694e688cb2078985f0",
+            "id": "9aea935466aec3837a18",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2446,7 +2320,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "4b124e9ab25ae4e928f2",
+            "id": "db0aa61decaaed3251d9",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2464,7 +2338,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "9df186b63be48f0cba98",
+            "id": "9d0d256349e1f066c954",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2482,7 +2356,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f755d4fc75b39316f841",
+            "id": "93fdb0db2dd756882565",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2500,7 +2374,7 @@
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           },
           {
-            "id": "f8b5796873f555828a04",
+            "id": "0a541430460d0bff1cd2",
             "kind": "official",
             "sourceType": "official",
             "sourceLabel": "Comune di Milano · Open Data",
@@ -2514,6 +2388,114 @@
             "endsAt": "2026-11-28T23:00:00.000Z",
             "latitude": 45.48010737,
             "longitude": 9.14467111,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "52b787bc27bd32cd84b8",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Fognatura · Via BREMBO 3A",
+            "summary": "Carreggiata · Zona SCALO ROMANA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-02T16:38:48.405Z",
+            "startsAt": "2026-10-30T23:00:00.000Z",
+            "endsAt": "2026-11-28T23:00:00.000Z",
+            "latitude": 45.44475887,
+            "longitude": 9.21134386,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "43823a335c09f80700ec",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Impianti Semaforici · Via CRESPI GAETANO 5",
+            "summary": "Marciapiede · Zona LAMBRATE - ORTICA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-03T06:26:56.969Z",
+            "startsAt": "2026-11-02T23:00:00.000Z",
+            "endsAt": "2026-11-28T23:00:00.000Z",
+            "latitude": 45.480125,
+            "longitude": 9.24550447,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "e4c99c9094b5b7339cc5",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Elettricità · Viale VIGLIANI PAOLO ONORATO 62 ANGOLO P.LE LOTTO",
+            "summary": "Marciapiede · Zona DE ANGELI - MONTE ROSA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-01T06:33:51.912Z",
+            "startsAt": "2026-10-31T23:00:00.000Z",
+            "endsAt": "2026-11-29T23:00:00.000Z",
+            "latitude": 45.48027232,
+            "longitude": 9.14438546,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "ba64b8dfe86d5a13cf3f",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Fognatura · Via LUOSI GIUSEPPE 15",
+            "summary": "Carreggiata · Zona BUENOS AIRES - PORTA VENEZIA - PORTA MONFORTE",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-02T09:34:07.049Z",
+            "startsAt": "2026-11-01T23:00:00.000Z",
+            "endsAt": "2026-11-29T23:00:00.000Z",
+            "latitude": 45.48247911,
+            "longitude": 9.22204695,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "322930395280ce74a14b",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Pubblica illuminazione · Via COSENZ ENRICO 63",
+            "summary": "Marciapiede · Zona BOVISA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-04T05:22:41.576Z",
+            "startsAt": "2026-11-03T23:00:00.000Z",
+            "endsAt": "2026-11-29T23:00:00.000Z",
+            "latitude": 45.50654948,
+            "longitude": 9.16053832,
+            "locationPrecision": "exact",
+            "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
+          },
+          {
+            "id": "8f99cc051e6786e5d34c",
+            "kind": "official",
+            "sourceType": "official",
+            "sourceLabel": "Comune di Milano · Open Data",
+            "verified": true,
+            "title": "Pubblica illuminazione · Via DURANDO GIOVANNI 3",
+            "summary": "Marciapiede · Zona BOVISA",
+            "category": "Lavori e servizi",
+            "status": "active",
+            "publishedAt": "2026-11-04T05:30:42.457Z",
+            "startsAt": "2026-11-03T23:00:00.000Z",
+            "endsAt": "2026-11-29T23:00:00.000Z",
+            "latitude": 45.50364643,
+            "longitude": 9.16424543,
             "locationPrecision": "exact",
             "ctaUrl": "https://dati.comune.milano.it/dataset/ds925_avvisi-di-manomissione"
           }
